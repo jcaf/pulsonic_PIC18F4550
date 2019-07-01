@@ -1,0 +1,139 @@
+[p GLOBOPT AUTOSTATIC LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F4550 ]
+[d frameptr 4065 ]
+"7 /opt/microchip/xc8/v2.05/pic/sources/c90/common/awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"62 /opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 /opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"54 /opt/microchip/xc8/v2.05/pic/sources/c90/common/ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 3 0 ]
+"62 /opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+"19 /opt/microchip/xc8/v2.05/pic/sources/c90/common/ftsub.c
+[v ___ftsub __ftsub `(f  1 e 3 0 ]
+"10 /opt/microchip/xc8/v2.05/pic/sources/c90/common/sprcadd.c
+[v ___fladd __fladd `(d  1 e 3 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 3 0 ]
+"11 /opt/microchip/xc8/v2.05/pic/sources/c90/common/sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 3 0 ]
+"8 /opt/microchip/xc8/v2.05/pic/sources/c90/common/sprcmul.c
+[v ___flmul __flmul `(d  1 e 3 0 ]
+"15 /opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"15 /opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"91 /opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul64.c
+[v ___omul __omul `(ul  1 e 4 0 ]
+"69 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+[v __mpap_step1 _mpap_step1 `(v  1 s 1 _mpap_step1 ]
+"76
+[v __mpap_step2 _mpap_step2 `(v  1 s 1 _mpap_step2 ]
+"83
+[v __mpap_step3 _mpap_step3 `(v  1 s 1 _mpap_step3 ]
+"90
+[v __mpap_step4 _mpap_step4 `(v  1 s 1 _mpap_step4 ]
+"135
+[v _mpap_setupToTurn mpap_setupToTurn `(v  1 e 1 0 ]
+"153
+[v _mpap_do1step mpap_do1step `(v  1 e 1 0 ]
+"171
+[v _mpap_job mpap_job `(c  1 e 1 0 ]
+"211
+[v _nozzle_moveto nozzle_moveto `(v  1 e 1 0 ]
+"220
+[v _main main `(v  1 e 1 0 ]
+"2973 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
+[v _LATA LATA `VEuc  1 e 1 @3977 ]
+"3073
+[v _LATB LATB `VEuc  1 e 1 @3978 ]
+"3185
+[v _LATC LATC `VEuc  1 e 1 @3979 ]
+"3263
+[v _LATD LATD `VEuc  1 e 1 @3980 ]
+"3427
+[v _TRISA TRISA `VEuc  1 e 1 @3986 ]
+"3625
+[v _TRISB TRISB `VEuc  1 e 1 @3987 ]
+"3847
+[v _TRISC TRISC `VEuc  1 e 1 @3988 ]
+"4001
+[v _TRISD TRISD `VEuc  1 e 1 @3989 ]
+"5587
+[v _CMCON CMCON `VEuc  1 e 1 @4020 ]
+"6581
+[v _ADCON1 ADCON1 `VEuc  1 e 1 @4033 ]
+"100 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+[v _mpap_step mpap_step `[4]*.37(v  1 e 8 0 ]
+[s S26 _mpap 7 `i 1 numSteps_current 2 0 `i 1 counter_steps 2 2 `i 1 numSteps_tomove 2 4 `c 1 KI 1 6 ]
+"130
+[v _mpap mpap `VES26  1 e 7 0 ]
+"220
+[v _main main `(v  1 e 1 0 ]
+{
+"256
+} 0
+"211
+[v _nozzle_moveto nozzle_moveto `(v  1 e 1 0 ]
+{
+[v nozzle_moveto@nozzle nozzle `c  1 a 1 wreg ]
+[v nozzle_moveto@nozzle nozzle `c  1 a 1 wreg ]
+"213
+[v nozzle_moveto@nozzle nozzle `c  1 a 1 10 ]
+"214
+} 0
+"135
+[v _mpap_setupToTurn mpap_setupToTurn `(v  1 e 1 0 ]
+{
+[v mpap_setupToTurn@absPos_insteps absPos_insteps `i  1 p 2 6 ]
+"144
+} 0
+"15 /opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+{
+"17
+[v ___wmul@product product `ui  1 a 2 4 ]
+"15
+[v ___wmul@multiplier multiplier `ui  1 p 2 0 ]
+[v ___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
+"53
+} 0
+"171 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+[v _mpap_job mpap_job `(c  1 e 1 0 ]
+{
+"189
+} 0
+"153
+[v _mpap_do1step mpap_do1step `(v  1 e 1 0 ]
+{
+[v mpap_do1step@KI KI `c  1 a 1 wreg ]
+[v mpap_do1step@KI KI `c  1 a 1 wreg ]
+"155
+[v mpap_do1step@i i `c  1 s 1 i ]
+[v mpap_do1step@KI KI `c  1 a 1 0 ]
+"160
+} 0
+"83
+[v __mpap_step3 _mpap_step3 `(v  1 s 1 _mpap_step3 ]
+{
+"89
+} 0
+"76
+[v __mpap_step2 _mpap_step2 `(v  1 s 1 _mpap_step2 ]
+{
+"82
+} 0
+"69
+[v __mpap_step1 _mpap_step1 `(v  1 s 1 _mpap_step1 ]
+{
+"75
+} 0
+"90
+[v __mpap_step4 _mpap_step4 `(v  1 s 1 _mpap_step4 ]
+{
+"96
+} 0
