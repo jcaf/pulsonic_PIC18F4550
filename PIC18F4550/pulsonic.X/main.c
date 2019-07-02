@@ -10,10 +10,8 @@
  * Project: Pulsonic (aceitera)
  */
 #include <xc.h>
-#pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", 
-#pragma config "IESO=OFF", "PWRT=ON", "BOR=ON", "BORV=3", "VREGEN=ON", "WDT=OFF", 
-#pragma config "PBADEN=OFF", "LVP=OFF"
-#pragma config "MCLRE=ON",
+#pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
+#pragma config "MCLRE=ON","BOR=OFF"
 #pragma warning disable 752
 #pragma warning disable 356
 
@@ -29,20 +27,23 @@ struct _pulsonic
         struct _pulsonic_flags
         {
             unsigned mpap_home_sensor:1;
-            unsinged __a:7;
+            unsigned __a:7;
         }flag;
-        uint8_t errors;
-    }e;
+        uint8_t e;
+    }errors;
 };
 
 struct _pulsonic pulsonic;
 
 #define MPAP_NUMSTEP_1NOZZLE 200//200 steps to move to 1 nozzle
+#define NOZZLE_NUMMAX 18//0,1,-...-(NOZZLE_NUMMAX-1)
 
-/*
-0,1,-...-(NOZZLE_NUMMAX-1)
-*/
 
+//PUMP MOTOR
+#define PORTWxPUMP LATE
+#define PORTRxPUMP PORTE
+#define CONFIGIOxPUMP TRISE
+#define PINxPUMP  0
 
 
 //MOTOR PAP UNIPOLAR
@@ -73,12 +74,11 @@ struct _pulsonic pulsonic;
 //enable is inverted by hardware
 #define STEPPERBIP0_ENABLE() do{PinTo0(PORTWxSTEPPERBIP0_ENABLE, PINxSTEPPERBIP0_ENABLE);}while(0)
 #define STEPPERBIP0_DISABLE() do{PinTo1(PORTWxSTEPPERBIP0_ENABLE, PINxSTEPPERBIP0_ENABLE);}while(0)
-
-
-#define PORTWxSTEPPERBIP0_SENSOR_HOME LATC
-#define PORTRxSTEPPERBIP0_SENSOR_HOME PORTC
-#define CONFIGIOxSTEPPERBIP0_SENSOR_HOME TRISC
-#define PINxSTEPPERBIP0_SENSOR_HOME 0
+//
+#define PORTWxSTEPPERBIP0_SENSOR_HOME LATE
+#define PORTRxSTEPPERBIP0_SENSOR_HOME PORTE
+#define CONFIGIOxSTEPPERBIP0_SENSOR_HOME TRISE
+#define PINxSTEPPERBIP0_SENSOR_HOME 1
 
 //////////////////////////////////////////////////////
 static void _mpap_step1(void)
@@ -119,43 +119,71 @@ PTRFX_retVOID mpap_step[4] =
 //},
 };
 //mpap_off is replaced by the hardware via STEPPERBIP0_DISABLE()
-//static inline void _mpap_off(void)
-//{
-//    PinTo0(PORTWxSTEPPERBIP0_A, PINxSTEPPERBIP0_A);
-//    PinTo0(PORTWxSTEPPERBIP0_B, PINxSTEPPERBIP0_B);
-//    PinTo0(PORTWxSTEPPERBIP0_C, PINxSTEPPERBIP0_C);
-//    PinTo0(PORTWxSTEPPERBIP0_D, PINxSTEPPERBIP0_D);
-//}
-////PTRFX_retVOID mpap_off[NUM_STEPPER_BIPOLAR]= {_mpap_off};
-//PTRFX_retVOID mpap_off= {_mpap_off};
+static inline void _mpap_off(void)
+{
+    PinTo0(PORTWxSTEPPERBIP0_A, PINxSTEPPERBIP0_A);
+    PinTo0(PORTWxSTEPPERBIP0_B, PINxSTEPPERBIP0_B);
+    PinTo0(PORTWxSTEPPERBIP0_C, PINxSTEPPERBIP0_C);
+    PinTo0(PORTWxSTEPPERBIP0_D, PINxSTEPPERBIP0_D);
+}
+//PTRFX_retVOID mpap_off[NUM_STEPPER_BIPOLAR]= {_mpap_off};
+PTRFX_retVOID mpap_off= {_mpap_off};
 //////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
+enum MPAP_MODES{
+    IDLE_MODE=0,
+    STALL_MODE,
+    HOMMING_MODE,
+    NORMAL_MODE
+};
+
 struct _mpap
 {
 	int16_t numSteps_current;//current position absolute
 	int16_t counter_steps;
 	int16_t numSteps_tomove;
 	int8_t 	KI;//+-1
+    
 	// struct _mpap_flag
 	// {
 	// 	unsigned run:1;
 	// 	unsigned __a:7;
 	// }flag;
+    int8_t mode;
 };
 volatile struct _mpap mpap;
 
 /*
 Deja todo listo para girar N pasos, se llama 1 vez
 */
-void mpap_setupToTurn(int16_t absPos_insteps)//posAbs_insteps: Absoulte position(in num steps)
+//void mpap_setupToTurn(int16_t absPos_insteps)//posAbs_insteps: Absoulte position(in num steps)
+void mpap_setupToTurn(int16_t numSteps_tomove)//posAbs_insteps: Absoulte position(in num steps)
 {
-	mpap.numSteps_tomove = absPos_insteps - mpap.numSteps_current;
-	if (mpap.numSteps_tomove !=0)
+	//mpap.numSteps_tomove = absPos_insteps - mpap.numSteps_current;
+	if (numSteps_tomove !=0)
 	{
+        mpap.numSteps_tomove = numSteps_tomove; 
+        mpap.KI = (mpap.numSteps_tomove<0)? -1: 1; //+-1
+        //        
 		mpap.counter_steps = 0;
-		mpap.KI = (mpap.numSteps_tomove<0)?-1:1; //+-1
 		//mpap.flag.run = 1;	
 	}
+}
+void mpap_setupToHomming(void)
+{
+    mpap_setupToTurn( -1 *( (NOZZLE_NUMMAX*MPAP_NUMSTEP_1NOZZLE) +20));//direccion negativa
+    //mpap.numSteps_current = 0x0000; //Obligaria al sistema a reponer el sensor
+                                      //y arrancar desde 0
+    mpap.mode = HOMMING_MODE;
+}
+void nozzle_moveto(int8_t nozzle)//0..NOZZLE_NUMMAX-1
+{
+	//mpap_setupToTurn( nozzle * MPAP_NUMSTEP_1NOZZLE);//se escala	
+    mpap_setupToTurn( (nozzle*MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current);
+}
+int8_t nozzle_get_pos(void)//trunca, es solo referencial
+{
+	return (mpap.numSteps_current/MPAP_NUMSTEP_1NOZZLE);
 }
 /*
  * mpap.numSteps_current se mantiene, no se pierde
@@ -163,8 +191,8 @@ void mpap_setupToTurn(int16_t absPos_insteps)//posAbs_insteps: Absoulte position
 void mpap_stop(void)		
 {
 	mpap.numSteps_tomove = 0x00;//mpap.flag.run = 0;
-	//mpap_off();
-    STEPPERBIP0_DISABLE();
+	mpap_off();
+    //STEPPERBIP0_DISABLE();
 }
 
 /////////// PROBAR SI 1 PULSO DESDE 0000 A 1 SE MUEVE EN UN PASITO!!!
@@ -177,21 +205,11 @@ void mpap_do1step(int8_t KI)//DIRECION +1 Pos, -1 negativo
 	if (i<0){i=3;}
 }
 
-enum MPAP_MODES{
-    IDLE_MODE=0,
-    HOMMING_MODE,
-    NORMAL_MODE
-};
+
 /*
  * Da por hecho que desconoce la posicon actual
+ * el numero maximo de vueltas en todo el recorrido con un + 10% 
  */
-
-mpap_setupToHomming(int16_t absPos_insteps)
-{
-    //el numero maximo de vueltas en todo el recorrido con un +10% 
-    mpap.numSteps_current = 0x0000;
-}
-
 
 /* Si se para externamente un homming, el sistema tiene que retomar el pendiente
  * mpap.numSteps_current no es relevante mantener la posicon actual porque podria escapar 
@@ -207,21 +225,21 @@ int8_t mpap_homming(void)
 		//
 		mpap.counter_steps+= mpap.KI;               //inc/dec +-1
                                 		//mpap.numSteps_current += mpap.counter_steps;//siempre mantiene la posicion 
-        if (PinRead(PORTRxSTEPPERBIP0_SENSOR_HOME, PINxSTEPPERBIP0_SENSOR_HOME))
+        if (PinRead(PORTRxSTEPPERBIP0_SENSOR_HOME, PINxSTEPPERBIP0_SENSOR_HOME) == 0)
         {
-            mpap.numSteps_tomove = 0;
+            mpap.numSteps_tomove = 0x0000;
             cod_ret = 1;
         }
         if ( mpap.counter_steps == mpap.numSteps_tomove)
 		{
-            mpap.numSteps_tomove = 0;
+            mpap.numSteps_tomove = 0x0000;
             cod_ret = 1;		
-            pulsonic.e.flag.mpap_home_sensor = 1;
+            pulsonic.errors.flag.mpap_home_sensor = 1;
 		}
 	}
 	return cod_ret;
 }
-int8_t mpap_normal_mode(void)
+int8_t mpap_normal_mode(void)//mode ubicacion en los nozzle
 {
     int8_t cod_ret = 0;
     if (mpap.numSteps_tomove!=0)//(mpap.flag.run)
@@ -229,7 +247,9 @@ int8_t mpap_normal_mode(void)
         mpap_do1step(mpap.KI);
         //
         mpap.counter_steps+= mpap.KI;               //inc/dec +-1
-        mpap.numSteps_current += mpap.counter_steps;//siempre mantiene la posicion 
+        
+        mpap.numSteps_current+= mpap.KI;// += mpap.counter_steps;//siempre mantiene la posicion 
+        
         if ( mpap.counter_steps == mpap.numSteps_tomove)//AQUI PUEDE SER COMPARAR CON < > segun el caso si es negativo o positivo la comparacion
         {
             mpap.numSteps_tomove = 0;//mpap.flag.run = 0;	//end
@@ -237,6 +257,7 @@ int8_t mpap_normal_mode(void)
         }
     }
 }
+//la parada debe ser sincronizada
 int8_t mpap_job(void)
 {
 	int8_t cod_ret;// = 0;
@@ -245,67 +266,129 @@ int8_t mpap_job(void)
         cod_ret = mpap_homming();
     else if (mpap.mode == NORMAL_MODE)
         cod_ret = mpap_normal_mode();
+    
+    else if (mpap.mode == STALL_MODE)
+        mpap.mode = IDLE_MODE;
+    
 	return cod_ret;
 }
 
 
-void nozzle_moveto(int8_t nozzle)//0..NOZZLE_NUMMAX-1
-{
-	mpap_setupToTurn( nozzle * MPAP_NUMSTEP_1NOZZLE);//se escala	
-}
-int8_t nozzle_get_pos(void)//trunca, es solo referencial
-{
-	return (mpap.numSteps_current/MPAP_NUMSTEP_1NOZZLE);
-}
 
 void main(void) 
 {
     TRISB = 0x00;
-    LATB = 0x10;
+    LATB = 0x10;//All segments controlled by NPN
     //
-    ADCON1 = 0x0F;
-    CMCON=0xCF;
+    ADCON1 = 0x0F;//All analog inputs as DIGITAL
+    //CMCON=0xCF; ;POR default mode comparators OFF
     TRISA = 0;
-    LATA= ~(0x01<<4);
+    LATA= ~(0x01<<4);//Multiplex displays control (PNP)
     //
-    LATD=0;
-    LATC=0x0;
-        
+    LATA = 0;
+    LATB = 0;
+    LATC = 0;
+    LATD = 0;
+    LATE = 0;
+
+    PinTo0(PORTWxPUMP, PINxPUMP);
+    ConfigOutputPin(CONFIGIOxPUMP, PINxPUMP);
+    
+    
     ConfigOutputPin(CONFIGIOxSTEPPERBIP0_A, PINxSTEPPERBIP0_A);
     ConfigOutputPin(CONFIGIOxSTEPPERBIP0_B, PINxSTEPPERBIP0_B);
     ConfigOutputPin(CONFIGIOxSTEPPERBIP0_C, PINxSTEPPERBIP0_C);
     ConfigOutputPin(CONFIGIOxSTEPPERBIP0_D, PINxSTEPPERBIP0_D);
-
     
     STEPPERBIP0_ENABLE();
     ConfigOutputPin(CONFIGIOxSTEPPERBIP0_ENABLE, PINxSTEPPERBIP0_ENABLE);
+    //
+    __delay_ms(1);
     ConfigInputPin(CONFIGIOxSTEPPERBIP0_SENSOR_HOME, PINxSTEPPERBIP0_SENSOR_HOME);
+    //while (1);
     
-    
-    if (mpap.numSteps_tomove == 0)
+    //+-Secuencia para entrar a homming
+    //mpap.mode = STALL_MODE;
+    //while (mpap.mode!= IDLE_MODE)
+    //    ;
+    mpap_setupToHomming();
+    //-+
+    while (1)
     {
-        //paro.. examinar si hubo errores
-        if ( !=error)
+        mpap_job();
+        if (mpap.numSteps_tomove == 0)
         {
-            //llego al inicio sin problemas
+            if ( pulsonic.errors.flag.mpap_home_sensor != 1)
+            {
+                mpap.mode = NORMAL_MODE;//llego al inicio sin problemas
+                break;
+            }
+            else
+            {
+                //limpiar el error
+                //marcar error de Sensor de posicion
+            }
+        }
+         __delay_ms(2);
+    }
+    __delay_ms(1000);
 
-        }
-        else
+    //mpap.mode = STALL_MODE;
+    
+    
+    nozzle_moveto(1);
+    while (1)
+    {
+        mpap_job();
+        if (mpap.numSteps_tomove == 0)
         {
-            //limpiar el error
-            //marcar error de Sensor de posicion
+            break;
         }
+        __delay_ms(2);
+    }
+    mpap_stop();
+    
+    //while(1);
+        
+    while (1)
+    {
+        PinTo1(PORTWxPUMP, PINxPUMP);
+        __delay_ms(50);
+        PinTo0(PORTWxPUMP, PINxPUMP);
+        __delay_ms(50);
     }
     
-//    nozzle_moveto(0);
+    while(1);
+
+    
+    
+    __delay_ms(1000);
+    
+    nozzle_moveto(2);
+    while (1)
+    {
+        mpap_job();
+        if (mpap.numSteps_tomove == 0)
+        {
+            break;
+        }
+        __delay_ms(2);
+    }
+
+//    __delay_ms(1000);
+//    nozzle_moveto(3);
 //    while (1)
 //    {
 //        mpap_job();
-//        __delay_ms(1);
+//        if (mpap.numSteps_tomove == 0)
+//        {
+//            break;
+//        }
+//        __delay_ms(2);
 //    }
     
-
     while (1)
-        ;
+    {;}
+    
     return;
 }

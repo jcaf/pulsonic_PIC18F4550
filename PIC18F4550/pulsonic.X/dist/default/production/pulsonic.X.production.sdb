@@ -3,6 +3,13 @@
 [d edition pro ]
 [d chip 18F4550 ]
 [d frameptr 4065 ]
+"177 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+[e E3298 MPAP_MODES `uc
+IDLE_MODE 0
+STALL_MODE 1
+HOMMING_MODE 2
+NORMAL_MODE 3
+]
 "7 /opt/microchip/xc8/v2.05/pic/sources/c90/common/awdiv.c
 [v ___awdiv __awdiv `(i  1 e 2 0 ]
 "62 /opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
@@ -29,25 +36,37 @@
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "91 /opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul64.c
 [v ___omul __omul `(ul  1 e 4 0 ]
-"69 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+"84 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
 [v __mpap_step1 _mpap_step1 `(v  1 s 1 _mpap_step1 ]
-"76
+"91
 [v __mpap_step2 _mpap_step2 `(v  1 s 1 _mpap_step2 ]
-"83
+"98
 [v __mpap_step3 _mpap_step3 `(v  1 s 1 _mpap_step3 ]
-"90
+"105
 [v __mpap_step4 _mpap_step4 `(v  1 s 1 _mpap_step4 ]
-"135
+"122
+[v __mpap_off _mpap_off `T(v  1 s 1 _mpap_off ]
+"160
 [v _mpap_setupToTurn mpap_setupToTurn `(v  1 e 1 0 ]
-"153
-[v _mpap_do1step mpap_do1step `(v  1 e 1 0 ]
-"171
-[v _mpap_job mpap_job `(c  1 e 1 0 ]
-"211
+"172
+[v _mpap_setupToHomming mpap_setupToHomming `(v  1 e 1 0 ]
+"179
 [v _nozzle_moveto nozzle_moveto `(v  1 e 1 0 ]
-"220
+"191
+[v _mpap_stop mpap_stop `(v  1 e 1 0 ]
+"199
+[v _mpap_do1step mpap_do1step `(v  1 e 1 0 ]
+"219
+[v _mpap_homming mpap_homming `(c  1 e 1 0 ]
+"242
+[v _mpap_normal_mode mpap_normal_mode `(c  1 e 1 0 ]
+"261
+[v _mpap_job mpap_job `(c  1 e 1 0 ]
+"278
 [v _main main `(v  1 e 1 0 ]
-"2973 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
+"2826 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
+[v _PORTE PORTE `VEuc  1 e 1 @3972 ]
+"2973
 [v _LATA LATA `VEuc  1 e 1 @3977 ]
 "3073
 [v _LATB LATB `VEuc  1 e 1 @3978 ]
@@ -55,6 +74,8 @@
 [v _LATC LATC `VEuc  1 e 1 @3979 ]
 "3263
 [v _LATD LATD `VEuc  1 e 1 @3980 ]
+"3375
+[v _LATE LATE `VEuc  1 e 1 @3981 ]
 "3427
 [v _TRISA TRISA `VEuc  1 e 1 @3986 ]
 "3625
@@ -63,34 +84,35 @@
 [v _TRISC TRISC `VEuc  1 e 1 @3988 ]
 "4001
 [v _TRISD TRISD `VEuc  1 e 1 @3989 ]
-"5587
-[v _CMCON CMCON `VEuc  1 e 1 @4020 ]
+"4223
+[v _TRISE TRISE `VEuc  1 e 1 @3990 ]
 "6581
 [v _ADCON1 ADCON1 `VEuc  1 e 1 @4033 ]
-"100 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+[s S24 _pulsonic_flags 1 `uc 1 mpap_home_sensor 1 0 :1:0 
+`uc 1 __a 1 0 :7:1 
+]
+"36 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+[u S27 _pulsonic_errors 1 `S24 1 flag 1 0 `uc 1 e 1 0 ]
+[s S30 _pulsonic 1 `S27 1 errors 1 0 ]
+[v _pulsonic pulsonic `S30  1 e 1 0 ]
+"115
 [v _mpap_step mpap_step `[4]*.37(v  1 e 8 0 ]
-[s S26 _mpap 7 `i 1 numSteps_current 2 0 `i 1 counter_steps 2 2 `i 1 numSteps_tomove 2 4 `c 1 KI 1 6 ]
-"130
-[v _mpap mpap `VES26  1 e 7 0 ]
-"220
+[s S34 _mpap 8 `i 1 numSteps_current 2 0 `i 1 counter_steps 2 2 `i 1 numSteps_tomove 2 4 `c 1 KI 1 6 `c 1 mode 1 7 ]
+"154
+[v _mpap mpap `VES34  1 e 8 0 ]
+"278
 [v _main main `(v  1 e 1 0 ]
 {
-"256
+"394
 } 0
-"211
+"179
 [v _nozzle_moveto nozzle_moveto `(v  1 e 1 0 ]
 {
 [v nozzle_moveto@nozzle nozzle `c  1 a 1 wreg ]
 [v nozzle_moveto@nozzle nozzle `c  1 a 1 wreg ]
-"213
+"182
 [v nozzle_moveto@nozzle nozzle `c  1 a 1 10 ]
-"214
-} 0
-"135
-[v _mpap_setupToTurn mpap_setupToTurn `(v  1 e 1 0 ]
-{
-[v mpap_setupToTurn@absPos_insteps absPos_insteps `i  1 p 2 6 ]
-"144
+"183
 } 0
 "15 /opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
 [v ___wmul __wmul `(ui  1 e 2 0 ]
@@ -102,38 +124,71 @@
 [v ___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
 "53
 } 0
-"171 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+"191 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+[v _mpap_stop mpap_stop `(v  1 e 1 0 ]
+{
+"196
+} 0
+"122
+[v __mpap_off _mpap_off `T(v  1 s 1 _mpap_off ]
+{
+"128
+} 0
+"172
+[v _mpap_setupToHomming mpap_setupToHomming `(v  1 e 1 0 ]
+{
+"178
+} 0
+"160
+[v _mpap_setupToTurn mpap_setupToTurn `(v  1 e 1 0 ]
+{
+[v mpap_setupToTurn@numSteps_tomove numSteps_tomove `i  1 p 2 6 ]
+"171
+} 0
+"261
 [v _mpap_job mpap_job `(c  1 e 1 0 ]
 {
-"189
+"274
 } 0
-"153
+"242
+[v _mpap_normal_mode mpap_normal_mode `(c  1 e 1 0 ]
+{
+"259
+} 0
+"219
+[v _mpap_homming mpap_homming `(c  1 e 1 0 ]
+{
+"221
+[v mpap_homming@cod_ret cod_ret `c  1 a 1 2 ]
+"241
+} 0
+"199
 [v _mpap_do1step mpap_do1step `(v  1 e 1 0 ]
 {
 [v mpap_do1step@KI KI `c  1 a 1 wreg ]
 [v mpap_do1step@KI KI `c  1 a 1 wreg ]
-"155
+"201
 [v mpap_do1step@i i `c  1 s 1 i ]
 [v mpap_do1step@KI KI `c  1 a 1 0 ]
-"160
+"206
 } 0
-"83
+"98
 [v __mpap_step3 _mpap_step3 `(v  1 s 1 _mpap_step3 ]
 {
-"89
+"104
 } 0
-"76
+"91
 [v __mpap_step2 _mpap_step2 `(v  1 s 1 _mpap_step2 ]
 {
-"82
+"97
 } 0
-"69
+"84
 [v __mpap_step1 _mpap_step1 `(v  1 s 1 _mpap_step1 ]
 {
-"75
-} 0
 "90
+} 0
+"105
 [v __mpap_step4 _mpap_step4 `(v  1 s 1 _mpap_step4 ]
 {
-"96
+"111
 } 0

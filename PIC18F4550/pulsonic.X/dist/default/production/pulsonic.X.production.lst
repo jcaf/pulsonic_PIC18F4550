@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.05 build -831301201 
-                                                                                               Mon Jul  1 20:26:44 2019
+                                                                                               Tue Jul  2 03:25:01 2019
 
 Microchip MPLAB XC8 C Compiler v2.05 (Free license) build 20181220022703 Og9 
      1                           	processor	18F4550
@@ -15,909 +15,1379 @@ Microchip MPLAB XC8 C Compiler v2.05 (Free license) build 20181220022703 Og9
      9                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
     10                           	psect	text0,global,reloc=2,class=CODE,delta=1
     11                           	psect	text1,global,reloc=2,class=CODE,delta=1
-    12                           	psect	text2,global,reloc=2,class=CODE,delta=1
-    13                           	psect	text3,global,reloc=2,class=CODE,delta=1,group=1
-    14                           	psect	text4,global,reloc=2,class=CODE,delta=1
+    12                           	psect	text2,global,reloc=2,class=CODE,delta=1,group=1
+    13                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    14                           	psect	text4,global,reloc=2,class=CODE,delta=1,keep,inline
     15                           	psect	text5,global,reloc=2,class=CODE,delta=1
     16                           	psect	text6,global,reloc=2,class=CODE,delta=1
     17                           	psect	text7,global,reloc=2,class=CODE,delta=1
     18                           	psect	text8,global,reloc=2,class=CODE,delta=1
     19                           	psect	text9,global,reloc=2,class=CODE,delta=1
-    20                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
-    21                           	psect	text10,global,reloc=2,class=CODE,delta=1
-    22                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
-    23  0000                     
-    24                           ; Version 2.05
-    25                           ; Generated 20/12/2018 GMT
-    26                           ; 
-    27                           ; Copyright © 2018, Microchip Technology Inc. and its subsidiaries ("Microchip")
-    28                           ; All rights reserved.
-    29                           ; 
-    30                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
-      +                          ip").
+    20                           	psect	text10,global,reloc=2,class=CODE,delta=1
+    21                           	psect	text11,global,reloc=2,class=CODE,delta=1
+    22                           	psect	text12,global,reloc=2,class=CODE,delta=1
+    23                           	psect	text13,global,reloc=2,class=CODE,delta=1
+    24                           	psect	text14,global,reloc=2,class=CODE,delta=1
+    25                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    26                           	psect	text15,global,reloc=2,class=CODE,delta=1
+    27                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    28  0000                     
+    29                           ; Version 2.05
+    30                           ; Generated 20/12/2018 GMT
     31                           ; 
-    32                           ; Redistribution and use in source and binary forms, with or without modification, are
-    33                           ; permitted provided that the following conditions are met:
+    32                           ; Copyright © 2018, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    33                           ; All rights reserved.
     34                           ; 
-    35                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+    35                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    36                           ; 
+    37                           ; Redistribution and use in source and binary forms, with or without modification, are
+    38                           ; permitted provided that the following conditions are met:
+    39                           ; 
+    40                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
       +                          t of
-    36                           ;        conditions and the following disclaimer.
-    37                           ; 
-    38                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+    41                           ;        conditions and the following disclaimer.
+    42                           ; 
+    43                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
       +                          list
-    39                           ;        of conditions and the following disclaimer in the documentation and/or other
-    40                           ;        materials provided with the distribution.
-    41                           ; 
-    42                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+    44                           ;        of conditions and the following disclaimer in the documentation and/or other
+    45                           ;        materials provided with the distribution.
+    46                           ; 
+    47                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
       +                          is
-    43                           ;        software without specific prior written permission.
-    44                           ; 
-    45                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-    46                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+    48                           ;        software without specific prior written permission.
+    49                           ; 
+    50                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    51                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
       +                          OR
-    47                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+    52                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
       +                          T,
-    48                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
-    49                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
-    50                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+    53                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    54                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    55                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
       +                          RICT
-    51                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+    56                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
       +                          SE OF
-    52                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    53                           ; 
-    54                           ; 
-    55                           ; Code-generator required, PIC18F4550 Definitions
-    56                           ; 
-    57                           ; SFR Addresses
-    58  0000                     
-    59                           	psect	idataCOMRAM
-    60  007E50                     __pidataCOMRAM:
-    61                           	opt callstack 0
-    62                           
-    63                           ;initializer for _mpap_step
-    64  007E50  62                 	db	low __mpap_step1
-    65  007E51  7E                 	db	high __mpap_step1
-    66  007E52  6C                 	db	low __mpap_step2
-    67  007E53  7E                 	db	high __mpap_step2
-    68  007E54  76                 	db	low __mpap_step3
-    69  007E55  7E                 	db	high __mpap_step3
-    70  007E56  58                 	db	low __mpap_step4
-    71  007E57  7E                 	db	high __mpap_step4
-    72  0000                     _TRISC	set	3988
-    73  0000                     _TRISD	set	3989
-    74  0000                     _LATA	set	3977
-    75  0000                     _TRISA	set	3986
-    76  0000                     _CMCON	set	4020
-    77  0000                     _ADCON1	set	4033
-    78  0000                     _LATB	set	3978
-    79  0000                     _TRISB	set	3987
-    80  0000                     _LATC	set	3979
-    81  0000                     _LATD	set	3980
-    82                           
-    83                           ; #config settings
-    84  0000                     
-    85                           	psect	cinit
-    86  007F00                     __pcinit:
-    87                           	opt callstack 0
-    88  007F00                     start_initialization:
-    89                           	opt callstack 0
-    90  007F00                     __initialization:
-    91                           	opt callstack 0
-    92                           
-    93                           ; Initialize objects allocated to COMRAM (8 bytes)
-    94                           ; load TBLPTR registers with __pidataCOMRAM
-    95  007F00  0E50               	movlw	low __pidataCOMRAM
-    96  007F02  6EF6               	movwf	tblptrl,c
-    97  007F04  0E7E               	movlw	high __pidataCOMRAM
-    98  007F06  6EF7               	movwf	tblptrh,c
-    99  007F08  0E00               	movlw	low (__pidataCOMRAM shr (0+16))
-   100  007F0A  6EF8               	movwf	tblptru,c
-   101  007F0C  EE00  F015         	lfsr	0,__pdataCOMRAM
-   102  007F10  EE10 F008          	lfsr	1,8
-   103  007F14                     copy_data0:
-   104  007F14  0009               	tblrd		*+
-   105  007F16  CFF5 FFEE          	movff	tablat,postinc0
-   106  007F1A  50E5               	movf	postdec1,w,c
-   107  007F1C  50E1               	movf	fsr1l,w,c
-   108  007F1E  E1FA               	bnz	copy_data0
-   109                           
-   110                           ; Clear objects allocated to COMRAM (8 bytes)
-   111  007F20  EE00  F00D         	lfsr	0,__pbssCOMRAM
-   112  007F24  0E08               	movlw	8
-   113  007F26                     clear_0:
-   114  007F26  6AEE               	clrf	postinc0,c
-   115  007F28  06E8               	decf	wreg,f,c
-   116  007F2A  E1FD               	bnz	clear_0
-   117  007F2C                     end_of_initialization:
-   118                           	opt callstack 0
-   119  007F2C                     __end_of__initialization:
-   120                           	opt callstack 0
-   121  007F2C  0E00               	movlw	low (__Lmediumconst shr (0+16))
-   122  007F2E  6EF8               	movwf	tblptru,c
-   123  007F30  0100               	movlb	0
-   124  007F32  EFDB  F03F         	goto	_main	;jump to C main() function
-   125                           
-   126                           	psect	bssCOMRAM
-   127  00000D                     __pbssCOMRAM:
-   128                           	opt callstack 0
-   129  00000D                     _mpap:
-   130                           	opt callstack 0
-   131  00000D                     	ds	7
-   132  000014                     mpap_do1step@i:
-   133                           	opt callstack 0
-   134  000014                     	ds	1
-   135                           
-   136                           	psect	dataCOMRAM
-   137  000015                     __pdataCOMRAM:
-   138                           	opt callstack 0
-   139  000015                     _mpap_step:
-   140                           	opt callstack 0
-   141  000015                     	ds	8
-   142                           
-   143                           	psect	cstackCOMRAM
-   144  000001                     __pcstackCOMRAM:
-   145                           	opt callstack 0
-   146  000001                     ?___wmul:
+    57                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    58                           ; 
+    59                           ; 
+    60                           ; Code-generator required, PIC18F4550 Definitions
+    61                           ; 
+    62                           ; SFR Addresses
+    63  0000                     
+    64                           	psect	idataCOMRAM
+    65  007D42                     __pidataCOMRAM:
+    66                           	opt callstack 0
+    67                           
+    68                           ;initializer for _mpap_step
+    69  007D42  1A                 	db	low __mpap_step1
+    70  007D43  7D                 	db	high __mpap_step1
+    71  007D44  24                 	db	low __mpap_step2
+    72  007D45  7D                 	db	high __mpap_step2
+    73  007D46  2E                 	db	low __mpap_step3
+    74  007D47  7D                 	db	high __mpap_step3
+    75  007D48  10                 	db	low __mpap_step4
+    76  007D49  7D                 	db	high __mpap_step4
+    77                           
+    78                           ;initializer for _mpap_off
+    79  007D4A  38                 	db	low __mpap_off
+    80  007D4B  7D                 	db	high __mpap_off
+    81  0000                     _TRISC	set	3988
+    82  0000                     _TRISD	set	3989
+    83  0000                     _TRISE	set	3990
+    84  0000                     _LATE	set	3981
+    85  0000                     _LATC	set	3979
+    86  0000                     _LATA	set	3977
+    87  0000                     _TRISA	set	3986
+    88  0000                     _ADCON1	set	4033
+    89  0000                     _LATB	set	3978
+    90  0000                     _TRISB	set	3987
+    91  0000                     _PORTE	set	3972
+    92  0000                     _LATD	set	3980
+    93                           
+    94                           ; #config settings
+    95  0000                     
+    96                           	psect	cinit
+    97  007E14                     __pcinit:
+    98                           	opt callstack 0
+    99  007E14                     start_initialization:
+   100                           	opt callstack 0
+   101  007E14                     __initialization:
+   102                           	opt callstack 0
+   103                           
+   104                           ; Initialize objects allocated to COMRAM (10 bytes)
+   105                           ; load TBLPTR registers with __pidataCOMRAM
+   106  007E14  0E42               	movlw	low __pidataCOMRAM
+   107  007E16  6EF6               	movwf	tblptrl,c
+   108  007E18  0E7D               	movlw	high __pidataCOMRAM
+   109  007E1A  6EF7               	movwf	tblptrh,c
+   110  007E1C  0E00               	movlw	low (__pidataCOMRAM shr (0+16))
+   111  007E1E  6EF8               	movwf	tblptru,c
+   112  007E20  EE00  F018         	lfsr	0,__pdataCOMRAM
+   113  007E24  EE10 F00A          	lfsr	1,10
+   114  007E28                     copy_data0:
+   115  007E28  0009               	tblrd		*+
+   116  007E2A  CFF5 FFEE          	movff	tablat,postinc0
+   117  007E2E  50E5               	movf	postdec1,w,c
+   118  007E30  50E1               	movf	fsr1l,w,c
+   119  007E32  E1FA               	bnz	copy_data0
+   120                           
+   121                           ; Clear objects allocated to COMRAM (10 bytes)
+   122  007E34  EE00  F00E         	lfsr	0,__pbssCOMRAM
+   123  007E38  0E0A               	movlw	10
+   124  007E3A                     clear_0:
+   125  007E3A  6AEE               	clrf	postinc0,c
+   126  007E3C  06E8               	decf	wreg,f,c
+   127  007E3E  E1FD               	bnz	clear_0
+   128  007E40                     end_of_initialization:
+   129                           	opt callstack 0
+   130  007E40                     __end_of__initialization:
+   131                           	opt callstack 0
+   132  007E40  0E00               	movlw	low (__Lmediumconst shr (0+16))
+   133  007E42  6EF8               	movwf	tblptru,c
+   134  007E44  0100               	movlb	0
+   135  007E46  EF90  F03F         	goto	_main	;jump to C main() function
+   136                           
+   137                           	psect	bssCOMRAM
+   138  00000E                     __pbssCOMRAM:
+   139                           	opt callstack 0
+   140  00000E                     _mpap:
+   141                           	opt callstack 0
+   142  00000E                     	ds	8
+   143  000016                     mpap_do1step@i:
+   144                           	opt callstack 0
+   145  000016                     	ds	1
+   146  000017                     _pulsonic:
    147                           	opt callstack 0
-   148  000001                     mpap_do1step@KI:
-   149                           	opt callstack 0
-   150  000001                     ___wmul@multiplier:
-   151                           	opt callstack 0
-   152                           
-   153                           ; 2 bytes @ 0x0
-   154  000001                     	ds	1
-   155  000002                     
-   156                           ; 1 bytes @ 0x1
-   157  000002                     	ds	1
-   158  000003                     ___wmul@multiplicand:
-   159                           	opt callstack 0
-   160                           
-   161                           ; 2 bytes @ 0x2
-   162  000003                     	ds	2
-   163  000005                     ___wmul@product:
+   148  000017                     	ds	1
+   149                           
+   150                           	psect	dataCOMRAM
+   151  000018                     __pdataCOMRAM:
+   152                           	opt callstack 0
+   153  000018                     _mpap_step:
+   154                           	opt callstack 0
+   155  000018                     	ds	8
+   156  000020                     _mpap_off:
+   157                           	opt callstack 0
+   158  000020                     	ds	2
+   159                           
+   160                           	psect	cstackCOMRAM
+   161  000001                     __pcstackCOMRAM:
+   162                           	opt callstack 0
+   163  000001                     ?___wmul:
    164                           	opt callstack 0
-   165                           
-   166                           ; 2 bytes @ 0x4
-   167  000005                     	ds	2
-   168  000007                     mpap_setupToTurn@absPos_insteps:
-   169                           	opt callstack 0
-   170                           
-   171                           ; 2 bytes @ 0x6
-   172  000007                     	ds	2
-   173  000009                     _mpap_setupToTurn$58:
-   174                           	opt callstack 0
-   175                           
-   176                           ; 2 bytes @ 0x8
-   177  000009                     	ds	2
-   178  00000B                     nozzle_moveto@nozzle:
+   165  000001                     mpap_do1step@KI:
+   166                           	opt callstack 0
+   167  000001                     ___wmul@multiplier:
+   168                           	opt callstack 0
+   169                           
+   170                           ; 2 bytes @ 0x0
+   171  000001                     	ds	1
+   172  000002                     ??_mpap_homming:
+   173  000002                     
+   174                           ; 1 bytes @ 0x1
+   175  000002                     	ds	1
+   176  000003                     mpap_homming@cod_ret:
+   177                           	opt callstack 0
+   178  000003                     ___wmul@multiplicand:
    179                           	opt callstack 0
    180                           
-   181                           ; 1 bytes @ 0xA
-   182  00000B                     	ds	1
-   183  00000C                     ??_main:
-   184                           
-   185                           ; 1 bytes @ 0xB
-   186  00000C                     	ds	1
-   187                           
-   188 ;;
-   189 ;;Main: autosize = 0, tempsize = 1, incstack = 0, save=0
-   190 ;;
-   191 ;; *************** function _main *****************
-   192 ;; Defined at:
-   193 ;;		line 220 in file "main.c"
-   194 ;; Parameters:    Size  Location     Type
-   195 ;;		None
-   196 ;; Auto vars:     Size  Location     Type
-   197 ;;		None
-   198 ;; Return value:  Size  Location     Type
-   199 ;;                  1    wreg      void 
-   200 ;; Registers used:
-   201 ;;		wreg, fsr2l, fsr2h, status,2, status,0, pclath, tosl, prodl, prodh, cstack
-   202 ;; Tracked objects:
-   203 ;;		On entry : 0/0
-   204 ;;		On exit  : 0/0
-   205 ;;		Unchanged: 0/0
-   206 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
-   207 ;;      Params:         0       0       0       0       0       0       0       0       0
-   208 ;;      Locals:         0       0       0       0       0       0       0       0       0
-   209 ;;      Temps:          1       0       0       0       0       0       0       0       0
-   210 ;;      Totals:         1       0       0       0       0       0       0       0       0
-   211 ;;Total ram usage:        1 bytes
-   212 ;; Hardware stack levels required when called:    3
-   213 ;; This function calls:
-   214 ;;		_mpap_job
-   215 ;;		_nozzle_moveto
-   216 ;; This function is called by:
-   217 ;;		Startup code after reset
-   218 ;; This function uses a non-reentrant model
-   219 ;;
-   220                           
-   221                           	psect	text0
-   222  007FB6                     __ptext0:
-   223                           	opt callstack 0
-   224  007FB6                     _main:
-   225                           	opt callstack 28
-   226                           
-   227                           ;main.c: 222: TRISB = 0x00;
-   228                           
-   229                           ;incstack = 0
-   230  007FB6  0E00               	movlw	0
-   231  007FB8  6E93               	movwf	3987,c	;volatile
-   232                           
-   233                           ;main.c: 223: LATB = 0x10;
-   234  007FBA  0E10               	movlw	16
-   235  007FBC  6E8A               	movwf	3978,c	;volatile
-   236                           
-   237                           ;main.c: 225: ADCON1 = 0x0F;
-   238  007FBE  0E0F               	movlw	15
-   239  007FC0  6EC1               	movwf	4033,c	;volatile
-   240                           
-   241                           ;main.c: 226: CMCON=0xCF;
-   242  007FC2  0ECF               	movlw	207
-   243  007FC4  6EB4               	movwf	4020,c	;volatile
-   244                           
-   245                           ;main.c: 227: TRISA = 0;
-   246  007FC6  0E00               	movlw	0
-   247  007FC8  6E92               	movwf	3986,c	;volatile
-   248                           
-   249                           ;main.c: 228: LATA= ~(0x01<<4);
-   250  007FCA  0EEF               	movlw	239
-   251  007FCC  6E89               	movwf	3977,c	;volatile
-   252                           
-   253                           ;main.c: 230: LATD=0;
-   254  007FCE  0E00               	movlw	0
-   255  007FD0  6E8C               	movwf	3980,c	;volatile
-   256                           
-   257                           ;main.c: 231: LATC=0x0;
-   258  007FD2  0E00               	movlw	0
-   259  007FD4  6E8B               	movwf	3979,c	;volatile
-   260  007FD6  9095               	bcf	3989,0,c	;volatile
-   261  007FD8  9295               	bcf	3989,1,c	;volatile
-   262  007FDA  9495               	bcf	3989,2,c	;volatile
-   263  007FDC  9695               	bcf	3989,3,c	;volatile
-   264  007FDE  928B               	bcf	3979,1,c	;volatile
-   265  007FE0  9294               	bcf	3988,1,c	;volatile
-   266  007FE2  8094               	bsf	3988,0,c	;volatile
-   267                           
-   268                           ;main.c: 244: nozzle_moveto(0);
-   269  007FE4  0E00               	movlw	0
-   270  007FE6  EC53  F03F         	call	_nozzle_moveto
-   271  007FEA                     l986:
-   272                           
-   273                           ;main.c: 247: {;main.c: 248: mpap_job();
-   274  007FEA  EC9B  F03F         	call	_mpap_job	;wreg free
-   275                           
-   276                           ;main.c: 249: _delay((unsigned long)((1)*(48000000UL/4000.0)));
-   277  007FEE  0E10               	movlw	16
-   278  007FF0  6E0C               	movwf	??_main& (0+255),c
-   279  007FF2  0E94               	movlw	148
-   280  007FF4                     u107:
-   281  007FF4  2EE8               	decfsz	wreg,f,c
-   282  007FF6  D7FE               	bra	u107
-   283  007FF8  2E0C               	decfsz	??_main& (0+255),f,c
-   284  007FFA  D7FC               	bra	u107
-   285  007FFC  D000               	nop2	
-   286  007FFE  D7F5               	goto	l986
-   287  008000                     __end_of_main:
-   288                           	opt callstack 0
+   181                           ; 2 bytes @ 0x2
+   182  000003                     	ds	1
+   183  000004                     
+   184                           ; 1 bytes @ 0x3
+   185  000004                     	ds	1
+   186  000005                     ___wmul@product:
+   187                           	opt callstack 0
+   188                           
+   189                           ; 2 bytes @ 0x4
+   190  000005                     	ds	2
+   191  000007                     mpap_setupToTurn@numSteps_tomove:
+   192                           	opt callstack 0
+   193                           
+   194                           ; 2 bytes @ 0x6
+   195  000007                     	ds	2
+   196  000009                     _mpap_setupToTurn$84:
+   197                           	opt callstack 0
+   198                           
+   199                           ; 2 bytes @ 0x8
+   200  000009                     	ds	2
+   201  00000B                     nozzle_moveto@nozzle:
+   202                           	opt callstack 0
+   203                           
+   204                           ; 1 bytes @ 0xA
+   205  00000B                     	ds	1
+   206  00000C                     ??_main:
+   207                           
+   208                           ; 1 bytes @ 0xB
+   209  00000C                     	ds	2
+   210                           
+   211 ;;
+   212 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   213 ;;
+   214 ;; *************** function _main *****************
+   215 ;; Defined at:
+   216 ;;		line 278 in file "main.c"
+   217 ;; Parameters:    Size  Location     Type
+   218 ;;		None
+   219 ;; Auto vars:     Size  Location     Type
+   220 ;;		None
+   221 ;; Return value:  Size  Location     Type
+   222 ;;                  1    wreg      void 
+   223 ;; Registers used:
+   224 ;;		wreg, fsr2l, fsr2h, status,2, status,0, pclath, tosl, prodl, prodh, cstack
+   225 ;; Tracked objects:
+   226 ;;		On entry : 0/0
+   227 ;;		On exit  : 0/0
+   228 ;;		Unchanged: 0/0
+   229 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   230 ;;      Params:         0       0       0       0       0       0       0       0       0
+   231 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   232 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   233 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   234 ;;Total ram usage:        2 bytes
+   235 ;; Hardware stack levels required when called:    4
+   236 ;; This function calls:
+   237 ;;		_mpap_job
+   238 ;;		_mpap_setupToHomming
+   239 ;;		_mpap_stop
+   240 ;;		_nozzle_moveto
+   241 ;; This function is called by:
+   242 ;;		Startup code after reset
+   243 ;; This function uses a non-reentrant model
+   244 ;;
+   245                           
+   246                           	psect	text0
+   247  007F20                     __ptext0:
+   248                           	opt callstack 0
+   249  007F20                     _main:
+   250                           	opt callstack 27
+   251                           
+   252                           ;main.c: 280: TRISB = 0x00;
+   253                           
+   254                           ;incstack = 0
+   255  007F20  0E00               	movlw	0
+   256  007F22  6E93               	movwf	3987,c	;volatile
+   257                           
+   258                           ;main.c: 281: LATB = 0x10;
+   259  007F24  0E10               	movlw	16
+   260  007F26  6E8A               	movwf	3978,c	;volatile
+   261                           
+   262                           ;main.c: 283: ADCON1 = 0x0F;
+   263  007F28  0E0F               	movlw	15
+   264  007F2A  6EC1               	movwf	4033,c	;volatile
+   265                           
+   266                           ;main.c: 285: TRISA = 0;
+   267  007F2C  0E00               	movlw	0
+   268  007F2E  6E92               	movwf	3986,c	;volatile
+   269                           
+   270                           ;main.c: 286: LATA= ~(0x01<<4);
+   271  007F30  0EEF               	movlw	239
+   272  007F32  6E89               	movwf	3977,c	;volatile
+   273                           
+   274                           ;main.c: 288: LATA = 0;
+   275  007F34  0E00               	movlw	0
+   276  007F36  6E89               	movwf	3977,c	;volatile
+   277                           
+   278                           ;main.c: 289: LATB = 0;
+   279  007F38  0E00               	movlw	0
+   280  007F3A  6E8A               	movwf	3978,c	;volatile
+   281                           
+   282                           ;main.c: 290: LATC = 0;
+   283  007F3C  0E00               	movlw	0
+   284  007F3E  6E8B               	movwf	3979,c	;volatile
+   285                           
+   286                           ;main.c: 291: LATD = 0;
+   287  007F40  0E00               	movlw	0
+   288  007F42  6E8C               	movwf	3980,c	;volatile
    289                           
-   290 ;; *************** function _nozzle_moveto *****************
-   291 ;; Defined at:
-   292 ;;		line 211 in file "main.c"
-   293 ;; Parameters:    Size  Location     Type
-   294 ;;  nozzle          1    wreg     char 
-   295 ;; Auto vars:     Size  Location     Type
-   296 ;;  nozzle          1   10[COMRAM] char 
-   297 ;; Return value:  Size  Location     Type
-   298 ;;                  1    wreg      void 
-   299 ;; Registers used:
-   300 ;;		wreg, status,2, status,0, prodl, prodh, cstack
-   301 ;; Tracked objects:
-   302 ;;		On entry : 0/0
-   303 ;;		On exit  : 0/0
-   304 ;;		Unchanged: 0/0
-   305 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
-   306 ;;      Params:         0       0       0       0       0       0       0       0       0
-   307 ;;      Locals:         1       0       0       0       0       0       0       0       0
-   308 ;;      Temps:          0       0       0       0       0       0       0       0       0
-   309 ;;      Totals:         1       0       0       0       0       0       0       0       0
-   310 ;;Total ram usage:        1 bytes
-   311 ;; Hardware stack levels used:    1
-   312 ;; Hardware stack levels required when called:    1
-   313 ;; This function calls:
-   314 ;;		___wmul
-   315 ;;		_mpap_setupToTurn
-   316 ;; This function is called by:
-   317 ;;		_main
-   318 ;; This function uses a non-reentrant model
-   319 ;;
+   290                           ;main.c: 292: LATE = 0;
+   291  007F44  0E00               	movlw	0
+   292  007F46  6E8D               	movwf	3981,c	;volatile
+   293  007F48  908D               	bcf	3981,0,c	;volatile
+   294  007F4A  9096               	bcf	3990,0,c	;volatile
+   295  007F4C  9095               	bcf	3989,0,c	;volatile
+   296  007F4E  9295               	bcf	3989,1,c	;volatile
+   297  007F50  9495               	bcf	3989,2,c	;volatile
+   298  007F52  9695               	bcf	3989,3,c	;volatile
+   299  007F54  928B               	bcf	3979,1,c	;volatile
+   300  007F56  9294               	bcf	3988,1,c	;volatile
+   301                           
+   302                           ;main.c: 306: _delay((unsigned long)((1)*(48000000UL/4000.0)));
+   303  007F58  0E10               	movlw	16
+   304  007F5A  6E0C               	movwf	??_main& (0+255),c
+   305  007F5C  0E94               	movlw	148
+   306  007F5E                     u227:
+   307  007F5E  2EE8               	decfsz	wreg,f,c
+   308  007F60  D7FE               	bra	u227
+   309  007F62  2E0C               	decfsz	??_main& (0+255),f,c
+   310  007F64  D7FC               	bra	u227
+   311  007F66  D000               	nop2	
+   312  007F68  8296               	bsf	3990,1,c	;volatile
+   313                           
+   314                           ;main.c: 314: mpap_setupToHomming();
+   315  007F6A  ECAD  F03E         	call	_mpap_setupToHomming	;wreg free
+   316  007F6E                     l1147:
+   317                           
+   318                           ;main.c: 317: {;main.c: 318: mpap_job();
+   319  007F6E  ECC9  F03E         	call	_mpap_job	;wreg free
    320                           
-   321                           	psect	text1
-   322  007EA6                     __ptext1:
-   323                           	opt callstack 0
-   324  007EA6                     _nozzle_moveto:
-   325                           	opt callstack 29
-   326                           
-   327                           ;incstack = 0
-   328                           ;nozzle_moveto@nozzle stored from wreg
-   329  007EA6  6E0B               	movwf	nozzle_moveto@nozzle,c
-   330                           
-   331                           ;main.c: 213: mpap_setupToTurn( nozzle * 200);
-   332  007EA8  500B               	movf	nozzle_moveto@nozzle,w,c
-   333  007EAA  6E01               	movwf	___wmul@multiplier,c
-   334  007EAC  6A02               	clrf	___wmul@multiplier+1,c
-   335  007EAE  BE01               	btfsc	___wmul@multiplier,7,c
-   336  007EB0  0602               	decf	___wmul@multiplier+1,f,c
-   337  007EB2  0E00               	movlw	0
-   338  007EB4  6E04               	movwf	___wmul@multiplicand+1,c
-   339  007EB6  0EC8               	movlw	200
-   340  007EB8  6E03               	movwf	___wmul@multiplicand,c
-   341  007EBA  EC40  F03F         	call	___wmul	;wreg free
-   342  007EBE  C001  F007         	movff	?___wmul,mpap_setupToTurn@absPos_insteps
-   343  007EC2  C002  F008         	movff	?___wmul+1,mpap_setupToTurn@absPos_insteps+1
-   344  007EC6  EC66  F03F         	call	_mpap_setupToTurn	;wreg free
-   345  007ECA  0012               	return		;funcret
-   346  007ECC                     __end_of_nozzle_moveto:
-   347                           	opt callstack 0
-   348                           
-   349 ;; *************** function _mpap_setupToTurn *****************
-   350 ;; Defined at:
-   351 ;;		line 135 in file "main.c"
-   352 ;; Parameters:    Size  Location     Type
-   353 ;;  absPos_inste    2    6[COMRAM] int 
-   354 ;; Auto vars:     Size  Location     Type
-   355 ;;		None
-   356 ;; Return value:  Size  Location     Type
-   357 ;;                  1    wreg      void 
-   358 ;; Registers used:
-   359 ;;		wreg, status,2, status,0
-   360 ;; Tracked objects:
-   361 ;;		On entry : 0/0
-   362 ;;		On exit  : 0/0
-   363 ;;		Unchanged: 0/0
-   364 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
-   365 ;;      Params:         2       0       0       0       0       0       0       0       0
-   366 ;;      Locals:         2       0       0       0       0       0       0       0       0
-   367 ;;      Temps:          0       0       0       0       0       0       0       0       0
-   368 ;;      Totals:         4       0       0       0       0       0       0       0       0
-   369 ;;Total ram usage:        4 bytes
-   370 ;; Hardware stack levels used:    1
-   371 ;; This function calls:
-   372 ;;		Nothing
-   373 ;; This function is called by:
-   374 ;;		_nozzle_moveto
-   375 ;; This function uses a non-reentrant model
-   376 ;;
+   321                           ;main.c: 319: if (mpap.numSteps_tomove == 0)
+   322  007F72  5012               	movf	_mpap+4,w,c	;volatile
+   323  007F74  1013               	iorwf	_mpap+5,w,c	;volatile
+   324  007F76  B4D8               	btfsc	status,2,c
+   325                           
+   326                           ;main.c: 320: {;main.c: 321: if ( pulsonic.errors.flag.mpap_home_sensor != 1)
+   327  007F78  B017               	btfsc	_pulsonic,0,c
+   328  007F7A  D003               	goto	l1157
+   329                           
+   330                           ;main.c: 322: {;main.c: 323: mpap.mode = NORMAL_MODE;
+   331  007F7C  0E03               	movlw	3
+   332  007F7E  6E15               	movwf	_mpap+7,c	;volatile
+   333                           
+   334                           ;main.c: 324: break;
+   335  007F80  D008               	goto	l1159
+   336  007F82                     l1157:
+   337                           
+   338                           ;main.c: 330: };main.c: 331: };main.c: 332: _delay((unsigned long)((2)*(48000000UL/4000.
+      +                          0)));
+   339  007F82  0E20               	movlw	32
+   340  007F84  6E0C               	movwf	??_main& (0+255),c
+   341  007F86  0E2A               	movlw	42
+   342  007F88                     u237:
+   343  007F88  2EE8               	decfsz	wreg,f,c
+   344  007F8A  D7FE               	bra	u237
+   345  007F8C  2E0C               	decfsz	??_main& (0+255),f,c
+   346  007F8E  D7FC               	bra	u237
+   347  007F90  D7EE               	goto	l1147
+   348  007F92                     l1159:
+   349                           
+   350                           ;main.c: 333: };main.c: 334: _delay((unsigned long)((1000)*(48000000UL/4000.0)));
+   351  007F92  0E3D               	movlw	61
+   352  007F94  6E0D               	movwf	(??_main+1)& (0+255),c
+   353  007F96  0EE1               	movlw	225
+   354  007F98  6E0C               	movwf	??_main& (0+255),c
+   355  007F9A  0E40               	movlw	64
+   356  007F9C                     u247:
+   357  007F9C  2EE8               	decfsz	wreg,f,c
+   358  007F9E  D7FE               	bra	u247
+   359  007FA0  2E0C               	decfsz	??_main& (0+255),f,c
+   360  007FA2  D7FC               	bra	u247
+   361  007FA4  2E0D               	decfsz	(??_main+1)& (0+255),f,c
+   362  007FA6  D7FA               	bra	u247
+   363                           
+   364                           ;main.c: 339: nozzle_moveto(1);
+   365  007FA8  0E01               	movlw	1
+   366  007FAA  ECDD  F03E         	call	_nozzle_moveto
+   367  007FAE                     l1163:
+   368                           
+   369                           ;main.c: 341: {;main.c: 342: mpap_job();
+   370  007FAE  ECC9  F03E         	call	_mpap_job	;wreg free
+   371                           
+   372                           ;main.c: 343: if (mpap.numSteps_tomove == 0)
+   373  007FB2  5012               	movf	_mpap+4,w,c	;volatile
+   374  007FB4  1013               	iorwf	_mpap+5,w,c	;volatile
+   375  007FB6  B4D8               	btfsc	status,2,c
+   376  007FB8  D008               	goto	l1171
    377                           
-   378                           	psect	text2
-   379  007ECC                     __ptext2:
-   380                           	opt callstack 0
-   381  007ECC                     _mpap_setupToTurn:
-   382                           	opt callstack 29
-   383                           
-   384                           ;main.c: 137: mpap.numSteps_tomove = absPos_insteps - mpap.numSteps_current;
-   385                           
-   386                           ;incstack = 0
-   387  007ECC  500D               	movf	_mpap,w,c	;volatile
-   388  007ECE  5C07               	subwf	mpap_setupToTurn@absPos_insteps,w,c
-   389  007ED0  6E11               	movwf	_mpap+4,c	;volatile
-   390  007ED2  500E               	movf	_mpap+1,w,c	;volatile
-   391  007ED4  5808               	subwfb	mpap_setupToTurn@absPos_insteps+1,w,c
-   392  007ED6  6E12               	movwf	_mpap+5,c	;volatile
-   393                           
-   394                           ;main.c: 138: if (mpap.numSteps_tomove !=0)
-   395  007ED8  5011               	movf	_mpap+4,w,c	;volatile
-   396  007EDA  1012               	iorwf	_mpap+5,w,c	;volatile
-   397  007EDC  B4D8               	btfsc	status,2,c
-   398  007EDE  0012               	return	
-   399                           
-   400                           ;main.c: 139: {;main.c: 140: mpap.counter_steps = 0;
-   401  007EE0  0E00               	movlw	0
-   402  007EE2  6E10               	movwf	_mpap+3,c	;volatile
-   403  007EE4  0E00               	movlw	0
-   404  007EE6  6E0F               	movwf	_mpap+2,c	;volatile
-   405                           
-   406                           ;main.c: 141: mpap.KI = (mpap.numSteps_tomove<0)?-1:1;
-   407  007EE8  BE12               	btfsc	_mpap+5,7,c	;volatile
-   408  007EEA  D005               	goto	l75
-   409  007EEC  0E00               	movlw	0
-   410  007EEE  6E0A               	movwf	_mpap_setupToTurn$58+1,c
-   411  007EF0  0E01               	movlw	1
-   412  007EF2  6E09               	movwf	_mpap_setupToTurn$58,c
-   413  007EF4  D002               	goto	l77
-   414  007EF6                     l75:
-   415  007EF6  6809               	setf	_mpap_setupToTurn$58,c
-   416  007EF8  680A               	setf	_mpap_setupToTurn$58+1,c
-   417  007EFA                     l77:
-   418  007EFA  C009  F013         	movff	_mpap_setupToTurn$58,_mpap+6	;volatile
-   419  007EFE  0012               	return		;funcret
-   420  007F00                     __end_of_mpap_setupToTurn:
-   421                           	opt callstack 0
-   422                           
-   423 ;; *************** function ___wmul *****************
-   424 ;; Defined at:
-   425 ;;		line 15 in file "/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c"
-   426 ;; Parameters:    Size  Location     Type
-   427 ;;  multiplier      2    0[COMRAM] unsigned int 
-   428 ;;  multiplicand    2    2[COMRAM] unsigned int 
-   429 ;; Auto vars:     Size  Location     Type
-   430 ;;  product         2    4[COMRAM] unsigned int 
-   431 ;; Return value:  Size  Location     Type
-   432 ;;                  2    0[COMRAM] unsigned int 
-   433 ;; Registers used:
-   434 ;;		wreg, status,2, status,0, prodl, prodh
-   435 ;; Tracked objects:
-   436 ;;		On entry : 0/0
-   437 ;;		On exit  : 0/0
-   438 ;;		Unchanged: 0/0
-   439 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
-   440 ;;      Params:         4       0       0       0       0       0       0       0       0
-   441 ;;      Locals:         2       0       0       0       0       0       0       0       0
-   442 ;;      Temps:          0       0       0       0       0       0       0       0       0
-   443 ;;      Totals:         6       0       0       0       0       0       0       0       0
-   444 ;;Total ram usage:        6 bytes
-   445 ;; Hardware stack levels used:    1
-   446 ;; This function calls:
-   447 ;;		Nothing
-   448 ;; This function is called by:
-   449 ;;		_nozzle_moveto
-   450 ;; This function uses a non-reentrant model
-   451 ;;
-   452                           
-   453                           	psect	text3
-   454  007E80                     __ptext3:
-   455                           	opt callstack 0
-   456  007E80                     ___wmul:
-   457                           	opt callstack 29
-   458                           
-   459                           ;incstack = 0
-   460  007E80  5001               	movf	___wmul@multiplier,w,c
-   461  007E82  0203               	mulwf	___wmul@multiplicand,c
-   462  007E84  CFF3 F005          	movff	prodl,___wmul@product
-   463  007E88  CFF4 F006          	movff	prodh,___wmul@product+1
-   464  007E8C  5001               	movf	___wmul@multiplier,w,c
-   465  007E8E  0204               	mulwf	___wmul@multiplicand+1,c
-   466  007E90  50F3               	movf	prodl,w,c
-   467  007E92  2606               	addwf	___wmul@product+1,f,c
-   468  007E94  5002               	movf	___wmul@multiplier+1,w,c
-   469  007E96  0203               	mulwf	___wmul@multiplicand,c
-   470  007E98  50F3               	movf	prodl,w,c
-   471  007E9A  2606               	addwf	___wmul@product+1,f,c
-   472  007E9C  C005  F001         	movff	___wmul@product,?___wmul
-   473  007EA0  C006  F002         	movff	___wmul@product+1,?___wmul+1
-   474  007EA4  0012               	return		;funcret
-   475  007EA6                     __end_of___wmul:
-   476                           	opt callstack 0
-   477                           
-   478 ;; *************** function _mpap_job *****************
-   479 ;; Defined at:
-   480 ;;		line 171 in file "main.c"
-   481 ;; Parameters:    Size  Location     Type
-   482 ;;		None
-   483 ;; Auto vars:     Size  Location     Type
-   484 ;;  cod_ret         1    0        char 
-   485 ;; Return value:  Size  Location     Type
-   486 ;;                  1    wreg      char 
-   487 ;; Registers used:
-   488 ;;		wreg, fsr2l, fsr2h, status,2, status,0, pclath, tosl, prodl, prodh, cstack
-   489 ;; Tracked objects:
-   490 ;;		On entry : 0/0
-   491 ;;		On exit  : 0/0
-   492 ;;		Unchanged: 0/0
-   493 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
-   494 ;;      Params:         0       0       0       0       0       0       0       0       0
-   495 ;;      Locals:         1       0       0       0       0       0       0       0       0
-   496 ;;      Temps:          0       0       0       0       0       0       0       0       0
-   497 ;;      Totals:         1       0       0       0       0       0       0       0       0
-   498 ;;Total ram usage:        1 bytes
-   499 ;; Hardware stack levels used:    1
-   500 ;; Hardware stack levels required when called:    2
-   501 ;; This function calls:
-   502 ;;		_mpap_do1step
-   503 ;; This function is called by:
-   504 ;;		_main
-   505 ;; This function uses a non-reentrant model
-   506 ;;
-   507                           
-   508                           	psect	text4
-   509  007F36                     __ptext4:
-   510                           	opt callstack 0
-   511  007F36                     _mpap_job:
-   512                           	opt callstack 28
-   513                           
-   514                           ;main.c: 176: if (mpap.numSteps_tomove!=0)
-   515                           
-   516                           ;incstack = 0
-   517  007F36  5011               	movf	_mpap+4,w,c	;volatile
-   518  007F38  1012               	iorwf	_mpap+5,w,c	;volatile
-   519  007F3A  B4D8               	btfsc	status,2,c
-   520  007F3C  0012               	return	
-   521                           
-   522                           ;main.c: 177: {;main.c: 178: mpap_do1step(mpap.KI);
-   523  007F3E  5013               	movf	_mpap+6,w,c	;volatile
-   524  007F40  ECBA  F03F         	call	_mpap_do1step
+   378                           ;main.c: 346: };main.c: 347: _delay((unsigned long)((2)*(48000000UL/4000.0)));
+   379  007FBA  0E20               	movlw	32
+   380  007FBC  6E0C               	movwf	??_main& (0+255),c
+   381  007FBE  0E2A               	movlw	42
+   382  007FC0                     u257:
+   383  007FC0  2EE8               	decfsz	wreg,f,c
+   384  007FC2  D7FE               	bra	u257
+   385  007FC4  2E0C               	decfsz	??_main& (0+255),f,c
+   386  007FC6  D7FC               	bra	u257
+   387  007FC8  D7F2               	goto	l1163
+   388  007FCA                     l1171:
+   389                           
+   390                           ;main.c: 348: };main.c: 349: mpap_stop();
+   391  007FCA  ECA6  F03E         	call	_mpap_stop	;wreg free
+   392  007FCE                     l1173:
+   393  007FCE  808D               	bsf	3981,0,c	;volatile
+   394                           
+   395                           ;main.c: 356: _delay((unsigned long)((50)*(48000000UL/4000.0)));
+   396  007FD0  0E04               	movlw	4
+   397  007FD2  6E0D               	movwf	(??_main+1)& (0+255),c
+   398  007FD4  0E0C               	movlw	12
+   399  007FD6  6E0C               	movwf	??_main& (0+255),c
+   400  007FD8  0E34               	movlw	52
+   401  007FDA                     u267:
+   402  007FDA  2EE8               	decfsz	wreg,f,c
+   403  007FDC  D7FE               	bra	u267
+   404  007FDE  2E0C               	decfsz	??_main& (0+255),f,c
+   405  007FE0  D7FC               	bra	u267
+   406  007FE2  2E0D               	decfsz	(??_main+1)& (0+255),f,c
+   407  007FE4  D7FA               	bra	u267
+   408  007FE6  908D               	bcf	3981,0,c	;volatile
+   409                           
+   410                           ;main.c: 358: _delay((unsigned long)((50)*(48000000UL/4000.0)));
+   411  007FE8  0E04               	movlw	4
+   412  007FEA  6E0D               	movwf	(??_main+1)& (0+255),c
+   413  007FEC  0E0C               	movlw	12
+   414  007FEE  6E0C               	movwf	??_main& (0+255),c
+   415  007FF0  0E34               	movlw	52
+   416  007FF2                     u277:
+   417  007FF2  2EE8               	decfsz	wreg,f,c
+   418  007FF4  D7FE               	bra	u277
+   419  007FF6  2E0C               	decfsz	??_main& (0+255),f,c
+   420  007FF8  D7FC               	bra	u277
+   421  007FFA  2E0D               	decfsz	(??_main+1)& (0+255),f,c
+   422  007FFC  D7FA               	bra	u277
+   423  007FFE  D7E7               	goto	l1173
+   424  008000                     __end_of_main:
+   425                           	opt callstack 0
+   426                           
+   427 ;; *************** function _nozzle_moveto *****************
+   428 ;; Defined at:
+   429 ;;		line 179 in file "main.c"
+   430 ;; Parameters:    Size  Location     Type
+   431 ;;  nozzle          1    wreg     char 
+   432 ;; Auto vars:     Size  Location     Type
+   433 ;;  nozzle          1   10[COMRAM] char 
+   434 ;; Return value:  Size  Location     Type
+   435 ;;                  1    wreg      void 
+   436 ;; Registers used:
+   437 ;;		wreg, status,2, status,0, prodl, prodh, cstack
+   438 ;; Tracked objects:
+   439 ;;		On entry : 0/0
+   440 ;;		On exit  : 0/0
+   441 ;;		Unchanged: 0/0
+   442 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   443 ;;      Params:         0       0       0       0       0       0       0       0       0
+   444 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   445 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   446 ;;      Totals:         1       0       0       0       0       0       0       0       0
+   447 ;;Total ram usage:        1 bytes
+   448 ;; Hardware stack levels used:    1
+   449 ;; Hardware stack levels required when called:    1
+   450 ;; This function calls:
+   451 ;;		___wmul
+   452 ;;		_mpap_setupToTurn
+   453 ;; This function is called by:
+   454 ;;		_main
+   455 ;; This function uses a non-reentrant model
+   456 ;;
+   457                           
+   458                           	psect	text1
+   459  007DBA                     __ptext1:
+   460                           	opt callstack 0
+   461  007DBA                     _nozzle_moveto:
+   462                           	opt callstack 29
+   463                           
+   464                           ;incstack = 0
+   465                           ;nozzle_moveto@nozzle stored from wreg
+   466  007DBA  6E0B               	movwf	nozzle_moveto@nozzle,c
+   467                           
+   468                           ;main.c: 182: mpap_setupToTurn( (nozzle*200) - mpap.numSteps_current);
+   469  007DBC  500B               	movf	nozzle_moveto@nozzle,w,c
+   470  007DBE  6E01               	movwf	___wmul@multiplier,c
+   471  007DC0  6A02               	clrf	___wmul@multiplier+1,c
+   472  007DC2  BE01               	btfsc	___wmul@multiplier,7,c
+   473  007DC4  0602               	decf	___wmul@multiplier+1,f,c
+   474  007DC6  0E00               	movlw	0
+   475  007DC8  6E04               	movwf	___wmul@multiplicand+1,c
+   476  007DCA  0EC8               	movlw	200
+   477  007DCC  6E03               	movwf	___wmul@multiplicand,c
+   478  007DCE  ECB6  F03E         	call	___wmul	;wreg free
+   479  007DD2  500E               	movf	_mpap,w,c	;volatile
+   480  007DD4  5C01               	subwf	?___wmul,w,c
+   481  007DD6  6E07               	movwf	mpap_setupToTurn@numSteps_tomove,c
+   482  007DD8  500F               	movf	_mpap+1,w,c	;volatile
+   483  007DDA  5802               	subwfb	?___wmul+1,w,c
+   484  007DDC  6E08               	movwf	mpap_setupToTurn@numSteps_tomove+1,c
+   485  007DDE  ECF2  F03E         	call	_mpap_setupToTurn	;wreg free
+   486  007DE2  0012               	return		;funcret
+   487  007DE4                     __end_of_nozzle_moveto:
+   488                           	opt callstack 0
+   489                           
+   490 ;; *************** function ___wmul *****************
+   491 ;; Defined at:
+   492 ;;		line 15 in file "/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c"
+   493 ;; Parameters:    Size  Location     Type
+   494 ;;  multiplier      2    0[COMRAM] unsigned int 
+   495 ;;  multiplicand    2    2[COMRAM] unsigned int 
+   496 ;; Auto vars:     Size  Location     Type
+   497 ;;  product         2    4[COMRAM] unsigned int 
+   498 ;; Return value:  Size  Location     Type
+   499 ;;                  2    0[COMRAM] unsigned int 
+   500 ;; Registers used:
+   501 ;;		wreg, status,2, status,0, prodl, prodh
+   502 ;; Tracked objects:
+   503 ;;		On entry : 0/0
+   504 ;;		On exit  : 0/0
+   505 ;;		Unchanged: 0/0
+   506 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   507 ;;      Params:         4       0       0       0       0       0       0       0       0
+   508 ;;      Locals:         2       0       0       0       0       0       0       0       0
+   509 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   510 ;;      Totals:         6       0       0       0       0       0       0       0       0
+   511 ;;Total ram usage:        6 bytes
+   512 ;; Hardware stack levels used:    1
+   513 ;; This function calls:
+   514 ;;		Nothing
+   515 ;; This function is called by:
+   516 ;;		_nozzle_moveto
+   517 ;; This function uses a non-reentrant model
+   518 ;;
+   519                           
+   520                           	psect	text2
+   521  007D6C                     __ptext2:
+   522                           	opt callstack 0
+   523  007D6C                     ___wmul:
+   524                           	opt callstack 29
    525                           
-   526                           ;main.c: 180: mpap.counter_steps+= mpap.KI;
-   527  007F44  5013               	movf	_mpap+6,w,c	;volatile
-   528  007F46  260F               	addwf	_mpap+2,f,c	;volatile
-   529  007F48  0E00               	movlw	0
-   530  007F4A  BE13               	btfsc	_mpap+6,7,c	;volatile
-   531  007F4C  0EFF               	movlw	255
-   532  007F4E  2210               	addwfc	_mpap+3,f,c	;volatile
-   533                           
-   534                           ;main.c: 181: mpap.numSteps_current += mpap.counter_steps;
-   535  007F50  EE20  F00F         	lfsr	2,_mpap+2	;volatile
-   536  007F54  50DE               	movf	postinc2,w,c
-   537  007F56  260D               	addwf	_mpap,f,c	;volatile
-   538  007F58  50DD               	movf	postdec2,w,c
-   539  007F5A  220E               	addwfc	_mpap+1,f,c	;volatile
-   540                           
-   541                           ;main.c: 182: if ( mpap.counter_steps == mpap.numSteps_tomove)
-   542  007F5C  5011               	movf	_mpap+4,w,c	;volatile
-   543  007F5E  180F               	xorwf	_mpap+2,w,c	;volatile
-   544  007F60  E108               	bnz	l97
-   545  007F62  5012               	movf	_mpap+5,w,c	;volatile
-   546  007F64  1810               	xorwf	_mpap+3,w,c	;volatile
-   547  007F66  A4D8               	btfss	status,2,c
-   548  007F68  0012               	return	
-   549                           
-   550                           ;main.c: 183: {;main.c: 184: mpap.numSteps_tomove = 0;
-   551  007F6A  0E00               	movlw	0
-   552  007F6C  6E12               	movwf	_mpap+5,c	;volatile
-   553  007F6E  0E00               	movlw	0
-   554  007F70  6E11               	movwf	_mpap+4,c	;volatile
-   555  007F72                     l97:
-   556  007F72  0012               	return		;funcret
-   557  007F74                     __end_of_mpap_job:
-   558                           	opt callstack 0
-   559                           
-   560 ;; *************** function _mpap_do1step *****************
-   561 ;; Defined at:
-   562 ;;		line 153 in file "main.c"
-   563 ;; Parameters:    Size  Location     Type
-   564 ;;  KI              1    wreg     char 
-   565 ;; Auto vars:     Size  Location     Type
-   566 ;;  KI              1    0[COMRAM] char 
-   567 ;; Return value:  Size  Location     Type
-   568 ;;                  1    wreg      void 
-   569 ;; Registers used:
-   570 ;;		wreg, fsr2l, fsr2h, status,2, status,0, pclath, tosl, prodl, prodh, cstack
-   571 ;; Tracked objects:
-   572 ;;		On entry : 0/0
-   573 ;;		On exit  : 0/0
-   574 ;;		Unchanged: 0/0
-   575 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
-   576 ;;      Params:         0       0       0       0       0       0       0       0       0
-   577 ;;      Locals:         1       0       0       0       0       0       0       0       0
-   578 ;;      Temps:          0       0       0       0       0       0       0       0       0
-   579 ;;      Totals:         1       0       0       0       0       0       0       0       0
-   580 ;;Total ram usage:        1 bytes
-   581 ;; Hardware stack levels used:    1
-   582 ;; Hardware stack levels required when called:    1
-   583 ;; This function calls:
-   584 ;;		__mpap_step1
-   585 ;;		__mpap_step2
-   586 ;;		__mpap_step3
-   587 ;;		__mpap_step4
-   588 ;; This function is called by:
-   589 ;;		_mpap_job
-   590 ;; This function uses a non-reentrant model
-   591 ;;
-   592                           
-   593                           	psect	text5
-   594  007F74                     __ptext5:
-   595                           	opt callstack 0
-   596  007F74                     _mpap_do1step:
-   597                           	opt callstack 28
-   598                           
-   599                           ;incstack = 0
-   600                           ;mpap_do1step@KI stored from wreg
-   601  007F74  6E01               	movwf	mpap_do1step@KI,c
-   602                           
-   603                           ;main.c: 155: static int8_t i;;main.c: 156: mpap_step[i]();
-   604  007F76  5014               	movf	mpap_do1step@i,w,c
-   605  007F78  0D02               	mullw	2
-   606  007F7A  50F3               	movf	prodl,w,c
-   607  007F7C  0F15               	addlw	low _mpap_step
-   608  007F7E  6ED9               	movwf	fsr2l,c
-   609  007F80  6ADA               	clrf	fsr2h,c
-   610  007F82  D801               	call	u38
-   611  007F84  D00A               	goto	u39
-   612  007F86                     u38:
-   613  007F86  0005               	push	
-   614  007F88  6EFA               	movwf	pclath,c
-   615  007F8A  50DE               	movf	postinc2,w,c
-   616  007F8C  6EFD               	movwf	tosl,c
-   617  007F8E  50DE               	movf	postinc2,w,c
-   618  007F90  6EFE               	movwf	tosh,c
-   619  007F92  50F8               	movf	tblptru,w,c
-   620  007F94  6EFF               	movwf	tosu,c
-   621  007F96  50FA               	movf	pclath,w,c
-   622  007F98  0012               	return		;indir
-   623  007F9A                     u39:
-   624                           
-   625                           ;main.c: 157: i+=KI;
-   626  007F9A  5001               	movf	mpap_do1step@KI,w,c
-   627  007F9C  2614               	addwf	mpap_do1step@i,f,c
-   628                           
-   629                           ;main.c: 158: if (i>3){i=0;}
-   630  007F9E  5014               	movf	mpap_do1step@i,w,c
-   631  007FA0  0A80               	xorlw	128
-   632  007FA2  0F7C               	addlw	-132
-   633  007FA4  A0D8               	btfss	status,0,c
-   634  007FA6  D002               	goto	l902
-   635  007FA8  0E00               	movlw	0
-   636  007FAA  6E14               	movwf	mpap_do1step@i,c
-   637  007FAC                     l902:
-   638                           
-   639                           ;main.c: 159: if (i<0){i=3;}
-   640  007FAC  AE14               	btfss	mpap_do1step@i,7,c
-   641  007FAE  0012               	return	
-   642  007FB0  0E03               	movlw	3
-   643  007FB2  6E14               	movwf	mpap_do1step@i,c
-   644  007FB4  0012               	return		;funcret
-   645  007FB6                     __end_of_mpap_do1step:
-   646                           	opt callstack 0
-   647                           
-   648 ;; *************** function __mpap_step3 *****************
-   649 ;; Defined at:
-   650 ;;		line 83 in file "main.c"
-   651 ;; Parameters:    Size  Location     Type
+   526                           ;incstack = 0
+   527  007D6C  5001               	movf	___wmul@multiplier,w,c
+   528  007D6E  0203               	mulwf	___wmul@multiplicand,c
+   529  007D70  CFF3 F005          	movff	prodl,___wmul@product
+   530  007D74  CFF4 F006          	movff	prodh,___wmul@product+1
+   531  007D78  5001               	movf	___wmul@multiplier,w,c
+   532  007D7A  0204               	mulwf	___wmul@multiplicand+1,c
+   533  007D7C  50F3               	movf	prodl,w,c
+   534  007D7E  2606               	addwf	___wmul@product+1,f,c
+   535  007D80  5002               	movf	___wmul@multiplier+1,w,c
+   536  007D82  0203               	mulwf	___wmul@multiplicand,c
+   537  007D84  50F3               	movf	prodl,w,c
+   538  007D86  2606               	addwf	___wmul@product+1,f,c
+   539  007D88  C005  F001         	movff	___wmul@product,?___wmul
+   540  007D8C  C006  F002         	movff	___wmul@product+1,?___wmul+1
+   541  007D90  0012               	return		;funcret
+   542  007D92                     __end_of___wmul:
+   543                           	opt callstack 0
+   544                           
+   545 ;; *************** function _mpap_stop *****************
+   546 ;; Defined at:
+   547 ;;		line 191 in file "main.c"
+   548 ;; Parameters:    Size  Location     Type
+   549 ;;		None
+   550 ;; Auto vars:     Size  Location     Type
+   551 ;;		None
+   552 ;; Return value:  Size  Location     Type
+   553 ;;                  1    wreg      void 
+   554 ;; Registers used:
+   555 ;;		wreg, status,2, status,0, cstack
+   556 ;; Tracked objects:
+   557 ;;		On entry : 0/0
+   558 ;;		On exit  : 0/0
+   559 ;;		Unchanged: 0/0
+   560 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   561 ;;      Params:         0       0       0       0       0       0       0       0       0
+   562 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   563 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   564 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   565 ;;Total ram usage:        0 bytes
+   566 ;; Hardware stack levels used:    1
+   567 ;; Hardware stack levels required when called:    1
+   568 ;; This function calls:
+   569 ;;		__mpap_off
+   570 ;; This function is called by:
+   571 ;;		_main
+   572 ;; This function uses a non-reentrant model
+   573 ;;
+   574                           
+   575                           	psect	text3
+   576  007D4C                     __ptext3:
+   577                           	opt callstack 0
+   578  007D4C                     _mpap_stop:
+   579                           	opt callstack 29
+   580                           
+   581                           ;main.c: 193: mpap.numSteps_tomove = 0x00;
+   582                           
+   583                           ;incstack = 0
+   584  007D4C  0E00               	movlw	0
+   585  007D4E  6E13               	movwf	_mpap+5,c	;volatile
+   586  007D50  0E00               	movlw	0
+   587  007D52  6E12               	movwf	_mpap+4,c	;volatile
+   588                           
+   589                           ;main.c: 194: mpap_off();
+   590  007D54  EC9C  F03E         	call	__mpap_off	;wreg free
+   591  007D58  0012               	return		;funcret
+   592  007D5A                     __end_of_mpap_stop:
+   593                           	opt callstack 0
+   594                           
+   595 ;; *************** function __mpap_off *****************
+   596 ;; Defined at:
+   597 ;;		line 122 in file "main.c"
+   598 ;; Parameters:    Size  Location     Type
+   599 ;;		None
+   600 ;; Auto vars:     Size  Location     Type
+   601 ;;		None
+   602 ;; Return value:  Size  Location     Type
+   603 ;;                  1    wreg      void 
+   604 ;; Registers used:
+   605 ;;		status,2, status,0
+   606 ;; Tracked objects:
+   607 ;;		On entry : 0/0
+   608 ;;		On exit  : 0/0
+   609 ;;		Unchanged: 0/0
+   610 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   611 ;;      Params:         0       0       0       0       0       0       0       0       0
+   612 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   613 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   614 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   615 ;;Total ram usage:        0 bytes
+   616 ;; Hardware stack levels used:    1
+   617 ;; This function calls:
+   618 ;;		Nothing
+   619 ;; This function is called by:
+   620 ;;		_mpap_stop
+   621 ;; This function uses a non-reentrant model
+   622 ;;
+   623                           
+   624                           	psect	text4
+   625  007D38                     __ptext4:
+   626                           	opt callstack 0
+   627  007D38                     __mpap_off:
+   628                           	opt callstack 29
+   629                           
+   630                           ;incstack = 0
+   631                           ;main.c: 124: do{LATD &= ~(1<<0);}while(0);
+   632  007D38  908C               	bcf	3980,0,c	;volatile
+   633                           
+   634                           ;main.c: 125: do{LATD &= ~(1<<1);}while(0);
+   635  007D3A  928C               	bcf	3980,1,c	;volatile
+   636                           
+   637                           ;main.c: 126: do{LATD &= ~(1<<2);}while(0);
+   638  007D3C  948C               	bcf	3980,2,c	;volatile
+   639                           
+   640                           ;main.c: 127: do{LATD &= ~(1<<3);}while(0);
+   641  007D3E  968C               	bcf	3980,3,c	;volatile
+   642  007D40  0012               	return		;funcret
+   643  007D42                     __end_of__mpap_off:
+   644                           	opt callstack 0
+   645                           
+   646 ;; *************** function _mpap_setupToHomming *****************
+   647 ;; Defined at:
+   648 ;;		line 172 in file "main.c"
+   649 ;; Parameters:    Size  Location     Type
+   650 ;;		None
+   651 ;; Auto vars:     Size  Location     Type
    652 ;;		None
-   653 ;; Auto vars:     Size  Location     Type
-   654 ;;		None
-   655 ;; Return value:  Size  Location     Type
-   656 ;;                  1    wreg      void 
-   657 ;; Registers used:
-   658 ;;		status,2, status,0
-   659 ;; Tracked objects:
-   660 ;;		On entry : 0/0
-   661 ;;		On exit  : 0/0
-   662 ;;		Unchanged: 0/0
-   663 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
-   664 ;;      Params:         0       0       0       0       0       0       0       0       0
-   665 ;;      Locals:         0       0       0       0       0       0       0       0       0
-   666 ;;      Temps:          0       0       0       0       0       0       0       0       0
-   667 ;;      Totals:         0       0       0       0       0       0       0       0       0
-   668 ;;Total ram usage:        0 bytes
-   669 ;; Hardware stack levels used:    1
-   670 ;; This function calls:
-   671 ;;		Nothing
-   672 ;; This function is called by:
-   673 ;;		_mpap_do1step
-   674 ;; This function uses a non-reentrant model
-   675 ;;
-   676                           
-   677                           	psect	text6
-   678  007E76                     __ptext6:
-   679                           	opt callstack 0
-   680  007E76                     __mpap_step3:
-   681                           	opt callstack 28
-   682                           
-   683                           ;incstack = 0
-   684                           ;main.c: 85: do{LATD &= ~(1<<0);}while(0);
-   685  007E76  908C               	bcf	3980,0,c	;volatile
-   686                           
-   687                           ;main.c: 86: do{LATD |= 1<<1;}while(0);
-   688  007E78  828C               	bsf	3980,1,c	;volatile
-   689                           
-   690                           ;main.c: 87: do{LATD &= ~(1<<2);}while(0);
-   691  007E7A  948C               	bcf	3980,2,c	;volatile
-   692                           
-   693                           ;main.c: 88: do{LATD &= ~(1<<3);}while(0);
-   694  007E7C  968C               	bcf	3980,3,c	;volatile
-   695  007E7E  0012               	return		;funcret
-   696  007E80                     __end_of__mpap_step3:
-   697                           	opt callstack 0
-   698                           
-   699 ;; *************** function __mpap_step2 *****************
-   700 ;; Defined at:
-   701 ;;		line 76 in file "main.c"
-   702 ;; Parameters:    Size  Location     Type
-   703 ;;		None
-   704 ;; Auto vars:     Size  Location     Type
-   705 ;;		None
-   706 ;; Return value:  Size  Location     Type
-   707 ;;                  1    wreg      void 
-   708 ;; Registers used:
-   709 ;;		status,2, status,0
-   710 ;; Tracked objects:
-   711 ;;		On entry : 0/0
-   712 ;;		On exit  : 0/0
-   713 ;;		Unchanged: 0/0
-   714 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
-   715 ;;      Params:         0       0       0       0       0       0       0       0       0
-   716 ;;      Locals:         0       0       0       0       0       0       0       0       0
-   717 ;;      Temps:          0       0       0       0       0       0       0       0       0
-   718 ;;      Totals:         0       0       0       0       0       0       0       0       0
-   719 ;;Total ram usage:        0 bytes
-   720 ;; Hardware stack levels used:    1
-   721 ;; This function calls:
-   722 ;;		Nothing
-   723 ;; This function is called by:
-   724 ;;		_mpap_do1step
+   653 ;; Return value:  Size  Location     Type
+   654 ;;                  1    wreg      void 
+   655 ;; Registers used:
+   656 ;;		wreg, status,2, status,0, cstack
+   657 ;; Tracked objects:
+   658 ;;		On entry : 0/0
+   659 ;;		On exit  : 0/0
+   660 ;;		Unchanged: 0/0
+   661 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   662 ;;      Params:         0       0       0       0       0       0       0       0       0
+   663 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   664 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   665 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   666 ;;Total ram usage:        0 bytes
+   667 ;; Hardware stack levels used:    1
+   668 ;; Hardware stack levels required when called:    1
+   669 ;; This function calls:
+   670 ;;		_mpap_setupToTurn
+   671 ;; This function is called by:
+   672 ;;		_main
+   673 ;; This function uses a non-reentrant model
+   674 ;;
+   675                           
+   676                           	psect	text5
+   677  007D5A                     __ptext5:
+   678                           	opt callstack 0
+   679  007D5A                     _mpap_setupToHomming:
+   680                           	opt callstack 29
+   681                           
+   682                           ;main.c: 174: mpap_setupToTurn( -1 *( (18*200) +20));
+   683                           
+   684                           ;incstack = 0
+   685  007D5A  0EF1               	movlw	241
+   686  007D5C  6E08               	movwf	mpap_setupToTurn@numSteps_tomove+1,c
+   687  007D5E  0EDC               	movlw	220
+   688  007D60  6E07               	movwf	mpap_setupToTurn@numSteps_tomove,c
+   689  007D62  ECF2  F03E         	call	_mpap_setupToTurn	;wreg free
+   690                           
+   691                           ;main.c: 177: mpap.mode = HOMMING_MODE;
+   692  007D66  0E02               	movlw	2
+   693  007D68  6E15               	movwf	_mpap+7,c	;volatile
+   694  007D6A  0012               	return		;funcret
+   695  007D6C                     __end_of_mpap_setupToHomming:
+   696                           	opt callstack 0
+   697                           
+   698 ;; *************** function _mpap_setupToTurn *****************
+   699 ;; Defined at:
+   700 ;;		line 160 in file "main.c"
+   701 ;; Parameters:    Size  Location     Type
+   702 ;;  numSteps_tom    2    6[COMRAM] int 
+   703 ;; Auto vars:     Size  Location     Type
+   704 ;;		None
+   705 ;; Return value:  Size  Location     Type
+   706 ;;                  1    wreg      void 
+   707 ;; Registers used:
+   708 ;;		wreg, status,2, status,0
+   709 ;; Tracked objects:
+   710 ;;		On entry : 0/0
+   711 ;;		On exit  : 0/0
+   712 ;;		Unchanged: 0/0
+   713 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   714 ;;      Params:         2       0       0       0       0       0       0       0       0
+   715 ;;      Locals:         2       0       0       0       0       0       0       0       0
+   716 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   717 ;;      Totals:         4       0       0       0       0       0       0       0       0
+   718 ;;Total ram usage:        4 bytes
+   719 ;; Hardware stack levels used:    1
+   720 ;; This function calls:
+   721 ;;		Nothing
+   722 ;; This function is called by:
+   723 ;;		_mpap_setupToHomming
+   724 ;;		_nozzle_moveto
    725 ;; This function uses a non-reentrant model
    726 ;;
    727                           
-   728                           	psect	text7
-   729  007E6C                     __ptext7:
+   728                           	psect	text6
+   729  007DE4                     __ptext6:
    730                           	opt callstack 0
-   731  007E6C                     __mpap_step2:
-   732                           	opt callstack 28
+   731  007DE4                     _mpap_setupToTurn:
+   732                           	opt callstack 29
    733                           
-   734                           ;incstack = 0
-   735                           ;main.c: 78: do{LATD &= ~(1<<0);}while(0);
-   736  007E6C  908C               	bcf	3980,0,c	;volatile
-   737                           
-   738                           ;main.c: 79: do{LATD &= ~(1<<1);}while(0);
-   739  007E6E  928C               	bcf	3980,1,c	;volatile
-   740                           
-   741                           ;main.c: 80: do{LATD |= 1<<2;}while(0);
-   742  007E70  848C               	bsf	3980,2,c	;volatile
-   743                           
-   744                           ;main.c: 81: do{LATD &= ~(1<<3);}while(0);
-   745  007E72  968C               	bcf	3980,3,c	;volatile
-   746  007E74  0012               	return		;funcret
-   747  007E76                     __end_of__mpap_step2:
-   748                           	opt callstack 0
-   749                           
-   750 ;; *************** function __mpap_step1 *****************
-   751 ;; Defined at:
-   752 ;;		line 69 in file "main.c"
-   753 ;; Parameters:    Size  Location     Type
-   754 ;;		None
-   755 ;; Auto vars:     Size  Location     Type
-   756 ;;		None
-   757 ;; Return value:  Size  Location     Type
-   758 ;;                  1    wreg      void 
-   759 ;; Registers used:
-   760 ;;		status,2, status,0
-   761 ;; Tracked objects:
-   762 ;;		On entry : 0/0
-   763 ;;		On exit  : 0/0
-   764 ;;		Unchanged: 0/0
-   765 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
-   766 ;;      Params:         0       0       0       0       0       0       0       0       0
-   767 ;;      Locals:         0       0       0       0       0       0       0       0       0
-   768 ;;      Temps:          0       0       0       0       0       0       0       0       0
-   769 ;;      Totals:         0       0       0       0       0       0       0       0       0
-   770 ;;Total ram usage:        0 bytes
-   771 ;; Hardware stack levels used:    1
-   772 ;; This function calls:
-   773 ;;		Nothing
-   774 ;; This function is called by:
-   775 ;;		_mpap_do1step
-   776 ;; This function uses a non-reentrant model
-   777 ;;
-   778                           
-   779                           	psect	text8
-   780  007E62                     __ptext8:
-   781                           	opt callstack 0
-   782  007E62                     __mpap_step1:
-   783                           	opt callstack 28
-   784                           
-   785                           ;incstack = 0
-   786                           ;main.c: 71: do{LATD &= ~(1<<0);}while(0);
-   787  007E62  908C               	bcf	3980,0,c	;volatile
-   788                           
-   789                           ;main.c: 72: do{LATD &= ~(1<<1);}while(0);
-   790  007E64  928C               	bcf	3980,1,c	;volatile
-   791                           
-   792                           ;main.c: 73: do{LATD &= ~(1<<2);}while(0);
-   793  007E66  948C               	bcf	3980,2,c	;volatile
-   794                           
-   795                           ;main.c: 74: do{LATD |= 1<<3;}while(0);
-   796  007E68  868C               	bsf	3980,3,c	;volatile
-   797  007E6A  0012               	return		;funcret
-   798  007E6C                     __end_of__mpap_step1:
-   799                           	opt callstack 0
-   800                           
-   801 ;; *************** function __mpap_step4 *****************
-   802 ;; Defined at:
-   803 ;;		line 90 in file "main.c"
-   804 ;; Parameters:    Size  Location     Type
-   805 ;;		None
-   806 ;; Auto vars:     Size  Location     Type
-   807 ;;		None
-   808 ;; Return value:  Size  Location     Type
-   809 ;;                  1    wreg      void 
-   810 ;; Registers used:
-   811 ;;		status,2, status,0
-   812 ;; Tracked objects:
-   813 ;;		On entry : 0/0
-   814 ;;		On exit  : 0/0
-   815 ;;		Unchanged: 0/0
-   816 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
-   817 ;;      Params:         0       0       0       0       0       0       0       0       0
-   818 ;;      Locals:         0       0       0       0       0       0       0       0       0
-   819 ;;      Temps:          0       0       0       0       0       0       0       0       0
-   820 ;;      Totals:         0       0       0       0       0       0       0       0       0
-   821 ;;Total ram usage:        0 bytes
-   822 ;; Hardware stack levels used:    1
-   823 ;; This function calls:
-   824 ;;		Nothing
-   825 ;; This function is called by:
-   826 ;;		_mpap_do1step
-   827 ;; This function uses a non-reentrant model
-   828 ;;
-   829                           
-   830                           	psect	text9
-   831  007E58                     __ptext9:
-   832                           	opt callstack 0
-   833  007E58                     __mpap_step4:
-   834                           	opt callstack 28
-   835                           
-   836                           ;incstack = 0
-   837                           ;main.c: 92: do{LATD |= 1<<0;}while(0);
-   838  007E58  808C               	bsf	3980,0,c	;volatile
-   839                           
-   840                           ;main.c: 93: do{LATD &= ~(1<<1);}while(0);
-   841  007E5A  928C               	bcf	3980,1,c	;volatile
-   842                           
-   843                           ;main.c: 94: do{LATD &= ~(1<<2);}while(0);
-   844  007E5C  948C               	bcf	3980,2,c	;volatile
-   845                           
-   846                           ;main.c: 95: do{LATD &= ~(1<<3);}while(0);
-   847  007E5E  968C               	bcf	3980,3,c	;volatile
-   848  007E60  0012               	return		;funcret
-   849  007E62                     __end_of__mpap_step4:
-   850                           	opt callstack 0
-   851  0000                     
-   852                           	psect	text10
-   853  000000                     __ptext10:
-   854                           	opt callstack 0
-   855                           
-   856                           	psect	rparam
-   857  0000                     tosu	equ	0xFFF
-   858                           tosh	equ	0xFFE
-   859                           tosl	equ	0xFFD
-   860                           stkptr	equ	0xFFC
-   861                           pclatu	equ	0xFFB
-   862                           pclath	equ	0xFFA
-   863                           pcl	equ	0xFF9
-   864                           tblptru	equ	0xFF8
-   865                           tblptrh	equ	0xFF7
-   866                           tblptrl	equ	0xFF6
-   867                           tablat	equ	0xFF5
-   868                           prodh	equ	0xFF4
-   869                           prodl	equ	0xFF3
-   870                           indf0	equ	0xFEF
-   871                           postinc0	equ	0xFEE
-   872                           postdec0	equ	0xFED
-   873                           preinc0	equ	0xFEC
-   874                           plusw0	equ	0xFEB
-   875                           fsr0h	equ	0xFEA
-   876                           fsr0l	equ	0xFE9
-   877                           wreg	equ	0xFE8
-   878                           indf1	equ	0xFE7
-   879                           postinc1	equ	0xFE6
-   880                           postdec1	equ	0xFE5
-   881                           preinc1	equ	0xFE4
-   882                           plusw1	equ	0xFE3
-   883                           fsr1h	equ	0xFE2
-   884                           fsr1l	equ	0xFE1
-   885                           bsr	equ	0xFE0
-   886                           indf2	equ	0xFDF
-   887                           postinc2	equ	0xFDE
-   888                           postdec2	equ	0xFDD
-   889                           preinc2	equ	0xFDC
-   890                           plusw2	equ	0xFDB
-   891                           fsr2h	equ	0xFDA
-   892                           fsr2l	equ	0xFD9
-   893                           status	equ	0xFD8
+   734                           ;main.c: 163: if (numSteps_tomove !=0)
+   735                           
+   736                           ;incstack = 0
+   737  007DE4  5007               	movf	mpap_setupToTurn@numSteps_tomove,w,c
+   738  007DE6  1008               	iorwf	mpap_setupToTurn@numSteps_tomove+1,w,c
+   739  007DE8  B4D8               	btfsc	status,2,c
+   740  007DEA  0012               	return	
+   741                           
+   742                           ;main.c: 164: {;main.c: 165: mpap.numSteps_tomove = numSteps_tomove;
+   743  007DEC  C007  F012         	movff	mpap_setupToTurn@numSteps_tomove,_mpap+4	;volatile
+   744  007DF0  C008  F013         	movff	mpap_setupToTurn@numSteps_tomove+1,_mpap+5	;volatile
+   745                           
+   746                           ;main.c: 166: mpap.KI = (mpap.numSteps_tomove<0)? -1: 1;
+   747  007DF4  BE13               	btfsc	_mpap+5,7,c	;volatile
+   748  007DF6  D005               	goto	l94
+   749  007DF8  0E00               	movlw	0
+   750  007DFA  6E0A               	movwf	_mpap_setupToTurn$84+1,c
+   751  007DFC  0E01               	movlw	1
+   752  007DFE  6E09               	movwf	_mpap_setupToTurn$84,c
+   753  007E00  D002               	goto	l96
+   754  007E02                     l94:
+   755  007E02  6809               	setf	_mpap_setupToTurn$84,c
+   756  007E04  680A               	setf	_mpap_setupToTurn$84+1,c
+   757  007E06                     l96:
+   758  007E06  C009  F014         	movff	_mpap_setupToTurn$84,_mpap+6	;volatile
+   759                           
+   760                           ;main.c: 168: mpap.counter_steps = 0;
+   761  007E0A  0E00               	movlw	0
+   762  007E0C  6E11               	movwf	_mpap+3,c	;volatile
+   763  007E0E  0E00               	movlw	0
+   764  007E10  6E10               	movwf	_mpap+2,c	;volatile
+   765  007E12  0012               	return		;funcret
+   766  007E14                     __end_of_mpap_setupToTurn:
+   767                           	opt callstack 0
+   768                           
+   769 ;; *************** function _mpap_job *****************
+   770 ;; Defined at:
+   771 ;;		line 261 in file "main.c"
+   772 ;; Parameters:    Size  Location     Type
+   773 ;;		None
+   774 ;; Auto vars:     Size  Location     Type
+   775 ;;  cod_ret         1    0        char 
+   776 ;; Return value:  Size  Location     Type
+   777 ;;                  1    wreg      char 
+   778 ;; Registers used:
+   779 ;;		wreg, fsr2l, fsr2h, status,2, status,0, pclath, tosl, prodl, prodh, cstack
+   780 ;; Tracked objects:
+   781 ;;		On entry : 0/0
+   782 ;;		On exit  : 0/0
+   783 ;;		Unchanged: 0/0
+   784 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   785 ;;      Params:         0       0       0       0       0       0       0       0       0
+   786 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   787 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   788 ;;      Totals:         1       0       0       0       0       0       0       0       0
+   789 ;;Total ram usage:        1 bytes
+   790 ;; Hardware stack levels used:    1
+   791 ;; Hardware stack levels required when called:    3
+   792 ;; This function calls:
+   793 ;;		_mpap_homming
+   794 ;;		_mpap_normal_mode
+   795 ;; This function is called by:
+   796 ;;		_main
+   797 ;; This function uses a non-reentrant model
+   798 ;;
+   799                           
+   800                           	psect	text7
+   801  007D92                     __ptext7:
+   802                           	opt callstack 0
+   803  007D92                     _mpap_job:
+   804                           	opt callstack 27
+   805                           
+   806                           ;main.c: 263: int8_t cod_ret;;main.c: 265: if (mpap.mode == HOMMING_MODE)
+   807                           
+   808                           ;incstack = 0
+   809  007D92  0E02               	movlw	2
+   810  007D94  1815               	xorwf	_mpap+7,w,c	;volatile
+   811  007D96  A4D8               	btfss	status,2,c
+   812  007D98  D003               	goto	l1021
+   813  007D9A  EC65  F03F         	call	_mpap_homming	;wreg free
+   814  007D9E  0012               	return	
+   815  007DA0                     l1021:
+   816                           
+   817                           ;main.c: 267: else if (mpap.mode == NORMAL_MODE)
+   818  007DA0  0E03               	movlw	3
+   819  007DA2  1815               	xorwf	_mpap+7,w,c	;volatile
+   820  007DA4  A4D8               	btfss	status,2,c
+   821  007DA6  D003               	goto	l1025
+   822  007DA8  EC25  F03F         	call	_mpap_normal_mode	;wreg free
+   823  007DAC  0012               	return	
+   824  007DAE                     l1025:
+   825                           
+   826                           ;main.c: 270: else if (mpap.mode == STALL_MODE)
+   827  007DAE  0415               	decf	_mpap+7,w,c	;volatile
+   828  007DB0  A4D8               	btfss	status,2,c
+   829  007DB2  0012               	return	
+   830                           
+   831                           ;main.c: 271: mpap.mode = IDLE_MODE;
+   832  007DB4  0E00               	movlw	0
+   833  007DB6  6E15               	movwf	_mpap+7,c	;volatile
+   834  007DB8  0012               	return	
+   835  007DBA                     __end_of_mpap_job:
+   836                           	opt callstack 0
+   837                           
+   838 ;; *************** function _mpap_normal_mode *****************
+   839 ;; Defined at:
+   840 ;;		line 242 in file "main.c"
+   841 ;; Parameters:    Size  Location     Type
+   842 ;;		None
+   843 ;; Auto vars:     Size  Location     Type
+   844 ;;  cod_ret         1    0        char 
+   845 ;; Return value:  Size  Location     Type
+   846 ;;                  1    wreg      char 
+   847 ;; Registers used:
+   848 ;;		wreg, fsr2l, fsr2h, status,2, status,0, pclath, tosl, prodl, prodh, cstack
+   849 ;; Tracked objects:
+   850 ;;		On entry : 0/0
+   851 ;;		On exit  : 0/0
+   852 ;;		Unchanged: 0/0
+   853 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   854 ;;      Params:         0       0       0       0       0       0       0       0       0
+   855 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   856 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   857 ;;      Totals:         1       0       0       0       0       0       0       0       0
+   858 ;;Total ram usage:        1 bytes
+   859 ;; Hardware stack levels used:    1
+   860 ;; Hardware stack levels required when called:    2
+   861 ;; This function calls:
+   862 ;;		_mpap_do1step
+   863 ;; This function is called by:
+   864 ;;		_mpap_job
+   865 ;; This function uses a non-reentrant model
+   866 ;;
+   867                           
+   868                           	psect	text8
+   869  007E4A                     __ptext8:
+   870                           	opt callstack 0
+   871  007E4A                     _mpap_normal_mode:
+   872                           	opt callstack 27
+   873                           
+   874                           ;main.c: 245: if (mpap.numSteps_tomove!=0)
+   875                           
+   876                           ;incstack = 0
+   877  007E4A  5012               	movf	_mpap+4,w,c	;volatile
+   878  007E4C  1013               	iorwf	_mpap+5,w,c	;volatile
+   879  007E4E  B4D8               	btfsc	status,2,c
+   880  007E50  0012               	return	
+   881                           
+   882                           ;main.c: 246: {;main.c: 247: mpap_do1step(mpap.KI);
+   883  007E52  5014               	movf	_mpap+6,w,c	;volatile
+   884  007E54  EC44  F03F         	call	_mpap_do1step
+   885                           
+   886                           ;main.c: 249: mpap.counter_steps+= mpap.KI;
+   887  007E58  5014               	movf	_mpap+6,w,c	;volatile
+   888  007E5A  2610               	addwf	_mpap+2,f,c	;volatile
+   889  007E5C  0E00               	movlw	0
+   890  007E5E  BE14               	btfsc	_mpap+6,7,c	;volatile
+   891  007E60  0EFF               	movlw	255
+   892  007E62  2211               	addwfc	_mpap+3,f,c	;volatile
+   893                           
+   894                           ;main.c: 251: mpap.numSteps_current+= mpap.KI;
+   895  007E64  5014               	movf	_mpap+6,w,c	;volatile
+   896  007E66  260E               	addwf	_mpap,f,c	;volatile
+   897  007E68  0E00               	movlw	0
+   898  007E6A  BE14               	btfsc	_mpap+6,7,c	;volatile
+   899  007E6C  0EFF               	movlw	255
+   900  007E6E  220F               	addwfc	_mpap+1,f,c	;volatile
+   901                           
+   902                           ;main.c: 253: if ( mpap.counter_steps == mpap.numSteps_tomove)
+   903  007E70  5012               	movf	_mpap+4,w,c	;volatile
+   904  007E72  1810               	xorwf	_mpap+2,w,c	;volatile
+   905  007E74  E108               	bnz	l127
+   906  007E76  5013               	movf	_mpap+5,w,c	;volatile
+   907  007E78  1811               	xorwf	_mpap+3,w,c	;volatile
+   908  007E7A  A4D8               	btfss	status,2,c
+   909  007E7C  0012               	return	
+   910                           
+   911                           ;main.c: 254: {;main.c: 255: mpap.numSteps_tomove = 0;
+   912  007E7E  0E00               	movlw	0
+   913  007E80  6E13               	movwf	_mpap+5,c	;volatile
+   914  007E82  0E00               	movlw	0
+   915  007E84  6E12               	movwf	_mpap+4,c	;volatile
+   916  007E86                     l127:
+   917  007E86  0012               	return		;funcret
+   918  007E88                     __end_of_mpap_normal_mode:
+   919                           	opt callstack 0
+   920                           
+   921 ;; *************** function _mpap_homming *****************
+   922 ;; Defined at:
+   923 ;;		line 219 in file "main.c"
+   924 ;; Parameters:    Size  Location     Type
+   925 ;;		None
+   926 ;; Auto vars:     Size  Location     Type
+   927 ;;  cod_ret         1    2[COMRAM] char 
+   928 ;; Return value:  Size  Location     Type
+   929 ;;                  1    wreg      char 
+   930 ;; Registers used:
+   931 ;;		wreg, fsr2l, fsr2h, status,2, status,0, pclath, tosl, prodl, prodh, cstack
+   932 ;; Tracked objects:
+   933 ;;		On entry : 0/0
+   934 ;;		On exit  : 0/0
+   935 ;;		Unchanged: 0/0
+   936 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   937 ;;      Params:         0       0       0       0       0       0       0       0       0
+   938 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   939 ;;      Temps:          1       0       0       0       0       0       0       0       0
+   940 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   941 ;;Total ram usage:        2 bytes
+   942 ;; Hardware stack levels used:    1
+   943 ;; Hardware stack levels required when called:    2
+   944 ;; This function calls:
+   945 ;;		_mpap_do1step
+   946 ;; This function is called by:
+   947 ;;		_mpap_job
+   948 ;; This function uses a non-reentrant model
+   949 ;;
+   950                           
+   951                           	psect	text9
+   952  007ECA                     __ptext9:
+   953                           	opt callstack 0
+   954  007ECA                     _mpap_homming:
+   955                           	opt callstack 27
+   956                           
+   957                           ;main.c: 221: int8_t cod_ret = 0;
+   958                           
+   959                           ;incstack = 0
+   960  007ECA  0E00               	movlw	0
+   961  007ECC  6E03               	movwf	mpap_homming@cod_ret,c
+   962                           
+   963                           ;main.c: 222: if (mpap.numSteps_tomove!=0)
+   964  007ECE  5012               	movf	_mpap+4,w,c	;volatile
+   965  007ED0  1013               	iorwf	_mpap+5,w,c	;volatile
+   966  007ED2  B4D8               	btfsc	status,2,c
+   967  007ED4  D023               	goto	l119
+   968                           
+   969                           ;main.c: 223: {;main.c: 224: mpap_do1step(mpap.KI);
+   970  007ED6  5014               	movf	_mpap+6,w,c	;volatile
+   971  007ED8  EC44  F03F         	call	_mpap_do1step
+   972                           
+   973                           ;main.c: 226: mpap.counter_steps+= mpap.KI;
+   974  007EDC  5014               	movf	_mpap+6,w,c	;volatile
+   975  007EDE  2610               	addwf	_mpap+2,f,c	;volatile
+   976  007EE0  0E00               	movlw	0
+   977  007EE2  BE14               	btfsc	_mpap+6,7,c	;volatile
+   978  007EE4  0EFF               	movlw	255
+   979  007EE6  2211               	addwfc	_mpap+3,f,c	;volatile
+   980                           
+   981                           ;main.c: 228: if (((PORTE & (1<<1))>>1) == 0)
+   982  007EE8  CF84 F002          	movff	3972,??_mpap_homming	;volatile
+   983  007EEC  90D8               	bcf	status,0,c
+   984  007EEE  3202               	rrcf	??_mpap_homming,f,c
+   985  007EF0  B002               	btfsc	??_mpap_homming,0,c
+   986  007EF2  D006               	goto	l979
+   987                           
+   988                           ;main.c: 229: {;main.c: 230: mpap.numSteps_tomove = 0x0000;
+   989  007EF4  0E00               	movlw	0
+   990  007EF6  6E13               	movwf	_mpap+5,c	;volatile
+   991  007EF8  0E00               	movlw	0
+   992  007EFA  6E12               	movwf	_mpap+4,c	;volatile
+   993                           
+   994                           ;main.c: 231: cod_ret = 1;
+   995  007EFC  0E01               	movlw	1
+   996  007EFE  6E03               	movwf	mpap_homming@cod_ret,c
+   997  007F00                     l979:
+   998                           
+   999                           ;main.c: 232: };main.c: 233: if ( mpap.counter_steps == mpap.numSteps_tomove)
+  1000  007F00  5012               	movf	_mpap+4,w,c	;volatile
+  1001  007F02  1810               	xorwf	_mpap+2,w,c	;volatile
+  1002  007F04  E10B               	bnz	l119
+  1003  007F06  5013               	movf	_mpap+5,w,c	;volatile
+  1004  007F08  1811               	xorwf	_mpap+3,w,c	;volatile
+  1005  007F0A  A4D8               	btfss	status,2,c
+  1006  007F0C  D007               	goto	l119
+  1007                           
+  1008                           ;main.c: 234: {;main.c: 235: mpap.numSteps_tomove = 0x0000;
+  1009  007F0E  0E00               	movlw	0
+  1010  007F10  6E13               	movwf	_mpap+5,c	;volatile
+  1011  007F12  0E00               	movlw	0
+  1012  007F14  6E12               	movwf	_mpap+4,c	;volatile
+  1013                           
+  1014                           ;main.c: 236: cod_ret = 1;
+  1015  007F16  0E01               	movlw	1
+  1016  007F18  6E03               	movwf	mpap_homming@cod_ret,c
+  1017                           
+  1018                           ;main.c: 237: pulsonic.errors.flag.mpap_home_sensor = 1;
+  1019  007F1A  8017               	bsf	_pulsonic,0,c
+  1020  007F1C                     l119:
+  1021                           
+  1022                           ;main.c: 238: };main.c: 239: };main.c: 240: return cod_ret;
+  1023  007F1C  5003               	movf	mpap_homming@cod_ret,w,c
+  1024  007F1E  0012               	return		;funcret
+  1025  007F20                     __end_of_mpap_homming:
+  1026                           	opt callstack 0
+  1027                           
+  1028 ;; *************** function _mpap_do1step *****************
+  1029 ;; Defined at:
+  1030 ;;		line 199 in file "main.c"
+  1031 ;; Parameters:    Size  Location     Type
+  1032 ;;  KI              1    wreg     char 
+  1033 ;; Auto vars:     Size  Location     Type
+  1034 ;;  KI              1    0[COMRAM] char 
+  1035 ;; Return value:  Size  Location     Type
+  1036 ;;                  1    wreg      void 
+  1037 ;; Registers used:
+  1038 ;;		wreg, fsr2l, fsr2h, status,2, status,0, pclath, tosl, prodl, prodh, cstack
+  1039 ;; Tracked objects:
+  1040 ;;		On entry : 0/0
+  1041 ;;		On exit  : 0/0
+  1042 ;;		Unchanged: 0/0
+  1043 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1044 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1045 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  1046 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1047 ;;      Totals:         1       0       0       0       0       0       0       0       0
+  1048 ;;Total ram usage:        1 bytes
+  1049 ;; Hardware stack levels used:    1
+  1050 ;; Hardware stack levels required when called:    1
+  1051 ;; This function calls:
+  1052 ;;		__mpap_step1
+  1053 ;;		__mpap_step2
+  1054 ;;		__mpap_step3
+  1055 ;;		__mpap_step4
+  1056 ;; This function is called by:
+  1057 ;;		_mpap_homming
+  1058 ;;		_mpap_normal_mode
+  1059 ;; This function uses a non-reentrant model
+  1060 ;;
+  1061                           
+  1062                           	psect	text10
+  1063  007E88                     __ptext10:
+  1064                           	opt callstack 0
+  1065  007E88                     _mpap_do1step:
+  1066                           	opt callstack 27
+  1067                           
+  1068                           ;incstack = 0
+  1069                           ;mpap_do1step@KI stored from wreg
+  1070  007E88  6E01               	movwf	mpap_do1step@KI,c
+  1071                           
+  1072                           ;main.c: 201: static int8_t i;;main.c: 202: mpap_step[i]();
+  1073  007E8A  5016               	movf	mpap_do1step@i,w,c
+  1074  007E8C  0D02               	mullw	2
+  1075  007E8E  50F3               	movf	prodl,w,c
+  1076  007E90  0F18               	addlw	low _mpap_step
+  1077  007E92  6ED9               	movwf	fsr2l,c
+  1078  007E94  6ADA               	clrf	fsr2h,c
+  1079  007E96  D801               	call	u18
+  1080  007E98  D00A               	goto	u19
+  1081  007E9A                     u18:
+  1082  007E9A  0005               	push	
+  1083  007E9C  6EFA               	movwf	pclath,c
+  1084  007E9E  50DE               	movf	postinc2,w,c
+  1085  007EA0  6EFD               	movwf	tosl,c
+  1086  007EA2  50DE               	movf	postinc2,w,c
+  1087  007EA4  6EFE               	movwf	tosh,c
+  1088  007EA6  50F8               	movf	tblptru,w,c
+  1089  007EA8  6EFF               	movwf	tosu,c
+  1090  007EAA  50FA               	movf	pclath,w,c
+  1091  007EAC  0012               	return		;indir
+  1092  007EAE                     u19:
+  1093                           
+  1094                           ;main.c: 203: i+=KI;
+  1095  007EAE  5001               	movf	mpap_do1step@KI,w,c
+  1096  007EB0  2616               	addwf	mpap_do1step@i,f,c
+  1097                           
+  1098                           ;main.c: 204: if (i>3){i=0;}
+  1099  007EB2  5016               	movf	mpap_do1step@i,w,c
+  1100  007EB4  0A80               	xorlw	128
+  1101  007EB6  0F7C               	addlw	-132
+  1102  007EB8  A0D8               	btfss	status,0,c
+  1103  007EBA  D002               	goto	l951
+  1104  007EBC  0E00               	movlw	0
+  1105  007EBE  6E16               	movwf	mpap_do1step@i,c
+  1106  007EC0                     l951:
+  1107                           
+  1108                           ;main.c: 205: if (i<0){i=3;}
+  1109  007EC0  AE16               	btfss	mpap_do1step@i,7,c
+  1110  007EC2  0012               	return	
+  1111  007EC4  0E03               	movlw	3
+  1112  007EC6  6E16               	movwf	mpap_do1step@i,c
+  1113  007EC8  0012               	return		;funcret
+  1114  007ECA                     __end_of_mpap_do1step:
+  1115                           	opt callstack 0
+  1116                           
+  1117 ;; *************** function __mpap_step3 *****************
+  1118 ;; Defined at:
+  1119 ;;		line 98 in file "main.c"
+  1120 ;; Parameters:    Size  Location     Type
+  1121 ;;		None
+  1122 ;; Auto vars:     Size  Location     Type
+  1123 ;;		None
+  1124 ;; Return value:  Size  Location     Type
+  1125 ;;                  1    wreg      void 
+  1126 ;; Registers used:
+  1127 ;;		status,2, status,0
+  1128 ;; Tracked objects:
+  1129 ;;		On entry : 0/0
+  1130 ;;		On exit  : 0/0
+  1131 ;;		Unchanged: 0/0
+  1132 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1133 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1134 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1135 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1136 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1137 ;;Total ram usage:        0 bytes
+  1138 ;; Hardware stack levels used:    1
+  1139 ;; This function calls:
+  1140 ;;		Nothing
+  1141 ;; This function is called by:
+  1142 ;;		_mpap_do1step
+  1143 ;; This function uses a non-reentrant model
+  1144 ;;
+  1145                           
+  1146                           	psect	text11
+  1147  007D2E                     __ptext11:
+  1148                           	opt callstack 0
+  1149  007D2E                     __mpap_step3:
+  1150                           	opt callstack 27
+  1151                           
+  1152                           ;incstack = 0
+  1153                           ;main.c: 100: do{LATD &= ~(1<<0);}while(0);
+  1154  007D2E  908C               	bcf	3980,0,c	;volatile
+  1155                           
+  1156                           ;main.c: 101: do{LATD |= 1<<1;}while(0);
+  1157  007D30  828C               	bsf	3980,1,c	;volatile
+  1158                           
+  1159                           ;main.c: 102: do{LATD &= ~(1<<2);}while(0);
+  1160  007D32  948C               	bcf	3980,2,c	;volatile
+  1161                           
+  1162                           ;main.c: 103: do{LATD &= ~(1<<3);}while(0);
+  1163  007D34  968C               	bcf	3980,3,c	;volatile
+  1164  007D36  0012               	return		;funcret
+  1165  007D38                     __end_of__mpap_step3:
+  1166                           	opt callstack 0
+  1167                           
+  1168 ;; *************** function __mpap_step2 *****************
+  1169 ;; Defined at:
+  1170 ;;		line 91 in file "main.c"
+  1171 ;; Parameters:    Size  Location     Type
+  1172 ;;		None
+  1173 ;; Auto vars:     Size  Location     Type
+  1174 ;;		None
+  1175 ;; Return value:  Size  Location     Type
+  1176 ;;                  1    wreg      void 
+  1177 ;; Registers used:
+  1178 ;;		status,2, status,0
+  1179 ;; Tracked objects:
+  1180 ;;		On entry : 0/0
+  1181 ;;		On exit  : 0/0
+  1182 ;;		Unchanged: 0/0
+  1183 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1184 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1185 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1186 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1187 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1188 ;;Total ram usage:        0 bytes
+  1189 ;; Hardware stack levels used:    1
+  1190 ;; This function calls:
+  1191 ;;		Nothing
+  1192 ;; This function is called by:
+  1193 ;;		_mpap_do1step
+  1194 ;; This function uses a non-reentrant model
+  1195 ;;
+  1196                           
+  1197                           	psect	text12
+  1198  007D24                     __ptext12:
+  1199                           	opt callstack 0
+  1200  007D24                     __mpap_step2:
+  1201                           	opt callstack 27
+  1202                           
+  1203                           ;incstack = 0
+  1204                           ;main.c: 93: do{LATD &= ~(1<<0);}while(0);
+  1205  007D24  908C               	bcf	3980,0,c	;volatile
+  1206                           
+  1207                           ;main.c: 94: do{LATD &= ~(1<<1);}while(0);
+  1208  007D26  928C               	bcf	3980,1,c	;volatile
+  1209                           
+  1210                           ;main.c: 95: do{LATD |= 1<<2;}while(0);
+  1211  007D28  848C               	bsf	3980,2,c	;volatile
+  1212                           
+  1213                           ;main.c: 96: do{LATD &= ~(1<<3);}while(0);
+  1214  007D2A  968C               	bcf	3980,3,c	;volatile
+  1215  007D2C  0012               	return		;funcret
+  1216  007D2E                     __end_of__mpap_step2:
+  1217                           	opt callstack 0
+  1218                           
+  1219 ;; *************** function __mpap_step1 *****************
+  1220 ;; Defined at:
+  1221 ;;		line 84 in file "main.c"
+  1222 ;; Parameters:    Size  Location     Type
+  1223 ;;		None
+  1224 ;; Auto vars:     Size  Location     Type
+  1225 ;;		None
+  1226 ;; Return value:  Size  Location     Type
+  1227 ;;                  1    wreg      void 
+  1228 ;; Registers used:
+  1229 ;;		status,2, status,0
+  1230 ;; Tracked objects:
+  1231 ;;		On entry : 0/0
+  1232 ;;		On exit  : 0/0
+  1233 ;;		Unchanged: 0/0
+  1234 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1235 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1236 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1237 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1238 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1239 ;;Total ram usage:        0 bytes
+  1240 ;; Hardware stack levels used:    1
+  1241 ;; This function calls:
+  1242 ;;		Nothing
+  1243 ;; This function is called by:
+  1244 ;;		_mpap_do1step
+  1245 ;; This function uses a non-reentrant model
+  1246 ;;
+  1247                           
+  1248                           	psect	text13
+  1249  007D1A                     __ptext13:
+  1250                           	opt callstack 0
+  1251  007D1A                     __mpap_step1:
+  1252                           	opt callstack 27
+  1253                           
+  1254                           ;incstack = 0
+  1255                           ;main.c: 86: do{LATD &= ~(1<<0);}while(0);
+  1256  007D1A  908C               	bcf	3980,0,c	;volatile
+  1257                           
+  1258                           ;main.c: 87: do{LATD &= ~(1<<1);}while(0);
+  1259  007D1C  928C               	bcf	3980,1,c	;volatile
+  1260                           
+  1261                           ;main.c: 88: do{LATD &= ~(1<<2);}while(0);
+  1262  007D1E  948C               	bcf	3980,2,c	;volatile
+  1263                           
+  1264                           ;main.c: 89: do{LATD |= 1<<3;}while(0);
+  1265  007D20  868C               	bsf	3980,3,c	;volatile
+  1266  007D22  0012               	return		;funcret
+  1267  007D24                     __end_of__mpap_step1:
+  1268                           	opt callstack 0
+  1269                           
+  1270 ;; *************** function __mpap_step4 *****************
+  1271 ;; Defined at:
+  1272 ;;		line 105 in file "main.c"
+  1273 ;; Parameters:    Size  Location     Type
+  1274 ;;		None
+  1275 ;; Auto vars:     Size  Location     Type
+  1276 ;;		None
+  1277 ;; Return value:  Size  Location     Type
+  1278 ;;                  1    wreg      void 
+  1279 ;; Registers used:
+  1280 ;;		status,2, status,0
+  1281 ;; Tracked objects:
+  1282 ;;		On entry : 0/0
+  1283 ;;		On exit  : 0/0
+  1284 ;;		Unchanged: 0/0
+  1285 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1286 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1287 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1288 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1289 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1290 ;;Total ram usage:        0 bytes
+  1291 ;; Hardware stack levels used:    1
+  1292 ;; This function calls:
+  1293 ;;		Nothing
+  1294 ;; This function is called by:
+  1295 ;;		_mpap_do1step
+  1296 ;; This function uses a non-reentrant model
+  1297 ;;
+  1298                           
+  1299                           	psect	text14
+  1300  007D10                     __ptext14:
+  1301                           	opt callstack 0
+  1302  007D10                     __mpap_step4:
+  1303                           	opt callstack 27
+  1304                           
+  1305                           ;incstack = 0
+  1306                           ;main.c: 107: do{LATD |= 1<<0;}while(0);
+  1307  007D10  808C               	bsf	3980,0,c	;volatile
+  1308                           
+  1309                           ;main.c: 108: do{LATD &= ~(1<<1);}while(0);
+  1310  007D12  928C               	bcf	3980,1,c	;volatile
+  1311                           
+  1312                           ;main.c: 109: do{LATD &= ~(1<<2);}while(0);
+  1313  007D14  948C               	bcf	3980,2,c	;volatile
+  1314                           
+  1315                           ;main.c: 110: do{LATD &= ~(1<<3);}while(0);
+  1316  007D16  968C               	bcf	3980,3,c	;volatile
+  1317  007D18  0012               	return		;funcret
+  1318  007D1A                     __end_of__mpap_step4:
+  1319                           	opt callstack 0
+  1320  0000                     
+  1321                           	psect	text15
+  1322  000000                     __ptext15:
+  1323                           	opt callstack 0
+  1324                           
+  1325                           	psect	rparam
+  1326  0000                     tosu	equ	0xFFF
+  1327                           tosh	equ	0xFFE
+  1328                           tosl	equ	0xFFD
+  1329                           stkptr	equ	0xFFC
+  1330                           pclatu	equ	0xFFB
+  1331                           pclath	equ	0xFFA
+  1332                           pcl	equ	0xFF9
+  1333                           tblptru	equ	0xFF8
+  1334                           tblptrh	equ	0xFF7
+  1335                           tblptrl	equ	0xFF6
+  1336                           tablat	equ	0xFF5
+  1337                           prodh	equ	0xFF4
+  1338                           prodl	equ	0xFF3
+  1339                           indf0	equ	0xFEF
+  1340                           postinc0	equ	0xFEE
+  1341                           postdec0	equ	0xFED
+  1342                           preinc0	equ	0xFEC
+  1343                           plusw0	equ	0xFEB
+  1344                           fsr0h	equ	0xFEA
+  1345                           fsr0l	equ	0xFE9
+  1346                           wreg	equ	0xFE8
+  1347                           indf1	equ	0xFE7
+  1348                           postinc1	equ	0xFE6
+  1349                           postdec1	equ	0xFE5
+  1350                           preinc1	equ	0xFE4
+  1351                           plusw1	equ	0xFE3
+  1352                           fsr1h	equ	0xFE2
+  1353                           fsr1l	equ	0xFE1
+  1354                           bsr	equ	0xFE0
+  1355                           indf2	equ	0xFDF
+  1356                           postinc2	equ	0xFDE
+  1357                           postdec2	equ	0xFDD
+  1358                           preinc2	equ	0xFDC
+  1359                           plusw2	equ	0xFDB
+  1360                           fsr2h	equ	0xFDA
+  1361                           fsr2l	equ	0xFD9
+  1362                           status	equ	0xFD8
 
 
 Data Sizes:
     Strings     0
     Constant    0
-    Data        8
-    BSS         8
+    Data        10
+    BSS         10
     Persistent  0
     Stack       0
 
 Auto Spaces:
     Space          Size  Autos    Used
-    COMRAM           95     12      28
+    COMRAM           95     13      33
     BANK0           160      0       0
     BANK1           256      0       0
     BANK2           256      0       0
@@ -929,6 +1399,9 @@ Auto Spaces:
 
 Pointer List with Targets:
 
+    mpap_off	PTR FTN()void  size(2) Largest target is 1
+		 -> _mpap_off(), 
+
     mpap_step	PTR FTN()void [4] size(2) Largest target is 1
 		 -> _mpap_step4(), _mpap_step3(), _mpap_step2(), _mpap_step1(), 
 
@@ -937,8 +1410,11 @@ Critical Paths under _main in COMRAM
 
     _main->_nozzle_moveto
     _nozzle_moveto->_mpap_setupToTurn
+    _mpap_setupToHomming->_mpap_setupToTurn
     _mpap_setupToTurn->___wmul
-    _mpap_job->_mpap_do1step
+    _mpap_job->_mpap_homming
+    _mpap_normal_mode->_mpap_do1step
+    _mpap_homming->_mpap_do1step
 
 Critical Paths under _main in BANK0
 
@@ -977,54 +1453,85 @@ Call Graph Tables:
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
- (0) _main                                                 1     1      0     575
-                                             11 COMRAM     1     1      0
+ (0) _main                                                 2     2      0     923
+                                             11 COMRAM     2     2      0
                            _mpap_job
+                _mpap_setupToHomming
+                          _mpap_stop
                       _nozzle_moveto
  ---------------------------------------------------------------------------------
- (1) _nozzle_moveto                                        1     1      0     555
+ (1) _nozzle_moveto                                        1     1      0     653
                                              10 COMRAM     1     1      0
                              ___wmul
                    _mpap_setupToTurn
  ---------------------------------------------------------------------------------
- (2) _mpap_setupToTurn                                     4     2      2     122
-                                              6 COMRAM     4     2      2
-                             ___wmul (ARG)
- ---------------------------------------------------------------------------------
  (2) ___wmul                                               6     2      4     411
                                               0 COMRAM     6     2      4
  ---------------------------------------------------------------------------------
- (1) _mpap_job                                             1     1      0      20
+ (1) _mpap_stop                                            0     0      0       0
+                          __mpap_off
+ ---------------------------------------------------------------------------------
+ (2) __mpap_off                                            0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _mpap_setupToHomming                                  0     0      0     220
+                   _mpap_setupToTurn
+ ---------------------------------------------------------------------------------
+ (2) _mpap_setupToTurn                                     4     2      2     220
+                                              6 COMRAM     4     2      2
+                             ___wmul (ARG)
+ ---------------------------------------------------------------------------------
+ (1) _mpap_job                                             1     1      0      50
+                                              3 COMRAM     1     1      0
+                       _mpap_homming
+                   _mpap_normal_mode
+ ---------------------------------------------------------------------------------
+ (2) _mpap_normal_mode                                     1     1      0      15
                                               1 COMRAM     1     1      0
                        _mpap_do1step
  ---------------------------------------------------------------------------------
- (2) _mpap_do1step                                         1     1      0      15
+ (2) _mpap_homming                                         2     2      0      30
+                                              1 COMRAM     2     2      0
+                       _mpap_do1step
+ ---------------------------------------------------------------------------------
+ (3) _mpap_do1step                                         1     1      0      15
                                               0 COMRAM     1     1      0
                         __mpap_step1 *
                         __mpap_step2 *
                         __mpap_step3 *
                         __mpap_step4 *
  ---------------------------------------------------------------------------------
- (3) __mpap_step4                                          0     0      0       0
+ (4) __mpap_step4                                          0     0      0       0
  ---------------------------------------------------------------------------------
- (3) __mpap_step3                                          0     0      0       0
+ (4) __mpap_step3                                          0     0      0       0
  ---------------------------------------------------------------------------------
- (3) __mpap_step2                                          0     0      0       0
+ (4) __mpap_step2                                          0     0      0       0
  ---------------------------------------------------------------------------------
- (3) __mpap_step1                                          0     0      0       0
+ (4) __mpap_step1                                          0     0      0       0
  ---------------------------------------------------------------------------------
- Estimated maximum stack depth 3
+ Estimated maximum stack depth 4
  ---------------------------------------------------------------------------------
 
  Call Graph Graphs:
 
  _main (ROOT)
    _mpap_job
-     _mpap_do1step
-       __mpap_step1 *
-       __mpap_step2 *
-       __mpap_step3 *
-       __mpap_step4 *
+     _mpap_homming
+       _mpap_do1step
+         __mpap_step1 *
+         __mpap_step2 *
+         __mpap_step3 *
+         __mpap_step4 *
+     _mpap_normal_mode
+       _mpap_do1step
+         __mpap_step1 *
+         __mpap_step2 *
+         __mpap_step3 *
+         __mpap_step4 *
+   _mpap_setupToHomming
+     _mpap_setupToTurn
+       ___wmul (ARG)
+   _mpap_stop
+     __mpap_off
    _nozzle_moveto
      ___wmul
      _mpap_setupToTurn
@@ -1051,64 +1558,111 @@ BANK1              100      0       0       7        0.0%
 BITBANK0            A0      0       0       4        0.0%
 BANK0               A0      0       0       5        0.0%
 BITCOMRAM           5F      0       0       0        0.0%
-COMRAM              5F      C      1C       1       29.5%
+COMRAM              5F      D      21       1       34.7%
 BITSFR               0      0       0     200        0.0%
 SFR                  0      0       0     200        0.0%
 STACK                0      0       0       2        0.0%
 NULL                 0      0       0       0        0.0%
-ABS                  0      0      1C      20        0.0%
-DATA                 0      0      1C       3        0.0%
+ABS                  0      0      21      20        0.0%
+DATA                 0      0      21       3        0.0%
 CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V2.05 build -831301201 
-Symbol Table                                                                                   Mon Jul  1 20:26:44 2019
+Symbol Table                                                                                   Tue Jul  2 03:25:01 2019
 
-                            l75 7EF6                              l77 7EFA                              l97 7F72  
-                            u38 7F86                              u39 7F9A                     __CFG_BOR$ON 000000  
-           ___wmul@multiplicand 0003                     __CFG_BORV$3 000000                             l902 7FAC  
-                           l986 7FEA                             u107 7FF4                             tosl 000FFD  
-                           wreg 000FE8                    __CFG_LVP$OFF 000000                    __CFG_WDT$OFF 000000  
-                          _LATA 000F89                            _LATB 000F8A                            _LATC 000F8B  
-                          _LATD 000F8C                    __CFG_PWRT$ON 000000                            _main 7FB6  
-                          _mpap 000D                            fsr2h 000FDA                            fsr1l 000FE1  
-                          fsr2l 000FD9                   _nozzle_moveto 7EA6                            prodh 000FF4  
-                          prodl 000FF3                            start 0000                   __CFG_IESO$OFF 000000  
-                 __CFG_MCLRE$ON 000000                    ___param_bank 000000                   __CFG_PLLDIV$5 000000  
-                         ?_main 0001                           _CMCON 000FB4                   __CFG_USBDIV$2 000000  
-                         _TRISA 000F92                           _TRISB 000F93                           _TRISC 000F94  
-                         _TRISD 000F95                  __CFG_FCMEN$OFF 000000                           pclath 000FFA  
-                         tablat 000FF5                           status 000FD8                  ?_nozzle_moveto 0001  
-          __size_of__mpap_step1 000A            __size_of__mpap_step2 000A            __size_of__mpap_step3 000A  
-          __size_of__mpap_step4 000A                 __initialization 7F00                    __end_of_main 8000  
-                        ??_main 000C                   mpap_do1step@i 0014                   __activetblptr 000002  
-                        _ADCON1 000FC1                  __CFG_VREGEN$ON 000000                          ___wmul 7E80  
-                        clear_0 7F26                __end_of_mpap_job 7F74        __end_of_mpap_setupToTurn 7F00  
-                  __pdataCOMRAM 0015                          tblptrh 000FF7                          tblptrl 000FF6  
-                        tblptru 000FF8                 ??_nozzle_moveto 000B                      __accesstop 0060  
-       __end_of__initialization 7F2C                 __CFG_PBADEN$OFF 000000                   ?_mpap_do1step 0001  
-                 ___rparam_used 000001                  __pcstackCOMRAM 0001                  mpap_do1step@KI 0001  
-                ??_mpap_do1step 0001                         ?___wmul 0001                       ?_mpap_job 0001  
-                       __Hparam 0000                         __Lparam 0000                 __size_of___wmul 0026  
-                       __pcinit 7F00                         __ramtop 0800                         __ptext0 7FB6  
-                       __ptext1 7EA6                         __ptext2 7ECC                         __ptext3 7E80  
-                       __ptext4 7F36                         __ptext5 7F74                         __ptext6 7E76  
-                       __ptext7 7E6C                         __ptext8 7E62                         __ptext9 7E58  
-          end_of_initialization 7F2C                   ??__mpap_step1 0001                   ??__mpap_step2 0001  
-                 ??__mpap_step3 0001                   ??__mpap_step4 0001                   __Lmediumconst 0000  
-                    ??_mpap_job 0002                         postdec1 000FE5                         postdec2 000FDD  
-                       postinc0 000FEE                         postinc2 000FDE            __end_of_mpap_do1step 7FB6  
-             ?_mpap_setupToTurn 0007              ??_mpap_setupToTurn 0009             nozzle_moveto@nozzle 000B  
-           __end_of__mpap_step1 7E6C             __end_of__mpap_step2 7E76             __end_of__mpap_step3 7E80  
-           __end_of__mpap_step4 7E62                  __end_of___wmul 7EA6                   __pidataCOMRAM 7E50  
-           start_initialization 7F00           __end_of_nozzle_moveto 7ECC                        ??___wmul 0005  
-                   __pbssCOMRAM 000D                     __mpap_step1 7E62                     __mpap_step2 7E6C  
-                   __mpap_step3 7E76                     __mpap_step4 7E58               __size_of_mpap_job 003E  
-         __size_of_mpap_do1step 0042                       _mpap_step 0015                  ___wmul@product 0005  
-                  _mpap_do1step 7F74               ___wmul@multiplier 0001                       copy_data0 7F14  
-     __size_of_mpap_setupToTurn 0034                        __Hrparam 0000                        __Lrparam 0000  
-                      __ptext10 0000                   __size_of_main 004A  mpap_setupToTurn@absPos_insteps 0007  
-                      _mpap_job 7F36           __CFG_CPUDIV$OSC1_PLL2 000000                    ?__mpap_step1 0001  
-                  ?__mpap_step2 0001                    ?__mpap_step3 0001                    ?__mpap_step4 0001  
-           _mpap_setupToTurn$58 0009          __size_of_nozzle_moveto 0026              __CFG_FOSC$HSPLL_HS 000000  
-              _mpap_setupToTurn 7ECC  
+          ??_mpap_setupToHomming 000B                               l94 7E02  
+                             l96 7E06                               u18 7E9A  
+                             u19 7EAE              ___wmul@multiplicand 0003  
+                    __CFG_BORV$3 000000                              l119 7F1C  
+                            l127 7E86                              l951 7EC0  
+                            l979 7F00                              u227 7F5E  
+                            u237 7F88                              u247 7F9C  
+                            u257 7FC0                              u267 7FDA  
+                            u277 7FF2                     __CFG_BOR$OFF 000000  
+                            tosl 000FFD                              wreg 000FE8  
+                   __CFG_LVP$OFF 000000                     __CFG_WDT$OFF 000000  
+                           l1021 7DA0                             l1025 7DAE  
+                           l1171 7FCA                             l1163 7FAE  
+                           l1147 7F6E                             l1173 7FCE  
+                           l1157 7F82                             l1159 7F92  
+                           _LATA 000F89                             _LATB 000F8A  
+                           _LATC 000F8B                             _LATD 000F8C  
+                           _LATE 000F8D                     __CFG_PWRT$ON 000000  
+                           _main 7F20                             _mpap 000E  
+                           fsr2h 000FDA                             fsr1l 000FE1  
+                           fsr2l 000FD9                    _nozzle_moveto 7DBA  
+                           prodh 000FF4                             prodl 000FF3  
+                           start 0000                    __CFG_IESO$OFF 000000  
+                  __CFG_MCLRE$ON 000000                     ___param_bank 000000  
+                  __CFG_PLLDIV$5 000000                            ?_main 0001  
+                          _PORTE 000F84                    __CFG_USBDIV$2 000000  
+                          _TRISA 000F92                            _TRISB 000F93  
+                          _TRISC 000F94                            _TRISD 000F95  
+                          _TRISE 000F96                   __CFG_FCMEN$OFF 000000  
+                          pclath 000FFA                            tablat 000FF5  
+                          status 000FD8                   ?_nozzle_moveto 0001  
+           __size_of__mpap_step1 000A             __size_of__mpap_step2 000A  
+           __size_of__mpap_step3 000A             __size_of__mpap_step4 000A  
+                __initialization 7E14                     __end_of_main 8000  
+                         ??_main 000C                    mpap_do1step@i 0016  
+                  __activetblptr 000002                           _ADCON1 000FC1  
+                 __CFG_VREGEN$ON 000000         __end_of_mpap_normal_mode 7E88  
+                         ___wmul 7D6C                           clear_0 7E3A  
+               __end_of_mpap_job 7DBA         __end_of_mpap_setupToTurn 7E14  
+                   __pdataCOMRAM 0018                           tblptrh 000FF7  
+                         tblptrl 000FF6                           tblptru 000FF8  
+                ??_nozzle_moveto 000B                       __accesstop 0060  
+        __end_of__initialization 7E40                  __CFG_PBADEN$OFF 000000  
+                  ?_mpap_do1step 0001                    ___rparam_used 000001  
+                 __pcstackCOMRAM 0001                    ?_mpap_homming 0001  
+             __size_of__mpap_off 000A                   mpap_do1step@KI 0001  
+                 ??_mpap_do1step 0001      __end_of_mpap_setupToHomming 7D6C  
+                 ??_mpap_homming 0002               __size_of_mpap_stop 000E  
+                        ?___wmul 0001                __end_of__mpap_off 7D42  
+                      ?_mpap_job 0001                          __Hparam 0000  
+                        __Lparam 0000                  __size_of___wmul 0026  
+                        __pcinit 7E14                          __ramtop 0800  
+                        __ptext0 7F20                          __ptext1 7DBA  
+                        __ptext2 7D6C                          __ptext3 7D4C  
+                        __ptext4 7D38                          __ptext5 7D5A  
+                        __ptext6 7DE4                          __ptext7 7D92  
+                        __ptext8 7E4A                          __ptext9 7ECA  
+              __end_of_mpap_stop 7D5A             end_of_initialization 7E40  
+                  ??__mpap_step1 0001                    ??__mpap_step2 0001  
+                  ??__mpap_step3 0001                    ??__mpap_step4 0001  
+                  __Lmediumconst 0000                       ??_mpap_job 0004  
+              ?_mpap_normal_mode 0001                          postdec1 000FE5  
+             ??_mpap_normal_mode 0002                          postinc0 000FEE  
+                        postinc2 000FDE             __end_of_mpap_do1step 7ECA  
+              ?_mpap_setupToTurn 0007               ??_mpap_setupToTurn 0009  
+           __end_of_mpap_homming 7F20              nozzle_moveto@nozzle 000B  
+            __end_of__mpap_step1 7D24              __end_of__mpap_step2 7D2E  
+            __end_of__mpap_step3 7D38              __end_of__mpap_step4 7D1A  
+mpap_setupToTurn@numSteps_tomove 0007                   __end_of___wmul 7D92  
+                  __pidataCOMRAM 7D42              start_initialization 7E14  
+          __end_of_nozzle_moveto 7DE4                         ??___wmul 0005  
+                    __pbssCOMRAM 000E                      __mpap_step1 7D1A  
+                    __mpap_step2 7D24                      __mpap_step3 7D2E  
+                    __mpap_step4 7D10                        __mpap_off 7D38  
+              __size_of_mpap_job 0028            __size_of_mpap_do1step 0042  
+   __size_of_mpap_setupToHomming 0012            __size_of_mpap_homming 0056  
+                      _mpap_step 0018                        _mpap_stop 7D4C  
+                 ___wmul@product 0005                     _mpap_do1step 7E88  
+                     ?__mpap_off 0001                     _mpap_homming 7ECA  
+              ___wmul@multiplier 0001        __size_of_mpap_normal_mode 003E  
+                      copy_data0 7E28              mpap_homming@cod_ret 0003  
+                     ?_mpap_stop 0001        __size_of_mpap_setupToTurn 0030  
+                       __Hrparam 0000                         __Lrparam 0000  
+                       __ptext10 7E88                         __ptext11 7D2E  
+                       __ptext12 7D24                         __ptext13 7D1A  
+                       __ptext14 7D10                         __ptext15 0000  
+                  __size_of_main 00E0                         _mpap_job 7D92  
+                       _mpap_off 0020                      ??__mpap_off 0001  
+                       _pulsonic 0017            __CFG_CPUDIV$OSC1_PLL2 000000  
+            _mpap_setupToHomming 7D5A                      ??_mpap_stop 0001  
+                   ?__mpap_step1 0001                     ?__mpap_step2 0001  
+                   ?__mpap_step3 0001                     ?__mpap_step4 0001  
+            _mpap_setupToTurn$84 0009             ?_mpap_setupToHomming 0001  
+         __size_of_nozzle_moveto 002A                 _mpap_normal_mode 7E4A  
+             __CFG_FOSC$HSPLL_HS 000000                 _mpap_setupToTurn 7DE4  

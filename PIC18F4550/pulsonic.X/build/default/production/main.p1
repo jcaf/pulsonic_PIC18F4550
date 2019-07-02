@@ -1,12 +1,24 @@
 Version 3.2 HI-TECH Software Intermediate Code
+"27 main.c
+[s S368 :1 `uc 1 :7 `uc 1 ]
+[n S368 _pulsonic_flags mpap_home_sensor __a ]
+"25
+[u S367 `S368 1 `uc 1 ]
+[n S367 _pulsonic_errors flag e ]
+"23
+[s S366 `S367 1 ]
+[n S366 _pulsonic errors ]
 "3263 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
 [v _LATD `Vuc ~T0 @X0 0 e@3980 ]
 [v F3260 `(v ~T0 @X0 0 tf ]
-"118 main.c
-[s S418 `i 1 `i 1 `i 1 `c 1 ]
-[n S418 _mpap numSteps_current counter_steps numSteps_tomove KI ]
-"3185 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
-[v _LATC `Vuc ~T0 @X0 0 e@3979 ]
+"140 main.c
+[s S434 `i 1 `i 1 `i 1 `c 1 `c 1 ]
+[n S434 _mpap numSteps_current counter_steps numSteps_tomove KI mode ]
+"177
+[c E3298 0 1 2 3 .. ]
+[n E3298 MPAP_MODES IDLE_MODE STALL_MODE HOMMING_MODE NORMAL_MODE  ]
+"2826 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
+[v _PORTE `Vuc ~T0 @X0 0 e@3972 ]
 [p mainexit ]
 "3625
 [v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
@@ -14,12 +26,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATB `Vuc ~T0 @X0 0 e@3978 ]
 "6581
 [v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
-"5587
-[v _CMCON `Vuc ~T0 @X0 0 e@4020 ]
 "3427
 [v _TRISA `Vuc ~T0 @X0 0 e@3986 ]
 "2973
 [v _LATA `Vuc ~T0 @X0 0 e@3977 ]
+"3185
+[v _LATC `Vuc ~T0 @X0 0 e@3979 ]
+"3375
+[v _LATE `Vuc ~T0 @X0 0 e@3981 ]
+"4223
+[v _TRISE `Vuc ~T0 @X0 0 e@3990 ]
 "4001
 [v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
 "3847
@@ -3544,21 +3560,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p x USBDIV=2 ]
 [p x FOSC=HSPLL_HS ]
 [p x FCMEN=OFF ]
-"14
 [p x IESO=OFF ]
 [p x PWRT=ON ]
-[p x BOR=ON ]
 [p x BORV=3 ]
 [p x VREGEN=ON ]
 [p x WDT=OFF ]
-"15
 [p x PBADEN=OFF ]
 [p x LVP=OFF ]
-"16
+"14
 [p x MCLRE=ON ]
-"17
+[p x BOR=OFF ]
+"15
 [p n 752 ]
-"18
+"16
 [p n 356 ]
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
@@ -3672,500 +3686,869 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;types.h: 8: typedef void (*PTRFX_retVOID_arg1_INT8_T)(int8_t);
 [; ;types.h: 9: typedef void (*PTRFX_retVOID_arg1_PCHAR)(char *);
 [; ;types.h: 10: typedef unsigned char BOOL;
-"69
+[; ;main.c: 23: struct _pulsonic
+[; ;main.c: 24: {
+[; ;main.c: 25: union _pulsonic_errors
+[; ;main.c: 26: {
+[; ;main.c: 27: struct _pulsonic_flags
+[; ;main.c: 28: {
+[; ;main.c: 29: unsigned mpap_home_sensor:1;
+[; ;main.c: 30: unsigned __a:7;
+[; ;main.c: 31: }flag;
+[; ;main.c: 32: uint8_t e;
+[; ;main.c: 33: }errors;
+[; ;main.c: 34: };
+"36
+[v _pulsonic `S366 ~T0 @X0 1 e ]
+[; ;main.c: 36: struct _pulsonic pulsonic;
+"84
 [v __mpap_step1 `(v ~T0 @X0 1 sf ]
-"70
+"85
 {
-[; ;main.c: 69: static void _mpap_step1(void)
-[; ;main.c: 70: {
+[; ;main.c: 84: static void _mpap_step1(void)
+[; ;main.c: 85: {
 [e :U __mpap_step1 ]
 [f ]
-[; ;main.c: 71: do{LATD &= ~(1<<0);}while(0);
-"71
-[e :U 369 ]
+[; ;main.c: 86: do{LATD &= ~(1<<0);}while(0);
+"86
+[e :U 372 ]
 {
 [e =& _LATD -> ~ << -> 1 `i -> 0 `i `uc ]
 }
-[e :U 368 ]
-[; ;main.c: 72: do{LATD &= ~(1<<1);}while(0);
-"72
-[e :U 372 ]
+[e :U 371 ]
+[; ;main.c: 87: do{LATD &= ~(1<<1);}while(0);
+"87
+[e :U 375 ]
 {
 [e =& _LATD -> ~ << -> 1 `i -> 1 `i `uc ]
 }
-[e :U 371 ]
-[; ;main.c: 73: do{LATD &= ~(1<<2);}while(0);
-"73
-[e :U 375 ]
+[e :U 374 ]
+[; ;main.c: 88: do{LATD &= ~(1<<2);}while(0);
+"88
+[e :U 378 ]
 {
 [e =& _LATD -> ~ << -> 1 `i -> 2 `i `uc ]
 }
-[e :U 374 ]
-[; ;main.c: 74: do{LATD |= 1<<3;}while(0);
-"74
-[e :U 378 ]
+[e :U 377 ]
+[; ;main.c: 89: do{LATD |= 1<<3;}while(0);
+"89
+[e :U 381 ]
 {
 [e =| _LATD -> << -> 1 `i -> 3 `i `uc ]
 }
-[e :U 377 ]
-[; ;main.c: 75: }
-"75
-[e :UE 366 ]
+[e :U 380 ]
+[; ;main.c: 90: }
+"90
+[e :UE 369 ]
 }
-"76
+"91
 [v __mpap_step2 `(v ~T0 @X0 1 sf ]
-"77
+"92
 {
-[; ;main.c: 76: static void _mpap_step2(void)
-[; ;main.c: 77: {
+[; ;main.c: 91: static void _mpap_step2(void)
+[; ;main.c: 92: {
 [e :U __mpap_step2 ]
 [f ]
-[; ;main.c: 78: do{LATD &= ~(1<<0);}while(0);
-"78
-[e :U 382 ]
+[; ;main.c: 93: do{LATD &= ~(1<<0);}while(0);
+"93
+[e :U 385 ]
 {
 [e =& _LATD -> ~ << -> 1 `i -> 0 `i `uc ]
 }
-[e :U 381 ]
-[; ;main.c: 79: do{LATD &= ~(1<<1);}while(0);
-"79
-[e :U 385 ]
+[e :U 384 ]
+[; ;main.c: 94: do{LATD &= ~(1<<1);}while(0);
+"94
+[e :U 388 ]
 {
 [e =& _LATD -> ~ << -> 1 `i -> 1 `i `uc ]
 }
-[e :U 384 ]
-[; ;main.c: 80: do{LATD |= 1<<2;}while(0);
-"80
-[e :U 388 ]
+[e :U 387 ]
+[; ;main.c: 95: do{LATD |= 1<<2;}while(0);
+"95
+[e :U 391 ]
 {
 [e =| _LATD -> << -> 1 `i -> 2 `i `uc ]
 }
-[e :U 387 ]
-[; ;main.c: 81: do{LATD &= ~(1<<3);}while(0);
-"81
-[e :U 391 ]
+[e :U 390 ]
+[; ;main.c: 96: do{LATD &= ~(1<<3);}while(0);
+"96
+[e :U 394 ]
 {
 [e =& _LATD -> ~ << -> 1 `i -> 3 `i `uc ]
 }
-[e :U 390 ]
-[; ;main.c: 82: }
-"82
-[e :UE 379 ]
+[e :U 393 ]
+[; ;main.c: 97: }
+"97
+[e :UE 382 ]
 }
-"83
+"98
 [v __mpap_step3 `(v ~T0 @X0 1 sf ]
-"84
+"99
 {
-[; ;main.c: 83: static void _mpap_step3(void)
-[; ;main.c: 84: {
+[; ;main.c: 98: static void _mpap_step3(void)
+[; ;main.c: 99: {
 [e :U __mpap_step3 ]
 [f ]
-[; ;main.c: 85: do{LATD &= ~(1<<0);}while(0);
-"85
-[e :U 395 ]
+[; ;main.c: 100: do{LATD &= ~(1<<0);}while(0);
+"100
+[e :U 398 ]
 {
 [e =& _LATD -> ~ << -> 1 `i -> 0 `i `uc ]
 }
-[e :U 394 ]
-[; ;main.c: 86: do{LATD |= 1<<1;}while(0);
-"86
-[e :U 398 ]
+[e :U 397 ]
+[; ;main.c: 101: do{LATD |= 1<<1;}while(0);
+"101
+[e :U 401 ]
 {
 [e =| _LATD -> << -> 1 `i -> 1 `i `uc ]
 }
-[e :U 397 ]
-[; ;main.c: 87: do{LATD &= ~(1<<2);}while(0);
-"87
-[e :U 401 ]
+[e :U 400 ]
+[; ;main.c: 102: do{LATD &= ~(1<<2);}while(0);
+"102
+[e :U 404 ]
 {
 [e =& _LATD -> ~ << -> 1 `i -> 2 `i `uc ]
 }
-[e :U 400 ]
-[; ;main.c: 88: do{LATD &= ~(1<<3);}while(0);
-"88
-[e :U 404 ]
+[e :U 403 ]
+[; ;main.c: 103: do{LATD &= ~(1<<3);}while(0);
+"103
+[e :U 407 ]
 {
 [e =& _LATD -> ~ << -> 1 `i -> 3 `i `uc ]
 }
-[e :U 403 ]
-[; ;main.c: 89: }
-"89
-[e :UE 392 ]
+[e :U 406 ]
+[; ;main.c: 104: }
+"104
+[e :UE 395 ]
 }
-"90
+"105
 [v __mpap_step4 `(v ~T0 @X0 1 sf ]
-"91
+"106
 {
-[; ;main.c: 90: static void _mpap_step4(void)
-[; ;main.c: 91: {
+[; ;main.c: 105: static void _mpap_step4(void)
+[; ;main.c: 106: {
 [e :U __mpap_step4 ]
 [f ]
-[; ;main.c: 92: do{LATD |= 1<<0;}while(0);
-"92
-[e :U 408 ]
+[; ;main.c: 107: do{LATD |= 1<<0;}while(0);
+"107
+[e :U 411 ]
 {
 [e =| _LATD -> << -> 1 `i -> 0 `i `uc ]
 }
-[e :U 407 ]
-[; ;main.c: 93: do{LATD &= ~(1<<1);}while(0);
-"93
-[e :U 411 ]
+[e :U 410 ]
+[; ;main.c: 108: do{LATD &= ~(1<<1);}while(0);
+"108
+[e :U 414 ]
 {
 [e =& _LATD -> ~ << -> 1 `i -> 1 `i `uc ]
 }
-[e :U 410 ]
-[; ;main.c: 94: do{LATD &= ~(1<<2);}while(0);
-"94
-[e :U 414 ]
+[e :U 413 ]
+[; ;main.c: 109: do{LATD &= ~(1<<2);}while(0);
+"109
+[e :U 417 ]
 {
 [e =& _LATD -> ~ << -> 1 `i -> 2 `i `uc ]
 }
-[e :U 413 ]
-[; ;main.c: 95: do{LATD &= ~(1<<3);}while(0);
-"95
-[e :U 417 ]
+[e :U 416 ]
+[; ;main.c: 110: do{LATD &= ~(1<<3);}while(0);
+"110
+[e :U 420 ]
 {
 [e =& _LATD -> ~ << -> 1 `i -> 3 `i `uc ]
 }
-[e :U 416 ]
-[; ;main.c: 96: }
-"96
-[e :UE 405 ]
+[e :U 419 ]
+[; ;main.c: 111: }
+"111
+[e :UE 408 ]
 }
-"100
+"115
 [v _mpap_step `*F3260 ~T0 @X0 -> 4 `i e ]
 [i _mpap_step
 :U ..
-"103
+"118
 &U __mpap_step1
 &U __mpap_step2
 &U __mpap_step3
-"105
+"120
 &U __mpap_step4
 ..
 ]
-[; ;main.c: 100: PTRFX_retVOID mpap_step[4] =
-[; ;main.c: 101: {
-[; ;main.c: 103: _mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
-[; ;main.c: 105: };
-[; ;main.c: 118: struct _mpap
-[; ;main.c: 119: {
-[; ;main.c: 120: int16_t numSteps_current;
-[; ;main.c: 121: int16_t counter_steps;
-[; ;main.c: 122: int16_t numSteps_tomove;
-[; ;main.c: 123: int8_t KI;
-[; ;main.c: 129: };
-"130
-[v _mpap `VS418 ~T0 @X0 1 e ]
-[; ;main.c: 130: volatile struct _mpap mpap;
-"135
-[v _mpap_setupToTurn `(v ~T0 @X0 1 ef1`i ]
-"136
+[; ;main.c: 115: PTRFX_retVOID mpap_step[4] =
+[; ;main.c: 116: {
+[; ;main.c: 118: _mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
+[; ;main.c: 120: };
+[v F3296 `(v ~T0 @X0 1 tf ]
+"122
+[v __mpap_off `TF3296 ~T0 @X0 1 s ]
+"123
 {
-[; ;main.c: 135: void mpap_setupToTurn(int16_t absPos_insteps)
-[; ;main.c: 136: {
-[e :U _mpap_setupToTurn ]
-"135
-[v _absPos_insteps `i ~T0 @X0 1 r1 ]
-"136
+[; ;main.c: 122: static inline void _mpap_off(void)
+[; ;main.c: 123: {
+[e :U __mpap_off ]
 [f ]
-[; ;main.c: 137: mpap.numSteps_tomove = absPos_insteps - mpap.numSteps_current;
-"137
-[e = . _mpap 2 - _absPos_insteps . _mpap 0 ]
-[; ;main.c: 138: if (mpap.numSteps_tomove !=0)
-"138
-[e $ ! != . _mpap 2 -> 0 `i 420  ]
-[; ;main.c: 139: {
-"139
-{
-[; ;main.c: 140: mpap.counter_steps = 0;
-"140
-[e = . _mpap 1 -> 0 `i ]
-[; ;main.c: 141: mpap.KI = (mpap.numSteps_tomove<0)?-1:1;
-"141
-[e = . _mpap 3 -> ? < . _mpap 2 -> 0 `i : -U -> 1 `i -> 1 `i `c ]
-"143
-}
-[e :U 420 ]
-[; ;main.c: 143: }
-[; ;main.c: 144: }
-"144
-[e :UE 419 ]
-}
-"145
-[v _mpap_stop `(v ~T0 @X0 1 ef ]
-"146
-{
-[; ;main.c: 145: void mpap_stop(void)
-[; ;main.c: 146: {
-[e :U _mpap_stop ]
-[f ]
-[; ;main.c: 147: mpap.numSteps_tomove = 0x00;
-"147
-[e = . _mpap 2 -> 0 `i ]
-[; ;main.c: 149: do{do{LATC |= 1<<1;}while(0);}while(0);
-"149
+[; ;main.c: 124: do{LATD &= ~(1<<0);}while(0);
+"124
 [e :U 424 ]
 {
-[e :U 427 ]
-{
-[e =| _LATC -> << -> 1 `i -> 1 `i `uc ]
-}
-[e :U 426 ]
+[e =& _LATD -> ~ << -> 1 `i -> 0 `i `uc ]
 }
 [e :U 423 ]
-[; ;main.c: 150: }
-"150
-[e :UE 421 ]
+[; ;main.c: 125: do{LATD &= ~(1<<1);}while(0);
+"125
+[e :U 427 ]
+{
+[e =& _LATD -> ~ << -> 1 `i -> 1 `i `uc ]
 }
-"153
-[v _mpap_do1step `(v ~T0 @X0 1 ef1`c ]
-"154
+[e :U 426 ]
+[; ;main.c: 126: do{LATD &= ~(1<<2);}while(0);
+"126
+[e :U 430 ]
 {
-[; ;main.c: 153: void mpap_do1step(int8_t KI)
-[; ;main.c: 154: {
-[e :U _mpap_do1step ]
-"153
-[v _KI `c ~T0 @X0 1 r1 ]
-"154
-[f ]
-"155
-[v F3297 `c ~T0 @X0 1 s i ]
-[; ;main.c: 155: static int8_t i;
-[; ;main.c: 156: mpap_step[i]();
-"156
-[e ( *U *U + &U _mpap_step * -> -> F3297 `uc `ux -> -> # *U &U _mpap_step `ui `ux ..  ]
-[; ;main.c: 157: i+=KI;
-"157
-[e =+ F3297 _KI ]
-[; ;main.c: 158: if (i>3){i=0;}
-"158
-[e $ ! > -> F3297 `i -> 3 `i 429  ]
-{
-[e = F3297 -> -> 0 `i `c ]
+[e =& _LATD -> ~ << -> 1 `i -> 2 `i `uc ]
 }
 [e :U 429 ]
-[; ;main.c: 159: if (i<0){i=3;}
-"159
-[e $ ! < -> F3297 `i -> 0 `i 430  ]
-{
-[e = F3297 -> -> 3 `i `c ]
-}
-[e :U 430 ]
-[; ;main.c: 160: }
-"160
-[e :UE 428 ]
-}
-"171
-[v _mpap_job `(c ~T0 @X0 1 ef ]
-"172
-{
-[; ;main.c: 171: int8_t mpap_job(void)
-[; ;main.c: 172: {
-[e :U _mpap_job ]
-[f ]
-"173
-[v _cod_ret `c ~T0 @X0 1 a ]
-[; ;main.c: 173: int8_t cod_ret = 0;
-[e = _cod_ret -> -> 0 `i `c ]
-[; ;main.c: 176: if (mpap.numSteps_tomove!=0)
-"176
-[e $ ! != . _mpap 2 -> 0 `i 432  ]
-[; ;main.c: 177: {
-"177
-{
-[; ;main.c: 178: mpap_do1step(mpap.KI);
-"178
-[e ( _mpap_do1step (1 . _mpap 3 ]
-[; ;main.c: 180: mpap.counter_steps+= mpap.KI;
-"180
-[e =+ . _mpap 1 -> . _mpap 3 `i ]
-[; ;main.c: 181: mpap.numSteps_current += mpap.counter_steps;
-"181
-[e =+ . _mpap 0 . _mpap 1 ]
-[; ;main.c: 182: if ( mpap.counter_steps == mpap.numSteps_tomove)
-"182
-[e $ ! == . _mpap 1 . _mpap 2 433  ]
-[; ;main.c: 183: {
-"183
-{
-[; ;main.c: 184: mpap.numSteps_tomove = 0;
-"184
-[e = . _mpap 2 -> 0 `i ]
-[; ;main.c: 185: cod_ret = 1;
-"185
-[e = _cod_ret -> -> 1 `i `c ]
-"186
-}
+[; ;main.c: 127: do{LATD &= ~(1<<3);}while(0);
+"127
 [e :U 433 ]
-"187
+{
+[e =& _LATD -> ~ << -> 1 `i -> 3 `i `uc ]
 }
 [e :U 432 ]
-[; ;main.c: 186: }
-[; ;main.c: 187: }
-[; ;main.c: 188: return cod_ret;
-"188
-[e ) _cod_ret ]
-[e $UE 431  ]
-[; ;main.c: 189: }
-"189
-[e :UE 431 ]
+[; ;main.c: 128: }
+"128
+[e :UE 421 ]
 }
-"211
-[v _nozzle_moveto `(v ~T0 @X0 1 ef1`c ]
-"212
+"130
+[v _mpap_off `*F3260 ~T0 @X0 1 e ]
+[i _mpap_off
+-> &U __mpap_off `*F3260
+]
+[; ;main.c: 130: PTRFX_retVOID mpap_off= {_mpap_off};
+[; ;main.c: 133: enum MPAP_MODES{
+[; ;main.c: 134: IDLE_MODE=0,
+[; ;main.c: 135: STALL_MODE,
+[; ;main.c: 136: HOMMING_MODE,
+[; ;main.c: 137: NORMAL_MODE
+[; ;main.c: 138: };
+[; ;main.c: 140: struct _mpap
+[; ;main.c: 141: {
+[; ;main.c: 142: int16_t numSteps_current;
+[; ;main.c: 143: int16_t counter_steps;
+[; ;main.c: 144: int16_t numSteps_tomove;
+[; ;main.c: 145: int8_t KI;
+[; ;main.c: 152: int8_t mode;
+[; ;main.c: 153: };
+"154
+[v _mpap `VS434 ~T0 @X0 1 e ]
+[; ;main.c: 154: volatile struct _mpap mpap;
+"160
+[v _mpap_setupToTurn `(v ~T0 @X0 1 ef1`i ]
+"161
 {
-[; ;main.c: 211: void nozzle_moveto(int8_t nozzle)
-[; ;main.c: 212: {
-[e :U _nozzle_moveto ]
-"211
-[v _nozzle `c ~T0 @X0 1 r1 ]
-"212
+[; ;main.c: 160: void mpap_setupToTurn(int16_t numSteps_tomove)
+[; ;main.c: 161: {
+[e :U _mpap_setupToTurn ]
+"160
+[v _numSteps_tomove `i ~T0 @X0 1 r1 ]
+"161
 [f ]
-[; ;main.c: 213: mpap_setupToTurn( nozzle * 200);
-"213
-[e ( _mpap_setupToTurn (1 * -> _nozzle `i -> 200 `i ]
-[; ;main.c: 214: }
-"214
-[e :UE 434 ]
+[; ;main.c: 163: if (numSteps_tomove !=0)
+"163
+[e $ ! != _numSteps_tomove -> 0 `i 436  ]
+[; ;main.c: 164: {
+"164
+{
+[; ;main.c: 165: mpap.numSteps_tomove = numSteps_tomove;
+"165
+[e = . _mpap 2 _numSteps_tomove ]
+[; ;main.c: 166: mpap.KI = (mpap.numSteps_tomove<0)? -1: 1;
+"166
+[e = . _mpap 3 -> ? < . _mpap 2 -> 0 `i : -U -> 1 `i -> 1 `i `c ]
+[; ;main.c: 168: mpap.counter_steps = 0;
+"168
+[e = . _mpap 1 -> 0 `i ]
+"170
 }
-"215
-[v _nozzle_get_pos `(c ~T0 @X0 1 ef ]
-"216
-{
-[; ;main.c: 215: int8_t nozzle_get_pos(void)
-[; ;main.c: 216: {
-[e :U _nozzle_get_pos ]
-[f ]
-[; ;main.c: 217: return (mpap.numSteps_current/200);
-"217
-[e ) -> / . _mpap 0 -> 200 `i `c ]
-[e $UE 435  ]
-[; ;main.c: 218: }
-"218
+[e :U 436 ]
+[; ;main.c: 170: }
+[; ;main.c: 171: }
+"171
 [e :UE 435 ]
 }
-[v $root$_main `(v ~T0 @X0 0 e ]
-"220
-[v _main `(v ~T0 @X0 1 ef ]
-"221
+"172
+[v _mpap_setupToHomming `(v ~T0 @X0 1 ef ]
+"173
 {
-[; ;main.c: 220: void main(void)
-[; ;main.c: 221: {
+[; ;main.c: 172: void mpap_setupToHomming(void)
+[; ;main.c: 173: {
+[e :U _mpap_setupToHomming ]
+[f ]
+[; ;main.c: 174: mpap_setupToTurn( -1 *( (18*200) +20));
+"174
+[e ( _mpap_setupToTurn (1 * -U -> 1 `i + * -> 18 `i -> 200 `i -> 20 `i ]
+[; ;main.c: 177: mpap.mode = HOMMING_MODE;
+"177
+[e = . _mpap 4 -> . `E3298 2 `c ]
+[; ;main.c: 178: }
+"178
+[e :UE 437 ]
+}
+"179
+[v _nozzle_moveto `(v ~T0 @X0 1 ef1`c ]
+"180
+{
+[; ;main.c: 179: void nozzle_moveto(int8_t nozzle)
+[; ;main.c: 180: {
+[e :U _nozzle_moveto ]
+"179
+[v _nozzle `c ~T0 @X0 1 r1 ]
+"180
+[f ]
+[; ;main.c: 182: mpap_setupToTurn( (nozzle*200) - mpap.numSteps_current);
+"182
+[e ( _mpap_setupToTurn (1 - * -> _nozzle `i -> 200 `i . _mpap 0 ]
+[; ;main.c: 183: }
+"183
+[e :UE 438 ]
+}
+"184
+[v _nozzle_get_pos `(c ~T0 @X0 1 ef ]
+"185
+{
+[; ;main.c: 184: int8_t nozzle_get_pos(void)
+[; ;main.c: 185: {
+[e :U _nozzle_get_pos ]
+[f ]
+[; ;main.c: 186: return (mpap.numSteps_current/200);
+"186
+[e ) -> / . _mpap 0 -> 200 `i `c ]
+[e $UE 439  ]
+[; ;main.c: 187: }
+"187
+[e :UE 439 ]
+}
+"191
+[v _mpap_stop `(v ~T0 @X0 1 ef ]
+"192
+{
+[; ;main.c: 191: void mpap_stop(void)
+[; ;main.c: 192: {
+[e :U _mpap_stop ]
+[f ]
+[; ;main.c: 193: mpap.numSteps_tomove = 0x00;
+"193
+[e = . _mpap 2 -> 0 `i ]
+[; ;main.c: 194: mpap_off();
+"194
+[e ( *U _mpap_off ..  ]
+[; ;main.c: 196: }
+"196
+[e :UE 440 ]
+}
+"199
+[v _mpap_do1step `(v ~T0 @X0 1 ef1`c ]
+"200
+{
+[; ;main.c: 199: void mpap_do1step(int8_t KI)
+[; ;main.c: 200: {
+[e :U _mpap_do1step ]
+"199
+[v _KI `c ~T0 @X0 1 r1 ]
+"200
+[f ]
+"201
+[v F3322 `c ~T0 @X0 1 s i ]
+[; ;main.c: 201: static int8_t i;
+[; ;main.c: 202: mpap_step[i]();
+"202
+[e ( *U *U + &U _mpap_step * -> -> F3322 `uc `ux -> -> # *U &U _mpap_step `ui `ux ..  ]
+[; ;main.c: 203: i+=KI;
+"203
+[e =+ F3322 _KI ]
+[; ;main.c: 204: if (i>3){i=0;}
+"204
+[e $ ! > -> F3322 `i -> 3 `i 442  ]
+{
+[e = F3322 -> -> 0 `i `c ]
+}
+[e :U 442 ]
+[; ;main.c: 205: if (i<0){i=3;}
+"205
+[e $ ! < -> F3322 `i -> 0 `i 443  ]
+{
+[e = F3322 -> -> 3 `i `c ]
+}
+[e :U 443 ]
+[; ;main.c: 206: }
+"206
+[e :UE 441 ]
+}
+"219
+[v _mpap_homming `(c ~T0 @X0 1 ef ]
+"220
+{
+[; ;main.c: 219: int8_t mpap_homming(void)
+[; ;main.c: 220: {
+[e :U _mpap_homming ]
+[f ]
+"221
+[v _cod_ret `c ~T0 @X0 1 a ]
+[; ;main.c: 221: int8_t cod_ret = 0;
+[e = _cod_ret -> -> 0 `i `c ]
+[; ;main.c: 222: if (mpap.numSteps_tomove!=0)
+"222
+[e $ ! != . _mpap 2 -> 0 `i 445  ]
+[; ;main.c: 223: {
+"223
+{
+[; ;main.c: 224: mpap_do1step(mpap.KI);
+"224
+[e ( _mpap_do1step (1 . _mpap 3 ]
+[; ;main.c: 226: mpap.counter_steps+= mpap.KI;
+"226
+[e =+ . _mpap 1 -> . _mpap 3 `i ]
+[; ;main.c: 228: if (((PORTE & (1<<1))>>1) == 0)
+"228
+[e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 0 `i 446  ]
+[; ;main.c: 229: {
+"229
+{
+[; ;main.c: 230: mpap.numSteps_tomove = 0x0000;
+"230
+[e = . _mpap 2 -> 0 `i ]
+[; ;main.c: 231: cod_ret = 1;
+"231
+[e = _cod_ret -> -> 1 `i `c ]
+"232
+}
+[e :U 446 ]
+[; ;main.c: 232: }
+[; ;main.c: 233: if ( mpap.counter_steps == mpap.numSteps_tomove)
+"233
+[e $ ! == . _mpap 1 . _mpap 2 447  ]
+[; ;main.c: 234: {
+"234
+{
+[; ;main.c: 235: mpap.numSteps_tomove = 0x0000;
+"235
+[e = . _mpap 2 -> 0 `i ]
+[; ;main.c: 236: cod_ret = 1;
+"236
+[e = _cod_ret -> -> 1 `i `c ]
+[; ;main.c: 237: pulsonic.errors.flag.mpap_home_sensor = 1;
+"237
+[e = . . . _pulsonic 0 0 0 -> -> 1 `i `uc ]
+"238
+}
+[e :U 447 ]
+"239
+}
+[e :U 445 ]
+[; ;main.c: 238: }
+[; ;main.c: 239: }
+[; ;main.c: 240: return cod_ret;
+"240
+[e ) _cod_ret ]
+[e $UE 444  ]
+[; ;main.c: 241: }
+"241
+[e :UE 444 ]
+}
+"242
+[v _mpap_normal_mode `(c ~T0 @X0 1 ef ]
+"243
+{
+[; ;main.c: 242: int8_t mpap_normal_mode(void)
+[; ;main.c: 243: {
+[e :U _mpap_normal_mode ]
+[f ]
+"244
+[v _cod_ret `c ~T0 @X0 1 a ]
+[; ;main.c: 244: int8_t cod_ret = 0;
+[e = _cod_ret -> -> 0 `i `c ]
+[; ;main.c: 245: if (mpap.numSteps_tomove!=0)
+"245
+[e $ ! != . _mpap 2 -> 0 `i 449  ]
+[; ;main.c: 246: {
+"246
+{
+[; ;main.c: 247: mpap_do1step(mpap.KI);
+"247
+[e ( _mpap_do1step (1 . _mpap 3 ]
+[; ;main.c: 249: mpap.counter_steps+= mpap.KI;
+"249
+[e =+ . _mpap 1 -> . _mpap 3 `i ]
+[; ;main.c: 251: mpap.numSteps_current+= mpap.KI;
+"251
+[e =+ . _mpap 0 -> . _mpap 3 `i ]
+[; ;main.c: 253: if ( mpap.counter_steps == mpap.numSteps_tomove)
+"253
+[e $ ! == . _mpap 1 . _mpap 2 450  ]
+[; ;main.c: 254: {
+"254
+{
+[; ;main.c: 255: mpap.numSteps_tomove = 0;
+"255
+[e = . _mpap 2 -> 0 `i ]
+[; ;main.c: 256: cod_ret = 1;
+"256
+[e = _cod_ret -> -> 1 `i `c ]
+"257
+}
+[e :U 450 ]
+"258
+}
+[e :U 449 ]
+[; ;main.c: 257: }
+[; ;main.c: 258: }
+[; ;main.c: 259: }
+"259
+[e :UE 448 ]
+}
+"261
+[v _mpap_job `(c ~T0 @X0 1 ef ]
+"262
+{
+[; ;main.c: 261: int8_t mpap_job(void)
+[; ;main.c: 262: {
+[e :U _mpap_job ]
+[f ]
+"263
+[v _cod_ret `c ~T0 @X0 1 a ]
+[; ;main.c: 263: int8_t cod_ret;
+[; ;main.c: 265: if (mpap.mode == HOMMING_MODE)
+"265
+[e $ ! == -> . _mpap 4 `i -> . `E3298 2 `i 452  ]
+[; ;main.c: 266: cod_ret = mpap_homming();
+"266
+[e = _cod_ret ( _mpap_homming ..  ]
+[e $U 453  ]
+"267
+[e :U 452 ]
+[; ;main.c: 267: else if (mpap.mode == NORMAL_MODE)
+[e $ ! == -> . _mpap 4 `i -> . `E3298 3 `i 454  ]
+[; ;main.c: 268: cod_ret = mpap_normal_mode();
+"268
+[e = _cod_ret ( _mpap_normal_mode ..  ]
+[e $U 455  ]
+"270
+[e :U 454 ]
+[; ;main.c: 270: else if (mpap.mode == STALL_MODE)
+[e $ ! == -> . _mpap 4 `i -> . `E3298 1 `i 456  ]
+[; ;main.c: 271: mpap.mode = IDLE_MODE;
+"271
+[e = . _mpap 4 -> . `E3298 0 `c ]
+[e :U 456 ]
+"273
+[e :U 455 ]
+[e :U 453 ]
+[; ;main.c: 273: return cod_ret;
+[e ) _cod_ret ]
+[e $UE 451  ]
+[; ;main.c: 274: }
+"274
+[e :UE 451 ]
+}
+[v $root$_main `(v ~T0 @X0 0 e ]
+"278
+[v _main `(v ~T0 @X0 1 ef ]
+"279
+{
+[; ;main.c: 278: void main(void)
+[; ;main.c: 279: {
 [e :U _main ]
 [f ]
-[; ;main.c: 222: TRISB = 0x00;
-"222
+[; ;main.c: 280: TRISB = 0x00;
+"280
 [e = _TRISB -> -> 0 `i `uc ]
-[; ;main.c: 223: LATB = 0x10;
-"223
+[; ;main.c: 281: LATB = 0x10;
+"281
 [e = _LATB -> -> 16 `i `uc ]
-[; ;main.c: 225: ADCON1 = 0x0F;
-"225
+[; ;main.c: 283: ADCON1 = 0x0F;
+"283
 [e = _ADCON1 -> -> 15 `i `uc ]
-[; ;main.c: 226: CMCON=0xCF;
-"226
-[e = _CMCON -> -> 207 `i `uc ]
-[; ;main.c: 227: TRISA = 0;
-"227
+[; ;main.c: 285: TRISA = 0;
+"285
 [e = _TRISA -> -> 0 `i `uc ]
-[; ;main.c: 228: LATA= ~(0x01<<4);
-"228
+[; ;main.c: 286: LATA= ~(0x01<<4);
+"286
 [e = _LATA -> ~ << -> 1 `i -> 4 `i `uc ]
-[; ;main.c: 230: LATD=0;
-"230
-[e = _LATD -> -> 0 `i `uc ]
-[; ;main.c: 231: LATC=0x0;
-"231
+[; ;main.c: 288: LATA = 0;
+"288
+[e = _LATA -> -> 0 `i `uc ]
+[; ;main.c: 289: LATB = 0;
+"289
+[e = _LATB -> -> 0 `i `uc ]
+[; ;main.c: 290: LATC = 0;
+"290
 [e = _LATC -> -> 0 `i `uc ]
-[; ;main.c: 234: do{TRISD &= ~(1<<0);}while(0);
-"234
-[e :U 439 ]
+[; ;main.c: 291: LATD = 0;
+"291
+[e = _LATD -> -> 0 `i `uc ]
+[; ;main.c: 292: LATE = 0;
+"292
+[e = _LATE -> -> 0 `i `uc ]
+[; ;main.c: 294: do{LATE &= ~(1<<0);}while(0);
+"294
+[e :U 460 ]
+{
+[e =& _LATE -> ~ << -> 1 `i -> 0 `i `uc ]
+}
+[e :U 459 ]
+[; ;main.c: 295: do{TRISE &= ~(1<<0);}while(0);
+"295
+[e :U 463 ]
+{
+[e =& _TRISE -> ~ << -> 1 `i -> 0 `i `uc ]
+}
+[e :U 462 ]
+[; ;main.c: 298: do{TRISD &= ~(1<<0);}while(0);
+"298
+[e :U 466 ]
 {
 [e =& _TRISD -> ~ << -> 1 `i -> 0 `i `uc ]
 }
-[e :U 438 ]
-[; ;main.c: 235: do{TRISD &= ~(1<<1);}while(0);
-"235
-[e :U 442 ]
+[e :U 465 ]
+[; ;main.c: 299: do{TRISD &= ~(1<<1);}while(0);
+"299
+[e :U 469 ]
 {
 [e =& _TRISD -> ~ << -> 1 `i -> 1 `i `uc ]
 }
-[e :U 441 ]
-[; ;main.c: 236: do{TRISD &= ~(1<<2);}while(0);
-"236
-[e :U 445 ]
+[e :U 468 ]
+[; ;main.c: 300: do{TRISD &= ~(1<<2);}while(0);
+"300
+[e :U 472 ]
 {
 [e =& _TRISD -> ~ << -> 1 `i -> 2 `i `uc ]
 }
-[e :U 444 ]
-[; ;main.c: 237: do{TRISD &= ~(1<<3);}while(0);
-"237
-[e :U 448 ]
+[e :U 471 ]
+[; ;main.c: 301: do{TRISD &= ~(1<<3);}while(0);
+"301
+[e :U 475 ]
 {
 [e =& _TRISD -> ~ << -> 1 `i -> 3 `i `uc ]
 }
-[e :U 447 ]
-[; ;main.c: 240: do{do{LATC &= ~(1<<1);}while(0);}while(0);
-"240
-[e :U 451 ]
+[e :U 474 ]
+[; ;main.c: 303: do{do{LATC &= ~(1<<1);}while(0);}while(0);
+"303
+[e :U 478 ]
 {
-[e :U 454 ]
+[e :U 481 ]
 {
 [e =& _LATC -> ~ << -> 1 `i -> 1 `i `uc ]
 }
-[e :U 453 ]
+[e :U 480 ]
 }
-[e :U 450 ]
-[; ;main.c: 241: do{TRISC &= ~(1<<1);}while(0);
-"241
-[e :U 457 ]
+[e :U 477 ]
+[; ;main.c: 304: do{TRISC &= ~(1<<1);}while(0);
+"304
+[e :U 484 ]
 {
 [e =& _TRISC -> ~ << -> 1 `i -> 1 `i `uc ]
 }
-[e :U 456 ]
-[; ;main.c: 242: do{TRISC |= 1<<0;}while(0);
-"242
-[e :U 460 ]
-{
-[e =| _TRISC -> << -> 1 `i -> 0 `i `uc ]
-}
-[e :U 459 ]
-[; ;main.c: 244: nozzle_moveto(0);
-"244
-[e ( _nozzle_moveto (1 -> -> 0 `i `c ]
-[; ;main.c: 246: while (1)
-"246
-[e :U 462 ]
-[; ;main.c: 247: {
-"247
-{
-[; ;main.c: 248: mpap_job();
-"248
-[e ( _mpap_job ..  ]
-[; ;main.c: 249: _delay((unsigned long)((1)*(48000000UL/4000.0)));
-"249
+[e :U 483 ]
+[; ;main.c: 306: _delay((unsigned long)((1)*(48000000UL/4000.0)));
+"306
 [e ( __delay (1 -> * -> -> 1 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
-"250
+[; ;main.c: 307: do{TRISE |= 1<<1;}while(0);
+"307
+[e :U 487 ]
+{
+[e =| _TRISE -> << -> 1 `i -> 1 `i `uc ]
 }
-[e :U 461 ]
-"246
-[e $U 462  ]
-[e :U 463 ]
-[; ;main.c: 250: }
-[; ;main.c: 253: while (1)
-"253
-[e :U 465 ]
-[; ;main.c: 254: ;
-"254
-[e :U 464 ]
-"253
-[e $U 465  ]
-[e :U 466 ]
-[; ;main.c: 255: return;
-"255
-[e $UE 436  ]
-[; ;main.c: 256: }
-"256
-[e :UE 436 ]
+[e :U 486 ]
+[; ;main.c: 314: mpap_setupToHomming();
+"314
+[e ( _mpap_setupToHomming ..  ]
+[; ;main.c: 316: while (1)
+"316
+[e :U 489 ]
+[; ;main.c: 317: {
+"317
+{
+[; ;main.c: 318: mpap_job();
+"318
+[e ( _mpap_job ..  ]
+[; ;main.c: 319: if (mpap.numSteps_tomove == 0)
+"319
+[e $ ! == . _mpap 2 -> 0 `i 491  ]
+[; ;main.c: 320: {
+"320
+{
+[; ;main.c: 321: if ( pulsonic.errors.flag.mpap_home_sensor != 1)
+"321
+[e $ ! != -> . . . _pulsonic 0 0 0 `i -> 1 `i 492  ]
+[; ;main.c: 322: {
+"322
+{
+[; ;main.c: 323: mpap.mode = NORMAL_MODE;
+"323
+[e = . _mpap 4 -> . `E3298 3 `c ]
+[; ;main.c: 324: break;
+"324
+[e $U 490  ]
+"325
+}
+[; ;main.c: 325: }
+[e $U 493  ]
+"326
+[e :U 492 ]
+[; ;main.c: 326: else
+[; ;main.c: 327: {
+"327
+{
+"330
+}
+[e :U 493 ]
+"331
+}
+[e :U 491 ]
+[; ;main.c: 330: }
+[; ;main.c: 331: }
+[; ;main.c: 332: _delay((unsigned long)((2)*(48000000UL/4000.0)));
+"332
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
+"333
+}
+[e :U 488 ]
+"316
+[e $U 489  ]
+[e :U 490 ]
+[; ;main.c: 333: }
+[; ;main.c: 334: _delay((unsigned long)((1000)*(48000000UL/4000.0)));
+"334
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
+[; ;main.c: 339: nozzle_moveto(1);
+"339
+[e ( _nozzle_moveto (1 -> -> 1 `i `c ]
+[; ;main.c: 340: while (1)
+"340
+[e :U 495 ]
+[; ;main.c: 341: {
+"341
+{
+[; ;main.c: 342: mpap_job();
+"342
+[e ( _mpap_job ..  ]
+[; ;main.c: 343: if (mpap.numSteps_tomove == 0)
+"343
+[e $ ! == . _mpap 2 -> 0 `i 497  ]
+[; ;main.c: 344: {
+"344
+{
+[; ;main.c: 345: break;
+"345
+[e $U 496  ]
+"346
+}
+[e :U 497 ]
+[; ;main.c: 346: }
+[; ;main.c: 347: _delay((unsigned long)((2)*(48000000UL/4000.0)));
+"347
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
+"348
+}
+[e :U 494 ]
+"340
+[e $U 495  ]
+[e :U 496 ]
+[; ;main.c: 348: }
+[; ;main.c: 349: mpap_stop();
+"349
+[e ( _mpap_stop ..  ]
+[; ;main.c: 353: while (1)
+"353
+[e :U 499 ]
+[; ;main.c: 354: {
+"354
+{
+[; ;main.c: 355: do{LATE |= 1<<0;}while(0);
+"355
+[e :U 503 ]
+{
+[e =| _LATE -> << -> 1 `i -> 0 `i `uc ]
+}
+[e :U 502 ]
+[; ;main.c: 356: _delay((unsigned long)((50)*(48000000UL/4000.0)));
+"356
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
+[; ;main.c: 357: do{LATE &= ~(1<<0);}while(0);
+"357
+[e :U 506 ]
+{
+[e =& _LATE -> ~ << -> 1 `i -> 0 `i `uc ]
+}
+[e :U 505 ]
+[; ;main.c: 358: _delay((unsigned long)((50)*(48000000UL/4000.0)));
+"358
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
+"359
+}
+[e :U 498 ]
+"353
+[e $U 499  ]
+[e :U 500 ]
+[; ;main.c: 359: }
+[; ;main.c: 361: while(1);
+"361
+[e :U 508 ]
+[e :U 507 ]
+[e $U 508  ]
+[e :U 509 ]
+[; ;main.c: 365: _delay((unsigned long)((1000)*(48000000UL/4000.0)));
+"365
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
+[; ;main.c: 367: nozzle_moveto(2);
+"367
+[e ( _nozzle_moveto (1 -> -> 2 `i `c ]
+[; ;main.c: 368: while (1)
+"368
+[e :U 511 ]
+[; ;main.c: 369: {
+"369
+{
+[; ;main.c: 370: mpap_job();
+"370
+[e ( _mpap_job ..  ]
+[; ;main.c: 371: if (mpap.numSteps_tomove == 0)
+"371
+[e $ ! == . _mpap 2 -> 0 `i 513  ]
+[; ;main.c: 372: {
+"372
+{
+[; ;main.c: 373: break;
+"373
+[e $U 512  ]
+"374
+}
+[e :U 513 ]
+[; ;main.c: 374: }
+[; ;main.c: 375: _delay((unsigned long)((2)*(48000000UL/4000.0)));
+"375
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
+"376
+}
+[e :U 510 ]
+"368
+[e $U 511  ]
+[e :U 512 ]
+[; ;main.c: 376: }
+[; ;main.c: 390: while (1)
+"390
+[e :U 515 ]
+[; ;main.c: 391: {;}
+"391
+{
+}
+[e :U 514 ]
+"390
+[e $U 515  ]
+[e :U 516 ]
+[; ;main.c: 393: return;
+"393
+[e $UE 457  ]
+[; ;main.c: 394: }
+"394
+[e :UE 457 ]
 }
