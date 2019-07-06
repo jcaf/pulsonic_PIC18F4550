@@ -116,8 +116,8 @@ const uint8_t DISP7S_NUMS[10] =
     0b01011011,//2
     0b01001111,//3
     0b01100110,//4
-    0b01111101,//5
-    0b01110110,//6
+    0b01101101,//5
+    0b01111100,//6
     0b00000111,//7
     0b01111111,//8
     0b01100111,//9
@@ -196,21 +196,28 @@ void disp_show_quantity(double f)
     int8_t i;
     int8_t last_pos;
     int8_t q;
-    //double real;
+    double real;
 
     if (f>= 1000.0f)
         f=999.0f;//truncar al max. valor 
-    
+    //    
 	I = (int16_t)f;//parte entera
-	//real = f-I;
-
-    myitoa(buff, I, 10);
-    
+	real = f-I;
+    if (real > 0.0f)//tiene un decimal diferente de 0
+    {
+        if (f<100.0f)//si menor a 100, por ejmp 99.9, se puede representar en el display
+        {
+            I = (int)(f*10); //99.9 * 10 -> 999, con esto obtengo el decimal tal y cual es,
+        }             //la multip. trunca al ser un entero I
+                        //si es un 101.6 -> quedo truncado I y se muestra solo los 3 digitos enteros
+    }
+    myitoa(I, buff, 10);
+    //
     pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[OFF];
     pulsonic.display7s[QUANT_DIG_1] = DISP7S_CHARS[OFF];
     pulsonic.display7s[QUANT_DIG_0] = DISP7S_CHARS[OFF];
-	
-    if ((f-I)<0.01)//no existe parte real
+	//
+    if (real<0.01)//no existe parte real
 	{
 		if (I>99)
 			last_pos = 2;
@@ -230,9 +237,8 @@ void disp_show_quantity(double f)
 	{
         if (f<100.0)//
         {
-            //1)
-            I = f*10; //1.8
-            myitoa(buff, I, 10);
+            //I = f*10; //1.8
+            //myitoa(I, buff, 10);
             
             if (I>99)
                 {last_pos = 2;}

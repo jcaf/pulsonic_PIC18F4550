@@ -322,7 +322,7 @@ void main(void)
     display7s_init();
     ikb_init();
     
-    disp_show_quantity(99.8);
+    disp_show_quantity(99.5);
     //
     GIE = 1;
     int8_t c=0;

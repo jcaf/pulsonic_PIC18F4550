@@ -5922,8 +5922,8 @@ const uint8_t DISP7S_NUMS[10] =
 0b01011011,
 0b01001111,
 0b01100110,
-0b01111101,
-0b01110110,
+0b01101101,
+0b01111100,
 0b00000111,
 0b01111111,
 0b01100111,
@@ -5991,24 +5991,29 @@ if (++q == (2 + 3))
 }
 
 
-
-int xx;
 void disp_show_quantity(double f)
 {
 int16_t I;
-double real;
 char buff[10];
 uint8_t num;
 int8_t i;
 int8_t last_pos;
 int8_t q;
-xx=f*10;
+double real;
+
 if (f>= 1000.0f)
 f=999.0f;
 
 I = (int16_t)f;
 real = f-I;
+if (real > 0.0f)
+{
+if (f<100.0f)
+{
+I = (int)(f*10);
+}
 
+}
 itoa(buff, I, 10);
 
 pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[OFF];
@@ -6036,8 +6041,7 @@ else
 if (f<100.0)
 {
 
-I = f*10;
-itoa(buff, I, 10);
+
 
 if (I>99)
 {last_pos = 2;}

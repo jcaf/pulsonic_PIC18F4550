@@ -5840,7 +5840,7 @@ extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
 void disp_show_quantity(double f);
 
 
-# 15 "main.c"
+# 21 "main.c"
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
 #pragma warning disable 752
@@ -5859,7 +5859,7 @@ void ikb_set_ready2read(uint8_t k);
 void ikb_key_was_read(uint8_t k);
 void ikb_execfunct(uint8_t k);
 
-# 22 "main.c"
+# 28 "main.c"
 volatile struct _isr_flag
 {
 unsigned f1ms: 1;
@@ -5867,7 +5867,7 @@ unsigned __a: 7;
 } isr_flag = {0};
 volatile struct _main_flag main_flag;
 
-# 79
+# 85
 static void _mpap_step1(void)
 {
 do{LATD &= ~(1<<0);}while(0);
@@ -5931,12 +5931,12 @@ int16_t counter_steps;
 int16_t numSteps_tomove;
 int8_t KI;
 
-# 147
+# 153
 int8_t mode;
 };
 volatile struct _mpap mpap;
 
-# 155
+# 161
 void mpap_setupToTurn(int16_t numSteps_tomove)
 {
 
@@ -5962,7 +5962,7 @@ void nozzle_moveto(int8_t nozzle)
 mpap_setupToTurn( (nozzle*200) - mpap.numSteps_current);
 }
 
-# 186
+# 192
 void mpap_stop(void)
 {
 mpap.numSteps_tomove = 0x00;
@@ -5980,7 +5980,7 @@ if (i>3){i=0;}
 if (i<0){i=3;}
 }
 
-# 214
+# 220
 int8_t mpap_homming(void)
 {
 int8_t cod_ret = 0;
@@ -6059,7 +6059,7 @@ CMCON=0xCF;
 UCON = 0;
 UCFG = 1<<3;
 
-# 296
+# 302
 T0CON = 0B10000111;
 t=(uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) );
 TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ) >> 8);
@@ -6083,7 +6083,7 @@ do{TRISE |= 1<<1;}while(0);
 display7s_init();
 ikb_init();
 
-disp_show_quantity(99.8);
+disp_show_quantity(99.5);
 
 GIE = 1;
 int8_t c=0;
@@ -6138,7 +6138,7 @@ main_flag.f1ms = 0;
 ikb_flush();
 }
 
-# 379
+# 385
 mpap_setupToHomming();
 
 while (1)
