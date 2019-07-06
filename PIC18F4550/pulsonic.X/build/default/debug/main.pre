@@ -6083,7 +6083,7 @@ do{TRISE |= 1<<1;}while(0);
 display7s_init();
 ikb_init();
 
-disp_show_quantity(99.8);
+disp_show_quantity(1.8);
 
 GIE = 1;
 int8_t c=0;

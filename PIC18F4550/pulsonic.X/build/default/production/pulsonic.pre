@@ -1,5 +1,5 @@
 
-# 1 "main.c"
+# 1 "pulsonic.c"
 
 # 18 "/opt/microchip/xc8/v2.05/pic/include/xc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -5839,383 +5839,235 @@ extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
 
 void disp_show_quantity(double f);
 
+# 5 "pulsonic.c"
+struct _pulsonic pulsonic;
 
-# 15 "main.c"
-#pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
-#pragma config "MCLRE=ON","BOR=OFF"
-#pragma warning disable 752
-#pragma warning disable 356
-#pragma warning disable 373
-
-# 308 "/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h"
-void ikb_init(void);
-void ikb_job(void);
-void ikb_flush(void);
-
-uint8_t ikb_get_AtTimeExpired_BeforeOrAfter(uint8_t k);
-
-uint8_t ikb_key_is_ready2read(uint8_t k);
-void ikb_set_ready2read(uint8_t k);
-void ikb_key_was_read(uint8_t k);
-void ikb_execfunct(uint8_t k);
-
-# 22 "main.c"
-volatile struct _isr_flag
+void pulsonic_init(void)
 {
-unsigned f1ms: 1;
-unsigned __a: 7;
-} isr_flag = {0};
-volatile struct _main_flag main_flag;
+pulsonic.dist_total_time = 60;
 
-# 79
-static void _mpap_step1(void)
-{
-do{LATD &= ~(1<<0);}while(0);
-do{LATD &= ~(1<<1);}while(0);
-do{LATD &= ~(1<<2);}while(0);
-do{LATD |= 1<<3;}while(0);
 }
-static void _mpap_step2(void)
+uint16_t get_total_sum_mlh(void)
 {
-do{LATD &= ~(1<<0);}while(0);
-do{LATD &= ~(1<<1);}while(0);
-do{LATD |= 1<<2;}while(0);
-do{LATD &= ~(1<<3);}while(0);
+int i;
+uint16_t acc = 0;
+for (i=0; i<18; i++)
+{
+acc += pulsonic.nozzle[i].Q_mlh;
 }
-static void _mpap_step3(void)
-{
-do{LATD &= ~(1<<0);}while(0);
-do{LATD |= 1<<1;}while(0);
-do{LATD &= ~(1<<2);}while(0);
-do{LATD &= ~(1<<3);}while(0);
-}
-static void _mpap_step4(void)
-{
-do{LATD |= 1<<0;}while(0);
-do{LATD &= ~(1<<1);}while(0);
-do{LATD &= ~(1<<2);}while(0);
-do{LATD &= ~(1<<3);}while(0);
+return acc;
 }
 
-
-
-PTRFX_retVOID mpap_step[4] =
+# 56
+static inline void multiplexedDisp0_off(void)
 {
+do{LATA |= 1<<4;}while(0);
+}
+static inline void multiplexedDisp0_on(void)
+{
+do{LATA &= ~(1<<4);}while(0);
+}
 
-_mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
+static inline void multiplexedDisp1_off(void)
+{
+do{LATA |= 1<<3;}while(0);
+}
+static inline void multiplexedDisp1_on(void)
+{
+do{LATA &= ~(1<<3);}while(0);
+}
 
+static inline void multiplexedDisp2_off(void)
+{
+do{LATA |= 1<<2;}while(0);
+}
+static inline void multiplexedDisp2_on(void)
+{
+do{LATA &= ~(1<<2);}while(0);
+}
+
+static inline void multiplexedDisp3_off(void)
+{
+do{LATA |= 1<<1;}while(0);
+}
+static inline void multiplexedDisp3_on(void)
+{
+do{LATA &= ~(1<<1);}while(0);
+}
+
+static inline void multiplexedDisp4_off(void)
+{
+do{LATA |= 1<<0;}while(0);
+}
+static inline void multiplexedDisp4_on(void)
+{
+do{LATA &= ~(1<<0);}while(0);
+}
+
+struct _multiplexedDisp multiplexedDisp[(2 + 3)] =
+{
+{multiplexedDisp0_off, multiplexedDisp0_on},
+{multiplexedDisp1_off, multiplexedDisp1_on},
+{multiplexedDisp2_off, multiplexedDisp2_on},
+{multiplexedDisp3_off, multiplexedDisp3_on},
+{multiplexedDisp4_off, multiplexedDisp4_on},
 };
-
-static inline void _mpap_off(void)
-{
-do{LATD &= ~(1<<0);}while(0);
-do{LATD &= ~(1<<1);}while(0);
-do{LATD &= ~(1<<2);}while(0);
-do{LATD &= ~(1<<3);}while(0);
-}
-
-PTRFX_retVOID mpap_off= {_mpap_off};
-
-
-enum MPAP_MODES{
-IDLE_MODE=0,
-STALL_MODE,
-HOMMING_MODE,
-NORMAL_MODE
-};
-
-struct _mpap
-{
-int16_t numSteps_current;
-int16_t counter_steps;
-int16_t numSteps_tomove;
-int8_t KI;
-
-# 147
-int8_t mode;
-};
-volatile struct _mpap mpap;
-
-# 155
-void mpap_setupToTurn(int16_t numSteps_tomove)
-{
-
-if (numSteps_tomove !=0)
-{
-mpap.numSteps_tomove = numSteps_tomove;
-mpap.KI = (mpap.numSteps_tomove<0)? -1: 1;
-
-mpap.counter_steps = 0;
-
-}
-}
-void mpap_setupToHomming(void)
-{
-mpap_setupToTurn( -1 *( (18*200) +20));
-
-
-mpap.mode = HOMMING_MODE;
-}
-void nozzle_moveto(int8_t nozzle)
-{
-
-mpap_setupToTurn( (nozzle*200) - mpap.numSteps_current);
-}
-
-# 186
-void mpap_stop(void)
-{
-mpap.numSteps_tomove = 0x00;
-mpap_off();
-
-}
-
-
-void mpap_do1step(int8_t KI)
-{
-static int8_t i;
-mpap_step[i]();
-i+=KI;
-if (i>3){i=0;}
-if (i<0){i=3;}
-}
-
-# 214
-int8_t mpap_homming(void)
-{
-int8_t cod_ret = 0;
-if (mpap.numSteps_tomove!=0)
-{
-mpap_do1step(mpap.KI);
-
-mpap.counter_steps+= mpap.KI;
-
-if (((PORTE & (1<<1))>>1) == 0)
-{
-mpap.numSteps_tomove = 0x0000;
-cod_ret = 1;
-}
-if ( mpap.counter_steps == mpap.numSteps_tomove)
-{
-mpap.numSteps_tomove = 0x0000;
-cod_ret = 1;
-pulsonic.errors.flag.mpap_home_sensor = 1;
-}
-}
-return cod_ret;
-}
-int8_t mpap_normal_mode(void)
-{
-int8_t cod_ret = 0;
-if (mpap.numSteps_tomove!=0)
-{
-mpap_do1step(mpap.KI);
-
-mpap.counter_steps+= mpap.KI;
-
-mpap.numSteps_current+= mpap.KI;
-
-if ( mpap.counter_steps == mpap.numSteps_tomove)
-{
-mpap.numSteps_tomove = 0;
-cod_ret = 1;
-}
-}
-return cod_ret;
-}
-
-int8_t mpap_job(void)
-{
-int8_t cod_ret;
-
-if (mpap.mode == HOMMING_MODE)
-cod_ret = mpap_homming();
-else if (mpap.mode == NORMAL_MODE)
-cod_ret = mpap_normal_mode();
-
-else if (mpap.mode == STALL_MODE)
-mpap.mode = IDLE_MODE;
-
-return cod_ret;
-}
-uint16_t t;
-
 extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
 
-void main(void)
+
+const uint8_t DISP7S_NUMS[10] =
 {
-LATA = 0x00;
-LATC = 0x00;
-LATD = 0x00;
-LATE = 0x00;
-LATB = 0x00;
-
-
-
-ADCON1 = 0x0F;
-CMCON=0xCF;
-
-
-UCON = 0;
-UCFG = 1<<3;
-
-# 296
-T0CON = 0B10000111;
-t=(uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) );
-TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ) >> 8);
-TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ));
-TMR0IE = 1;
-
-
-do{do{LATE |= 1<<0;}while(0);}while(0);
-do{TRISE &= ~(1<<0);}while(0);
-
-do{TRISD &= ~(1<<0);}while(0);
-do{TRISD &= ~(1<<1);}while(0);
-do{TRISD &= ~(1<<2);}while(0);
-do{TRISD &= ~(1<<3);}while(0);
-
-do{do{LATC &= ~(1<<1);}while(0);}while(0);
-do{TRISC &= ~(1<<1);}while(0);
-
-do{TRISE |= 1<<1;}while(0);
-
-display7s_init();
-ikb_init();
-
-disp_show_quantity(99.8);
-
-GIE = 1;
-int8_t c=0;
-int8_t c_disp=0;
-while(1)
+0b00111111,
+0b00000110,
+0b01011011,
+0b01001111,
+0b01100110,
+0b01111101,
+0b01110110,
+0b00000111,
+0b01111111,
+0b01100111,
+};
+const uint8_t DISP7S_CHARS[2] =
 {
-if (isr_flag.f1ms)
+0b00000000,
+0b01000000,
+};
+enum _DISP7S_CHARS {
+OFF,
+RAYA
+};
+
+void multiplexedDisp_init(void)
 {
-isr_flag.f1ms = 0;
-main_flag.f1ms = 1;
+int8_t i;
+for (i=0; i< (2 + 3); i++)
+{
+multiplexedDisp[i].Qonoff[0]();
 }
 
-if (main_flag.f1ms)
-{
-if (++c==20)
-{
-c = 0;
+do{TRISA &= ~(1<<4);}while(0);
+do{TRISA &= ~(1<<3);}while(0);
+do{TRISA &= ~(1<<2);}while(0);
+do{TRISA &= ~(1<<1);}while(0);
+do{TRISA &= ~(1<<0);}while(0);
+}
 
-ikb_job();
-
-if (ikb_key_is_ready2read(0))
+void multiplexedDisp_job(int8_t q)
 {
-do{LATB ^= 1<<0;}while(0);
-}
-if (ikb_key_is_ready2read(1))
+int8_t i;
+for (i=0; i< (2 + 3); i++)
 {
-do{LATB ^= 1<<1;}while(0);
-}
-if (ikb_key_is_ready2read(2))
-{
-do{LATB ^= 1<<2;}while(0);
-}
-if (ikb_key_is_ready2read(3))
-{
-do{LATB ^= 1<<3;}while(0);
-}
-if (ikb_key_is_ready2read(4))
-{
-do{LATB ^= 1<<4;}while(0);
+if ((0x01<<i) & (0x1<<q))
+multiplexedDisp[i].Qonoff[1]();
+else
+multiplexedDisp[i].Qonoff[0]();
 }
 }
 
-if (++c_disp == 2)
+# 166
+void display7s_init(void)
 {
-c_disp = 0;
-display7s_job();
+pulsonic.display7s[MODE_DIG_1] = DISP7S_NUMS[2];
+pulsonic.display7s[MODE_DIG_0] = DISP7S_NUMS[0];
+
+pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[RAYA];
+pulsonic.display7s[QUANT_DIG_1] = DISP7S_CHARS[RAYA];
+pulsonic.display7s[QUANT_DIG_0] = DISP7S_CHARS[RAYA];
+
+TRISB = 0x00;
+multiplexedDisp_init();
 }
+
+void display7s_job(void)
+{
+static int8_t q;
+
+LATB = pulsonic.display7s[q];
+multiplexedDisp_job(q);
+
+if (++q == (2 + 3))
+{q=0;}
 }
 
 
-main_flag.f1ms = 0;
-ikb_flush();
+
+int xx;
+void disp_show_quantity(double f)
+{
+int16_t I;
+double real;
+char buff[10];
+uint8_t num;
+int8_t i;
+int8_t last_pos;
+int8_t q;
+xx=f*10;
+if (f>= 1000.0f)
+f=999.0f;
+
+I = (int16_t)f;
+real = f-I;
+
+itoa(buff, I, 10);
+
+pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[OFF];
+pulsonic.display7s[QUANT_DIG_1] = DISP7S_CHARS[OFF];
+pulsonic.display7s[QUANT_DIG_0] = DISP7S_CHARS[OFF];
+
+if (real<0.01)
+{
+if (I>99)
+last_pos = 2;
+else if (I>9)
+last_pos = 1;
+else
+last_pos = 0;
+
+q = 0;
+for (i=last_pos; i>=0; i--)
+{
+num = buff[i] - 0x30;
+pulsonic.display7s[q++] = DISP7S_NUMS[num];
 }
-
-# 379
-mpap_setupToHomming();
-
-while (1)
-{
-mpap_job();
-if (mpap.numSteps_tomove == 0)
-{
-if ( pulsonic.errors.flag.mpap_home_sensor != 1)
-{
-mpap.mode = NORMAL_MODE;
-break;
 }
 else
 {
-
-
-}
-}
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
-}
-_delay((unsigned long)((1000)*(48000000UL/4000.0)));
-
-
-
-nozzle_moveto(1);
-while (1)
-{
-mpap_job();
-if (mpap.numSteps_tomove == 0)
-{
-break;
-}
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
-}
-mpap_stop();
-
-
-
-while (1)
-{
-do{LATE |= 1<<0;}while(0);
-_delay((unsigned long)((50)*(48000000UL/4000.0)));
-do{LATE &= ~(1<<0);}while(0);
-_delay((unsigned long)((50)*(48000000UL/4000.0)));
-}
-
-while(1);
-
-_delay((unsigned long)((1000)*(48000000UL/4000.0)));
-
-nozzle_moveto(2);
-while (1)
-{
-mpap_job();
-if (mpap.numSteps_tomove == 0)
-{
-break;
-}
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
-}
-
-
-while (1)
-{;}
-
-return;
-}
-
-void interrupt INTERRUPCION(void)
+if (f<100.0)
 {
 
-if (TMR0IF)
-{
-isr_flag.f1ms = 1;
+I = f*10;
+itoa(buff, I, 10);
 
-TMR0IF = 0;
-TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ) >> 8);
-TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ));
+if (I>99)
+{last_pos = 2;}
+else if (I>9)
+{last_pos = 1;}
+else
+{
+pulsonic.display7s[QUANT_DIG_1] = DISP7S_NUMS[0];
+last_pos = 0;
 }
+
+q = 0;
+for (i=last_pos; i>=0; i--)
+{
+num = buff[i] - 0x30;
+pulsonic.display7s[q++] = DISP7S_NUMS[num];
+}
+pulsonic.display7s[QUANT_DIG_1] |= 0x80;
+
+}
+else
+{
+q = 0;
+last_pos = 2;
+for (i=last_pos; i>=0; i--)
+{
+num = buff[i] - 0x30;
+pulsonic.display7s[q++] = DISP7S_NUMS[num];
+}
+}
+}
+
 }

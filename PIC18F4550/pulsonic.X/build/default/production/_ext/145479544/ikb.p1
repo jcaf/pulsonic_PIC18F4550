@@ -1,88 +1,29 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"22 main.c
-[s S372 :1 `uc 1 :7 `uc 1 ]
-[n S372 _isr_flag f1ms __a ]
-"10 main.h
-[s S366 :1 `uc 1 :7 `uc 1 ]
-[n S366 _main_flag f1ms __a ]
-"3263 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
-[v _LATD `Vuc ~T0 @X0 0 e@3980 ]
+[v F3254 `(uc ~T0 @X0 0 tf ]
 [v F3260 `(v ~T0 @X0 0 tf ]
-"135 main.c
-[s S438 `i 1 `i 1 `i 1 `c 1 `c 1 ]
-[n S438 _mpap numSteps_current counter_steps numSteps_tomove KI mode ]
-"172
-[c E3348 0 1 2 3 .. ]
-[n E3348 MPAP_MODES IDLE_MODE STALL_MODE HOMMING_MODE NORMAL_MODE  ]
-"2826 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
-[v _PORTE `Vuc ~T0 @X0 0 e@3972 ]
-"36 pulsonic.h
-[s S368 `f 1 `ui 1 `c 1 ]
-[n S368 _pulsonic_nozzle Q_mlh total_ticks_mlh nticks_slicetime ]
-"47
-[s S370 :1 `uc 1 :7 `uc 1 ]
-[n S370 _pulsonic_flags mpap_home_sensor __a ]
-"45
-[u S369 `S370 1 `uc 1 ]
-[n S369 _pulsonic_errors flag e ]
-"30
-[s S367 `ui 1 `ui 1 `ui 1 `S368 -> 18 `i `f 1 `S369 1 `uc + -> 2 `i -> 3 `i ]
-[n S367 _pulsonic Kticks_0p1ml dist_total_time dist_access_time nozzle sum_all_mlh errors display7s ]
-"57
-[v _pulsonic `S367 ~T0 @X0 0 e ]
-[p mainexit ]
-"2973 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
-[v _LATA `Vuc ~T0 @X0 0 e@3977 ]
-"3185
-[v _LATC `Vuc ~T0 @X0 0 e@3979 ]
-"3375
-[v _LATE `Vuc ~T0 @X0 0 e@3981 ]
-"3073
-[v _LATB `Vuc ~T0 @X0 0 e@3978 ]
-"6581
-[v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
-"5587
-[v _CMCON `Vuc ~T0 @X0 0 e@4020 ]
-"648
-[v _UCON `Vuc ~T0 @X0 0 e@3949 ]
-"763
-[v _UCFG `Vuc ~T0 @X0 0 e@3951 ]
-"8069
-[v _T0CON `Vuc ~T0 @X0 0 e@4053 ]
-"8153
-[v _TMR0H `Vuc ~T0 @X0 0 e@4055 ]
-"8146
-[v _TMR0L `Vuc ~T0 @X0 0 e@4054 ]
-"10812
-[v _TMR0IE `Vb ~T0 @X0 0 e@32661 ]
-"4223
-[v _TRISE `Vuc ~T0 @X0 0 e@3990 ]
-"4001
-[v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
+"14 ../../../../../../FIRWAR/eslibrary/ikb/ikb.c
+[s S367 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S367 _bf state OnKeyPressed OnKeyPressedAndKeyRelease AtTimeExpired AtTimeExpired2 Reptt ReadyToRead AtTimeExpired_BeforeOrAfter OwnerOfGroup InProcessing ]
+"28
+[s S368 `ui 1 `ui 1 ]
+[n S368 _repp to_start after_start ]
+"5
+[s S366 `*F3254 1 `*F3260 1 `uc 1 `uc 1 `uc 1 `ui 1 `uc 1 `S367 1 `S368 1 ]
+[n S366 _key keyRead keyDo sm0 counter0 sm1 counter1 num_group_x bf repp ]
+"2563 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
+[v _PORTC `Vuc ~T0 @X0 0 e@3970 ]
+"2705
+[v _PORTD `Vuc ~T0 @X0 0 e@3971 ]
 "3847
 [v _TRISC `Vuc ~T0 @X0 0 e@3988 ]
-"59 pulsonic.h
-[v _display7s_init `(v ~T0 @X0 0 ef ]
-"308 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h
-[v _ikb_init `(v ~T0 @X0 0 ef ]
-"68 pulsonic.h
-[v _disp_show_quantity `(v ~T0 @X0 0 ef1`d ]
-"9741 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
-[v _GIE `Vb ~T0 @X0 0 e@32663 ]
-"309 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h
-[v _ikb_job `(v ~T0 @X0 0 ef ]
-"314
-[v _ikb_key_is_ready2read `(uc ~T0 @X0 0 ef1`uc ]
-"60 pulsonic.h
-[v _display7s_job `(v ~T0 @X0 0 ef ]
-"310 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h
-[v _ikb_flush `(v ~T0 @X0 0 ef ]
-[v F3014 `(v ~T0 @X0 1 tf1`ul ]
-"183 /opt/microchip/xc8/v2.05/pic/include/pic18.h
-[v __delay `JF3014 ~T0 @X0 0 e ]
-[p i __delay ]
-"10815 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
-[v _TMR0IF `Vb ~T0 @X0 0 e@32658 ]
+"4001
+[v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
+"36 ../../../../../../FIRWAR/eslibrary/ikb/ikb.c
+[v _ikey_scan `(v ~T0 @X0 0 ef ]
+"37
+[v _ikey_parsing `(v ~T0 @X0 0 ef ]
+"39
+[v _ikey_clear_all_flag `(v ~T0 @X0 0 ef ]
 [; ;xc.h: 18: extern const char __xc8_OPTIM_SPEED;
 [; ;xc.h: 20: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3705,77 +3646,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;types.h: 8: typedef void (*PTRFX_retVOID_arg1_INT8_T)(int8_t);
 [; ;types.h: 9: typedef void (*PTRFX_retVOID_arg1_PCHAR)(char *);
 [; ;types.h: 10: typedef unsigned char BOOL;
-[; ;main.h: 10: struct _main_flag
-[; ;main.h: 11: {
-[; ;main.h: 12: unsigned f1ms:1;
-[; ;main.h: 13: unsigned __a:7;
-[; ;main.h: 14: };
-[; ;main.h: 15: extern volatile struct _main_flag main_flag;
-[; ;pulsonic.h: 16: enum _QUANT_DIG
-[; ;pulsonic.h: 17: {
-[; ;pulsonic.h: 18: QUANT_DIG_0,
-[; ;pulsonic.h: 19: QUANT_DIG_1,
-[; ;pulsonic.h: 20: QUANT_DIG_2,
-[; ;pulsonic.h: 21: };
-[; ;pulsonic.h: 22: enum _MODE_DIG
-[; ;pulsonic.h: 23: {
-[; ;pulsonic.h: 24: MODE_DIG_0,
-[; ;pulsonic.h: 25: MODE_DIG_1,
-[; ;pulsonic.h: 26: };
-[; ;pulsonic.h: 30: struct _pulsonic
-[; ;pulsonic.h: 31: {
-[; ;pulsonic.h: 32: uint16_t Kticks_0p1ml;
-[; ;pulsonic.h: 33: uint16_t dist_total_time;
-[; ;pulsonic.h: 34: uint16_t dist_access_time;
-[; ;pulsonic.h: 36: struct _pulsonic_nozzle
-[; ;pulsonic.h: 37: {
-[; ;pulsonic.h: 38: float Q_mlh;
-[; ;pulsonic.h: 39: uint16_t total_ticks_mlh;
-[; ;pulsonic.h: 40: int8_t nticks_slicetime;
-[; ;pulsonic.h: 41: }nozzle[18];
-[; ;pulsonic.h: 43: float sum_all_mlh;
-[; ;pulsonic.h: 45: union _pulsonic_errors
-[; ;pulsonic.h: 46: {
-[; ;pulsonic.h: 47: struct _pulsonic_flags
-[; ;pulsonic.h: 48: {
-[; ;pulsonic.h: 49: unsigned mpap_home_sensor:1;
-[; ;pulsonic.h: 50: unsigned __a:7;
-[; ;pulsonic.h: 51: }flag;
-[; ;pulsonic.h: 52: uint8_t e;
-[; ;pulsonic.h: 53: }errors;
-[; ;pulsonic.h: 55: uint8_t display7s[(2 + 3)];
-[; ;pulsonic.h: 56: };
-[; ;pulsonic.h: 57: extern struct _pulsonic pulsonic;
-[; ;pulsonic.h: 59: void display7s_init(void);
-[; ;pulsonic.h: 60: void display7s_job(void);
-[; ;pulsonic.h: 62: struct _multiplexedDisp
-[; ;pulsonic.h: 63: {
-[; ;pulsonic.h: 64: PTRFX_retVOID Qonoff[2];
-[; ;pulsonic.h: 65: };
-[; ;pulsonic.h: 66: extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
-[; ;pulsonic.h: 68: void disp_show_quantity(double f);
-"15 main.c
-[p x PLLDIV=5 ]
-[p x CPUDIV=OSC1_PLL2 ]
-[p x USBDIV=2 ]
-[p x FOSC=HSPLL_HS ]
-[p x FCMEN=OFF ]
-[p x IESO=OFF ]
-[p x PWRT=ON ]
-[p x BORV=3 ]
-[p x VREGEN=ON ]
-[p x WDT=OFF ]
-[p x PBADEN=OFF ]
-[p x LVP=OFF ]
-"16
-[p x MCLRE=ON ]
-[p x BOR=OFF ]
-"17
-[p n 752 ]
-"18
-[p n 356 ]
-"19
-[p n 373 ]
 [; ;ikb.h: 308: void ikb_init(void);
 [; ;ikb.h: 309: void ikb_job(void);
 [; ;ikb.h: 310: void ikb_flush(void);
@@ -3784,1094 +3654,1265 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.h: 315: void ikb_set_ready2read(uint8_t k);
 [; ;ikb.h: 316: void ikb_key_was_read(uint8_t k);
 [; ;ikb.h: 317: void ikb_execfunct(uint8_t k);
-"26
-[v _isr_flag `VS372 ~T0 @X0 1 e ]
-[i _isr_flag
-:U ..
-:U ..
--> -> 0 `i `uc
-..
-..
-]
-[; ;main.c: 22: volatile struct _isr_flag
-[; ;main.c: 23: {
-[; ;main.c: 24: unsigned f1ms: 1;
-[; ;main.c: 25: unsigned __a: 7;
-[; ;main.c: 26: } isr_flag = {0};
-"27
-[v _main_flag `VS366 ~T0 @X0 1 e ]
-[; ;main.c: 27: volatile struct _main_flag main_flag;
-"79
-[v __mpap_step1 `(v ~T0 @X0 1 sf ]
-"80
+[; ;ikb.c: 5: struct _key
+[; ;ikb.c: 6: {
+[; ;ikb.c: 7: PTRFX_retUINT8_T keyRead;
+[; ;ikb.c: 8: PTRFX_retVOID keyDo;
+[; ;ikb.c: 9: uint8_t sm0;
+[; ;ikb.c: 10: uint8_t counter0;
+[; ;ikb.c: 11: uint8_t sm1;
+[; ;ikb.c: 12: uint16_t counter1;
+[; ;ikb.c: 13: uint8_t num_group_x;
+[; ;ikb.c: 14: struct _bf
+[; ;ikb.c: 15: {
+[; ;ikb.c: 16: unsigned state:1;
+[; ;ikb.c: 18: unsigned OnKeyPressed:1;
+[; ;ikb.c: 19: unsigned OnKeyPressedAndKeyRelease:1;
+[; ;ikb.c: 20: unsigned AtTimeExpired:1;
+[; ;ikb.c: 21: unsigned AtTimeExpired2:1;
+[; ;ikb.c: 22: unsigned Reptt:1;
+[; ;ikb.c: 23: unsigned ReadyToRead:1;
+[; ;ikb.c: 24: unsigned AtTimeExpired_BeforeOrAfter:1;
+[; ;ikb.c: 25: unsigned OwnerOfGroup:1;
+[; ;ikb.c: 26: unsigned InProcessing:1;
+[; ;ikb.c: 27: } bf;
+[; ;ikb.c: 28: struct _repp
+[; ;ikb.c: 29: {
+[; ;ikb.c: 30: uint16_t to_start;
+[; ;ikb.c: 31: uint16_t after_start;
+[; ;ikb.c: 32: } repp;
+[; ;ikb.c: 33: };
+"34 ../../../../../../FIRWAR/eslibrary/ikb/ikb.c
+[v _key `VS366 ~T0 @X0 -> 5 `i e ]
+[; ;ikb.c: 34: volatile struct _key key[5];
+[; ;ikb.c: 36: void ikey_scan(void);
+[; ;ikb.c: 37: void ikey_parsing(void);
+[; ;ikb.c: 38: int8_t ikey_is_all_hw_released(void);
+[; ;ikb.c: 39: void ikey_clear_all_flag(void);
+[; ;ikb.c: 40: int8_t ikey_is_all_process_finished(void);
+[v F3325 `(uc ~T0 @X0 1 tf ]
+"194
+[v _keyRead_pin_key1 `TF3325 ~T0 @X0 1 s ]
+"195
 {
-[; ;main.c: 79: static void _mpap_step1(void)
-[; ;main.c: 80: {
-[e :U __mpap_step1 ]
+[; ;ikb.c: 194: static inline uint8_t keyRead_pin_key1(void)
+[; ;ikb.c: 195: {
+[e :U _keyRead_pin_key1 ]
 [f ]
-[; ;main.c: 81: do{LATD &= ~(1<<0);}while(0);
-"81
-[e :U 376 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 0 `i `uc ]
+[; ;ikb.c: 196: return ((PORTC & (1<<4))>>4);
+"196
+[e ) -> >> & -> _PORTC `i << -> 1 `i -> 4 `i -> 4 `i `uc ]
+[e $UE 369  ]
+[; ;ikb.c: 197: }
+"197
+[e :UE 369 ]
 }
-[e :U 375 ]
-[; ;main.c: 82: do{LATD &= ~(1<<1);}while(0);
-"82
-[e :U 379 ]
+[v F3328 `(uc ~T0 @X0 1 tf ]
+"198
+[v _keyRead_pin_key2 `TF3328 ~T0 @X0 1 s ]
+"199
 {
-[e =& _LATD -> ~ << -> 1 `i -> 1 `i `uc ]
+[; ;ikb.c: 198: static inline uint8_t keyRead_pin_key2(void)
+[; ;ikb.c: 199: {
+[e :U _keyRead_pin_key2 ]
+[f ]
+[; ;ikb.c: 200: return ((PORTC & (1<<5))>>5);
+"200
+[e ) -> >> & -> _PORTC `i << -> 1 `i -> 5 `i -> 5 `i `uc ]
+[e $UE 370  ]
+[; ;ikb.c: 201: }
+"201
+[e :UE 370 ]
 }
-[e :U 378 ]
-[; ;main.c: 83: do{LATD &= ~(1<<2);}while(0);
-"83
-[e :U 382 ]
+[v F3331 `(uc ~T0 @X0 1 tf ]
+"202
+[v _keyRead_pin_key3 `TF3331 ~T0 @X0 1 s ]
+"203
 {
-[e =& _LATD -> ~ << -> 1 `i -> 2 `i `uc ]
+[; ;ikb.c: 202: static inline uint8_t keyRead_pin_key3(void)
+[; ;ikb.c: 203: {
+[e :U _keyRead_pin_key3 ]
+[f ]
+[; ;ikb.c: 204: return ((PORTC & (1<<6))>>6);
+"204
+[e ) -> >> & -> _PORTC `i << -> 1 `i -> 6 `i -> 6 `i `uc ]
+[e $UE 371  ]
+[; ;ikb.c: 205: }
+"205
+[e :UE 371 ]
 }
-[e :U 381 ]
-[; ;main.c: 84: do{LATD |= 1<<3;}while(0);
-"84
-[e :U 385 ]
+[v F3334 `(uc ~T0 @X0 1 tf ]
+"206
+[v _keyRead_pin_key4 `TF3334 ~T0 @X0 1 s ]
+"207
 {
-[e =| _LATD -> << -> 1 `i -> 3 `i `uc ]
+[; ;ikb.c: 206: static inline uint8_t keyRead_pin_key4(void)
+[; ;ikb.c: 207: {
+[e :U _keyRead_pin_key4 ]
+[f ]
+[; ;ikb.c: 208: return ((PORTC & (1<<7))>>7);
+"208
+[e ) -> >> & -> _PORTC `i << -> 1 `i -> 7 `i -> 7 `i `uc ]
+[e $UE 372  ]
+[; ;ikb.c: 209: }
+"209
+[e :UE 372 ]
 }
-[e :U 384 ]
-[; ;main.c: 85: }
-"85
+[v F3337 `(uc ~T0 @X0 1 tf ]
+"210
+[v _keyRead_pin_key5 `TF3337 ~T0 @X0 1 s ]
+"211
+{
+[; ;ikb.c: 210: static inline uint8_t keyRead_pin_key5(void)
+[; ;ikb.c: 211: {
+[e :U _keyRead_pin_key5 ]
+[f ]
+[; ;ikb.c: 212: return ((PORTD & (1<<4))>>4);
+"212
+[e ) -> >> & -> _PORTD `i << -> 1 `i -> 4 `i -> 4 `i `uc ]
+[e $UE 373  ]
+[; ;ikb.c: 213: }
+"213
 [e :UE 373 ]
 }
-"86
-[v __mpap_step2 `(v ~T0 @X0 1 sf ]
-"87
-{
-[; ;main.c: 86: static void _mpap_step2(void)
-[; ;main.c: 87: {
-[e :U __mpap_step2 ]
-[f ]
-[; ;main.c: 88: do{LATD &= ~(1<<0);}while(0);
-"88
-[e :U 389 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 0 `i `uc ]
-}
-[e :U 388 ]
-[; ;main.c: 89: do{LATD &= ~(1<<1);}while(0);
-"89
-[e :U 392 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 1 `i `uc ]
-}
-[e :U 391 ]
-[; ;main.c: 90: do{LATD |= 1<<2;}while(0);
-"90
-[e :U 395 ]
-{
-[e =| _LATD -> << -> 1 `i -> 2 `i `uc ]
-}
-[e :U 394 ]
-[; ;main.c: 91: do{LATD &= ~(1<<3);}while(0);
-"91
-[e :U 398 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 3 `i `uc ]
-}
-[e :U 397 ]
-[; ;main.c: 92: }
-"92
-[e :UE 386 ]
-}
-"93
-[v __mpap_step3 `(v ~T0 @X0 1 sf ]
-"94
-{
-[; ;main.c: 93: static void _mpap_step3(void)
-[; ;main.c: 94: {
-[e :U __mpap_step3 ]
-[f ]
-[; ;main.c: 95: do{LATD &= ~(1<<0);}while(0);
-"95
-[e :U 402 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 0 `i `uc ]
-}
-[e :U 401 ]
-[; ;main.c: 96: do{LATD |= 1<<1;}while(0);
-"96
-[e :U 405 ]
-{
-[e =| _LATD -> << -> 1 `i -> 1 `i `uc ]
-}
-[e :U 404 ]
-[; ;main.c: 97: do{LATD &= ~(1<<2);}while(0);
-"97
-[e :U 408 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 2 `i `uc ]
-}
-[e :U 407 ]
-[; ;main.c: 98: do{LATD &= ~(1<<3);}while(0);
-"98
-[e :U 411 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 3 `i `uc ]
-}
-[e :U 410 ]
-[; ;main.c: 99: }
-"99
-[e :UE 399 ]
-}
-"100
-[v __mpap_step4 `(v ~T0 @X0 1 sf ]
-"101
-{
-[; ;main.c: 100: static void _mpap_step4(void)
-[; ;main.c: 101: {
-[e :U __mpap_step4 ]
-[f ]
-[; ;main.c: 102: do{LATD |= 1<<0;}while(0);
-"102
-[e :U 415 ]
-{
-[e =| _LATD -> << -> 1 `i -> 0 `i `uc ]
-}
-[e :U 414 ]
-[; ;main.c: 103: do{LATD &= ~(1<<1);}while(0);
-"103
-[e :U 418 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 1 `i `uc ]
-}
-[e :U 417 ]
-[; ;main.c: 104: do{LATD &= ~(1<<2);}while(0);
-"104
-[e :U 421 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 2 `i `uc ]
-}
-[e :U 420 ]
-[; ;main.c: 105: do{LATD &= ~(1<<3);}while(0);
-"105
-[e :U 424 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 3 `i `uc ]
-}
-[e :U 423 ]
-[; ;main.c: 106: }
-"106
-[e :UE 412 ]
-}
-"110
-[v _mpap_step `*F3260 ~T0 @X0 -> 4 `i e ]
-[i _mpap_step
-:U ..
-"113
-&U __mpap_step1
-&U __mpap_step2
-&U __mpap_step3
-"115
-&U __mpap_step4
-..
-]
-[; ;main.c: 110: PTRFX_retVOID mpap_step[4] =
-[; ;main.c: 111: {
-[; ;main.c: 113: _mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
-[; ;main.c: 115: };
-[v F3346 `(v ~T0 @X0 1 tf ]
-"117
-[v __mpap_off `TF3346 ~T0 @X0 1 s ]
-"118
-{
-[; ;main.c: 117: static inline void _mpap_off(void)
-[; ;main.c: 118: {
-[e :U __mpap_off ]
-[f ]
-[; ;main.c: 119: do{LATD &= ~(1<<0);}while(0);
-"119
-[e :U 428 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 0 `i `uc ]
-}
-[e :U 427 ]
-[; ;main.c: 120: do{LATD &= ~(1<<1);}while(0);
-"120
-[e :U 431 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 1 `i `uc ]
-}
-[e :U 430 ]
-[; ;main.c: 121: do{LATD &= ~(1<<2);}while(0);
-"121
-[e :U 434 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 2 `i `uc ]
-}
-[e :U 433 ]
-[; ;main.c: 122: do{LATD &= ~(1<<3);}while(0);
-"122
-[e :U 437 ]
-{
-[e =& _LATD -> ~ << -> 1 `i -> 3 `i `uc ]
-}
-[e :U 436 ]
-[; ;main.c: 123: }
-"123
-[e :UE 425 ]
-}
-"125
-[v _mpap_off `*F3260 ~T0 @X0 1 e ]
-[i _mpap_off
--> &U __mpap_off `*F3260
-]
-[; ;main.c: 125: PTRFX_retVOID mpap_off= {_mpap_off};
-[; ;main.c: 128: enum MPAP_MODES{
-[; ;main.c: 129: IDLE_MODE=0,
-[; ;main.c: 130: STALL_MODE,
-[; ;main.c: 131: HOMMING_MODE,
-[; ;main.c: 132: NORMAL_MODE
-[; ;main.c: 133: };
-[; ;main.c: 135: struct _mpap
-[; ;main.c: 136: {
-[; ;main.c: 137: int16_t numSteps_current;
-[; ;main.c: 138: int16_t counter_steps;
-[; ;main.c: 139: int16_t numSteps_tomove;
-[; ;main.c: 140: int8_t KI;
-[; ;main.c: 147: int8_t mode;
-[; ;main.c: 148: };
-"149
-[v _mpap `VS438 ~T0 @X0 1 e ]
-[; ;main.c: 149: volatile struct _mpap mpap;
-"155
-[v _mpap_setupToTurn `(v ~T0 @X0 1 ef1`i ]
-"156
-{
-[; ;main.c: 155: void mpap_setupToTurn(int16_t numSteps_tomove)
-[; ;main.c: 156: {
-[e :U _mpap_setupToTurn ]
-"155
-[v _numSteps_tomove `i ~T0 @X0 1 r1 ]
-"156
-[f ]
-[; ;main.c: 158: if (numSteps_tomove !=0)
-"158
-[e $ ! != _numSteps_tomove -> 0 `i 440  ]
-[; ;main.c: 159: {
-"159
-{
-[; ;main.c: 160: mpap.numSteps_tomove = numSteps_tomove;
-"160
-[e = . _mpap 2 _numSteps_tomove ]
-[; ;main.c: 161: mpap.KI = (mpap.numSteps_tomove<0)? -1: 1;
-"161
-[e = . _mpap 3 -> ? < . _mpap 2 -> 0 `i : -U -> 1 `i -> 1 `i `c ]
-[; ;main.c: 163: mpap.counter_steps = 0;
-"163
-[e = . _mpap 1 -> 0 `i ]
-"165
-}
-[e :U 440 ]
-[; ;main.c: 165: }
-[; ;main.c: 166: }
-"166
-[e :UE 439 ]
-}
-"167
-[v _mpap_setupToHomming `(v ~T0 @X0 1 ef ]
-"168
-{
-[; ;main.c: 167: void mpap_setupToHomming(void)
-[; ;main.c: 168: {
-[e :U _mpap_setupToHomming ]
-[f ]
-[; ;main.c: 169: mpap_setupToTurn( -1 *( (18*200) +20));
-"169
-[e ( _mpap_setupToTurn (1 * -U -> 1 `i + * -> 18 `i -> 200 `i -> 20 `i ]
-[; ;main.c: 172: mpap.mode = HOMMING_MODE;
-"172
-[e = . _mpap 4 -> . `E3348 2 `c ]
-[; ;main.c: 173: }
-"173
-[e :UE 441 ]
-}
-"174
-[v _nozzle_moveto `(v ~T0 @X0 1 ef1`c ]
-"175
-{
-[; ;main.c: 174: void nozzle_moveto(int8_t nozzle)
-[; ;main.c: 175: {
-[e :U _nozzle_moveto ]
-"174
-[v _nozzle `c ~T0 @X0 1 r1 ]
-"175
-[f ]
-[; ;main.c: 177: mpap_setupToTurn( (nozzle*200) - mpap.numSteps_current);
-"177
-[e ( _mpap_setupToTurn (1 - * -> _nozzle `i -> 200 `i . _mpap 0 ]
-[; ;main.c: 178: }
-"178
-[e :UE 442 ]
-}
-"186
-[v _mpap_stop `(v ~T0 @X0 1 ef ]
-"187
-{
-[; ;main.c: 186: void mpap_stop(void)
-[; ;main.c: 187: {
-[e :U _mpap_stop ]
-[f ]
-[; ;main.c: 188: mpap.numSteps_tomove = 0x00;
-"188
-[e = . _mpap 2 -> 0 `i ]
-[; ;main.c: 189: mpap_off();
-"189
-[e ( *U _mpap_off ..  ]
-[; ;main.c: 191: }
-"191
-[e :UE 443 ]
-}
-"194
-[v _mpap_do1step `(v ~T0 @X0 1 ef1`c ]
-"195
-{
-[; ;main.c: 194: void mpap_do1step(int8_t KI)
-[; ;main.c: 195: {
-[e :U _mpap_do1step ]
-"194
-[v _KI `c ~T0 @X0 1 r1 ]
-"195
-[f ]
-"196
-[v F3370 `c ~T0 @X0 1 s i ]
-[; ;main.c: 196: static int8_t i;
-[; ;main.c: 197: mpap_step[i]();
-"197
-[e ( *U *U + &U _mpap_step * -> -> F3370 `uc `ux -> -> # *U &U _mpap_step `ui `ux ..  ]
-[; ;main.c: 198: i+=KI;
-"198
-[e =+ F3370 _KI ]
-[; ;main.c: 199: if (i>3){i=0;}
-"199
-[e $ ! > -> F3370 `i -> 3 `i 445  ]
-{
-[e = F3370 -> -> 0 `i `c ]
-}
-[e :U 445 ]
-[; ;main.c: 200: if (i<0){i=3;}
-"200
-[e $ ! < -> F3370 `i -> 0 `i 446  ]
-{
-[e = F3370 -> -> 3 `i `c ]
-}
-[e :U 446 ]
-[; ;main.c: 201: }
-"201
-[e :UE 444 ]
-}
-"214
-[v _mpap_homming `(c ~T0 @X0 1 ef ]
-"215
-{
-[; ;main.c: 214: int8_t mpap_homming(void)
-[; ;main.c: 215: {
-[e :U _mpap_homming ]
-[f ]
-"216
-[v _cod_ret `c ~T0 @X0 1 a ]
-[; ;main.c: 216: int8_t cod_ret = 0;
-[e = _cod_ret -> -> 0 `i `c ]
-[; ;main.c: 217: if (mpap.numSteps_tomove!=0)
 "217
-[e $ ! != . _mpap 2 -> 0 `i 448  ]
-[; ;main.c: 218: {
+[v _ikb_init `(v ~T0 @X0 1 ef ]
 "218
 {
-[; ;main.c: 219: mpap_do1step(mpap.KI);
+[; ;ikb.c: 217: void ikb_init(void)
+[; ;ikb.c: 218: {
+[e :U _ikb_init ]
+[f ]
 "219
-[e ( _mpap_do1step (1 . _mpap 3 ]
-[; ;main.c: 221: mpap.counter_steps+= mpap.KI;
-"221
-[e =+ . _mpap 1 -> . _mpap 3 `i ]
-[; ;main.c: 223: if (((PORTE & (1<<1))>>1) == 0)
-"223
-[e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 0 `i 449  ]
-[; ;main.c: 224: {
-"224
-{
-[; ;main.c: 225: mpap.numSteps_tomove = 0x0000;
-"225
-[e = . _mpap 2 -> 0 `i ]
-[; ;main.c: 226: cod_ret = 1;
-"226
-[e = _cod_ret -> -> 1 `i `c ]
-"227
-}
-[e :U 449 ]
-[; ;main.c: 227: }
-[; ;main.c: 228: if ( mpap.counter_steps == mpap.numSteps_tomove)
-"228
-[e $ ! == . _mpap 1 . _mpap 2 450  ]
-[; ;main.c: 229: {
-"229
-{
-[; ;main.c: 230: mpap.numSteps_tomove = 0x0000;
-"230
-[e = . _mpap 2 -> 0 `i ]
-[; ;main.c: 231: cod_ret = 1;
-"231
-[e = _cod_ret -> -> 1 `i `c ]
-[; ;main.c: 232: pulsonic.errors.flag.mpap_home_sensor = 1;
-"232
-[e = . . . _pulsonic 5 0 0 -> -> 1 `i `uc ]
-"233
-}
-[e :U 450 ]
-"234
-}
-[e :U 448 ]
-[; ;main.c: 233: }
-[; ;main.c: 234: }
-[; ;main.c: 235: return cod_ret;
-"235
-[e ) _cod_ret ]
-[e $UE 447  ]
-[; ;main.c: 236: }
-"236
-[e :UE 447 ]
-}
-"237
-[v _mpap_normal_mode `(c ~T0 @X0 1 ef ]
-"238
-{
-[; ;main.c: 237: int8_t mpap_normal_mode(void)
-[; ;main.c: 238: {
-[e :U _mpap_normal_mode ]
-[f ]
-"239
-[v _cod_ret `c ~T0 @X0 1 a ]
-[; ;main.c: 239: int8_t cod_ret = 0;
-[e = _cod_ret -> -> 0 `i `c ]
-[; ;main.c: 240: if (mpap.numSteps_tomove!=0)
-"240
-[e $ ! != . _mpap 2 -> 0 `i 452  ]
-[; ;main.c: 241: {
-"241
-{
-[; ;main.c: 242: mpap_do1step(mpap.KI);
-"242
-[e ( _mpap_do1step (1 . _mpap 3 ]
-[; ;main.c: 244: mpap.counter_steps+= mpap.KI;
-"244
-[e =+ . _mpap 1 -> . _mpap 3 `i ]
-[; ;main.c: 246: mpap.numSteps_current+= mpap.KI;
-"246
-[e =+ . _mpap 0 -> . _mpap 3 `i ]
-[; ;main.c: 248: if ( mpap.counter_steps == mpap.numSteps_tomove)
-"248
-[e $ ! == . _mpap 1 . _mpap 2 453  ]
-[; ;main.c: 249: {
-"249
-{
-[; ;main.c: 250: mpap.numSteps_tomove = 0;
-"250
-[e = . _mpap 2 -> 0 `i ]
-[; ;main.c: 251: cod_ret = 1;
-"251
-[e = _cod_ret -> -> 1 `i `c ]
-"252
-}
-[e :U 453 ]
-"253
-}
-[e :U 452 ]
-[; ;main.c: 252: }
-[; ;main.c: 253: }
-[; ;main.c: 254: return cod_ret;
-"254
-[e ) _cod_ret ]
-[e $UE 451  ]
-[; ;main.c: 255: }
-"255
-[e :UE 451 ]
-}
-"257
-[v _mpap_job `(c ~T0 @X0 1 ef ]
-"258
-{
-[; ;main.c: 257: int8_t mpap_job(void)
-[; ;main.c: 258: {
-[e :U _mpap_job ]
-[f ]
-"259
-[v _cod_ret `c ~T0 @X0 1 a ]
-[; ;main.c: 259: int8_t cod_ret;
-[; ;main.c: 261: if (mpap.mode == HOMMING_MODE)
-"261
-[e $ ! == -> . _mpap 4 `i -> . `E3348 2 `i 455  ]
-[; ;main.c: 262: cod_ret = mpap_homming();
-"262
-[e = _cod_ret ( _mpap_homming ..  ]
-[e $U 456  ]
-"263
-[e :U 455 ]
-[; ;main.c: 263: else if (mpap.mode == NORMAL_MODE)
-[e $ ! == -> . _mpap 4 `i -> . `E3348 3 `i 457  ]
-[; ;main.c: 264: cod_ret = mpap_normal_mode();
-"264
-[e = _cod_ret ( _mpap_normal_mode ..  ]
-[e $U 458  ]
-"266
-[e :U 457 ]
-[; ;main.c: 266: else if (mpap.mode == STALL_MODE)
-[e $ ! == -> . _mpap 4 `i -> . `E3348 1 `i 459  ]
-[; ;main.c: 267: mpap.mode = IDLE_MODE;
-"267
-[e = . _mpap 4 -> . `E3348 0 `c ]
-[e :U 459 ]
-"269
-[e :U 458 ]
-[e :U 456 ]
-[; ;main.c: 269: return cod_ret;
-[e ) _cod_ret ]
-[e $UE 454  ]
-[; ;main.c: 270: }
-"270
-[e :UE 454 ]
-}
-"271
-[v _t `ui ~T0 @X0 1 e ]
-[; ;main.c: 271: uint16_t t;
-[; ;main.c: 273: extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
-[v $root$_main `(v ~T0 @X0 0 e ]
-"275
-[v _main `(v ~T0 @X0 1 ef ]
-"276
-{
-[; ;main.c: 275: void main(void)
-[; ;main.c: 276: {
-[e :U _main ]
-[f ]
-[; ;main.c: 277: LATA = 0x00;
-"277
-[e = _LATA -> -> 0 `i `uc ]
-[; ;main.c: 278: LATC = 0x00;
-"278
-[e = _LATC -> -> 0 `i `uc ]
-[; ;main.c: 279: LATD = 0x00;
-"279
-[e = _LATD -> -> 0 `i `uc ]
-[; ;main.c: 280: LATE = 0x00;
-"280
-[e = _LATE -> -> 0 `i `uc ]
-[; ;main.c: 281: LATB = 0x00;
-"281
-[e = _LATB -> -> 0 `i `uc ]
-[; ;main.c: 285: ADCON1 = 0x0F;
-"285
-[e = _ADCON1 -> -> 15 `i `uc ]
-[; ;main.c: 286: CMCON=0xCF;
-"286
-[e = _CMCON -> -> 207 `i `uc ]
-[; ;main.c: 289: UCON = 0;
-"289
-[e = _UCON -> -> 0 `i `uc ]
-[; ;main.c: 290: UCFG = 1<<3;
-"290
-[e = _UCFG -> << -> 1 `i -> 3 `i `uc ]
-[; ;main.c: 296: T0CON = 0B10000111;
-"296
-[e = _T0CON -> -> 135 `i `uc ]
-[; ;main.c: 297: t=(uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) );
-"297
-[e = _t -> - -> << -> 1 `ul -> 16 `i `d / * .1e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui ]
-[; ;main.c: 298: TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ) >> 8);
-"298
-[e = _TMR0H -> >> -> - -> << -> 1 `ul -> 16 `i `d / * .1e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui -> 8 `i `uc ]
-[; ;main.c: 299: TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ));
-"299
-[e = _TMR0L -> -> - -> << -> 1 `ul -> 16 `i `d / * .1e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui `uc ]
-[; ;main.c: 300: TMR0IE = 1;
-"300
-[e = _TMR0IE -> -> 1 `i `b ]
-[; ;main.c: 303: do{do{LATE |= 1<<0;}while(0);}while(0);
-"303
-[e :U 463 ]
-{
-[e :U 466 ]
-{
-[e =| _LATE -> << -> 1 `i -> 0 `i `uc ]
-}
-[e :U 465 ]
-}
-[e :U 462 ]
-[; ;main.c: 304: do{TRISE &= ~(1<<0);}while(0);
-"304
-[e :U 469 ]
-{
-[e =& _TRISE -> ~ << -> 1 `i -> 0 `i `uc ]
-}
-[e :U 468 ]
-[; ;main.c: 306: do{TRISD &= ~(1<<0);}while(0);
-"306
-[e :U 472 ]
-{
-[e =& _TRISD -> ~ << -> 1 `i -> 0 `i `uc ]
-}
-[e :U 471 ]
-[; ;main.c: 307: do{TRISD &= ~(1<<1);}while(0);
-"307
-[e :U 475 ]
-{
-[e =& _TRISD -> ~ << -> 1 `i -> 1 `i `uc ]
-}
-[e :U 474 ]
-[; ;main.c: 308: do{TRISD &= ~(1<<2);}while(0);
-"308
-[e :U 478 ]
-{
-[e =& _TRISD -> ~ << -> 1 `i -> 2 `i `uc ]
-}
-[e :U 477 ]
-[; ;main.c: 309: do{TRISD &= ~(1<<3);}while(0);
-"309
-[e :U 481 ]
-{
-[e =& _TRISD -> ~ << -> 1 `i -> 3 `i `uc ]
-}
-[e :U 480 ]
-[; ;main.c: 311: do{do{LATC &= ~(1<<1);}while(0);}while(0);
-"311
-[e :U 484 ]
-{
-[e :U 487 ]
-{
-[e =& _LATC -> ~ << -> 1 `i -> 1 `i `uc ]
-}
-[e :U 486 ]
-}
-[e :U 483 ]
-[; ;main.c: 312: do{TRISC &= ~(1<<1);}while(0);
-"312
-[e :U 490 ]
-{
-[e =& _TRISC -> ~ << -> 1 `i -> 1 `i `uc ]
-}
-[e :U 489 ]
-[; ;main.c: 314: do{TRISE |= 1<<1;}while(0);
-"314
-[e :U 493 ]
-{
-[e =| _TRISE -> << -> 1 `i -> 1 `i `uc ]
-}
-[e :U 492 ]
-[; ;main.c: 316: display7s_init();
-"316
-[e ( _display7s_init ..  ]
-[; ;main.c: 317: ikb_init();
-"317
-[e ( _ikb_init ..  ]
-[; ;main.c: 319: disp_show_quantity(99.8);
-"319
-[e ( _disp_show_quantity (1 .99.8 ]
-[; ;main.c: 321: GIE = 1;
-"321
-[e = _GIE -> -> 1 `i `b ]
-"322
-[v _c `c ~T0 @X0 1 a ]
-[; ;main.c: 322: int8_t c=0;
-[e = _c -> -> 0 `i `c ]
-"323
-[v _c_disp `c ~T0 @X0 1 a ]
-[; ;main.c: 323: int8_t c_disp=0;
-[e = _c_disp -> -> 0 `i `c ]
-[; ;main.c: 324: while(1)
-"324
-[e :U 495 ]
-[; ;main.c: 325: {
-"325
-{
-[; ;main.c: 326: if (isr_flag.f1ms)
-"326
-[e $ ! != -> . _isr_flag 0 `i -> -> -> 0 `i `Vuc `i 497  ]
-[; ;main.c: 327: {
-"327
-{
-[; ;main.c: 328: isr_flag.f1ms = 0;
-"328
-[e = . _isr_flag 0 -> -> 0 `i `uc ]
-[; ;main.c: 329: main_flag.f1ms = 1;
-"329
-[e = . _main_flag 0 -> -> 1 `i `uc ]
-"330
-}
-[e :U 497 ]
-[; ;main.c: 330: }
-[; ;main.c: 332: if (main_flag.f1ms)
-"332
-[e $ ! != -> . _main_flag 0 `i -> -> -> 0 `i `Vuc `i 498  ]
-[; ;main.c: 333: {
-"333
-{
-[; ;main.c: 334: if (++c==20)
-"334
-[e $ ! == -> =+ _c -> -> 1 `i `c `i -> 20 `i 499  ]
-[; ;main.c: 335: {
-"335
-{
-[; ;main.c: 336: c = 0;
-"336
-[e = _c -> -> 0 `i `c ]
-[; ;main.c: 338: ikb_job();
-"338
-[e ( _ikb_job ..  ]
-[; ;main.c: 340: if (ikb_key_is_ready2read(0))
-"340
-[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 500  ]
-[; ;main.c: 341: {
-"341
-{
-[; ;main.c: 342: do{LATB ^= 1<<0;}while(0);
-"342
-[e :U 503 ]
-{
-[e =^ _LATB -> << -> 1 `i -> 0 `i `uc ]
-}
-[e :U 502 ]
-"343
-}
-[e :U 500 ]
-[; ;main.c: 343: }
-[; ;main.c: 344: if (ikb_key_is_ready2read(1))
-"344
-[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 504  ]
-[; ;main.c: 345: {
-"345
-{
-[; ;main.c: 346: do{LATB ^= 1<<1;}while(0);
-"346
-[e :U 507 ]
-{
-[e =^ _LATB -> << -> 1 `i -> 1 `i `uc ]
-}
-[e :U 506 ]
-"347
-}
-[e :U 504 ]
-[; ;main.c: 347: }
-[; ;main.c: 348: if (ikb_key_is_ready2read(2))
-"348
-[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 2 `i `uc `i -> -> -> 0 `i `uc `i 508  ]
-[; ;main.c: 349: {
-"349
-{
-[; ;main.c: 350: do{LATB ^= 1<<2;}while(0);
-"350
-[e :U 511 ]
-{
-[e =^ _LATB -> << -> 1 `i -> 2 `i `uc ]
-}
-[e :U 510 ]
-"351
-}
-[e :U 508 ]
-[; ;main.c: 351: }
-[; ;main.c: 352: if (ikb_key_is_ready2read(3))
-"352
-[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 3 `i `uc `i -> -> -> 0 `i `uc `i 512  ]
-[; ;main.c: 353: {
-"353
-{
-[; ;main.c: 354: do{LATB ^= 1<<3;}while(0);
-"354
-[e :U 515 ]
-{
-[e =^ _LATB -> << -> 1 `i -> 3 `i `uc ]
-}
-[e :U 514 ]
-"355
-}
-[e :U 512 ]
-[; ;main.c: 355: }
-[; ;main.c: 356: if (ikb_key_is_ready2read(4))
-"356
-[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 4 `i `uc `i -> -> -> 0 `i `uc `i 516  ]
-[; ;main.c: 357: {
-"357
-{
-[; ;main.c: 358: do{LATB ^= 1<<4;}while(0);
-"358
-[e :U 519 ]
-{
-[e =^ _LATB -> << -> 1 `i -> 4 `i `uc ]
-}
-[e :U 518 ]
-"359
-}
-[e :U 516 ]
-"360
-}
-[e :U 499 ]
-[; ;main.c: 359: }
-[; ;main.c: 360: }
-[; ;main.c: 362: if (++c_disp == 2)
-"362
-[e $ ! == -> =+ _c_disp -> -> 1 `i `c `i -> 2 `i 520  ]
-[; ;main.c: 363: {
-"363
-{
-[; ;main.c: 364: c_disp = 0;
-"364
-[e = _c_disp -> -> 0 `i `c ]
-[; ;main.c: 365: display7s_job();
-"365
-[e ( _display7s_job ..  ]
-"366
-}
-[e :U 520 ]
-"367
-}
-[e :U 498 ]
-[; ;main.c: 366: }
-[; ;main.c: 367: }
-[; ;main.c: 370: main_flag.f1ms = 0;
-"370
-[e = . _main_flag 0 -> -> 0 `i `uc ]
-[; ;main.c: 371: ikb_flush();
-"371
-[e ( _ikb_flush ..  ]
-"372
-}
-[e :U 494 ]
-"324
-[e $U 495  ]
-[e :U 496 ]
-[; ;main.c: 372: }
-[; ;main.c: 379: mpap_setupToHomming();
-"379
-[e ( _mpap_setupToHomming ..  ]
-[; ;main.c: 381: while (1)
-"381
-[e :U 522 ]
-[; ;main.c: 382: {
-"382
-{
-[; ;main.c: 383: mpap_job();
-"383
-[e ( _mpap_job ..  ]
-[; ;main.c: 384: if (mpap.numSteps_tomove == 0)
-"384
-[e $ ! == . _mpap 2 -> 0 `i 524  ]
-[; ;main.c: 385: {
-"385
-{
-[; ;main.c: 386: if ( pulsonic.errors.flag.mpap_home_sensor != 1)
-"386
-[e $ ! != -> . . . _pulsonic 5 0 0 `i -> 1 `i 525  ]
-[; ;main.c: 387: {
-"387
-{
-[; ;main.c: 388: mpap.mode = NORMAL_MODE;
-"388
-[e = . _mpap 4 -> . `E3348 3 `c ]
-[; ;main.c: 389: break;
+[v _i `c ~T0 @X0 1 a ]
+[; ;ikb.c: 219: int8_t i;
+[; ;ikb.c: 389: do{TRISC |= 1<<4;}while(0);
 "389
-[e $U 523  ]
+[e :U 377 ]
+{
+[e =| _TRISC -> << -> 1 `i -> 4 `i `uc ]
+}
+[e :U 376 ]
+[; ;ikb.c: 390: do{TRISC |= 1<<5;}while(0);
 "390
+[e :U 380 ]
+{
+[e =| _TRISC -> << -> 1 `i -> 5 `i `uc ]
 }
-[; ;main.c: 390: }
-[e $U 526  ]
+[e :U 379 ]
+[; ;ikb.c: 391: do{TRISC |= 1<<6;}while(0);
 "391
-[e :U 525 ]
-[; ;main.c: 391: else
-[; ;main.c: 392: {
+[e :U 383 ]
+{
+[e =| _TRISC -> << -> 1 `i -> 6 `i `uc ]
+}
+[e :U 382 ]
+[; ;ikb.c: 392: do{TRISC |= 1<<7;}while(0);
 "392
+[e :U 386 ]
 {
+[e =| _TRISC -> << -> 1 `i -> 7 `i `uc ]
+}
+[e :U 385 ]
+[; ;ikb.c: 393: do{TRISD |= 1<<4;}while(0);
+"393
+[e :U 389 ]
+{
+[e =| _TRISD -> << -> 1 `i -> 4 `i `uc ]
+}
+[e :U 388 ]
+[; ;ikb.c: 394: key[0].keyRead = keyRead_pin_key1;
+[v F3340 `*F3254 ~T0 @X0 1 t ]
+"394
+[e = . *U + &U _key * -> -> -> 0 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key1 `V*F3254 ]
+[; ;ikb.c: 395: key[1].keyRead = keyRead_pin_key2;
+[v F3341 `*F3254 ~T0 @X0 1 t ]
 "395
-}
-[e :U 526 ]
+[e = . *U + &U _key * -> -> -> 1 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key2 `V*F3254 ]
+[; ;ikb.c: 396: key[2].keyRead = keyRead_pin_key3;
+[v F3342 `*F3254 ~T0 @X0 1 t ]
 "396
-}
-[e :U 524 ]
-[; ;main.c: 395: }
-[; ;main.c: 396: }
-[; ;main.c: 397: _delay((unsigned long)((2)*(48000000UL/4000.0)));
+[e = . *U + &U _key * -> -> -> 2 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key3 `V*F3254 ]
+[; ;ikb.c: 397: key[3].keyRead = keyRead_pin_key4;
+[v F3343 `*F3254 ~T0 @X0 1 t ]
 "397
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
+[e = . *U + &U _key * -> -> -> 3 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key4 `V*F3254 ]
+[; ;ikb.c: 398: key[4].keyRead = keyRead_pin_key5;
+[v F3344 `*F3254 ~T0 @X0 1 t ]
 "398
-}
-[e :U 521 ]
-"381
-[e $U 522  ]
-[e :U 523 ]
-[; ;main.c: 398: }
-[; ;main.c: 399: _delay((unsigned long)((1000)*(48000000UL/4000.0)));
-"399
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
-[; ;main.c: 403: nozzle_moveto(1);
+[e = . *U + &U _key * -> -> -> 4 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key5 `V*F3254 ]
+[; ;ikb.c: 401: for (i=0; i<5; i++)
+"401
+{
+[e = _i -> -> 0 `i `c ]
+[e $ < -> _i `i -> 5 `i 390  ]
+[e $U 391  ]
+"402
+[e :U 390 ]
+[; ;ikb.c: 402: {
+{
+[; ;ikb.c: 403: key[i].bf.OnKeyPressed = 1;
 "403
-[e ( _nozzle_moveto (1 -> -> 1 `i `c ]
-[; ;main.c: 404: while (1)
+[e = . . *U + &U _key * -> -> _i `uc `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 1 `i `uc ]
+[; ;ikb.c: 404: key[i].bf.OnKeyPressedAndKeyRelease = 0;
 "404
-[e :U 528 ]
-[; ;main.c: 405: {
+[e = . . *U + &U _key * -> -> _i `uc `ux -> -> # *U &U _key `ui `ux 7 2 -> -> 0 `i `uc ]
+[; ;ikb.c: 405: key[i].bf.AtTimeExpired = 0;
 "405
-{
-[; ;main.c: 406: mpap_job();
+[e = . . *U + &U _key * -> -> _i `uc `ux -> -> # *U &U _key `ui `ux 7 3 -> -> 0 `i `uc ]
+[; ;ikb.c: 406: key[i].bf.Reptt = 0;
 "406
-[e ( _mpap_job ..  ]
-[; ;main.c: 407: if (mpap.numSteps_tomove == 0)
+[e = . . *U + &U _key * -> -> _i `uc `ux -> -> # *U &U _key `ui `ux 7 5 -> -> 0 `i `uc ]
+[; ;ikb.c: 407: key[i].num_group_x = 0;
 "407
-[e $ ! == . _mpap 2 -> 0 `i 530  ]
-[; ;main.c: 408: {
+[e = . *U + &U _key * -> -> _i `uc `ux -> -> # *U &U _key `ui `ux 6 -> -> 0 `i `uc ]
+[; ;ikb.c: 408: key[i].repp.to_start= (uint16_t)500.0/5;
 "408
-{
-[; ;main.c: 409: break;
+[e = . . *U + &U _key * -> -> _i `uc `ux -> -> # *U &U _key `ui `ux 8 0 / -> .500.0 `ui -> -> 5 `i `ui ]
+[; ;ikb.c: 409: key[i].repp.after_start = (uint16_t)200.0/5;
 "409
-[e $U 529  ]
+[e = . . *U + &U _key * -> -> _i `uc `ux -> -> # *U &U _key `ui `ux 8 1 / -> .200.0 `ui -> -> 5 `i `ui ]
 "410
 }
-[e :U 530 ]
-[; ;main.c: 410: }
-[; ;main.c: 411: _delay((unsigned long)((2)*(48000000UL/4000.0)));
-"411
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
+"401
+[e ++ _i -> -> 1 `i `c ]
+[e $ < -> _i `i -> 5 `i 390  ]
+[e :U 391 ]
+"410
+}
+[; ;ikb.c: 410: }
+[; ;ikb.c: 412: }
 "412
+[e :UE 374 ]
 }
-[e :U 527 ]
-"404
-[e $U 528  ]
-[e :U 529 ]
-[; ;main.c: 412: }
-[; ;main.c: 413: mpap_stop();
-"413
-[e ( _mpap_stop ..  ]
-[; ;main.c: 417: while (1)
-"417
-[e :U 532 ]
-[; ;main.c: 418: {
-"418
+"414
+[v _ikb_job `(v ~T0 @X0 1 ef ]
+"415
 {
-[; ;main.c: 419: do{LATE |= 1<<0;}while(0);
-"419
-[e :U 536 ]
-{
-[e =| _LATE -> << -> 1 `i -> 0 `i `uc ]
-}
-[e :U 535 ]
-[; ;main.c: 420: _delay((unsigned long)((50)*(48000000UL/4000.0)));
-"420
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
-[; ;main.c: 421: do{LATE &= ~(1<<0);}while(0);
-"421
-[e :U 539 ]
-{
-[e =& _LATE -> ~ << -> 1 `i -> 0 `i `uc ]
-}
-[e :U 538 ]
-[; ;main.c: 422: _delay((unsigned long)((50)*(48000000UL/4000.0)));
-"422
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
-"423
-}
-[e :U 531 ]
-"417
-[e $U 532  ]
-[e :U 533 ]
-[; ;main.c: 423: }
-[; ;main.c: 425: while(1);
-"425
-[e :U 541 ]
-[e :U 540 ]
-[e $U 541  ]
-[e :U 542 ]
-[; ;main.c: 427: _delay((unsigned long)((1000)*(48000000UL/4000.0)));
-"427
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
-[; ;main.c: 429: nozzle_moveto(2);
-"429
-[e ( _nozzle_moveto (1 -> -> 2 `i `c ]
-[; ;main.c: 430: while (1)
-"430
-[e :U 544 ]
-[; ;main.c: 431: {
-"431
-{
-[; ;main.c: 432: mpap_job();
-"432
-[e ( _mpap_job ..  ]
-[; ;main.c: 433: if (mpap.numSteps_tomove == 0)
-"433
-[e $ ! == . _mpap 2 -> 0 `i 546  ]
-[; ;main.c: 434: {
-"434
-{
-[; ;main.c: 435: break;
-"435
-[e $U 545  ]
-"436
-}
-[e :U 546 ]
-[; ;main.c: 436: }
-[; ;main.c: 437: _delay((unsigned long)((2)*(48000000UL/4000.0)));
-"437
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
-"438
-}
-[e :U 543 ]
-"430
-[e $U 544  ]
-[e :U 545 ]
-[; ;main.c: 438: }
-[; ;main.c: 441: while (1)
-"441
-[e :U 548 ]
-[; ;main.c: 442: {;}
-"442
-{
-}
-[e :U 547 ]
-"441
-[e $U 548  ]
-[e :U 549 ]
-[; ;main.c: 444: return;
-"444
-[e $UE 460  ]
-[; ;main.c: 445: }
-"445
-[e :UE 460 ]
-}
-[v $root$_INTERRUPCION `(v ~T0 @X0 0 e ]
-[v F3399 `(v ~T0 @X0 1 tf ]
-"447
-[v _INTERRUPCION `IF3399 ~T0 @X0 1 e ]
-"448
-{
-[; ;main.c: 447: void interrupt INTERRUPCION(void)
-[; ;main.c: 448: {
-[e :U _INTERRUPCION ]
+[; ;ikb.c: 414: void ikb_job(void)
+[; ;ikb.c: 415: {
+[e :U _ikb_job ]
 [f ]
-[; ;main.c: 450: if (TMR0IF)
-"450
-[e $ ! _TMR0IF 551  ]
-[; ;main.c: 451: {
-"451
-{
-[; ;main.c: 452: isr_flag.f1ms = 1;
-"452
-[e = . _isr_flag 0 -> -> 1 `i `uc ]
-[; ;main.c: 454: TMR0IF = 0;
-"454
-[e = _TMR0IF -> -> 0 `i `b ]
-[; ;main.c: 455: TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ) >> 8);
-"455
-[e = _TMR0H -> >> -> - -> << -> 1 `ul -> 16 `i `d / * .1e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui -> 8 `i `uc ]
-[; ;main.c: 456: TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ));
-"456
-[e = _TMR0L -> -> - -> << -> 1 `ul -> 16 `i `d / * .1e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui `uc ]
-"457
+[; ;ikb.c: 416: ikey_scan();
+"416
+[e ( _ikey_scan ..  ]
+[; ;ikb.c: 417: ikey_parsing();
+"417
+[e ( _ikey_parsing ..  ]
+[; ;ikb.c: 418: }
+"418
+[e :UE 393 ]
 }
-[e :U 551 ]
-[; ;main.c: 457: }
-[; ;main.c: 458: }
+"419
+[v _ikb_flush `(v ~T0 @X0 1 ef ]
+"420
+{
+[; ;ikb.c: 419: void ikb_flush(void)
+[; ;ikb.c: 420: {
+[e :U _ikb_flush ]
+[f ]
+[; ;ikb.c: 421: ikey_clear_all_flag();
+"421
+[e ( _ikey_clear_all_flag ..  ]
+[; ;ikb.c: 422: }
+"422
+[e :UE 394 ]
+}
+"423
+[v _ikb_get_AtTimeExpired_BeforeOrAfter `(uc ~T0 @X0 1 ef1`uc ]
+"424
+{
+[; ;ikb.c: 423: uint8_t ikb_get_AtTimeExpired_BeforeOrAfter(uint8_t k)
+[; ;ikb.c: 424: {
+[e :U _ikb_get_AtTimeExpired_BeforeOrAfter ]
+"423
+[v _k `uc ~T0 @X0 1 r1 ]
+"424
+[f ]
+[; ;ikb.c: 425: return key[k].bf.AtTimeExpired_BeforeOrAfter;
+"425
+[e ) . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 ]
+[e $UE 395  ]
+[; ;ikb.c: 426: }
+"426
+[e :UE 395 ]
+}
+"427
+[v _ikb_key_is_ready2read `(uc ~T0 @X0 1 ef1`uc ]
+"428
+{
+[; ;ikb.c: 427: uint8_t ikb_key_is_ready2read(uint8_t k)
+[; ;ikb.c: 428: {
+[e :U _ikb_key_is_ready2read ]
+"427
+[v _k `uc ~T0 @X0 1 r1 ]
+"428
+[f ]
+[; ;ikb.c: 429: return key[k].bf.ReadyToRead;
+"429
+[e ) . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 ]
+[e $UE 396  ]
+[; ;ikb.c: 430: }
+"430
+[e :UE 396 ]
+}
+"431
+[v _ikb_set_ready2read `(v ~T0 @X0 1 ef1`uc ]
+"432
+{
+[; ;ikb.c: 431: void ikb_set_ready2read(uint8_t k)
+[; ;ikb.c: 432: {
+[e :U _ikb_set_ready2read ]
+"431
+[v _k `uc ~T0 @X0 1 r1 ]
+"432
+[f ]
+[; ;ikb.c: 433: key[k].bf.ReadyToRead = 1;
+"433
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 1 `i `uc ]
+[; ;ikb.c: 434: }
+"434
+[e :UE 397 ]
+}
+"435
+[v _ikb_key_was_read `(v ~T0 @X0 1 ef1`uc ]
+"436
+{
+[; ;ikb.c: 435: void ikb_key_was_read(uint8_t k)
+[; ;ikb.c: 436: {
+[e :U _ikb_key_was_read ]
+"435
+[v _k `uc ~T0 @X0 1 r1 ]
+"436
+[f ]
+[; ;ikb.c: 437: key[k].bf.ReadyToRead = 0;
+"437
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 0 `i `uc ]
+[; ;ikb.c: 438: }
+"438
+[e :UE 398 ]
+}
+"439
+[v _ikb_execfunct `(v ~T0 @X0 1 ef1`uc ]
+"440
+{
+[; ;ikb.c: 439: void ikb_execfunct(uint8_t k)
+[; ;ikb.c: 440: {
+[e :U _ikb_execfunct ]
+"439
+[v _k `uc ~T0 @X0 1 r1 ]
+"440
+[f ]
+[; ;ikb.c: 441: key[k].keyDo();
+"441
+[e ( *U . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 1 ..  ]
+[; ;ikb.c: 442: }
+"442
+[e :UE 399 ]
+}
+"449
+[v _ikey_scan `(v ~T0 @X0 1 ef ]
+"450
+{
+[; ;ikb.c: 449: void ikey_scan(void)
+[; ;ikb.c: 450: {
+[e :U _ikey_scan ]
+[f ]
+"451
+[v _k `c ~T0 @X0 1 a ]
+[; ;ikb.c: 451: int8_t k = 5-1;
+[e = _k -> - -> 5 `i -> 1 `i `c ]
+[; ;ikb.c: 452: do
+"452
+[e :U 403 ]
+[; ;ikb.c: 453: {
+"453
+{
+[; ;ikb.c: 454: if (key[k].sm0 == 0)
+"454
+[e $ ! == -> . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 `i -> 0 `i 404  ]
+[; ;ikb.c: 455: {
+"455
+{
+[; ;ikb.c: 456: if (key[k].keyRead() == 0)
+"456
+[e $ ! == -> ( *U . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 0 ..  `i -> 0 `i 405  ]
+[; ;ikb.c: 457: {
+"457
+{
+[; ;ikb.c: 458: key[k].sm0++;
 "458
-[e :UE 550 ]
+[e ++ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
+"459
+}
+[e :U 405 ]
+"460
+}
+[; ;ikb.c: 459: }
+[; ;ikb.c: 460: }
+[e $U 406  ]
+"461
+[e :U 404 ]
+[; ;ikb.c: 461: else if (key[k].sm0 == 1)
+[e $ ! == -> . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 `i -> 1 `i 407  ]
+[; ;ikb.c: 462: {
+"462
+{
+[; ;ikb.c: 463: if (++key[k].counter0 == 4)
+"463
+[e $ ! == -> =+ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 3 -> -> 1 `i `uc `i -> 4 `i 408  ]
+[; ;ikb.c: 464: {
+"464
+{
+[; ;ikb.c: 465: key[k].counter0 = 0x00;
+"465
+[e = . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 3 -> -> 0 `i `uc ]
+[; ;ikb.c: 467: if (key[k].keyRead() != 0)
+"467
+[e $ ! != -> ( *U . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 0 ..  `i -> 0 `i 409  ]
+[; ;ikb.c: 468: {
+"468
+{
+[; ;ikb.c: 469: key[k].sm0--;
+"469
+[e -- . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
+"470
+}
+[; ;ikb.c: 470: }
+[e $U 410  ]
+"471
+[e :U 409 ]
+[; ;ikb.c: 471: else
+[; ;ikb.c: 472: {
+"472
+{
+[; ;ikb.c: 473: key[k].bf.state = 1;
+"473
+[e = . . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 7 0 -> -> 1 `i `uc ]
+[; ;ikb.c: 474: key[k].sm0++;
+"474
+[e ++ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
+"475
+}
+[e :U 410 ]
+"476
+}
+[e :U 408 ]
+"477
+}
+[; ;ikb.c: 475: }
+[; ;ikb.c: 476: }
+[; ;ikb.c: 477: }
+[e $U 411  ]
+"478
+[e :U 407 ]
+[; ;ikb.c: 478: else if (key[k].sm0 == 2)
+[e $ ! == -> . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 `i -> 2 `i 412  ]
+[; ;ikb.c: 479: {
+"479
+{
+[; ;ikb.c: 480: if (key[k].keyRead() == 1)
+"480
+[e $ ! == -> ( *U . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 0 ..  `i -> 1 `i 413  ]
+[; ;ikb.c: 481: key[k].sm0++;
+"481
+[e ++ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
+[e :U 413 ]
+"482
+}
+[; ;ikb.c: 482: }
+[e $U 414  ]
+"483
+[e :U 412 ]
+[; ;ikb.c: 483: else if (key[k].sm0 == 3)
+[e $ ! == -> . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 `i -> 3 `i 415  ]
+[; ;ikb.c: 484: {
+"484
+{
+[; ;ikb.c: 485: if (++key[k].counter0 == 4)
+"485
+[e $ ! == -> =+ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 3 -> -> 1 `i `uc `i -> 4 `i 416  ]
+[; ;ikb.c: 486: {
+"486
+{
+[; ;ikb.c: 487: key[k].counter0 = 0x00;
+"487
+[e = . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 3 -> -> 0 `i `uc ]
+[; ;ikb.c: 489: if (key[k].keyRead() != 1)
+"489
+[e $ ! != -> ( *U . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 0 ..  `i -> 1 `i 417  ]
+[; ;ikb.c: 490: {
+"490
+{
+[; ;ikb.c: 491: key[k].sm0--;
+"491
+[e -- . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
+"492
+}
+[; ;ikb.c: 492: }
+[e $U 418  ]
+"493
+[e :U 417 ]
+[; ;ikb.c: 493: else
+[; ;ikb.c: 494: {
+"494
+{
+[; ;ikb.c: 495: key[k].bf.state = 0;
+"495
+[e = . . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 7 0 -> -> 0 `i `uc ]
+[; ;ikb.c: 496: key[k].sm0 = 0x00;
+"496
+[e = . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 0 `i `uc ]
+"497
+}
+[e :U 418 ]
+"498
+}
+[e :U 416 ]
+"499
+}
+[e :U 415 ]
+"500
+[e :U 414 ]
+[e :U 411 ]
+[e :U 406 ]
+}
+[; ;ikb.c: 497: }
+[; ;ikb.c: 498: }
+[; ;ikb.c: 499: }
+[; ;ikb.c: 500: }while (--k >= 0);
+[e $ >= -> =- _k -> -> 1 `i `c `i -> 0 `i 403  ]
+[e :U 402 ]
+[; ;ikb.c: 501: }
+"501
+[e :UE 400 ]
+}
+"508
+[v _group_x `uc ~T0 @X0 -> 5 `i e ]
+[; ;ikb.c: 508: uint8_t group_x[5];
+"510
+[v _ikey_is_accessible `(uc ~T0 @X0 1 sf1`uc ]
+"511
+{
+[; ;ikb.c: 510: static uint8_t ikey_is_accessible(uint8_t k)
+[; ;ikb.c: 511: {
+[e :U _ikey_is_accessible ]
+"510
+[v _k `uc ~T0 @X0 1 r1 ]
+"511
+[f ]
+[; ;ikb.c: 512: if (key[k].num_group_x != 0)
+"512
+[e $ ! != -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 `i -> 0 `i 420  ]
+[; ;ikb.c: 513: {
+"513
+{
+[; ;ikb.c: 515: if (group_x[key[k].num_group_x] == 1)
+"515
+[e $ ! == -> *U + &U _group_x * -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 `ux -> -> # *U &U _group_x `ui `ux `i -> 1 `i 421  ]
+[; ;ikb.c: 516: {
+"516
+{
+[; ;ikb.c: 518: if ( !key[k].bf.OwnerOfGroup)
+"518
+[e $ ! ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 8 `i -> -> -> 0 `i `Vuc `i 422  ]
+[; ;ikb.c: 519: {
+"519
+{
+[; ;ikb.c: 520: return 0;
+"520
+[e ) -> -> 0 `i `uc ]
+[e $UE 419  ]
+"521
+}
+[e :U 422 ]
+"522
+}
+[e :U 421 ]
+"523
+}
+[e :U 420 ]
+[; ;ikb.c: 521: }
+[; ;ikb.c: 522: }
+[; ;ikb.c: 523: }
+[; ;ikb.c: 524: return 1;
+"524
+[e ) -> -> 1 `i `uc ]
+[e $UE 419  ]
+[; ;ikb.c: 525: }
+"525
+[e :UE 419 ]
+}
+"545
+[v _ikey_parsing `(v ~T0 @X0 1 ef ]
+"546
+{
+[; ;ikb.c: 545: void ikey_parsing(void)
+[; ;ikb.c: 546: {
+[e :U _ikey_parsing ]
+[f ]
+"547
+[v _k `uc ~T0 @X0 1 a ]
+[; ;ikb.c: 547: uint8_t k;
+[; ;ikb.c: 549: for (k=0; k < 5; k++)
+"549
+{
+[e = _k -> -> 0 `i `uc ]
+[e $ < -> _k `i -> 5 `i 424  ]
+[e $U 425  ]
+"550
+[e :U 424 ]
+[; ;ikb.c: 550: {
+{
+[; ;ikb.c: 551: if ( key[k].sm1 == (0) )
+"551
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> 0 `i 427  ]
+[; ;ikb.c: 552: {
+"552
+{
+[; ;ikb.c: 553: if ( ikey_is_accessible(k) )
+"553
+[e $ ! != -> ( _ikey_is_accessible (1 _k `i -> -> -> 0 `i `uc `i 428  ]
+[; ;ikb.c: 554: {
+"554
+{
+[; ;ikb.c: 555: if (key[k].bf.state == 1)
+"555
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 1 `i 429  ]
+[; ;ikb.c: 556: {
+"556
+{
+[; ;ikb.c: 558: if (key[k].bf.OnKeyPressed)
+"558
+[e $ ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 `i -> -> -> 0 `i `Vuc `i 430  ]
+[; ;ikb.c: 559: {
+"559
+{
+[; ;ikb.c: 560: key[k].bf.ReadyToRead = 1;
+"560
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 1 `i `uc ]
+[; ;ikb.c: 562: if (key[k].bf.Reptt)
+"562
+[e $ ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 5 `i -> -> -> 0 `i `Vuc `i 431  ]
+[; ;ikb.c: 563: {
+"563
+{
+[; ;ikb.c: 564: key[k].sm1 = (6);
+"564
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 6 `i `uc ]
+"565
+}
+[; ;ikb.c: 565: }
+[e $U 432  ]
+"566
+[e :U 431 ]
+[; ;ikb.c: 566: else
+[; ;ikb.c: 567: {
+"567
+{
+[; ;ikb.c: 568: key[k].sm1 = (1);
+"568
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 1 `i `uc ]
+"569
+}
+[e :U 432 ]
+"570
+}
+[; ;ikb.c: 569: }
+[; ;ikb.c: 570: }
+[e $U 433  ]
+"571
+[e :U 430 ]
+[; ;ikb.c: 571: else if ( key[k].bf.OnKeyPressedAndKeyRelease)
+[e $ ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 2 `i -> -> -> 0 `i `Vuc `i 434  ]
+[; ;ikb.c: 572: {
+"572
+{
+[; ;ikb.c: 573: key[k].sm1 = (5);
+"573
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 5 `i `uc ]
+"574
+}
+[; ;ikb.c: 574: }
+[e $U 435  ]
+"576
+[e :U 434 ]
+[; ;ikb.c: 576: else if (key[k].bf.AtTimeExpired)
+[e $ ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 3 `i -> -> -> 0 `i `Vuc `i 436  ]
+[; ;ikb.c: 577: {
+"577
+{
+[; ;ikb.c: 578: key[k].sm1 = (3);
+"578
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 3 `i `uc ]
+"579
+}
+[; ;ikb.c: 579: }
+[e $U 437  ]
+"580
+[e :U 436 ]
+[; ;ikb.c: 580: else if (key[k].bf.AtTimeExpired2)
+[e $ ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 4 `i -> -> -> 0 `i `Vuc `i 438  ]
+[; ;ikb.c: 581: {
+"581
+{
+[; ;ikb.c: 582: key[k].sm1 = (4);
+"582
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 4 `i `uc ]
+"583
+}
+[e :U 438 ]
+"586
+[e :U 437 ]
+[e :U 435 ]
+[e :U 433 ]
+[; ;ikb.c: 583: }
+[; ;ikb.c: 586: key[k].bf.InProcessing = 1;
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 9 -> -> 1 `i `uc ]
+[; ;ikb.c: 591: if (key[k].num_group_x != 0)
+"591
+[e $ ! != -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 `i -> 0 `i 439  ]
+[; ;ikb.c: 592: {
+"592
+{
+[; ;ikb.c: 593: group_x[ key[k].num_group_x ] = 1;
+"593
+[e = *U + &U _group_x * -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 `ux -> -> # *U &U _group_x `ui `ux -> -> 1 `i `uc ]
+[; ;ikb.c: 594: key[k].bf.OwnerOfGroup = 1;
+"594
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 8 -> -> 1 `i `uc ]
+"595
+}
+[e :U 439 ]
+"597
+}
+[e :U 429 ]
+"598
+}
+[e :U 428 ]
+"599
+}
+[e :U 427 ]
+[; ;ikb.c: 595: }
+[; ;ikb.c: 597: }
+[; ;ikb.c: 598: }
+[; ;ikb.c: 599: }
+[; ;ikb.c: 603: if ( (key[k].sm1 >= (6) ) && (key[k].sm1 <= (8)))
+"603
+[e $ ! && >= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> 6 `i <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> 8 `i 440  ]
+[; ;ikb.c: 604: {
+"604
+{
+[; ;ikb.c: 605: if (key[k].bf.state == 0)
+"605
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 441  ]
+[; ;ikb.c: 606: {
+"606
+{
+[; ;ikb.c: 607: key[k].counter1 = 0;
+"607
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 608: key[k].sm1 = (2);
+"608
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 2 `i `uc ]
+"609
+}
+[e :U 441 ]
+"610
+}
+[e :U 440 ]
+[; ;ikb.c: 609: }
+[; ;ikb.c: 610: }
+[; ;ikb.c: 612: if (key[k].sm1 == (6) )
+"612
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> 6 `i 442  ]
+[; ;ikb.c: 613: {
+"613
+{
+[; ;ikb.c: 614: if ( ++key[k].counter1 >= key[k].repp.to_start)
+"614
+[e $ ! >= =+ . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 1 `i `ui . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 8 0 443  ]
+[; ;ikb.c: 615: {
+"615
+{
+[; ;ikb.c: 616: key[k].counter1 =0;
+"616
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 617: key[k].sm1 = (7);
+"617
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 7 `i `uc ]
+"618
+}
+[e :U 443 ]
+"619
+}
+[e :U 442 ]
+[; ;ikb.c: 618: }
+[; ;ikb.c: 619: }
+[; ;ikb.c: 620: if (key[k].sm1 == (7))
+"620
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> 7 `i 444  ]
+[; ;ikb.c: 621: {
+"621
+{
+[; ;ikb.c: 622: if (key[k].bf.ReadyToRead == 0)
+"622
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 `i -> 0 `i 445  ]
+[; ;ikb.c: 623: {
+"623
+{
+[; ;ikb.c: 624: key[k].bf.ReadyToRead = 1;
+"624
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 1 `i `uc ]
+[; ;ikb.c: 625: key[k].sm1 = (8);
+"625
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 8 `i `uc ]
+"626
+}
+[e :U 445 ]
+"627
+}
+[e :U 444 ]
+[; ;ikb.c: 626: }
+[; ;ikb.c: 627: }
+[; ;ikb.c: 628: if (key[k].sm1 == (8))
+"628
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> 8 `i 446  ]
+[; ;ikb.c: 629: {
+"629
+{
+[; ;ikb.c: 630: if ( ++key[k].counter1 >= key[k].repp.after_start)
+"630
+[e $ ! >= =+ . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 1 `i `ui . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 8 1 447  ]
+[; ;ikb.c: 631: {
+"631
+{
+[; ;ikb.c: 632: key[k].counter1 = 0;
+"632
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 633: key[k].sm1 = (7);
+"633
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 7 `i `uc ]
+"634
+}
+[e :U 447 ]
+"635
+}
+[e :U 446 ]
+[; ;ikb.c: 634: }
+[; ;ikb.c: 635: }
+[; ;ikb.c: 637: if (key[k].sm1 == (5) )
+"637
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> 5 `i 448  ]
+[; ;ikb.c: 638: {
+"638
+{
+[; ;ikb.c: 639: if (key[k].bf.state == 0)
+"639
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 449  ]
+[; ;ikb.c: 640: {
+"640
+{
+[; ;ikb.c: 641: key[k].bf.ReadyToRead = 1;
+"641
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 1 `i `uc ]
+[; ;ikb.c: 642: key[k].sm1 = (2);
+"642
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 2 `i `uc ]
+"643
+}
+[e :U 449 ]
+"644
+}
+[e :U 448 ]
+[; ;ikb.c: 643: }
+[; ;ikb.c: 644: }
+[; ;ikb.c: 646: if (key[k].sm1 == (3) )
+"646
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> 3 `i 450  ]
+[; ;ikb.c: 647: {
+"647
+{
+[; ;ikb.c: 648: key[k].counter1++;
+"648
+[e ++ . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 1 `i `ui ]
+[; ;ikb.c: 650: if (key[k].bf.state == 0)
+"650
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 451  ]
+[; ;ikb.c: 651: {
+"651
+{
+[; ;ikb.c: 652: if (key[k].counter1 <= (1000E-3/5E-3) )
+"652
+[e $ ! <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .1000e-3 .5e-3 452  ]
+[; ;ikb.c: 653: {
+"653
+{
+[; ;ikb.c: 654: key[k].counter1 = 0;
+"654
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 656: key[k].bf.ReadyToRead = 1;
+"656
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 1 `i `uc ]
+[; ;ikb.c: 657: key[k].bf.AtTimeExpired_BeforeOrAfter = 0;
+"657
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 0 `i `uc ]
+[; ;ikb.c: 659: key[k].sm1 = (2);
+"659
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 2 `i `uc ]
+"660
+}
+[e :U 452 ]
+"661
+}
+[e :U 451 ]
+[; ;ikb.c: 660: }
+[; ;ikb.c: 661: }
+[; ;ikb.c: 663: if (key[k].counter1 > (1000E-3/5E-3) )
+"663
+[e $ ! > -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .1000e-3 .5e-3 453  ]
+[; ;ikb.c: 664: {
+"664
+{
+[; ;ikb.c: 665: key[k].counter1 = 0x0000;
+"665
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 667: key[k].bf.ReadyToRead = 1;
+"667
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 1 `i `uc ]
+[; ;ikb.c: 668: key[k].bf.AtTimeExpired_BeforeOrAfter = 1;
+"668
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
+[; ;ikb.c: 670: if (!key[k].bf.Reptt)
+"670
+[e $ ! ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 5 `i -> -> -> 0 `i `Vuc `i 454  ]
+[; ;ikb.c: 671: {
+"671
+{
+[; ;ikb.c: 672: key[k].sm1 = (1);
+"672
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 1 `i `uc ]
+"673
+}
+[; ;ikb.c: 673: }
+[e $U 455  ]
+"674
+[e :U 454 ]
+[; ;ikb.c: 674: else
+[; ;ikb.c: 675: {
+"675
+{
+[; ;ikb.c: 676: key[k].sm1 = (8);
+"676
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 8 `i `uc ]
+"677
+}
+[e :U 455 ]
+"678
+}
+[e :U 453 ]
+"679
+}
+[e :U 450 ]
+[; ;ikb.c: 677: }
+[; ;ikb.c: 678: }
+[; ;ikb.c: 679: }
+[; ;ikb.c: 684: if (key[k].sm1 == (4))
+"684
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> 4 `i 456  ]
+[; ;ikb.c: 685: {
+"685
+{
+[; ;ikb.c: 686: key[k].counter1++;
+"686
+[e ++ . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 1 `i `ui ]
+[; ;ikb.c: 688: if (key[k].bf.state == 0)
+"688
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 457  ]
+[; ;ikb.c: 689: {
+"689
+{
+[; ;ikb.c: 690: if (key[k].counter1 <= (1000E-3/5E-3))
+"690
+[e $ ! <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .1000e-3 .5e-3 458  ]
+[; ;ikb.c: 691: {
+"691
+{
+[; ;ikb.c: 692: key[k].counter1 = 0;
+"692
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 694: key[k].bf.ReadyToRead = 1;
+"694
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 1 `i `uc ]
+[; ;ikb.c: 695: key[k].bf.AtTimeExpired_BeforeOrAfter = 0;
+"695
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 0 `i `uc ]
+[; ;ikb.c: 697: key[k].sm1 = (2);
+"697
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 2 `i `uc ]
+"698
+}
+[e :U 458 ]
+"699
+}
+[e :U 457 ]
+[; ;ikb.c: 698: }
+[; ;ikb.c: 699: }
+[; ;ikb.c: 702: if (key[k].counter1 >= (3000E-3/5E-3))
+"702
+[e $ ! >= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .3000e-3 .5e-3 459  ]
+[; ;ikb.c: 703: {
+"703
+{
+[; ;ikb.c: 704: key[k].counter1 = 0x0000;
+"704
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 706: key[k].bf.ReadyToRead = 1;
+"706
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 1 `i `uc ]
+[; ;ikb.c: 707: key[k].bf.AtTimeExpired_BeforeOrAfter = 1;
+"707
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
+[; ;ikb.c: 710: key[k].sm1 = (1);
+"710
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 1 `i `uc ]
+"711
+}
+[e :U 459 ]
+"712
+}
+[e :U 456 ]
+[; ;ikb.c: 711: }
+[; ;ikb.c: 712: }
+[; ;ikb.c: 715: if (key[k].sm1 == (1))
+"715
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> 1 `i 460  ]
+[; ;ikb.c: 716: {
+"716
+{
+[; ;ikb.c: 717: if (key[k].bf.state == 0)
+"717
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 461  ]
+[; ;ikb.c: 718: {
+"718
+{
+[; ;ikb.c: 719: key[k].sm1 = (2);
+"719
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 2 `i `uc ]
+"720
+}
+[e :U 461 ]
+"721
+}
+[e :U 460 ]
+[; ;ikb.c: 720: }
+[; ;ikb.c: 721: }
+[; ;ikb.c: 723: if (key[k].sm1 == (2))
+"723
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> 2 `i 462  ]
+[; ;ikb.c: 724: {
+"724
+{
+[; ;ikb.c: 725: if (key[k].bf.ReadyToRead == 0)
+"725
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 `i -> 0 `i 463  ]
+[; ;ikb.c: 726: {
+"726
+{
+[; ;ikb.c: 727: key[k].sm1 = (9);
+"727
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 9 `i `uc ]
+"728
+}
+[e :U 463 ]
+"729
+}
+[e :U 462 ]
+[; ;ikb.c: 728: }
+[; ;ikb.c: 729: }
+[; ;ikb.c: 731: if (key[k].sm1 == (9))
+"731
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> 9 `i 464  ]
+[; ;ikb.c: 732: {
+"732
+{
+[; ;ikb.c: 733: if (key[k].num_group_x > 0)
+"733
+[e $ ! > -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 `i -> 0 `i 465  ]
+[; ;ikb.c: 734: {
+"734
+{
+[; ;ikb.c: 735: group_x[key[k].num_group_x] = 0;
+"735
+[e = *U + &U _group_x * -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 `ux -> -> # *U &U _group_x `ui `ux -> -> 0 `i `uc ]
+[; ;ikb.c: 736: key[k].bf.OwnerOfGroup = 0;
+"736
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 8 -> -> 0 `i `uc ]
+"737
+}
+[e :U 465 ]
+[; ;ikb.c: 737: }
+[; ;ikb.c: 739: key[k].sm1 = (0);
+"739
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> -> 0 `i `uc ]
+[; ;ikb.c: 742: key[k].bf.InProcessing = 0;
+"742
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 9 -> -> 0 `i `uc ]
+"744
+}
+[e :U 464 ]
+"746
+}
+"549
+[e ++ _k -> -> 1 `i `uc ]
+[e $ < -> _k `i -> 5 `i 424  ]
+[e :U 425 ]
+"746
+}
+[; ;ikb.c: 744: }
+[; ;ikb.c: 746: }
+[; ;ikb.c: 747: }
+"747
+[e :UE 423 ]
+}
+"748
+[v _ikey_is_all_hw_released `(c ~T0 @X0 1 ef ]
+"749
+{
+[; ;ikb.c: 748: int8_t ikey_is_all_hw_released(void)
+[; ;ikb.c: 749: {
+[e :U _ikey_is_all_hw_released ]
+[f ]
+"750
+[v _i `uc ~T0 @X0 1 a ]
+[; ;ikb.c: 750: uint8_t i;
+[; ;ikb.c: 751: for (i=0; i<5; i++)
+"751
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 5 `i 467  ]
+[e $U 468  ]
+"752
+[e :U 467 ]
+[; ;ikb.c: 752: {
+{
+[; ;ikb.c: 753: if (key[i].bf.state == 1)
+"753
+[e $ ! == -> . . *U + &U _key * -> _i `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 1 `i 470  ]
+[; ;ikb.c: 754: {
+"754
+{
+[; ;ikb.c: 755: return 0;
+"755
+[e ) -> -> 0 `i `c ]
+[e $UE 466  ]
+"756
+}
+[e :U 470 ]
+"757
+}
+"751
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 5 `i 467  ]
+[e :U 468 ]
+"757
+}
+[; ;ikb.c: 756: }
+[; ;ikb.c: 757: }
+[; ;ikb.c: 758: return 1;
+"758
+[e ) -> -> 1 `i `c ]
+[e $UE 466  ]
+[; ;ikb.c: 759: }
+"759
+[e :UE 466 ]
+}
+"761
+[v _ikey_clear_all_flag `(v ~T0 @X0 1 ef ]
+"762
+{
+[; ;ikb.c: 761: void ikey_clear_all_flag(void)
+[; ;ikb.c: 762: {
+[e :U _ikey_clear_all_flag ]
+[f ]
+"763
+[v _i `uc ~T0 @X0 1 a ]
+[; ;ikb.c: 763: uint8_t i;
+[; ;ikb.c: 764: for (i=0; i<5; i++)
+"764
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 5 `i 472  ]
+[e $U 473  ]
+"765
+[e :U 472 ]
+[; ;ikb.c: 765: {
+{
+[; ;ikb.c: 767: key[i].bf.ReadyToRead = 0;
+"767
+[e = . . *U + &U _key * -> _i `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 0 `i `uc ]
+"768
+}
+"764
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 5 `i 472  ]
+[e :U 473 ]
+"768
+}
+[; ;ikb.c: 768: }
+[; ;ikb.c: 769: }
+"769
+[e :UE 471 ]
+}
+"771
+[v _ikey_is_all_process_finished `(c ~T0 @X0 1 ef ]
+"772
+{
+[; ;ikb.c: 771: int8_t ikey_is_all_process_finished(void)
+[; ;ikb.c: 772: {
+[e :U _ikey_is_all_process_finished ]
+[f ]
+"773
+[v _i `uc ~T0 @X0 1 a ]
+[; ;ikb.c: 773: uint8_t i;
+[; ;ikb.c: 774: for (i=0; i<5; i++)
+"774
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 5 `i 476  ]
+[e $U 477  ]
+"775
+[e :U 476 ]
+[; ;ikb.c: 775: {
+{
+[; ;ikb.c: 776: if (key[i].bf.InProcessing == 1)
+"776
+[e $ ! == -> . . *U + &U _key * -> _i `ux -> -> # *U &U _key `ui `ux 7 9 `i -> 1 `i 479  ]
+[; ;ikb.c: 777: {
+"777
+{
+[; ;ikb.c: 778: return 0;
+"778
+[e ) -> -> 0 `i `c ]
+[e $UE 475  ]
+"779
+}
+[e :U 479 ]
+"780
+}
+"774
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 5 `i 476  ]
+[e :U 477 ]
+"780
+}
+[; ;ikb.c: 779: }
+[; ;ikb.c: 780: }
+[; ;ikb.c: 781: return 1;
+"781
+[e ) -> -> 1 `i `c ]
+[e $UE 475  ]
+[; ;ikb.c: 782: }
+"782
+[e :UE 475 ]
 }

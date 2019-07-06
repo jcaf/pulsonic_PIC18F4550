@@ -3,40 +3,39 @@
  * Author: jcaf
  *
  * Created on June 29, 2019, 12:51 PM
- * O.S Antergos
+ * O.S Antergos Linux
  * MPLAB X IDE v4.05
  * Microchip MPLAB XC8 C Compiler V2.05
  * PIC18F4550 @ 48MHz
  * Project: Pulsonic (aceitera)
+ * 
+ * OBSERVACIONES: 
+ * 1) XC8 itoa(buff, int, base) no es "standard" en el orden de los argumentos
+ *      en main.h: 
+ * #define myitoa(_integer_, _buffer_, _base_) itoa(_buffer_, _integer_, _base_) 
+ * 
  */
-#include <xc.h>
+#include "main.h"
+#include "pulsonic.h"
+
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
 #pragma warning disable 752
 #pragma warning disable 356
+#pragma warning disable 373//warning: (373) implicit signed to unsigned conversion
+#include "ikb/ikb.h"
 
-#include <stdint.h>
-//#define F_CPU 48000000//48MHz
-#include "system.h"
-#include "types.h"
-
-struct _pulsonic
+volatile struct _isr_flag
 {
-    union _pulsonic_errors
-    {
-        struct _pulsonic_flags
-        {
-            unsigned mpap_home_sensor:1;
-            unsigned __a:7;
-        }flag;
-        uint8_t e;
-    }errors;
-};
+    unsigned f1ms: 1;
+    unsigned __a: 7;
+} isr_flag = {0};
+volatile struct _main_flag main_flag;
 
-struct _pulsonic pulsonic;
+
 
 #define MPAP_NUMSTEP_1NOZZLE 200//200 steps to move to 1 nozzle
-#define NOZZLE_NUMMAX 18//0,1,-...-(NOZZLE_NUMMAX-1)
+//#define NOZZLE_NUMMAX 18//0,1,-...-(NOZZLE_NUMMAX-1)
 
 
 //PUMP MOTOR
@@ -45,7 +44,9 @@ struct _pulsonic pulsonic;
 #define CONFIGIOxPUMP TRISE
 #define PINxPUMP  0
 
-
+#define PUMP_DISABLE()  do{PinTo1(PORTWxPUMP, PINxPUMP);}while(0)
+#define PUMP_ENABLE()   do{PinTo0(PORTWxPUMP, PINxPUMP);}while(0)
+   
 //MOTOR PAP UNIPOLAR
 #define PORTWxSTEPPERBIP0_A LATD
 #define PORTRxSTEPPERBIP0_A PORTD
@@ -181,10 +182,10 @@ void nozzle_moveto(int8_t nozzle)//0..NOZZLE_NUMMAX-1
 	//mpap_setupToTurn( nozzle * MPAP_NUMSTEP_1NOZZLE);//se escala	
     mpap_setupToTurn( (nozzle*MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current);
 }
-int8_t nozzle_get_pos(void)//trunca, es solo referencial
-{
-	return (mpap.numSteps_current/MPAP_NUMSTEP_1NOZZLE);
-}
+//int8_t nozzle_get_pos(void)//trunca, es solo referencial
+//{
+//	return (mpap.numSteps_current/MPAP_NUMSTEP_1NOZZLE);
+//}
 /*
  * mpap.numSteps_current se mantiene, no se pierde
  */
@@ -256,6 +257,7 @@ int8_t mpap_normal_mode(void)//mode ubicacion en los nozzle
             cod_ret = 1;		//can be abort external...
         }
     }
+    return cod_ret;
 }
 //la parada debe ser sincronizada
 int8_t mpap_job(void)
@@ -272,28 +274,40 @@ int8_t mpap_job(void)
     
 	return cod_ret;
 }
+uint16_t t;
 
-
+extern struct _multiplexedDisp multiplexedDisp[DISP_TOTAL_NUMMAX];
 
 void main(void) 
 {
-    TRISB = 0x00;
-    LATB = 0x10;//All segments controlled by NPN
-    //
-    ADCON1 = 0x0F;//All analog inputs as DIGITAL
-    //CMCON=0xCF; ;POR default mode comparators OFF
-    TRISA = 0;
-    LATA= ~(0x01<<4);//Multiplex displays control (PNP)
-    //
-    LATA = 0;
-    LATB = 0;
-    LATC = 0;
-    LATD = 0;
-    LATE = 0;
-
-    PinTo0(PORTWxPUMP, PINxPUMP);
-    ConfigOutputPin(CONFIGIOxPUMP, PINxPUMP);
+    LATA = 0x00;
+    LATC = 0x00;
+    LATD = 0x00;
+    LATE = 0x00;
+    LATB = 0x00;    //0B00000111;
+    //TRISB= 0x00;   //All segments controlled by NPN    
     
+    //All analog inputs as DIGITAL
+    ADCON1 = 0x0F;
+    CMCON=0xCF; //POR default mode comparators OFF
+            
+    //RC4/RC5 config as digital inputs
+    UCON = 0;   //USBEN Disable
+    UCFG = 1<<3;//UTRDIS Digital input enable RC4/RC5
+    
+    //LATA = 0x0FF;
+    //TRISA = 0;
+    
+    //.....
+    T0CON = 0B10000111; //16BITS
+    t=TMR16B_OVF(1e-3, 256);
+    TMR0H = (uint8_t)(TMR16B_OVF(1e-3, 256) >> 8);
+    TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 256));
+    TMR0IE = 1;
+    //.....
+
+    PUMP_DISABLE();
+    ConfigOutputPin(CONFIGIOxPUMP, PINxPUMP);
     
     ConfigOutputPin(CONFIGIOxSTEPPERBIP0_A, PINxSTEPPERBIP0_A);
     ConfigOutputPin(CONFIGIOxSTEPPERBIP0_B, PINxSTEPPERBIP0_B);
@@ -303,9 +317,66 @@ void main(void)
     STEPPERBIP0_ENABLE();
     ConfigOutputPin(CONFIGIOxSTEPPERBIP0_ENABLE, PINxSTEPPERBIP0_ENABLE);
     //
-    __delay_ms(1);
     ConfigInputPin(CONFIGIOxSTEPPERBIP0_SENSOR_HOME, PINxSTEPPERBIP0_SENSOR_HOME);
-    //while (1);
+
+    display7s_init();
+    ikb_init();
+    
+    disp_show_quantity(99.8);
+    //
+    GIE = 1;
+    int8_t c=0;
+    int8_t c_disp=0;
+    while(1)
+    {
+        if (isr_flag.f1ms)//sync para toda la pasada
+        {
+            isr_flag.f1ms = 0;
+            main_flag.f1ms = 1;
+        }
+
+        if (main_flag.f1ms)
+        {
+            if (++c==20)
+            {
+                c = 0;
+            
+                ikb_job();
+                //
+                if (ikb_key_is_ready2read(0))
+                {
+                    PinToggle(LATB,0);
+                }
+                if (ikb_key_is_ready2read(1))
+                {
+                    PinToggle(LATB,1);
+                }
+                if (ikb_key_is_ready2read(2))
+                {
+                    PinToggle(LATB,2);
+                }
+                if (ikb_key_is_ready2read(3))
+                {
+                    PinToggle(LATB,3);
+                }
+                if (ikb_key_is_ready2read(4))
+                {
+                    PinToggle(LATB,4);
+                }
+            }
+            //
+            if (++c_disp == 2)
+            {
+                c_disp = 0;
+                display7s_job();
+            }
+        }
+        //
+        //////////
+        main_flag.f1ms = 0;
+        ikb_flush();
+    }
+    
     
     //+-Secuencia para entrar a homming
     //mpap.mode = STALL_MODE;
@@ -335,7 +406,6 @@ void main(void)
 
     //mpap.mode = STALL_MODE;
     
-    
     nozzle_moveto(1);
     while (1)
     {
@@ -359,8 +429,6 @@ void main(void)
     }
     
     while(1);
-
-    
     
     __delay_ms(1000);
     
@@ -375,20 +443,22 @@ void main(void)
         __delay_ms(2);
     }
 
-//    __delay_ms(1000);
-//    nozzle_moveto(3);
-//    while (1)
-//    {
-//        mpap_job();
-//        if (mpap.numSteps_tomove == 0)
-//        {
-//            break;
-//        }
-//        __delay_ms(2);
-//    }
     
     while (1)
     {;}
     
     return;
+}
+
+void interrupt INTERRUPCION(void)//@1ms 
+{
+    //static uint8_t counter = 0;
+    if (TMR0IF)
+    {
+        isr_flag.f1ms = 1;
+        
+        TMR0IF = 0;
+        TMR0H = (uint8_t)(TMR16B_OVF(1e-3, 256) >> 8);
+        TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 256));
+    }
 }

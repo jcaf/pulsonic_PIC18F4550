@@ -1,5 +1,5 @@
- build/default/production/main.d  \
- build/default/production/main.p1:  \
+ build/default/debug/main.d  \
+ build/default/debug/main.p1:  \
  main.c  \
 pulsonic.h  \
 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/system.h  \

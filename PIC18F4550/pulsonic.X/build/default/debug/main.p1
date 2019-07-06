@@ -4469,9 +4469,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 317: ikb_init();
 "317
 [e ( _ikb_init ..  ]
-[; ;main.c: 319: disp_show_quantity(99.8);
+[; ;main.c: 319: disp_show_quantity(1.8);
 "319
-[e ( _disp_show_quantity (1 .99.8 ]
+[e ( _disp_show_quantity (1 .1.8 ]
 [; ;main.c: 321: GIE = 1;
 "321
 [e = _GIE -> -> 1 `i `b ]

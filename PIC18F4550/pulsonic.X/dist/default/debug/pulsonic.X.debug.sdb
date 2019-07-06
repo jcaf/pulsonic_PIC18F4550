@@ -525,15 +525,15 @@ RAYA 1
 [v disp_show_quantity@I I `i  1 a 2 58 ]
 "199
 [v disp_show_quantity@i i `c  1 a 1 60 ]
-"200
-[v disp_show_quantity@last_pos last_pos `c  1 a 1 57 ]
 "201
-[v disp_show_quantity@q q `c  1 a 1 56 ]
+[v disp_show_quantity@q q `c  1 a 1 57 ]
+"200
+[v disp_show_quantity@last_pos last_pos `c  1 a 1 56 ]
 "198
 [v disp_show_quantity@num num `uc  1 a 1 55 ]
 "193
 [v disp_show_quantity@f f `d  1 p 3 38 ]
-"270
+"280
 } 0
 "4 /opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
 [v _itoa itoa `(*.30uc  1 e 2 0 ]

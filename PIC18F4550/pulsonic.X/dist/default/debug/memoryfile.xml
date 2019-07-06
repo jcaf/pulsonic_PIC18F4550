@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <executable name="dist/default/production/pulsonic.X.production.hex">
+  <executable name="dist/default/debug/pulsonic.X.debug.hex">
     <memory name="program">
       <units>bytes</units>
       <length>32768</length>
-      <used>6016</used>
-      <free>26752</free>
+      <used>6006</used>
+      <free>26762</free>
     </memory>
     <memory name="data">
       <units>bytes</units>

@@ -1,5 +1,5 @@
 
-# 1 "main.c"
+# 1 "../../../../../../FIRWAR/eslibrary/ikb/ikb.c"
 
 # 18 "/opt/microchip/xc8/v2.05/pic/include/xc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -5776,78 +5776,7 @@ typedef void (*PTRFX_retVOID_arg1_INT8_T)(int8_t);
 typedef void (*PTRFX_retVOID_arg1_PCHAR)(char *);
 typedef unsigned char BOOL;
 
-# 10 "main.h"
-struct _main_flag
-{
-unsigned f1ms:1;
-unsigned __a:7;
-};
-extern volatile struct _main_flag main_flag;
-
-# 16 "pulsonic.h"
-enum _QUANT_DIG
-{
-QUANT_DIG_0,
-QUANT_DIG_1,
-QUANT_DIG_2,
-};
-enum _MODE_DIG
-{
-MODE_DIG_0,
-MODE_DIG_1,
-};
-
-
-
-struct _pulsonic
-{
-uint16_t Kticks_0p1ml;
-uint16_t dist_total_time;
-uint16_t dist_access_time;
-
-struct _pulsonic_nozzle
-{
-float Q_mlh;
-uint16_t total_ticks_mlh;
-int8_t nticks_slicetime;
-}nozzle[18];
-
-float sum_all_mlh;
-
-union _pulsonic_errors
-{
-struct _pulsonic_flags
-{
-unsigned mpap_home_sensor:1;
-unsigned __a:7;
-}flag;
-uint8_t e;
-}errors;
-
-uint8_t display7s[(2 + 3)];
-};
-extern struct _pulsonic pulsonic;
-
-void display7s_init(void);
-void display7s_job(void);
-
-struct _multiplexedDisp
-{
-PTRFX_retVOID Qonoff[2];
-};
-extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
-
-void disp_show_quantity(double f);
-
-
-# 15 "main.c"
-#pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
-#pragma config "MCLRE=ON","BOR=OFF"
-#pragma warning disable 752
-#pragma warning disable 356
-#pragma warning disable 373
-
-# 308 "/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h"
+# 308 "../../../../../../FIRWAR/eslibrary/ikb/ikb.h"
 void ikb_init(void);
 void ikb_job(void);
 void ikb_flush(void);
@@ -5859,363 +5788,439 @@ void ikb_set_ready2read(uint8_t k);
 void ikb_key_was_read(uint8_t k);
 void ikb_execfunct(uint8_t k);
 
-# 22 "main.c"
-volatile struct _isr_flag
+# 5 "../../../../../../FIRWAR/eslibrary/ikb/ikb.c"
+struct _key
 {
-unsigned f1ms: 1;
-unsigned __a: 7;
-} isr_flag = {0};
-volatile struct _main_flag main_flag;
-
-# 79
-static void _mpap_step1(void)
+PTRFX_retUINT8_T keyRead;
+PTRFX_retVOID keyDo;
+uint8_t sm0;
+uint8_t counter0;
+uint8_t sm1;
+uint16_t counter1;
+uint8_t num_group_x;
+struct _bf
 {
-do{LATD &= ~(1<<0);}while(0);
-do{LATD &= ~(1<<1);}while(0);
-do{LATD &= ~(1<<2);}while(0);
-do{LATD |= 1<<3;}while(0);
-}
-static void _mpap_step2(void)
+unsigned state:1;
+
+unsigned OnKeyPressed:1;
+unsigned OnKeyPressedAndKeyRelease:1;
+unsigned AtTimeExpired:1;
+unsigned AtTimeExpired2:1;
+unsigned Reptt:1;
+unsigned ReadyToRead:1;
+unsigned AtTimeExpired_BeforeOrAfter:1;
+unsigned OwnerOfGroup:1;
+unsigned InProcessing:1;
+} bf;
+struct _repp
 {
-do{LATD &= ~(1<<0);}while(0);
-do{LATD &= ~(1<<1);}while(0);
-do{LATD |= 1<<2;}while(0);
-do{LATD &= ~(1<<3);}while(0);
-}
-static void _mpap_step3(void)
-{
-do{LATD &= ~(1<<0);}while(0);
-do{LATD |= 1<<1;}while(0);
-do{LATD &= ~(1<<2);}while(0);
-do{LATD &= ~(1<<3);}while(0);
-}
-static void _mpap_step4(void)
-{
-do{LATD |= 1<<0;}while(0);
-do{LATD &= ~(1<<1);}while(0);
-do{LATD &= ~(1<<2);}while(0);
-do{LATD &= ~(1<<3);}while(0);
-}
-
-
-
-PTRFX_retVOID mpap_step[4] =
-{
-
-_mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
-
+uint16_t to_start;
+uint16_t after_start;
+} repp;
 };
+volatile struct _key key[5];
 
-static inline void _mpap_off(void)
+void ikey_scan(void);
+void ikey_parsing(void);
+int8_t ikey_is_all_hw_released(void);
+void ikey_clear_all_flag(void);
+int8_t ikey_is_all_process_finished(void);
+
+# 194
+static inline uint8_t keyRead_pin_key1(void)
 {
-do{LATD &= ~(1<<0);}while(0);
-do{LATD &= ~(1<<1);}while(0);
-do{LATD &= ~(1<<2);}while(0);
-do{LATD &= ~(1<<3);}while(0);
+return ((PORTC & (1<<4))>>4);
 }
-
-PTRFX_retVOID mpap_off= {_mpap_off};
-
-
-enum MPAP_MODES{
-IDLE_MODE=0,
-STALL_MODE,
-HOMMING_MODE,
-NORMAL_MODE
-};
-
-struct _mpap
+static inline uint8_t keyRead_pin_key2(void)
 {
-int16_t numSteps_current;
-int16_t counter_steps;
-int16_t numSteps_tomove;
-int8_t KI;
-
-# 147
-int8_t mode;
-};
-volatile struct _mpap mpap;
-
-# 155
-void mpap_setupToTurn(int16_t numSteps_tomove)
-{
-
-if (numSteps_tomove !=0)
-{
-mpap.numSteps_tomove = numSteps_tomove;
-mpap.KI = (mpap.numSteps_tomove<0)? -1: 1;
-
-mpap.counter_steps = 0;
-
+return ((PORTC & (1<<5))>>5);
 }
-}
-void mpap_setupToHomming(void)
+static inline uint8_t keyRead_pin_key3(void)
 {
-mpap_setupToTurn( -1 *( (18*200) +20));
-
-
-mpap.mode = HOMMING_MODE;
+return ((PORTC & (1<<6))>>6);
 }
-void nozzle_moveto(int8_t nozzle)
+static inline uint8_t keyRead_pin_key4(void)
 {
-
-mpap_setupToTurn( (nozzle*200) - mpap.numSteps_current);
+return ((PORTC & (1<<7))>>7);
 }
-
-# 186
-void mpap_stop(void)
+static inline uint8_t keyRead_pin_key5(void)
 {
-mpap.numSteps_tomove = 0x00;
-mpap_off();
-
+return ((PORTD & (1<<4))>>4);
 }
 
 
-void mpap_do1step(int8_t KI)
+
+void ikb_init(void)
 {
-static int8_t i;
-mpap_step[i]();
-i+=KI;
-if (i>3){i=0;}
-if (i<0){i=3;}
+int8_t i;
+
+# 389
+do{TRISC |= 1<<4;}while(0);
+do{TRISC |= 1<<5;}while(0);
+do{TRISC |= 1<<6;}while(0);
+do{TRISC |= 1<<7;}while(0);
+do{TRISD |= 1<<4;}while(0);
+key[0].keyRead = keyRead_pin_key1;
+key[1].keyRead = keyRead_pin_key2;
+key[2].keyRead = keyRead_pin_key3;
+key[3].keyRead = keyRead_pin_key4;
+key[4].keyRead = keyRead_pin_key5;
+
+
+for (i=0; i<5; i++)
+{
+key[i].bf.OnKeyPressed = 1;
+key[i].bf.OnKeyPressedAndKeyRelease = 0;
+key[i].bf.AtTimeExpired = 0;
+key[i].bf.Reptt = 0;
+key[i].num_group_x = 0;
+key[i].repp.to_start= (uint16_t)500.0/5;
+key[i].repp.after_start = (uint16_t)200.0/5;
 }
 
-# 214
-int8_t mpap_homming(void)
-{
-int8_t cod_ret = 0;
-if (mpap.numSteps_tomove!=0)
-{
-mpap_do1step(mpap.KI);
-
-mpap.counter_steps+= mpap.KI;
-
-if (((PORTE & (1<<1))>>1) == 0)
-{
-mpap.numSteps_tomove = 0x0000;
-cod_ret = 1;
-}
-if ( mpap.counter_steps == mpap.numSteps_tomove)
-{
-mpap.numSteps_tomove = 0x0000;
-cod_ret = 1;
-pulsonic.errors.flag.mpap_home_sensor = 1;
-}
-}
-return cod_ret;
-}
-int8_t mpap_normal_mode(void)
-{
-int8_t cod_ret = 0;
-if (mpap.numSteps_tomove!=0)
-{
-mpap_do1step(mpap.KI);
-
-mpap.counter_steps+= mpap.KI;
-
-mpap.numSteps_current+= mpap.KI;
-
-if ( mpap.counter_steps == mpap.numSteps_tomove)
-{
-mpap.numSteps_tomove = 0;
-cod_ret = 1;
-}
-}
-return cod_ret;
 }
 
-int8_t mpap_job(void)
+void ikb_job(void)
 {
-int8_t cod_ret;
-
-if (mpap.mode == HOMMING_MODE)
-cod_ret = mpap_homming();
-else if (mpap.mode == NORMAL_MODE)
-cod_ret = mpap_normal_mode();
-
-else if (mpap.mode == STALL_MODE)
-mpap.mode = IDLE_MODE;
-
-return cod_ret;
+ikey_scan();
+ikey_parsing();
 }
-uint16_t t;
-
-extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
-
-void main(void)
+void ikb_flush(void)
 {
-LATA = 0x00;
-LATC = 0x00;
-LATD = 0x00;
-LATE = 0x00;
-LATB = 0x00;
-
-
-
-ADCON1 = 0x0F;
-CMCON=0xCF;
-
-
-UCON = 0;
-UCFG = 1<<3;
-
-# 296
-T0CON = 0B10000111;
-t=(uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) );
-TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ) >> 8);
-TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ));
-TMR0IE = 1;
-
-
-do{do{LATE |= 1<<0;}while(0);}while(0);
-do{TRISE &= ~(1<<0);}while(0);
-
-do{TRISD &= ~(1<<0);}while(0);
-do{TRISD &= ~(1<<1);}while(0);
-do{TRISD &= ~(1<<2);}while(0);
-do{TRISD &= ~(1<<3);}while(0);
-
-do{do{LATC &= ~(1<<1);}while(0);}while(0);
-do{TRISC &= ~(1<<1);}while(0);
-
-do{TRISE |= 1<<1;}while(0);
-
-display7s_init();
-ikb_init();
-
-disp_show_quantity(99.8);
-
-GIE = 1;
-int8_t c=0;
-int8_t c_disp=0;
-while(1)
+ikey_clear_all_flag();
+}
+uint8_t ikb_get_AtTimeExpired_BeforeOrAfter(uint8_t k)
 {
-if (isr_flag.f1ms)
+return key[k].bf.AtTimeExpired_BeforeOrAfter;
+}
+uint8_t ikb_key_is_ready2read(uint8_t k)
 {
-isr_flag.f1ms = 0;
-main_flag.f1ms = 1;
+return key[k].bf.ReadyToRead;
+}
+void ikb_set_ready2read(uint8_t k)
+{
+key[k].bf.ReadyToRead = 1;
+}
+void ikb_key_was_read(uint8_t k)
+{
+key[k].bf.ReadyToRead = 0;
+}
+void ikb_execfunct(uint8_t k)
+{
+key[k].keyDo();
 }
 
-if (main_flag.f1ms)
+# 449
+void ikey_scan(void)
 {
-if (++c==20)
+int8_t k = 5-1;
+do
 {
-c = 0;
+if (key[k].sm0 == 0)
+{
+if (key[k].keyRead() == 0)
+{
+key[k].sm0++;
+}
+}
+else if (key[k].sm0 == 1)
+{
+if (++key[k].counter0 == 4)
+{
+key[k].counter0 = 0x00;
 
-ikb_job();
-
-if (ikb_key_is_ready2read(0))
+if (key[k].keyRead() != 0)
 {
-do{LATB ^= 1<<0;}while(0);
-}
-if (ikb_key_is_ready2read(1))
-{
-do{LATB ^= 1<<1;}while(0);
-}
-if (ikb_key_is_ready2read(2))
-{
-do{LATB ^= 1<<2;}while(0);
-}
-if (ikb_key_is_ready2read(3))
-{
-do{LATB ^= 1<<3;}while(0);
-}
-if (ikb_key_is_ready2read(4))
-{
-do{LATB ^= 1<<4;}while(0);
-}
-}
-
-if (++c_disp == 2)
-{
-c_disp = 0;
-display7s_job();
-}
-}
-
-
-main_flag.f1ms = 0;
-ikb_flush();
-}
-
-# 379
-mpap_setupToHomming();
-
-while (1)
-{
-mpap_job();
-if (mpap.numSteps_tomove == 0)
-{
-if ( pulsonic.errors.flag.mpap_home_sensor != 1)
-{
-mpap.mode = NORMAL_MODE;
-break;
+key[k].sm0--;
 }
 else
 {
-
-
+key[k].bf.state = 1;
+key[k].sm0++;
 }
 }
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
 }
-_delay((unsigned long)((1000)*(48000000UL/4000.0)));
-
-
-
-nozzle_moveto(1);
-while (1)
+else if (key[k].sm0 == 2)
 {
-mpap_job();
-if (mpap.numSteps_tomove == 0)
+if (key[k].keyRead() == 1)
+key[k].sm0++;
+}
+else if (key[k].sm0 == 3)
 {
-break;
-}
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
-}
-mpap_stop();
-
-
-
-while (1)
+if (++key[k].counter0 == 4)
 {
-do{LATE |= 1<<0;}while(0);
-_delay((unsigned long)((50)*(48000000UL/4000.0)));
-do{LATE &= ~(1<<0);}while(0);
-_delay((unsigned long)((50)*(48000000UL/4000.0)));
-}
+key[k].counter0 = 0x00;
 
-while(1);
-
-_delay((unsigned long)((1000)*(48000000UL/4000.0)));
-
-nozzle_moveto(2);
-while (1)
+if (key[k].keyRead() != 1)
 {
-mpap_job();
-if (mpap.numSteps_tomove == 0)
+key[k].sm0--;
+}
+else
 {
-break;
+key[k].bf.state = 0;
+key[k].sm0 = 0x00;
 }
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
 }
-
-
-while (1)
-{;}
-
-return;
+}
+}while (--k >= 0);
 }
 
-void interrupt INTERRUPCION(void)
+# 508
+uint8_t group_x[5];
+
+static uint8_t ikey_is_accessible(uint8_t k)
+{
+if (key[k].num_group_x != 0)
 {
 
-if (TMR0IF)
+if (group_x[key[k].num_group_x] == 1)
 {
-isr_flag.f1ms = 1;
 
-TMR0IF = 0;
-TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ) >> 8);
-TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (256*4)) ));
+if ( !key[k].bf.OwnerOfGroup)
+{
+return 0;
 }
+}
+}
+return 1;
+}
+
+# 545
+void ikey_parsing(void)
+{
+uint8_t k;
+
+for (k=0; k < 5; k++)
+{
+if ( key[k].sm1 == (0) )
+{
+if ( ikey_is_accessible(k) )
+{
+if (key[k].bf.state == 1)
+{
+
+if (key[k].bf.OnKeyPressed)
+{
+key[k].bf.ReadyToRead = 1;
+
+if (key[k].bf.Reptt)
+{
+key[k].sm1 = (6);
+}
+else
+{
+key[k].sm1 = (1);
+}
+}
+else if ( key[k].bf.OnKeyPressedAndKeyRelease)
+{
+key[k].sm1 = (5);
+}
+
+else if (key[k].bf.AtTimeExpired)
+{
+key[k].sm1 = (3);
+}
+else if (key[k].bf.AtTimeExpired2)
+{
+key[k].sm1 = (4);
+}
+
+
+key[k].bf.InProcessing = 1;
+
+
+
+
+if (key[k].num_group_x != 0)
+{
+group_x[ key[k].num_group_x ] = 1;
+key[k].bf.OwnerOfGroup = 1;
+}
+
+}
+}
+}
+
+
+
+if ( (key[k].sm1 >= (6) ) && (key[k].sm1 <= (8)))
+{
+if (key[k].bf.state == 0)
+{
+key[k].counter1 = 0;
+key[k].sm1 = (2);
+}
+}
+
+if (key[k].sm1 == (6) )
+{
+if ( ++key[k].counter1 >= key[k].repp.to_start)
+{
+key[k].counter1 =0;
+key[k].sm1 = (7);
+}
+}
+if (key[k].sm1 == (7))
+{
+if (key[k].bf.ReadyToRead == 0)
+{
+key[k].bf.ReadyToRead = 1;
+key[k].sm1 = (8);
+}
+}
+if (key[k].sm1 == (8))
+{
+if ( ++key[k].counter1 >= key[k].repp.after_start)
+{
+key[k].counter1 = 0;
+key[k].sm1 = (7);
+}
+}
+
+if (key[k].sm1 == (5) )
+{
+if (key[k].bf.state == 0)
+{
+key[k].bf.ReadyToRead = 1;
+key[k].sm1 = (2);
+}
+}
+
+if (key[k].sm1 == (3) )
+{
+key[k].counter1++;
+
+if (key[k].bf.state == 0)
+{
+if (key[k].counter1 <= (1000E-3/5E-3) )
+{
+key[k].counter1 = 0;
+
+key[k].bf.ReadyToRead = 1;
+key[k].bf.AtTimeExpired_BeforeOrAfter = 0;
+
+key[k].sm1 = (2);
+}
+}
+
+if (key[k].counter1 > (1000E-3/5E-3) )
+{
+key[k].counter1 = 0x0000;
+
+key[k].bf.ReadyToRead = 1;
+key[k].bf.AtTimeExpired_BeforeOrAfter = 1;
+
+if (!key[k].bf.Reptt)
+{
+key[k].sm1 = (1);
+}
+else
+{
+key[k].sm1 = (8);
+}
+}
+}
+
+
+
+
+if (key[k].sm1 == (4))
+{
+key[k].counter1++;
+
+if (key[k].bf.state == 0)
+{
+if (key[k].counter1 <= (1000E-3/5E-3))
+{
+key[k].counter1 = 0;
+
+key[k].bf.ReadyToRead = 1;
+key[k].bf.AtTimeExpired_BeforeOrAfter = 0;
+
+key[k].sm1 = (2);
+}
+}
+
+
+if (key[k].counter1 >= (3000E-3/5E-3))
+{
+key[k].counter1 = 0x0000;
+
+key[k].bf.ReadyToRead = 1;
+key[k].bf.AtTimeExpired_BeforeOrAfter = 1;
+
+
+key[k].sm1 = (1);
+}
+}
+
+
+if (key[k].sm1 == (1))
+{
+if (key[k].bf.state == 0)
+{
+key[k].sm1 = (2);
+}
+}
+
+if (key[k].sm1 == (2))
+{
+if (key[k].bf.ReadyToRead == 0)
+{
+key[k].sm1 = (9);
+}
+}
+
+if (key[k].sm1 == (9))
+{
+if (key[k].num_group_x > 0)
+{
+group_x[key[k].num_group_x] = 0;
+key[k].bf.OwnerOfGroup = 0;
+}
+
+key[k].sm1 = (0);
+
+
+key[k].bf.InProcessing = 0;
+
+}
+
+}
+}
+int8_t ikey_is_all_hw_released(void)
+{
+uint8_t i;
+for (i=0; i<5; i++)
+{
+if (key[i].bf.state == 1)
+{
+return 0;
+}
+}
+return 1;
+}
+
+void ikey_clear_all_flag(void)
+{
+uint8_t i;
+for (i=0; i<5; i++)
+{
+
+key[i].bf.ReadyToRead = 0;
+}
+}
+
+int8_t ikey_is_all_process_finished(void)
+{
+uint8_t i;
+for (i=0; i<5; i++)
+{
+if (key[i].bf.InProcessing == 1)
+{
+return 0;
+}
+}
+return 1;
 }
