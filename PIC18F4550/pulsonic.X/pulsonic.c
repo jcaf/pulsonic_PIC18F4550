@@ -19,13 +19,12 @@ uint16_t get_total_sum_mlh(void)
     }
     return acc;
 }
+
 //DISLAYS DE CATODO COMUN - Todo el puerto de 8bits
 #define PORTWxDISPLAY 	LATB
 #define PORTRxDISPLAY 	PORTB
 #define CONFIGIOxDISPLAY 	TRISB
 //#define PINxDISPLAY 		0
-
-
 
 //TRANSISTORES PARA EL BARRIDO/MULTIPLEXING 
 #define PORTWxENABLE_DISP_0 	LATA
@@ -257,7 +256,6 @@ void disp_show_quantity(double f)
                 pulsonic.display7s[q++] = DISP7S_NUMS[num];
             }
             pulsonic.display7s[QUANT_DIG_1] |= 0x80;
-
         }
         else//mostrar solo los 3 digitos enteros
         {
@@ -270,5 +268,4 @@ void disp_show_quantity(double f)
             }
         }
 	}
-
 }

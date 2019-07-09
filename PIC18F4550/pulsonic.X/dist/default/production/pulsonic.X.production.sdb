@@ -3,19 +3,19 @@
 [d edition pro ]
 [d chip 18F4550 ]
 [d frameptr 4065 ]
-"178 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-[e E3348 MPAP_MODES `uc
+"109 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+[e E3311 MPAP_MODES `uc
 IDLE_MODE 0
 STALL_MODE 1
 HOMMING_MODE 2
 NORMAL_MODE 3
 ]
-"168 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+"167 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
 [e E3280 _MODE_DIG `uc
 MODE_DIG_0 0
 MODE_DIG_1 1
 ]
-"171
+"170
 [e E3276 _QUANT_DIG `uc
 QUANT_DIG_0 0
 QUANT_DIG_1 1
@@ -24,6 +24,13 @@ QUANT_DIG_2 2
 [e E3349 _DISP7S_CHARS `uc
 OFF 0
 RAYA 1
+]
+"106 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+[e E3276 MPAP_MODES `uc
+IDLE_MODE 0
+STALL_MODE 1
+HOMMING_MODE 2
+NORMAL_MODE 3
 ]
 "194 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
 [v _keyRead_pin_key1 keyRead_pin_key1 `T(uc  1 s 1 keyRead_pin_key1 ]
@@ -91,67 +98,69 @@ RAYA 1
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "91 /opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul64.c
 [v ___omul __omul `(ul  1 e 4 0 ]
-"85 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-[v __mpap_step1 _mpap_step1 `(v  1 s 1 _mpap_step1 ]
-"92
-[v __mpap_step2 _mpap_step2 `(v  1 s 1 _mpap_step2 ]
-"99
-[v __mpap_step3 _mpap_step3 `(v  1 s 1 _mpap_step3 ]
-"106
-[v __mpap_step4 _mpap_step4 `(v  1 s 1 _mpap_step4 ]
-"123
-[v __mpap_off _mpap_off `T(v  1 s 1 _mpap_off ]
-"161
-[v _mpap_setupToTurn mpap_setupToTurn `(v  1 e 1 0 ]
-"173
-[v _mpap_setupToHomming mpap_setupToHomming `(v  1 e 1 0 ]
-"180
-[v _nozzle_moveto nozzle_moveto `(v  1 e 1 0 ]
-"192
-[v _mpap_stop mpap_stop `(v  1 e 1 0 ]
-"200
-[v _mpap_do1step mpap_do1step `(v  1 e 1 0 ]
-"220
-[v _mpap_homming mpap_homming `(c  1 e 1 0 ]
-"243
-[v _mpap_normal_mode mpap_normal_mode `(c  1 e 1 0 ]
-"263
-[v _mpap_job mpap_job `(c  1 e 1 0 ]
-"281
+"55 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
 [v _main main `(v  1 e 1 0 ]
-"453
+"175
+[v _mpap_sych mpap_sych `(v  1 e 1 0 ]
+"219
 [v _INTERRUPCION INTERRUPCION `II(v  1 e 1 0 ]
-"56 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-[v _multiplexedDisp0_off multiplexedDisp0_off `T(v  1 s 1 multiplexedDisp0_off ]
+"33 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+[v __mpap_step1 _mpap_step1 `(v  1 s 1 _mpap_step1 ]
+"42
+[v __mpap_step2 _mpap_step2 `(v  1 s 1 _mpap_step2 ]
+"51
+[v __mpap_step3 _mpap_step3 `(v  1 s 1 _mpap_step3 ]
 "60
-[v _multiplexedDisp0_on multiplexedDisp0_on `T(v  1 s 1 multiplexedDisp0_on ]
-"65
-[v _multiplexedDisp1_off multiplexedDisp1_off `T(v  1 s 1 multiplexedDisp1_off ]
-"69
-[v _multiplexedDisp1_on multiplexedDisp1_on `T(v  1 s 1 multiplexedDisp1_on ]
-"74
-[v _multiplexedDisp2_off multiplexedDisp2_off `T(v  1 s 1 multiplexedDisp2_off ]
-"78
-[v _multiplexedDisp2_on multiplexedDisp2_on `T(v  1 s 1 multiplexedDisp2_on ]
-"83
-[v _multiplexedDisp3_off multiplexedDisp3_off `T(v  1 s 1 multiplexedDisp3_off ]
-"87
-[v _multiplexedDisp3_on multiplexedDisp3_on `T(v  1 s 1 multiplexedDisp3_on ]
+[v __mpap_step4 _mpap_step4 `(v  1 s 1 _mpap_step4 ]
+"75
+[v __mpap_off _mpap_off `T(v  1 s 1 _mpap_off ]
 "92
+[v _mpap_setupToTurn mpap_setupToTurn `(v  1 e 1 0 ]
+"104
+[v _mpap_setupToHomming mpap_setupToHomming `(v  1 e 1 0 ]
+"112
+[v _nozzle_moveto nozzle_moveto `(v  1 e 1 0 ]
+"131
+[v _mpap_do1step mpap_do1step `(v  1 e 1 0 ]
+"151
+[v _mpap_homming mpap_homming `(c  1 e 1 0 ]
+"174
+[v _mpap_normal_mode mpap_normal_mode `(c  1 e 1 0 ]
+"194
+[v _mpap_job mpap_job `(c  1 e 1 0 ]
+"214
+[v _mpap_test mpap_test `(v  1 e 1 0 ]
+"55 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+[v _multiplexedDisp0_off multiplexedDisp0_off `T(v  1 s 1 multiplexedDisp0_off ]
+"59
+[v _multiplexedDisp0_on multiplexedDisp0_on `T(v  1 s 1 multiplexedDisp0_on ]
+"64
+[v _multiplexedDisp1_off multiplexedDisp1_off `T(v  1 s 1 multiplexedDisp1_off ]
+"68
+[v _multiplexedDisp1_on multiplexedDisp1_on `T(v  1 s 1 multiplexedDisp1_on ]
+"73
+[v _multiplexedDisp2_off multiplexedDisp2_off `T(v  1 s 1 multiplexedDisp2_off ]
+"77
+[v _multiplexedDisp2_on multiplexedDisp2_on `T(v  1 s 1 multiplexedDisp2_on ]
+"82
+[v _multiplexedDisp3_off multiplexedDisp3_off `T(v  1 s 1 multiplexedDisp3_off ]
+"86
+[v _multiplexedDisp3_on multiplexedDisp3_on `T(v  1 s 1 multiplexedDisp3_on ]
+"91
 [v _multiplexedDisp4_off multiplexedDisp4_off `T(v  1 s 1 multiplexedDisp4_off ]
-"96
+"95
 [v _multiplexedDisp4_on multiplexedDisp4_on `T(v  1 s 1 multiplexedDisp4_on ]
-"135
+"134
 [v _multiplexedDisp_init multiplexedDisp_init `(v  1 e 1 0 ]
-"150
+"149
 [v _multiplexedDisp_job multiplexedDisp_job `(v  1 e 1 0 ]
-"166
+"165
 [v _display7s_init display7s_init `(v  1 e 1 0 ]
-"179
+"178
 [v _display7s_job display7s_job `(v  1 e 1 0 ]
-"191
+"190
 [v _disp_show_quantity disp_show_quantity `(v  1 e 1 0 ]
-[s S191 _bf 2 `uc 1 state 1 0 :1:0 
+[s S177 _bf 2 `uc 1 state 1 0 :1:0 
 `uc 1 OnKeyPressed 1 0 :1:1 
 `uc 1 OnKeyPressedAndKeyRelease 1 0 :1:2 
 `uc 1 AtTimeExpired 1 0 :1:3 
@@ -163,9 +172,9 @@ RAYA 1
 `uc 1 InProcessing 1 1 :1:1 
 ]
 "34 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-[s S202 _repp 4 `ui 1 to_start 2 0 `ui 1 after_start 2 2 ]
-[s S205 _key 16 `*.37(uc 1 keyRead 2 0 `*.37(v 1 keyDo 2 2 `uc 1 sm0 1 4 `uc 1 counter0 1 5 `uc 1 sm1 1 6 `ui 1 counter1 2 7 `uc 1 num_group_x 1 9 `S191 1 bf 2 10 `S202 1 repp 4 12 ]
-[v _key key `VE[5]S205  1 e 80 0 ]
+[s S188 _repp 4 `ui 1 to_start 2 0 `ui 1 after_start 2 2 ]
+[s S191 _key 16 `*.37(uc 1 keyRead 2 0 `*.37(v 1 keyDo 2 2 `uc 1 sm0 1 4 `uc 1 counter0 1 5 `uc 1 sm1 1 6 `ui 1 counter1 2 7 `uc 1 num_group_x 1 9 `S177 1 bf 2 10 `S188 1 repp 4 12 ]
+[v _key key `VE[5]S191  1 e 80 0 ]
 "508
 [v _group_x group_x `[5]uc  1 e 5 0 ]
 "648 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
@@ -217,132 +226,85 @@ RAYA 1
 [s S24 _isr_flag 1 `uc 1 f1ms 1 0 :1:0 
 `uc 1 __a 1 0 :7:1 
 ]
-"32 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+"33 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
 [v _isr_flag isr_flag `VES24  1 e 1 0 ]
 [s S27 _main_flag 1 `uc 1 f1ms 1 0 :1:0 
 `uc 1 __a 1 0 :7:1 
 ]
-"33
+"34
 [v _main_flag main_flag `VES27  1 e 1 0 ]
-"116
+"70 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
 [v _mpap_step mpap_step `[4]*.37(v  1 e 8 0 ]
-[s S32 _mpap 8 `i 1 numSteps_current 2 0 `i 1 counter_steps 2 2 `i 1 numSteps_tomove 2 4 `c 1 KI 1 6 `c 1 mode 1 7 ]
-"155
-[v _mpap mpap `VES32  1 e 8 0 ]
-"277
-[v _t t `ui  1 e 2 0 ]
-[s S44 _pulsonic_nozzle 6 `f 1 Q_mlh 3 0 `ui 1 total_ticks_mlh 2 3 `c 1 nticks_slicetime 1 5 ]
+"82
+[v _mpap_off mpap_off `*.37(v  1 e 2 0 ]
+[s S64 _mpap 8 `i 1 numSteps_current 2 0 `i 1 counter_steps 2 2 `i 1 numSteps_tomove 2 4 `c 1 KI 1 6 `c 1 mode 1 7 ]
+"86
+[v _mpap mpap `VES64  1 e 8 0 ]
+[s S116 _pulsonic_nozzle 6 `f 1 Q_mlh 3 0 `ui 1 total_ticks_mlh 2 3 `c 1 nticks_slicetime 1 5 ]
 "5 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-[s S48 _pulsonic_flags 1 `uc 1 mpap_home_sensor 1 0 :1:0 
+[s S120 _pulsonic_flags 1 `uc 1 mpap_home_sensor 1 0 :1:0 
 `uc 1 __a 1 0 :7:1 
 ]
-[u S51 _pulsonic_errors 1 `S48 1 flag 1 0 `uc 1 e 1 0 ]
-[s S54 _pulsonic 123 `ui 1 Kticks_0p1ml 2 0 `ui 1 dist_total_time 2 2 `ui 1 dist_access_time 2 4 `[18]S44 1 nozzle 108 6 `f 1 sum_all_mlh 3 114 `S51 1 errors 1 117 `[5]uc 1 display7s 5 118 ]
-[v _pulsonic pulsonic `S54  1 e 123 0 ]
-[s S318 _multiplexedDisp 4 `[2]*.37(v 1 Qonoff 4 0 ]
-"101
-[v _multiplexedDisp multiplexedDisp `[5]S318  1 e 20 0 ]
-"112
+[u S123 _pulsonic_errors 1 `S120 1 flag 1 0 `uc 1 e 1 0 ]
+[s S126 _pulsonic 123 `ui 1 Kticks_0p1ml 2 0 `ui 1 dist_total_time 2 2 `ui 1 dist_access_time 2 4 `[18]S116 1 nozzle 108 6 `f 1 sum_all_mlh 3 114 `S123 1 errors 1 117 `[5]uc 1 display7s 5 118 ]
+[v _pulsonic pulsonic `S126  1 e 123 0 ]
+[s S304 _multiplexedDisp 4 `[2]*.37(v 1 Qonoff 4 0 ]
+"100
+[v _multiplexedDisp multiplexedDisp `[5]S304  1 e 20 0 ]
+"111
 [v _DISP7S_NUMS DISP7S_NUMS `C[10]uc  1 e 10 0 ]
-"125
+"124
 [v _DISP7S_CHARS DISP7S_CHARS `C[2]uc  1 e 2 0 ]
-"281 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+"55 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"329
-[v main@c_disp c_disp `c  1 a 1 62 ]
-"328
-[v main@c c `c  1 a 1 61 ]
-"451
+"173
 } 0
-"180
+"112 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
 [v _nozzle_moveto nozzle_moveto `(v  1 e 1 0 ]
 {
 [v nozzle_moveto@nozzle nozzle `c  1 a 1 wreg ]
 [v nozzle_moveto@nozzle nozzle `c  1 a 1 wreg ]
-"183
-[v nozzle_moveto@nozzle nozzle `c  1 a 1 10 ]
-"184
+"115
+[v nozzle_moveto@nozzle nozzle `c  1 a 1 20 ]
+"117
+} 0
+"214
+[v _mpap_test mpap_test `(v  1 e 1 0 ]
+{
+"216
+[v mpap_test@k k `c  1 s 1 k ]
+"217
+[v mpap_test@sm0 sm0 `c  1 s 1 sm0 ]
+"264
 } 0
 "15 /opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
 [v ___wmul __wmul `(ui  1 e 2 0 ]
 {
 "17
-[v ___wmul@product product `ui  1 a 2 4 ]
+[v ___wmul@product product `ui  1 a 2 14 ]
 "15
-[v ___wmul@multiplier multiplier `ui  1 p 2 0 ]
-[v ___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
+[v ___wmul@multiplier multiplier `ui  1 p 2 10 ]
+[v ___wmul@multiplicand multiplicand `ui  1 p 2 12 ]
 "53
 } 0
-"192 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-[v _mpap_stop mpap_stop `(v  1 e 1 0 ]
+"175 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+[v _mpap_sych mpap_sych `(v  1 e 1 0 ]
 {
-"197
+"177
+[v mpap_sych@sm0 sm0 `c  1 s 1 sm0 ]
+"217
 } 0
-"123
-[v __mpap_off _mpap_off `T(v  1 s 1 _mpap_off ]
-{
-"129
-} 0
-"173
+"104 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
 [v _mpap_setupToHomming mpap_setupToHomming `(v  1 e 1 0 ]
 {
-"179
-} 0
-"161
-[v _mpap_setupToTurn mpap_setupToTurn `(v  1 e 1 0 ]
-{
-[v mpap_setupToTurn@numSteps_tomove numSteps_tomove `i  1 p 2 6 ]
-"172
-} 0
-"263
-[v _mpap_job mpap_job `(c  1 e 1 0 ]
-{
-"276
-} 0
-"243
-[v _mpap_normal_mode mpap_normal_mode `(c  1 e 1 0 ]
-{
-"245
-[v mpap_normal_mode@cod_ret cod_ret `c  1 a 1 1 ]
-"261
-} 0
-"220
-[v _mpap_homming mpap_homming `(c  1 e 1 0 ]
-{
-"222
-[v mpap_homming@cod_ret cod_ret `c  1 a 1 2 ]
-"242
-} 0
-"200
-[v _mpap_do1step mpap_do1step `(v  1 e 1 0 ]
-{
-[v mpap_do1step@KI KI `c  1 a 1 wreg ]
-[v mpap_do1step@KI KI `c  1 a 1 wreg ]
-"202
-[v mpap_do1step@i i `c  1 s 1 i ]
-[v mpap_do1step@KI KI `c  1 a 1 0 ]
-"207
-} 0
-"99
-[v __mpap_step3 _mpap_step3 `(v  1 s 1 _mpap_step3 ]
-{
-"105
+"111
 } 0
 "92
-[v __mpap_step2 _mpap_step2 `(v  1 s 1 _mpap_step2 ]
+[v _mpap_setupToTurn mpap_setupToTurn `(v  1 e 1 0 ]
 {
-"98
-} 0
-"85
-[v __mpap_step1 _mpap_step1 `(v  1 s 1 _mpap_step1 ]
-{
-"91
-} 0
-"106
-[v __mpap_step4 _mpap_step4 `(v  1 s 1 _mpap_step4 ]
-{
-"112
+[v mpap_setupToTurn@numSteps_tomove numSteps_tomove `i  1 p 2 16 ]
+"103
 } 0
 "427 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
 [v _ikb_key_is_ready2read ikb_key_is_ready2read `(uc  1 e 1 0 ]
@@ -350,7 +312,7 @@ RAYA 1
 [v ikb_key_is_ready2read@k k `uc  1 a 1 wreg ]
 [v ikb_key_is_ready2read@k k `uc  1 a 1 wreg ]
 "429
-[v ikb_key_is_ready2read@k k `uc  1 a 1 0 ]
+[v ikb_key_is_ready2read@k k `uc  1 a 1 10 ]
 "430
 } 0
 "414
@@ -362,7 +324,7 @@ RAYA 1
 [v _ikey_scan ikey_scan `(v  1 e 1 0 ]
 {
 "451
-[v ikey_scan@k k `c  1 a 1 1 ]
+[v ikey_scan@k k `c  1 a 1 11 ]
 "501
 } 0
 "206
@@ -394,7 +356,7 @@ RAYA 1
 [v _ikey_parsing ikey_parsing `(v  1 e 1 0 ]
 {
 "547
-[v ikey_parsing@k k `uc  1 a 1 24 ]
+[v ikey_parsing@k k `uc  1 a 1 34 ]
 "747
 } 0
 "510
@@ -403,20 +365,20 @@ RAYA 1
 [v ikey_is_accessible@k k `uc  1 a 1 wreg ]
 [v ikey_is_accessible@k k `uc  1 a 1 wreg ]
 "512
-[v ikey_is_accessible@k k `uc  1 a 1 2 ]
+[v ikey_is_accessible@k k `uc  1 a 1 12 ]
 "525
 } 0
 "28 /opt/microchip/xc8/v2.05/pic/sources/c90/common/lwtoft.c
 [v ___lwtoft __lwtoft `(f  1 e 3 0 ]
 {
-[v ___lwtoft@c c `ui  1 p 2 8 ]
+[v ___lwtoft@c c `ui  1 p 2 18 ]
 "31
 } 0
 "217 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
 [v _ikb_init ikb_init `(v  1 e 1 0 ]
 {
 "219
-[v ikb_init@i i `c  1 a 1 0 ]
+[v ikb_init@i i `c  1 a 1 10 ]
 "412
 } 0
 "419
@@ -428,225 +390,282 @@ RAYA 1
 [v _ikey_clear_all_flag ikey_clear_all_flag `(v  1 e 1 0 ]
 {
 "763
-[v ikey_clear_all_flag@i i `uc  1 a 1 0 ]
+[v ikey_clear_all_flag@i i `uc  1 a 1 10 ]
 "769
 } 0
-"179 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+"178 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
 [v _display7s_job display7s_job `(v  1 e 1 0 ]
 {
-"181
+"180
 [v display7s_job@q q `c  1 s 1 q ]
-"188
+"187
 } 0
-"150
+"149
 [v _multiplexedDisp_job multiplexedDisp_job `(v  1 e 1 0 ]
 {
 [v multiplexedDisp_job@q q `c  1 a 1 wreg ]
-"152
-[v multiplexedDisp_job@i i `c  1 a 1 7 ]
-"150
+"151
+[v multiplexedDisp_job@i i `c  1 a 1 17 ]
+"149
 [v multiplexedDisp_job@q q `c  1 a 1 wreg ]
-"153
-[v multiplexedDisp_job@q q `c  1 a 1 6 ]
-"160
+"152
+[v multiplexedDisp_job@q q `c  1 a 1 16 ]
+"159
 } 0
-"166
+"165
 [v _display7s_init display7s_init `(v  1 e 1 0 ]
 {
-"177
+"176
 } 0
-"135
+"134
 [v _multiplexedDisp_init multiplexedDisp_init `(v  1 e 1 0 ]
 {
-"137
-[v multiplexedDisp_init@i i `c  1 a 1 0 ]
-"148
+"136
+[v multiplexedDisp_init@i i `c  1 a 1 10 ]
+"147
 } 0
-"92
+"91
 [v _multiplexedDisp4_off multiplexedDisp4_off `T(v  1 s 1 multiplexedDisp4_off ]
 {
-"95
+"94
 } 0
-"87
+"86
 [v _multiplexedDisp3_on multiplexedDisp3_on `T(v  1 s 1 multiplexedDisp3_on ]
 {
-"90
+"89
 } 0
-"83
+"82
 [v _multiplexedDisp3_off multiplexedDisp3_off `T(v  1 s 1 multiplexedDisp3_off ]
 {
-"86
+"85
 } 0
-"78
+"77
 [v _multiplexedDisp2_on multiplexedDisp2_on `T(v  1 s 1 multiplexedDisp2_on ]
 {
-"81
+"80
 } 0
-"74
+"73
 [v _multiplexedDisp2_off multiplexedDisp2_off `T(v  1 s 1 multiplexedDisp2_off ]
 {
-"77
+"76
 } 0
-"69
+"68
 [v _multiplexedDisp1_on multiplexedDisp1_on `T(v  1 s 1 multiplexedDisp1_on ]
 {
-"72
+"71
 } 0
-"65
+"64
 [v _multiplexedDisp1_off multiplexedDisp1_off `T(v  1 s 1 multiplexedDisp1_off ]
 {
-"68
+"67
 } 0
-"60
+"59
 [v _multiplexedDisp0_on multiplexedDisp0_on `T(v  1 s 1 multiplexedDisp0_on ]
 {
-"63
+"62
 } 0
-"56
+"55
 [v _multiplexedDisp0_off multiplexedDisp0_off `T(v  1 s 1 multiplexedDisp0_off ]
 {
-"59
+"58
 } 0
-"96
+"95
 [v _multiplexedDisp4_on multiplexedDisp4_on `T(v  1 s 1 multiplexedDisp4_on ]
 {
-"99
+"98
 } 0
-"191
+"190
 [v _disp_show_quantity disp_show_quantity `(v  1 e 1 0 ]
 {
-"194
-[v disp_show_quantity@buff buff `[10]uc  1 a 10 42 ]
-"199
-[v disp_show_quantity@real real `d  1 a 3 52 ]
 "193
-[v disp_show_quantity@I I `i  1 a 2 58 ]
-"196
-[v disp_show_quantity@i i `c  1 a 1 60 ]
-"197
-[v disp_show_quantity@last_pos last_pos `c  1 a 1 57 ]
+[v disp_show_quantity@buff buff `[10]uc  1 a 10 0 ]
 "198
-[v disp_show_quantity@q q `c  1 a 1 56 ]
+[v disp_show_quantity@real real `d  1 a 3 10 ]
+"192
+[v disp_show_quantity@I I `i  1 a 2 16 ]
 "195
-[v disp_show_quantity@num num `uc  1 a 1 55 ]
-"191
-[v disp_show_quantity@f f `d  1 p 3 38 ]
-"274
+[v disp_show_quantity@i i `c  1 a 1 18 ]
+"196
+[v disp_show_quantity@last_pos last_pos `c  1 a 1 15 ]
+"197
+[v disp_show_quantity@q q `c  1 a 1 14 ]
+"194
+[v disp_show_quantity@num num `uc  1 a 1 13 ]
+"190
+[v disp_show_quantity@f f `d  1 p 3 48 ]
+"271
 } 0
 "4 /opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
 [v _itoa itoa `(*.30uc  1 e 2 0 ]
 {
-[v itoa@buf buf `*.30uc  1 p 1 15 ]
-[v itoa@val val `i  1 p 2 16 ]
-[v itoa@base base `i  1 p 2 18 ]
+[v itoa@buf buf `*.30uc  1 p 1 25 ]
+[v itoa@val val `i  1 p 2 26 ]
+[v itoa@base base `i  1 p 2 28 ]
 "14
 } 0
 "17
 [v _utoa utoa `(*.30uc  1 e 2 0 ]
 {
 "19
-[v utoa@v v `ui  1 a 2 12 ]
+[v utoa@v v `ui  1 a 2 22 ]
 "20
-[v utoa@c c `uc  1 a 1 14 ]
+[v utoa@c c `uc  1 a 1 24 ]
 "17
-[v utoa@buf buf `*.30uc  1 p 1 7 ]
-[v utoa@val val `ui  1 p 2 8 ]
-[v utoa@base base `i  1 p 2 10 ]
+[v utoa@buf buf `*.30uc  1 p 1 17 ]
+[v utoa@val val `ui  1 p 2 18 ]
+[v utoa@base base `i  1 p 2 20 ]
 "37
 } 0
 "7 /opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
 [v ___lwmod __lwmod `(ui  1 e 2 0 ]
 {
 "10
-[v ___lwmod@counter counter `uc  1 a 1 4 ]
+[v ___lwmod@counter counter `uc  1 a 1 14 ]
 "7
-[v ___lwmod@dividend dividend `ui  1 p 2 0 ]
-[v ___lwmod@divisor divisor `ui  1 p 2 2 ]
+[v ___lwmod@dividend dividend `ui  1 p 2 10 ]
+[v ___lwmod@divisor divisor `ui  1 p 2 12 ]
 "25
 } 0
 "7 /opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
 [v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
 {
 "10
-[v ___lwdiv@quotient quotient `ui  1 a 2 4 ]
+[v ___lwdiv@quotient quotient `ui  1 a 2 15 ]
 "11
-[v ___lwdiv@counter counter `uc  1 a 1 6 ]
+[v ___lwdiv@counter counter `uc  1 a 1 14 ]
 "7
-[v ___lwdiv@dividend dividend `ui  1 p 2 0 ]
-[v ___lwdiv@divisor divisor `ui  1 p 2 2 ]
+[v ___lwdiv@dividend dividend `ui  1 p 2 10 ]
+[v ___lwdiv@divisor divisor `ui  1 p 2 12 ]
 "30
 } 0
 "44 /opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
 [v ___fttol __fttol `(l  1 e 4 0 ]
 {
 "47
-[v ___fttol@lval lval `ul  1 a 4 33 ]
+[v ___fttol@lval lval `ul  1 a 4 43 ]
 "46
-[v ___fttol@exp1 exp1 `uc  1 a 1 37 ]
-[v ___fttol@sign1 sign1 `uc  1 a 1 32 ]
+[v ___fttol@exp1 exp1 `uc  1 a 1 47 ]
+[v ___fttol@sign1 sign1 `uc  1 a 1 42 ]
 "44
-[v ___fttol@f1 f1 `f  1 p 3 23 ]
+[v ___fttol@f1 f1 `f  1 p 3 33 ]
 "73
 } 0
 "19 /opt/microchip/xc8/v2.05/pic/sources/c90/common/ftsub.c
 [v ___ftsub __ftsub `(f  1 e 3 0 ]
 {
-[v ___ftsub@f1 f1 `f  1 p 3 20 ]
-[v ___ftsub@f2 f2 `f  1 p 3 23 ]
+[v ___ftsub@f1 f1 `f  1 p 3 30 ]
+[v ___ftsub@f2 f2 `f  1 p 3 33 ]
 "26
 } 0
 "86 /opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
 [v ___ftadd __ftadd `(f  1 e 3 0 ]
 {
 "88
-[v ___ftadd@exp1 exp1 `uc  1 a 1 19 ]
-[v ___ftadd@exp2 exp2 `uc  1 a 1 18 ]
-[v ___ftadd@sign sign `uc  1 a 1 17 ]
+[v ___ftadd@exp1 exp1 `uc  1 a 1 29 ]
+[v ___ftadd@exp2 exp2 `uc  1 a 1 28 ]
+[v ___ftadd@sign sign `uc  1 a 1 27 ]
 "86
-[v ___ftadd@f1 f1 `f  1 p 3 8 ]
-[v ___ftadd@f2 f2 `f  1 p 3 11 ]
+[v ___ftadd@f1 f1 `f  1 p 3 18 ]
+[v ___ftadd@f2 f2 `f  1 p 3 21 ]
 "148
 } 0
 "62 /opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
 [v ___ftmul __ftmul `(f  1 e 3 0 ]
 {
 "65
-[v ___ftmul@f3_as_product f3_as_product `um  1 a 3 18 ]
+[v ___ftmul@f3_as_product f3_as_product `um  1 a 3 28 ]
 "64
-[v ___ftmul@sign sign `uc  1 a 1 22 ]
-[v ___ftmul@cntr cntr `uc  1 a 1 21 ]
-[v ___ftmul@exp exp `uc  1 a 1 17 ]
+[v ___ftmul@sign sign `uc  1 a 1 32 ]
+[v ___ftmul@cntr cntr `uc  1 a 1 31 ]
+[v ___ftmul@exp exp `uc  1 a 1 27 ]
 "62
-[v ___ftmul@f1 f1 `f  1 p 3 8 ]
-[v ___ftmul@f2 f2 `f  1 p 3 11 ]
+[v ___ftmul@f1 f1 `f  1 p 3 18 ]
+[v ___ftmul@f2 f2 `f  1 p 3 21 ]
 "157
 } 0
 "4 /opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
 [v ___ftge __ftge `(b  1 e 0 0 ]
 {
-[v ___ftge@ff1 ff1 `f  1 p 3 11 ]
-[v ___ftge@ff2 ff2 `f  1 p 3 14 ]
+[v ___ftge@ff1 ff1 `f  1 p 3 21 ]
+[v ___ftge@ff2 ff2 `f  1 p 3 24 ]
 "13
 } 0
 "32 /opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
 [v ___awtoft __awtoft `(f  1 e 3 0 ]
 {
 "34
-[v ___awtoft@sign sign `uc  1 a 1 11 ]
+[v ___awtoft@sign sign `uc  1 a 1 21 ]
 "32
-[v ___awtoft@c c `i  1 p 2 8 ]
+[v ___awtoft@c c `i  1 p 2 18 ]
 "42
 } 0
 "62 /opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
 [v ___ftpack __ftpack `(f  1 e 3 0 ]
 {
-[v ___ftpack@arg arg `um  1 p 3 0 ]
-[v ___ftpack@exp exp `uc  1 p 1 3 ]
-[v ___ftpack@sign sign `uc  1 p 1 4 ]
+[v ___ftpack@arg arg `um  1 p 3 10 ]
+[v ___ftpack@exp exp `uc  1 p 1 13 ]
+[v ___ftpack@sign sign `uc  1 p 1 14 ]
 "86
 } 0
-"453 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+"219 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
 [v _INTERRUPCION INTERRUPCION `II(v  1 e 1 0 ]
 {
-"464
+"221
+[v INTERRUPCION@cm cm `uc  1 s 1 cm ]
+"235
+} 0
+"194 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+[v _mpap_job mpap_job `(c  1 e 1 0 ]
+{
+"212
+} 0
+"174
+[v _mpap_normal_mode mpap_normal_mode `(c  1 e 1 0 ]
+{
+"176
+[v mpap_normal_mode@cod_ret cod_ret `c  1 a 1 1 ]
+"192
+} 0
+"151
+[v _mpap_homming mpap_homming `(c  1 e 1 0 ]
+{
+"153
+[v mpap_homming@cod_ret cod_ret `c  1 a 1 2 ]
+"173
+} 0
+"131
+[v _mpap_do1step mpap_do1step `(v  1 e 1 0 ]
+{
+[v mpap_do1step@KI KI `c  1 a 1 wreg ]
+[v mpap_do1step@KI KI `c  1 a 1 wreg ]
+"133
+[v mpap_do1step@i i `c  1 s 1 i ]
+"135
+[v mpap_do1step@KI KI `c  1 a 1 0 ]
+"141
+} 0
+"51
+[v __mpap_step3 _mpap_step3 `(v  1 s 1 _mpap_step3 ]
+{
+"59
+} 0
+"42
+[v __mpap_step2 _mpap_step2 `(v  1 s 1 _mpap_step2 ]
+{
+"50
+} 0
+"33
+[v __mpap_step1 _mpap_step1 `(v  1 s 1 _mpap_step1 ]
+{
+"41
+} 0
+"60
+[v __mpap_step4 _mpap_step4 `(v  1 s 1 _mpap_step4 ]
+{
+"68
+} 0
+"75
+[v __mpap_off _mpap_off `T(v  1 s 1 _mpap_off ]
+{
+"81
 } 0

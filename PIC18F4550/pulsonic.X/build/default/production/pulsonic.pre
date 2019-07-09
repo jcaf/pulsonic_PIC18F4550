@@ -5858,7 +5858,7 @@ acc += pulsonic.nozzle[i].Q_mlh;
 return acc;
 }
 
-# 56
+# 55
 static inline void multiplexedDisp0_off(void)
 {
 do{LATA |= 1<<4;}while(0);
@@ -5965,7 +5965,7 @@ multiplexedDisp[i].Qonoff[0]();
 }
 }
 
-# 166
+# 165
 void display7s_init(void)
 {
 pulsonic.display7s[MODE_DIG_1] = DISP7S_NUMS[2];
@@ -6060,7 +6060,6 @@ num = buff[i] - 0x30;
 pulsonic.display7s[q++] = DISP7S_NUMS[num];
 }
 pulsonic.display7s[QUANT_DIG_1] |= 0x80;
-
 }
 else
 {
@@ -6073,5 +6072,4 @@ pulsonic.display7s[q++] = DISP7S_NUMS[num];
 }
 }
 }
-
 }

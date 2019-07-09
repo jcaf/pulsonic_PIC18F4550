@@ -8,6 +8,7 @@
       <itemPath>../../../../../../FIRWAR/eslibrary/ikb/ikb.h</itemPath>
       <itemPath>../../../../../../FIRWAR/eslibrary/system.h</itemPath>
       <itemPath>pulsonic.h</itemPath>
+      <itemPath>mpap.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -19,6 +20,7 @@
       <itemPath>main.c</itemPath>
       <itemPath>../../../../../../FIRWAR/eslibrary/ikb/ikb.c</itemPath>
       <itemPath>pulsonic.c</itemPath>
+      <itemPath>mpap.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -151,7 +153,7 @@
         <property key="codecoverage.outputfile" value=""/>
         <property key="oscillator.auxfrequency" value="120"/>
         <property key="oscillator.auxfrequencyunit" value="Mega"/>
-        <property key="oscillator.frequency" value="12000000"/>
+        <property key="oscillator.frequency" value="12"/>
         <property key="oscillator.frequencyunit" value="Mega"/>
         <property key="oscillator.rcfrequency" value="250"/>
         <property key="oscillator.rcfrequencyunit" value="Kilo"/>
