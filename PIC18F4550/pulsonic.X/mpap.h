@@ -36,6 +36,9 @@
     int8_t mpap_job(void);
     void mpap_setupToHomming(void);
     void nozzle_moveto(int8_t nozzle);//0..NOZZLE_NUMMAX-1
+    
+    #define MPAP_DELAY_BY_STEPS 1.0E-3 //ms
+
 //x tests
 void mpap_test(void);
 void mpap_1(void);

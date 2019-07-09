@@ -81,10 +81,7 @@ static inline void _mpap_off(void)
 }
 PTRFX_retVOID mpap_off= {_mpap_off};//PTRFX_retVOID mpap_off[NUM_STEPPER_BIPOLAR]= {_mpap_off};
 
-
-
 volatile struct _mpap mpap;
-
 /*
 Deja todo listo para girar N pasos, se llama 1 vez
 */
@@ -103,11 +100,13 @@ void mpap_setupToTurn(int16_t numSteps_tomove)//posAbs_insteps: Absoulte positio
 }
 void mpap_setupToHomming(void)
 {
-    mpap.mode = HOMMING_MODE;
+    
     
     mpap_setupToTurn( -1 *( (NOZZLE_NUMMAX*MPAP_NUMSTEP_1NOZZLE) +20));//direccion negativa
     //mpap.numSteps_current = 0x0000; //Obligaria al sistema a reponer el sensor
                                       //y arrancar desde 0
+
+    mpap.mode = HOMMING_MODE;
 }
 void nozzle_moveto(int8_t nozzle)//0..NOZZLE_NUMMAX-1
 {
@@ -191,7 +190,7 @@ int8_t mpap_normal_mode(void)//mode ubicacion en los nozzle
     return cod_ret;
 }
 //la parada debe ser sincronizada
-int8_t mpap_job(void)
+int8_t mpap_job(void)//se ejecuta desde la rutina de interrupcion
 {
 	int8_t cod_ret;// = 0;
     
@@ -210,7 +209,7 @@ int8_t mpap_job(void)
     }
 	return cod_ret;
 }
-
+/*
 void mpap_test(void)
 {
     static int8_t k = 10;
@@ -262,8 +261,6 @@ void mpap_test(void)
         }
     }
 }
-//++++++++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++++++++
 
 void mpap_1(void)
 {
@@ -307,6 +304,7 @@ void mpap_1(void)
     }
     return;
 }
+*/
 
 /*
 void mpap_1(void)

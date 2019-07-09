@@ -33,9 +33,6 @@ volatile struct _isr_flag
 } isr_flag = {0};
 volatile struct _main_flag main_flag;
 
-
-
-
 //PUMP MOTOR
 #define PORTWxPUMP LATE
 #define PORTRxPUMP PORTE
@@ -45,15 +42,15 @@ volatile struct _main_flag main_flag;
 #define PUMP_DISABLE()  do{PinTo1(PORTWxPUMP, PINxPUMP);}while(0)
 #define PUMP_ENABLE()   do{PinTo0(PORTWxPUMP, PINxPUMP);}while(0)
    
-
 extern struct _multiplexedDisp multiplexedDisp[DISP_TOTAL_NUMMAX];
-
 
 void mpap_sych(void);
 
-
 void main(void) 
 {
+    int8_t c_access_kb=0;
+    int8_t c_access_disp=0;
+
     LATA = 0x00;
     LATC = 0x00;
     LATD = 0x00;
@@ -68,21 +65,13 @@ void main(void)
     //RC4/RC5 config as digital inputs
     UCON = 0;   //USBEN Disable
     UCFG = 1<<3;//UTRDIS Digital input enable RC4/RC5
-    
-    //LATA = 0x0FF;
-    //TRISA = 0;
-    
-    //.....
-#define MPAP_DELAY_BY_STEPS 1.0E-3 //ms
-    
     T0CON = 0B10000111; //16BITS
-//    TMR0H = (uint8_t)(TMR16B_OVF(2e-3, 256) >> 8);
-//    TMR0L = (uint8_t)(TMR16B_OVF(2e-3, 256));
+    //TMR0H = (uint8_t)(TMR16B_OVF(2e-3, 256) >> 8);
+    //TMR0L = (uint8_t)(TMR16B_OVF(2e-3, 256));
     TMR0H = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256) >> 8);
     TMR0L = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256));
     TMR0IE = 1;
     //.....
-
     PUMP_DISABLE();
     ConfigOutputPin(CONFIGIOxPUMP, PINxPUMP);
     
@@ -100,25 +89,9 @@ void main(void)
     ikb_init();
     
     disp_show_quantity(77.7);
-    //
-    
-    int8_t c=0;
-    int8_t c_disp=0;
+    GIE = 1;
 
-    mpap_setupToTurn( (4*MPAP_NUMSTEP_1NOZZLE));
-    mpap.mode = NORMAL_MODE;
-GIE = 1;
-//mpap_1();
-    
-    while (1)
-    {
-        mpap_test();
-//        mpap_job();
-//        __delay_ms(2);
-    }
-    
     mpap_setupToHomming();
-    
     while(1)
     {
         if (isr_flag.f1ms)//sync para toda la pasada
@@ -127,12 +100,11 @@ GIE = 1;
             main_flag.f1ms = 1;
         }
 
-        //keyboard
         if (main_flag.f1ms)
         {
-            if (++c==5)
+            if (++c_access_kb == 20)
             {
-                c = 0;
+                c_access_kb = 0;
             
                 ikb_job();
                 //
@@ -157,13 +129,12 @@ GIE = 1;
                     nozzle_moveto(4);
                 }
             }
-            //displays
-            //if (++c_disp == 2)
-            //{
-            //    c_disp = 0;
-                display7s_job();
-            //}
             
+            if (++c_access_disp == 2)
+            {
+                c_access_disp = 0;
+                display7s_job();
+            }
         }
         mpap_sych();
         //////////
@@ -172,9 +143,10 @@ GIE = 1;
     }
 }
 
-void mpap_sych(void)
+void mpap_sych(void)//synch ISR
 {
     static int8_t sm0;
+    static int8_t c;
     if (sm0 == 0)//acepta ordenes
     {
         if ((mpap.mode == NORMAL_MODE) || (mpap.mode == HOMMING_MODE))
@@ -201,12 +173,23 @@ void mpap_sych(void)
             else if (mpap.mode == NORMAL_MODE)
             {
             }
-            
-            mpap.mode = STALL_MODE;
             sm0++;
+            c = 0;
         }
     }
     else if (sm0 == 2)
+    {
+        if (main_flag.f1ms)
+        {
+            if (++c == 10)
+            {
+                //c = 0;
+                mpap.mode = STALL_MODE;
+                sm0++;
+            }
+        }
+    }
+    else if (sm0 == 3)
     {
         if (mpap.mode == IDLE_MODE)
         {
@@ -218,16 +201,12 @@ void mpap_sych(void)
     
 void interrupt INTERRUPCION(void)//@1ms 
 {
-    static uint8_t cm = 0;
+    //static uint8_t cm = 0;
     if (TMR0IF)
     {
         isr_flag.f1ms = 1;
-        
-        //if (++cm == 2)
-        //{
-            cm = 0;
-            mpap_job();
-        //}
+        mpap_job();
+        //
         TMR0IF = 0;
         TMR0H = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256) >> 8);
         TMR0L = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256));

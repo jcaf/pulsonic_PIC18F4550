@@ -3,7 +3,7 @@
 [d edition pro ]
 [d chip 18F4550 ]
 [d frameptr 4065 ]
-"109 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+"166 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
 [e E3311 MPAP_MODES `uc
 IDLE_MODE 0
 STALL_MODE 1
@@ -25,7 +25,7 @@ QUANT_DIG_2 2
 OFF 0
 RAYA 1
 ]
-"106 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+"109 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
 [e E3276 MPAP_MODES `uc
 IDLE_MODE 0
 STALL_MODE 1
@@ -98,11 +98,11 @@ NORMAL_MODE 3
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "91 /opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul64.c
 [v ___omul __omul `(ul  1 e 4 0 ]
-"55 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+"49 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
 [v _main main `(v  1 e 1 0 ]
-"175
+"160
 [v _mpap_sych mpap_sych `(v  1 e 1 0 ]
-"219
+"216
 [v _INTERRUPCION INTERRUPCION `II(v  1 e 1 0 ]
 "33 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
 [v __mpap_step1 _mpap_step1 `(v  1 s 1 _mpap_step1 ]
@@ -114,22 +114,20 @@ NORMAL_MODE 3
 [v __mpap_step4 _mpap_step4 `(v  1 s 1 _mpap_step4 ]
 "75
 [v __mpap_off _mpap_off `T(v  1 s 1 _mpap_off ]
-"92
+"89
 [v _mpap_setupToTurn mpap_setupToTurn `(v  1 e 1 0 ]
-"104
+"101
 [v _mpap_setupToHomming mpap_setupToHomming `(v  1 e 1 0 ]
-"112
+"111
 [v _nozzle_moveto nozzle_moveto `(v  1 e 1 0 ]
-"131
+"130
 [v _mpap_do1step mpap_do1step `(v  1 e 1 0 ]
-"151
+"150
 [v _mpap_homming mpap_homming `(c  1 e 1 0 ]
-"174
+"173
 [v _mpap_normal_mode mpap_normal_mode `(c  1 e 1 0 ]
-"194
+"193
 [v _mpap_job mpap_job `(c  1 e 1 0 ]
-"214
-[v _mpap_test mpap_test `(v  1 e 1 0 ]
 "55 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
 [v _multiplexedDisp0_off multiplexedDisp0_off `T(v  1 s 1 multiplexedDisp0_off ]
 "59
@@ -160,7 +158,7 @@ NORMAL_MODE 3
 [v _display7s_job display7s_job `(v  1 e 1 0 ]
 "190
 [v _disp_show_quantity disp_show_quantity `(v  1 e 1 0 ]
-[s S177 _bf 2 `uc 1 state 1 0 :1:0 
+[s S168 _bf 2 `uc 1 state 1 0 :1:0 
 `uc 1 OnKeyPressed 1 0 :1:1 
 `uc 1 OnKeyPressedAndKeyRelease 1 0 :1:2 
 `uc 1 AtTimeExpired 1 0 :1:3 
@@ -172,9 +170,9 @@ NORMAL_MODE 3
 `uc 1 InProcessing 1 1 :1:1 
 ]
 "34 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-[s S188 _repp 4 `ui 1 to_start 2 0 `ui 1 after_start 2 2 ]
-[s S191 _key 16 `*.37(uc 1 keyRead 2 0 `*.37(v 1 keyDo 2 2 `uc 1 sm0 1 4 `uc 1 counter0 1 5 `uc 1 sm1 1 6 `ui 1 counter1 2 7 `uc 1 num_group_x 1 9 `S177 1 bf 2 10 `S188 1 repp 4 12 ]
-[v _key key `VE[5]S191  1 e 80 0 ]
+[s S179 _repp 4 `ui 1 to_start 2 0 `ui 1 after_start 2 2 ]
+[s S182 _key 16 `*.37(uc 1 keyRead 2 0 `*.37(v 1 keyDo 2 2 `uc 1 sm0 1 4 `uc 1 counter0 1 5 `uc 1 sm1 1 6 `ui 1 counter1 2 7 `uc 1 num_group_x 1 9 `S168 1 bf 2 10 `S179 1 repp 4 12 ]
+[v _key key `VE[5]S182  1 e 80 0 ]
 "508
 [v _group_x group_x `[5]uc  1 e 5 0 ]
 "648 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
@@ -237,46 +235,41 @@ NORMAL_MODE 3
 [v _mpap_step mpap_step `[4]*.37(v  1 e 8 0 ]
 "82
 [v _mpap_off mpap_off `*.37(v  1 e 2 0 ]
-[s S64 _mpap 8 `i 1 numSteps_current 2 0 `i 1 counter_steps 2 2 `i 1 numSteps_tomove 2 4 `c 1 KI 1 6 `c 1 mode 1 7 ]
-"86
-[v _mpap mpap `VES64  1 e 8 0 ]
-[s S116 _pulsonic_nozzle 6 `f 1 Q_mlh 3 0 `ui 1 total_ticks_mlh 2 3 `c 1 nticks_slicetime 1 5 ]
+[s S90 _mpap 8 `i 1 numSteps_current 2 0 `i 1 counter_steps 2 2 `i 1 numSteps_tomove 2 4 `c 1 KI 1 6 `c 1 mode 1 7 ]
+"84
+[v _mpap mpap `VES90  1 e 8 0 ]
+[s S107 _pulsonic_nozzle 6 `f 1 Q_mlh 3 0 `ui 1 total_ticks_mlh 2 3 `c 1 nticks_slicetime 1 5 ]
 "5 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-[s S120 _pulsonic_flags 1 `uc 1 mpap_home_sensor 1 0 :1:0 
+[s S111 _pulsonic_flags 1 `uc 1 mpap_home_sensor 1 0 :1:0 
 `uc 1 __a 1 0 :7:1 
 ]
-[u S123 _pulsonic_errors 1 `S120 1 flag 1 0 `uc 1 e 1 0 ]
-[s S126 _pulsonic 123 `ui 1 Kticks_0p1ml 2 0 `ui 1 dist_total_time 2 2 `ui 1 dist_access_time 2 4 `[18]S116 1 nozzle 108 6 `f 1 sum_all_mlh 3 114 `S123 1 errors 1 117 `[5]uc 1 display7s 5 118 ]
-[v _pulsonic pulsonic `S126  1 e 123 0 ]
-[s S304 _multiplexedDisp 4 `[2]*.37(v 1 Qonoff 4 0 ]
+[u S114 _pulsonic_errors 1 `S111 1 flag 1 0 `uc 1 e 1 0 ]
+[s S117 _pulsonic 123 `ui 1 Kticks_0p1ml 2 0 `ui 1 dist_total_time 2 2 `ui 1 dist_access_time 2 4 `[18]S107 1 nozzle 108 6 `f 1 sum_all_mlh 3 114 `S114 1 errors 1 117 `[5]uc 1 display7s 5 118 ]
+[v _pulsonic pulsonic `S117  1 e 123 0 ]
+[s S295 _multiplexedDisp 4 `[2]*.37(v 1 Qonoff 4 0 ]
 "100
-[v _multiplexedDisp multiplexedDisp `[5]S304  1 e 20 0 ]
+[v _multiplexedDisp multiplexedDisp `[5]S295  1 e 20 0 ]
 "111
 [v _DISP7S_NUMS DISP7S_NUMS `C[10]uc  1 e 10 0 ]
 "124
 [v _DISP7S_CHARS DISP7S_CHARS `C[2]uc  1 e 2 0 ]
-"55 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+"49 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"173
+"52
+[v main@c_access_disp c_access_disp `c  1 a 1 53 ]
+"51
+[v main@c_access_kb c_access_kb `c  1 a 1 52 ]
+"158
 } 0
-"112 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+"111 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
 [v _nozzle_moveto nozzle_moveto `(v  1 e 1 0 ]
 {
 [v nozzle_moveto@nozzle nozzle `c  1 a 1 wreg ]
 [v nozzle_moveto@nozzle nozzle `c  1 a 1 wreg ]
-"115
+"114
 [v nozzle_moveto@nozzle nozzle `c  1 a 1 20 ]
-"117
-} 0
-"214
-[v _mpap_test mpap_test `(v  1 e 1 0 ]
-{
-"216
-[v mpap_test@k k `c  1 s 1 k ]
-"217
-[v mpap_test@sm0 sm0 `c  1 s 1 sm0 ]
-"264
+"116
 } 0
 "15 /opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
 [v ___wmul __wmul `(ui  1 e 2 0 ]
@@ -288,23 +281,25 @@ NORMAL_MODE 3
 [v ___wmul@multiplicand multiplicand `ui  1 p 2 12 ]
 "53
 } 0
-"175 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+"160 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
 [v _mpap_sych mpap_sych `(v  1 e 1 0 ]
 {
-"177
+"162
 [v mpap_sych@sm0 sm0 `c  1 s 1 sm0 ]
-"217
+"163
+[v mpap_sych@c c `c  1 s 1 c ]
+"214
 } 0
-"104 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+"101 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
 [v _mpap_setupToHomming mpap_setupToHomming `(v  1 e 1 0 ]
 {
-"111
+"110
 } 0
-"92
+"89
 [v _mpap_setupToTurn mpap_setupToTurn `(v  1 e 1 0 ]
 {
 [v mpap_setupToTurn@numSteps_tomove numSteps_tomove `i  1 p 2 16 ]
-"103
+"100
 } 0
 "427 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
 [v _ikb_key_is_ready2read ikb_key_is_ready2read `(uc  1 e 1 0 ]
@@ -607,42 +602,40 @@ NORMAL_MODE 3
 [v ___ftpack@sign sign `uc  1 p 1 14 ]
 "86
 } 0
-"219 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+"216 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
 [v _INTERRUPCION INTERRUPCION `II(v  1 e 1 0 ]
 {
-"221
-[v INTERRUPCION@cm cm `uc  1 s 1 cm ]
-"235
+"232
 } 0
-"194 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+"193 /run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
 [v _mpap_job mpap_job `(c  1 e 1 0 ]
 {
-"212
+"211
 } 0
-"174
+"173
 [v _mpap_normal_mode mpap_normal_mode `(c  1 e 1 0 ]
 {
-"176
+"175
 [v mpap_normal_mode@cod_ret cod_ret `c  1 a 1 1 ]
-"192
+"191
 } 0
-"151
+"150
 [v _mpap_homming mpap_homming `(c  1 e 1 0 ]
 {
-"153
+"152
 [v mpap_homming@cod_ret cod_ret `c  1 a 1 2 ]
-"173
+"172
 } 0
-"131
+"130
 [v _mpap_do1step mpap_do1step `(v  1 e 1 0 ]
 {
 [v mpap_do1step@KI KI `c  1 a 1 wreg ]
 [v mpap_do1step@KI KI `c  1 a 1 wreg ]
-"133
+"132
 [v mpap_do1step@i i `c  1 s 1 i ]
-"135
+"134
 [v mpap_do1step@KI KI `c  1 a 1 0 ]
-"141
+"140
 } 0
 "51
 [v __mpap_step3 _mpap_step3 `(v  1 s 1 _mpap_step3 ]
