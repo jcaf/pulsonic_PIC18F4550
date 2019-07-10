@@ -11,91 +11,92 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$/tmp/xcXHd78Xb.obj
-idloc IDLOC 0 200000 200000 8 1
-init CODE 0 E E 4 1
-reset_vec CODE 0 0 0 4 1
-config CONFIG 0 300000 300000 E 1
 $dist/default/production/pulsonic.X.production.obj
-cinit CODE 0 1A76 1A76 70 1
-intcode_body CODE 0 1C2C 1C2C 48 1
-text0 CODE 0 1426 1426 FE 1
-text1 CODE 0 1EA2 1EA2 2E 1
-text2 CODE 0 1ED0 1ED0 26 1
-text3 CODE 0 1982 1982 80 1
-text4 CODE 0 1F96 1F96 12 1
-text5 CODE 0 1E72 1E72 30 1
-text6 CODE 0 1F7A 1F7A 1C 1
-text7 CODE 0 1FA8 1FA8 A 1
-text8 CODE 0 1286 1286 1A0 1
-text9 CODE 0 1FE0 1FE0 6 1
-text10 CODE 0 1FB2 1FB2 A 1
-text11 CODE 0 1FBC 1FBC A 1
-text12 CODE 0 1FD0 1FD0 8 1
-text13 CODE 0 1FD8 1FD8 8 1
-text14 CODE 0 80E 80E 630 1
-text15 CODE 0 1BE0 1BE0 4C 1
-text16 CODE 0 1F1C 1F1C 24 1
-text17 CODE 0 16EA 16EA B6 1
-text18 CODE 0 1FE6 1FE6 6 1
-text19 CODE 0 1F40 1F40 1E 1
-text20 CODE 0 1EF6 1EF6 26 1
-text21 CODE 0 184E 184E A0 1
-text22 CODE 0 1B90 1B90 50 1
-text23 CODE 0 1D88 1D88 40 1
-text24 CODE 0 2004 2004 4 1
-text25 CODE 0 2008 2008 4 1
-text26 CODE 0 200C 200C 4 1
-text27 CODE 0 2010 2010 4 1
-text28 CODE 0 2014 2014 4 1
-text29 CODE 0 2018 2018 4 1
-text30 CODE 0 201C 201C 4 1
-text31 CODE 0 2020 2020 4 1
-text32 CODE 0 2024 2024 4 1
-text33 CODE 0 2028 2028 4 1
-text34 CODE 0 E3E E3E 2A0 1
-text35 CODE 0 1E40 1E40 32 1
-text36 CODE 0 18EE 18EE 94 1
-text37 CODE 0 1D04 1D04 42 1
-text38 CODE 0 1B3E 1B3E 52 1
-text39 CODE 0 1618 1618 D2 1
-text40 CODE 0 1DC8 1DC8 40 1
-text41 CODE 0 10DE 10DE 1A8 1
-text42 CODE 0 1524 1524 F4 1
-text43 CODE 0 1A02 1A02 74 1
-text44 CODE 0 1E08 1E08 38 1
-text45 CODE 0 17A0 17A0 AE 1
-text47 CODE 0 1C74 1C74 48 1
-text48 CODE 0 1CBC 1CBC 48 1
-text49 CODE 0 1AE6 1AE6 58 1
-text50 CODE 0 1D46 1D46 42 1
-text51 CODE 0 1FEC 1FEC 6 1
-text52 CODE 0 1FF2 1FF2 6 1
-text53 CODE 0 1FF8 1FF8 6 1
-text54 CODE 0 1FFE 1FFE 6 1
-text55 CODE 0 1FC6 1FC6 A 1
-idataCOMRAM CODE 0 202C 202C 3 1
+cinit CODE 0 1A7E 1A7E 64 1
+intcode_body CODE 0 1C72 1C72 48 1
+text0 CODE 0 1426 1426 106 1
+text1 CODE 0 1E3E 1E3E 34 1
+text2 CODE 0 1ED4 1ED4 2E 1
+text3 CODE 0 1F02 1F02 26 1
+text4 CODE 0 198A 198A 80 1
+text5 CODE 0 1FCA 1FCA 12 1
+text6 CODE 0 1EA4 1EA4 30 1
+text7 CODE 0 1FAE 1FAE 1C 1
+text8 CODE 0 1FDC 1FDC A 1
+text9 CODE 0 1286 1286 1A0 1
+text10 CODE 0 2014 2014 6 1
+text11 CODE 0 1FE6 1FE6 A 1
+text12 CODE 0 1FF0 1FF0 A 1
+text13 CODE 0 2004 2004 8 1
+text14 CODE 0 200C 200C 8 1
+text15 CODE 0 80E 80E 630 1
+text16 CODE 0 1BDC 1BDC 4C 1
+text17 CODE 0 1F4E 1F4E 24 1
+text18 CODE 0 16F2 16F2 B6 1
+text19 CODE 0 201A 201A 6 1
+text20 CODE 0 1F90 1F90 1E 1
+text21 CODE 0 1F28 1F28 26 1
+text22 CODE 0 1856 1856 A0 1
+text23 CODE 0 1B8C 1B8C 50 1
+text24 CODE 0 1D86 1D86 40 1
+text25 CODE 0 2038 2038 4 1
+text26 CODE 0 203C 203C 4 1
+text27 CODE 0 2040 2040 4 1
+text28 CODE 0 2044 2044 4 1
+text29 CODE 0 2048 2048 4 1
+text30 CODE 0 204C 204C 4 1
+text31 CODE 0 2050 2050 4 1
+text32 CODE 0 2054 2054 4 1
+text33 CODE 0 2058 2058 4 1
+text34 CODE 0 205C 205C 4 1
+text35 CODE 0 E3E E3E 2A0 1
+text36 CODE 0 1E72 1E72 32 1
+text37 CODE 0 18F6 18F6 94 1
+text38 CODE 0 1D02 1D02 42 1
+text39 CODE 0 1B3A 1B3A 52 1
+text40 CODE 0 1620 1620 D2 1
+text41 CODE 0 1DC6 1DC6 40 1
+text42 CODE 0 10DE 10DE 1A8 1
+text43 CODE 0 152C 152C F4 1
+text44 CODE 0 1A0A 1A0A 74 1
+text45 CODE 0 1E06 1E06 38 1
+text46 CODE 0 17A8 17A8 AE 1
+text48 CODE 0 1C28 1C28 4A 1
+text49 CODE 0 1CBA 1CBA 48 1
+text50 CODE 0 1AE2 1AE2 58 1
+text51 CODE 0 1D44 1D44 42 1
+text52 CODE 0 2020 2020 6 1
+text53 CODE 0 2026 2026 6 1
+text54 CODE 0 202C 202C 6 1
+text55 CODE 0 2032 2032 6 1
+text56 CODE 0 1FFA 1FFA A 1
+idataCOMRAM CODE 0 2060 2060 1 1
 cstackCOMRAM COMRAM 1 1 1 36 1
-cstackBANK0 BANK0 1 D1 D1 13 1
+cstackBANK0 BANK0 1 D3 D3 13 1
 temp COMRAM 1 47 47 1 1
 bssBANK0 BANK0 1 60 60 55 1
 bssBANK1 BANK1 1 100 100 7B 1
 intcode CODE 0 8 8 6 1
 smallconst SMALLCONST 0 800 800 E 1
-idataBANK0 CODE 0 1F5E 1F5E 1C 1
-dataBANK0 BANK0 1 B5 B5 1C 1
-dataCOMRAM COMRAM 1 44 44 3 1
-bssCOMRAM COMRAM 1 37 37 D 1
+idataBANK0 CODE 0 1F72 1F72 1E 1
+dataBANK0 BANK0 1 B5 B5 1E 1
+dataCOMRAM COMRAM 1 46 46 1 1
+bssCOMRAM COMRAM 1 37 37 F 1
+$/tmp/xcXjmfDet.obj
+idloc IDLOC 0 200000 200000 8 1
+init CODE 0 E E 4 1
+reset_vec CODE 0 0 0 4 1
+config CONFIG 0 300000 300000 E 1
 # %UNUSED Section
 # This section enumerates the unused ranges of each CLASS. Each entry
 # is described on a single line as follows:
 #    <class name> <range> <delta>
 # Addresses given in the range are in hexadecimal and units of delta.
 %UNUSED
-RAM E4-FF 1
+RAM E6-FF 1
 RAM 17B-7FF 1
 SFR F60-FFF 1
-BANK0 E4-FF 1
+BANK0 E6-FF 1
 BANK1 17B-1FF 1
 BANK2 200-2FF 1
 BANK3 300-3FF 1
@@ -105,18 +106,18 @@ BANK6 600-6FF 1
 BANK7 700-7FF 1
 CONST 4-7 1
 CONST 12-7FF 1
-CONST 202F-7FFF 1
+CONST 2061-7FFF 1
 STACK 17B-7FF 1
-SMALLCONST 202F-7FFF 1
+SMALLCONST 2061-7FFF 1
 CODE 4-7 1
 CODE 12-7FF 1
-CODE 202F-7FFF 1
+CODE 2061-7FFF 1
 BIGRAM 48-5F 1
-BIGRAM E4-FF 1
+BIGRAM E6-FF 1
 BIGRAM 17B-7FF 1
 COMRAM 48-5F 1
 EEDATA F00000-F000FF 1
-MEDIUMCONST 202F-7FFF 1
+MEDIUMCONST 2061-7FFF 1
 # %LINETAB Section
 # This section enumerates the file/line to address mappings.
 # The beginning of the section is indicated by %LINETAB.
@@ -132,687 +133,701 @@ MEDIUMCONST 202F-7FFF 1
 %LINETAB
 $dist/default/production/pulsonic.X.production.obj
 8 intcode CODE >86:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-8 intcode CODE >216:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1FC6 text55 CODE >75:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FC6 text55 CODE >77:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FC8 text55 CODE >78:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FCA text55 CODE >79:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FCC text55 CODE >80:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FCE text55 CODE >81:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FFE text54 CODE >60:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FFE text54 CODE >67:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-2002 text54 CODE >68:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FF8 text53 CODE >33:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FF8 text53 CODE >40:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FFC text53 CODE >41:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FF2 text52 CODE >42:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FF2 text52 CODE >49:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FF6 text52 CODE >50:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FEC text51 CODE >51:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FEC text51 CODE >58:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FF0 text51 CODE >59:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1D46 text50 CODE >130:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1D48 text50 CODE >134:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1D4E text50 CODE >136:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1D5C text50 CODE >137:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1D64 text50 CODE >139:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1AE6 text49 CODE >150:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1AE6 text49 CODE >152:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1AEA text49 CODE >153:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1AF2 text49 CODE >155:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1AF8 text49 CODE >157:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1B04 text49 CODE >159:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1B10 text49 CODE >161:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1B18 text49 CODE >162:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1B1C text49 CODE >164:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1B2A text49 CODE >166:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1B32 text49 CODE >167:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1B36 text49 CODE >168:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1B3A text49 CODE >170:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1B3A text49 CODE >171:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1B3C text49 CODE >172:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1CBC text48 CODE >173:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1CBC text48 CODE >175:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1CC0 text48 CODE >176:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1CC8 text48 CODE >178:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1CCE text48 CODE >180:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1CDA text48 CODE >182:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1CE6 text48 CODE >184:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1CF4 text48 CODE >186:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1CFC text48 CODE >187:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1D00 text48 CODE >189:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1D00 text48 CODE >190:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1D02 text48 CODE >191:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1C74 text47 CODE >193:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1C74 text47 CODE >197:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1C7C text47 CODE >198:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1C82 text47 CODE >200:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1C8A text47 CODE >201:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1C90 text47 CODE >203:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1C96 text47 CODE >205:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1C9E text47 CODE >206:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1CB6 text47 CODE >208:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1C2C intcode_body CODE >216:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1C46 intcode_body CODE >219:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1C4A intcode_body CODE >221:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1C4C intcode_body CODE >226:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1C50 intcode_body CODE >228:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1C52 intcode_body CODE >229:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1C54 intcode_body CODE >230:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1C58 intcode_body CODE >232:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-17A0 text45 CODE >62:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-17A0 text45 CODE >64:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-17B0 text45 CODE >65:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-17BE text45 CODE >67:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-17C0 text45 CODE >68:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-17C8 text45 CODE >66:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-17E6 text45 CODE >71:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-17E8 text45 CODE >72:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-17F4 text45 CODE >73:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-17FC text45 CODE >70:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-181A text45 CODE >76:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-181C text45 CODE >77:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-1824 text45 CODE >75:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-182E text45 CODE >79:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-1830 text45 CODE >80:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-1832 text45 CODE >81:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-1836 text45 CODE >82:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-183A text45 CODE >83:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-183E text45 CODE >84:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-1840 text45 CODE >85:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-184C text45 CODE >86:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
-1E08 text44 CODE >32:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
-1E08 text44 CODE >36:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
-1E0C text44 CODE >37:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
-1E10 text44 CODE >38:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
-1E18 text44 CODE >39:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
-1E1C text44 CODE >41:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
-1E3E text44 CODE >42:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
-1A02 text43 CODE >4:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
-1A02 text43 CODE >6:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
-1A06 text43 CODE >7:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
-1A24 text43 CODE >8:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
-1A28 text43 CODE >9:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
-1A46 text43 CODE >10:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
-1A52 text43 CODE >11:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
-1A5E text43 CODE >12:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
-1A74 text43 CODE >13:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
-1524 text42 CODE >62:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-1524 text42 CODE >67:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-153E text42 CODE >68:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-154C text42 CODE >69:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-1566 text42 CODE >70:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-1574 text42 CODE >71:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-157A text42 CODE >72:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-157E text42 CODE >73:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-1582 text42 CODE >74:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-1586 text42 CODE >75:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-1588 text42 CODE >77:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-158A text42 CODE >78:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-1596 text42 CODE >79:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15A2 text42 CODE >134:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15A6 text42 CODE >136:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15AA text42 CODE >137:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15B6 text42 CODE >138:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15BE text42 CODE >139:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15C6 text42 CODE >140:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15CA text42 CODE >143:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15CE text42 CODE >145:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15D2 text42 CODE >146:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15DE text42 CODE >147:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15E6 text42 CODE >148:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15EE text42 CODE >149:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-15F2 text42 CODE >156:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-1616 text42 CODE >157:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
-10DE text41 CODE >86:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-10DE text41 CODE >90:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-10F2 text41 CODE >91:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1106 text41 CODE >92:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1120 text41 CODE >93:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-112E text41 CODE >94:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1148 text41 CODE >95:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1156 text41 CODE >96:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-115A text41 CODE >97:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-115C text41 CODE >98:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-115E text41 CODE >99:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1160 text41 CODE >100:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1162 text41 CODE >101:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1164 text41 CODE >102:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1170 text41 CODE >103:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1172 text41 CODE >104:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-117E text41 CODE >106:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1186 text41 CODE >110:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-118E text41 CODE >111:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1190 text41 CODE >112:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-11A8 text41 CODE >114:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-11B0 text41 CODE >115:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-11B2 text41 CODE >113:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-11BC text41 CODE >117:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-11C4 text41 CODE >121:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-11CC text41 CODE >122:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-11CE text41 CODE >123:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-11E6 text41 CODE >125:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-11EE text41 CODE >126:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-11F0 text41 CODE >124:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-11F8 text41 CODE >129:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-11FC text41 CODE >131:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1208 text41 CODE >132:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1214 text41 CODE >133:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1214 text41 CODE >134:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1218 text41 CODE >136:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1224 text41 CODE >137:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1230 text41 CODE >139:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1234 text41 CODE >140:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1240 text41 CODE >141:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1244 text41 CODE >142:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1250 text41 CODE >143:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-125C text41 CODE >144:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1260 text41 CODE >146:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1284 text41 CODE >148:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
-1DC8 text40 CODE >19:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftsub.c
-1DC8 text40 CODE >22:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftsub.c
-1DD2 text40 CODE >23:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftsub.c
-1DDE text40 CODE >25:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftsub.c
-1E06 text40 CODE >26:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftsub.c
-1618 text39 CODE >44:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-1618 text39 CODE >49:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-1632 text39 CODE >50:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-1644 text39 CODE >51:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-166A text39 CODE >52:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-166C text39 CODE >53:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-1678 text39 CODE >54:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-1686 text39 CODE >55:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-168A text39 CODE >56:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-168E text39 CODE >57:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-1698 text39 CODE >60:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-16A2 text39 CODE >61:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-16A8 text39 CODE >63:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-16B0 text39 CODE >66:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-16BA text39 CODE >67:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-16BC text39 CODE >65:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-16C2 text39 CODE >70:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-16C8 text39 CODE >71:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-16D8 text39 CODE >72:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-16E8 text39 CODE >73:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
-1B3E text38 CODE >7:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B3E text38 CODE >13:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B46 text38 CODE >14:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B4E text38 CODE >15:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B52 text38 CODE >16:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B54 text38 CODE >17:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B5A text38 CODE >18:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B5C text38 CODE >16:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B60 text38 CODE >21:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B66 text38 CODE >22:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B72 text38 CODE >23:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B7A text38 CODE >24:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B7C text38 CODE >26:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B82 text38 CODE >27:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B86 text38 CODE >28:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B86 text38 CODE >29:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1B8E text38 CODE >30:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
-1D04 text37 CODE >7:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D04 text37 CODE >12:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D0C text37 CODE >13:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D10 text37 CODE >14:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D12 text37 CODE >15:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D18 text37 CODE >16:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D1A text37 CODE >14:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D1E text37 CODE >19:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D2A text37 CODE >20:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D32 text37 CODE >21:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D38 text37 CODE >22:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D3C text37 CODE >23:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D3C text37 CODE >24:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-1D44 text37 CODE >25:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
-18EE text36 CODE >17:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-18EE text36 CODE >22:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-18F6 text36 CODE >24:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1912 text36 CODE >25:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1914 text36 CODE >26:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-191C text36 CODE >27:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1928 text36 CODE >29:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1940 text36 CODE >30:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-195C text36 CODE >31:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1962 text36 CODE >32:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1966 text36 CODE >33:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-196A text36 CODE >34:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1976 text36 CODE >35:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-197E text36 CODE >36:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1980 text36 CODE >37:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1E40 text35 CODE >4:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1E40 text35 CODE >8:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1E44 text35 CODE >9:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1E50 text35 CODE >10:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1E58 text35 CODE >12:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-1E70 text35 CODE >14:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
-E3E text34 CODE >190:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-E3E text34 CODE >200:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-E5E text34 CODE >201:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-E6A text34 CODE >203:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-E82 text34 CODE >204:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-EB6 text34 CODE >205:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-ED6 text34 CODE >207:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-EF6 text34 CODE >209:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-F2A text34 CODE >213:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-F42 text34 CODE >215:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-F50 text34 CODE >216:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-F5E text34 CODE >217:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-F6C text34 CODE >219:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-F8C text34 CODE >221:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-F9E text34 CODE >222:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-FA2 text34 CODE >223:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-FB2 text34 CODE >224:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-FB6 text34 CODE >226:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-FBA text34 CODE >228:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-FBE text34 CODE >229:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-FC6 text34 CODE >231:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-FD4 text34 CODE >232:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-FF6 text34 CODE >229:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-FFA text34 CODE >237:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-101A text34 CODE >242:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-102C text34 CODE >243:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1030 text34 CODE >244:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1040 text34 CODE >245:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1044 text34 CODE >248:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1052 text34 CODE >249:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1056 text34 CODE >252:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-105A text34 CODE >253:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1062 text34 CODE >255:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1070 text34 CODE >256:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1092 text34 CODE >253:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1096 text34 CODE >258:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-109A text34 CODE >259:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-109C text34 CODE >262:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-10A2 text34 CODE >264:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-10A6 text34 CODE >266:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-10B4 text34 CODE >267:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-10D6 text34 CODE >264:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2028 text33 CODE >95:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2028 text33 CODE >97:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-202A text33 CODE >98:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2024 text32 CODE >55:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2024 text32 CODE >57:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2026 text32 CODE >58:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2020 text31 CODE >59:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2020 text31 CODE >61:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2022 text31 CODE >62:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-201C text30 CODE >64:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-201C text30 CODE >66:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-201E text30 CODE >67:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2018 text29 CODE >68:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2018 text29 CODE >70:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-201A text29 CODE >71:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2014 text28 CODE >73:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2014 text28 CODE >75:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2016 text28 CODE >76:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2010 text27 CODE >77:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2010 text27 CODE >79:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2012 text27 CODE >80:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-200C text26 CODE >82:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-200C text26 CODE >84:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-200E text26 CODE >85:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2008 text25 CODE >86:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2008 text25 CODE >88:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-200A text25 CODE >89:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2004 text24 CODE >91:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2004 text24 CODE >93:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-2006 text24 CODE >94:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1D88 text23 CODE >134:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1D88 text23 CODE >137:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1D8C text23 CODE >139:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1DB0 text23 CODE >137:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1DBC text23 CODE >142:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1DBE text23 CODE >143:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1DC0 text23 CODE >144:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1DC2 text23 CODE >145:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1DC4 text23 CODE >146:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1DC6 text23 CODE >147:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1B90 text22 CODE >165:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1B90 text22 CODE >167:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1B9E text22 CODE >168:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1BAC text22 CODE >170:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1BBA text22 CODE >171:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1BC8 text22 CODE >172:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1BD6 text22 CODE >174:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1BDA text22 CODE >175:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1BDE text22 CODE >176:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-184E text21 CODE >149:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1850 text21 CODE >152:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1854 text21 CODE >154:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1898 text21 CODE >155:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-18BC text21 CODE >157:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-18E0 text21 CODE >152:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1EF6 text20 CODE >178:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1EF6 text20 CODE >182:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1F06 text20 CODE >183:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1F0C text20 CODE >185:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1F16 text20 CODE >186:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1F1A text20 CODE >187:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
-1F40 text19 CODE >761:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1F40 text19 CODE >764:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1F44 text19 CODE >767:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1F54 text19 CODE >764:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FE6 text18 CODE >419:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FE6 text18 CODE >421:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FEA text18 CODE >422:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-16EA text17 CODE >217:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-16EA text17 CODE >389:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-16EC text17 CODE >390:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-16EE text17 CODE >391:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-16F0 text17 CODE >392:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-16F2 text17 CODE >393:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-16F4 text17 CODE >394:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-16FE text17 CODE >395:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1706 text17 CODE >396:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-170E text17 CODE >397:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1716 text17 CODE >398:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-171E text17 CODE >401:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1722 text17 CODE >403:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1730 text17 CODE >404:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-173E text17 CODE >405:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-174C text17 CODE >406:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-175A text17 CODE >407:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-176A text17 CODE >408:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-177E text17 CODE >409:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1792 text17 CODE >401:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1F1C text16 CODE >28:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwtoft.c
-1F1C text16 CODE >30:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwtoft.c
-1F3E text16 CODE >31:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwtoft.c
-1BE0 text15 CODE >510:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1BE2 text15 CODE >512:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1BF4 text15 CODE >515:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1C12 text15 CODE >518:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1C24 text15 CODE >520:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1C28 text15 CODE >524:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1C2A text15 CODE >525:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-80E text14 CODE >545:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-80E text14 CODE >549:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-812 text14 CODE >551:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-824 text14 CODE >553:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-830 text14 CODE >555:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-842 text14 CODE >558:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-852 text14 CODE >560:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-860 text14 CODE >562:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-870 text14 CODE >564:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-880 text14 CODE >568:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-890 text14 CODE >571:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-8A0 text14 CODE >573:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-8B0 text14 CODE >576:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-8C0 text14 CODE >578:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-8D0 text14 CODE >580:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-8E0 text14 CODE >582:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-8F0 text14 CODE >586:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-8FE text14 CODE >591:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-910 text14 CODE >593:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-92C text14 CODE >594:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-93A text14 CODE >599:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-93A text14 CODE >603:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-95E text14 CODE >605:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-970 text14 CODE >607:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-984 text14 CODE >608:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-994 text14 CODE >610:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-994 text14 CODE >612:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-9A8 text14 CODE >614:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-9D2 text14 CODE >616:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-9E6 text14 CODE >617:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-9F6 text14 CODE >619:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-9F6 text14 CODE >620:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-A0A text14 CODE >622:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-A1C text14 CODE >624:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-A2A text14 CODE >625:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-A3A text14 CODE >627:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-A3A text14 CODE >628:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-A4E text14 CODE >630:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-A78 text14 CODE >632:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-A8C text14 CODE >633:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-A9C text14 CODE >635:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-A9C text14 CODE >637:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-AB0 text14 CODE >639:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-AC2 text14 CODE >641:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-AD0 text14 CODE >642:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-AE0 text14 CODE >644:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-AE0 text14 CODE >646:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-AF4 text14 CODE >648:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-B06 text14 CODE >650:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-B18 text14 CODE >652:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-B50 text14 CODE >654:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-B64 text14 CODE >656:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-B74 text14 CODE >657:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-B82 text14 CODE >659:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-B92 text14 CODE >663:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-BCA text14 CODE >665:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-BDE text14 CODE >667:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-BEE text14 CODE >668:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-BFC text14 CODE >670:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-C0C text14 CODE >672:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-C1C text14 CODE >676:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-C2C text14 CODE >679:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-C2C text14 CODE >684:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-C40 text14 CODE >686:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-C52 text14 CODE >688:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-C64 text14 CODE >690:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-C9C text14 CODE >692:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-CB0 text14 CODE >694:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-CC0 text14 CODE >695:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-CCE text14 CODE >697:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-CDE text14 CODE >702:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-D16 text14 CODE >704:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-D2A text14 CODE >706:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-D3A text14 CODE >707:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-D48 text14 CODE >710:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-D58 text14 CODE >712:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-D58 text14 CODE >715:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-D6A text14 CODE >717:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-D7C text14 CODE >719:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-D8C text14 CODE >721:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-D8C text14 CODE >723:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-DA0 text14 CODE >725:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-DB2 text14 CODE >727:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-DC2 text14 CODE >729:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-DC2 text14 CODE >731:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-DD6 text14 CODE >733:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-DE8 text14 CODE >735:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-E04 text14 CODE >736:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-E14 text14 CODE >737:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-E14 text14 CODE >739:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-E24 text14 CODE >742:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-E34 text14 CODE >549:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FD8 text13 CODE >210:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FD8 text13 CODE >212:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FDE text13 CODE >213:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FD0 text12 CODE >194:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FD0 text12 CODE >196:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FD6 text12 CODE >197:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FBC text11 CODE >198:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FBC text11 CODE >200:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FC4 text11 CODE >201:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FB2 text10 CODE >202:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FB2 text10 CODE >204:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FBA text10 CODE >205:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FE0 text9 CODE >206:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FE0 text9 CODE >208:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FE4 text9 CODE >209:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1286 text8 CODE >449:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1286 text8 CODE >451:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-128A text8 CODE >454:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-129C text8 CODE >456:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-12C6 text8 CODE >458:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-12C8 text8 CODE >461:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-12DA text8 CODE >463:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-12F0 text8 CODE >465:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1300 text8 CODE >467:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-132A text8 CODE >469:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1338 text8 CODE >470:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-133A text8 CODE >473:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-134A text8 CODE >474:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-135A text8 CODE >478:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-136E text8 CODE >480:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-139A text8 CODE >483:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-13AE text8 CODE >485:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-13C4 text8 CODE >487:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-13D4 text8 CODE >489:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-13FE text8 CODE >495:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-140E text8 CODE >496:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-141E text8 CODE >500:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FA8 text7 CODE >414:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FA8 text7 CODE >416:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FAC text7 CODE >417:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1FB0 text7 CODE >418:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1F7A text6 CODE >427:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1F7C text6 CODE >429:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1F94 text6 CODE >430:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
-1E72 text5 CODE >89:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1E72 text5 CODE >92:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1E7A text5 CODE >94:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1E90 text5 CODE >96:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1E98 text5 CODE >98:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1EA0 text5 CODE >100:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1F96 text4 CODE >101:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1F96 text4 CODE >105:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FA2 text4 CODE >109:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1FA6 text4 CODE >110:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1982 text3 CODE >160:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1982 text3 CODE >164:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1988 text3 CODE >166:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1998 text3 CODE >168:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-199A text3 CODE >169:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-199C text3 CODE >170:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19A2 text3 CODE >172:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19A8 text3 CODE >175:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19AE text3 CODE >177:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19B6 text3 CODE >179:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19BE text3 CODE >181:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19C4 text3 CODE >183:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19C8 text3 CODE >187:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19CA text3 CODE >190:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19CC text3 CODE >191:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19D2 text3 CODE >194:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19DA text3 CODE >196:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19DE text3 CODE >198:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19E8 text3 CODE >201:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19EE text3 CODE >206:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19F6 text3 CODE >208:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-19FC text3 CODE >211:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1A00 text3 CODE >214:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1ED0 text2 CODE >15:/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
-1ED0 text2 CODE >37:/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
-1EDC text2 CODE >38:/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
-1EE4 text2 CODE >39:/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
-1EEC text2 CODE >52:/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
-1EF4 text2 CODE >53:/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
-1EA2 text1 CODE >111:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1EA4 text1 CODE >114:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1EA8 text1 CODE >115:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1ECE text1 CODE >116:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
-1426 text0 CODE >49:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1426 text0 CODE >51:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-142A text0 CODE >52:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-142E text0 CODE >54:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1432 text0 CODE >55:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1436 text0 CODE >56:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-143A text0 CODE >57:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-143E text0 CODE >58:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1442 text0 CODE >62:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1446 text0 CODE >63:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-144A text0 CODE >66:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-144E text0 CODE >67:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1452 text0 CODE >68:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1456 text0 CODE >71:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1458 text0 CODE >72:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-145C text0 CODE >73:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-145E text0 CODE >75:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1460 text0 CODE >76:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1462 text0 CODE >78:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1464 text0 CODE >79:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1466 text0 CODE >80:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1468 text0 CODE >81:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-146A text0 CODE >83:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-146C text0 CODE >84:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-146E text0 CODE >86:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1470 text0 CODE >88:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1474 text0 CODE >89:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1478 text0 CODE >91:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1488 text0 CODE >96:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-148A text0 CODE >106:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-148E text0 CODE >110:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1492 text0 CODE >112:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1494 text0 CODE >113:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1496 text0 CODE >114:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1496 text0 CODE >117:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-149A text0 CODE >119:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-14A4 text0 CODE >121:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-14A8 text0 CODE >123:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-14AC text0 CODE >125:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-14B8 text0 CODE >127:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-14BE text0 CODE >129:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-14CA text0 CODE >131:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-14D0 text0 CODE >133:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-14DC text0 CODE >135:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-14E2 text0 CODE >137:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-14EE text0 CODE >139:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-14F4 text0 CODE >141:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1500 text0 CODE >143:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1506 text0 CODE >147:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1510 text0 CODE >149:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1514 text0 CODE >150:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1518 text0 CODE >153:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-151C text0 CODE >155:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-151E text0 CODE >156:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
-1A76 cinit CODE >1732:/tmp/xcXXrFwIR
-1A76 cinit CODE >1734:/tmp/xcXXrFwIR
-1A76 cinit CODE >1737:/tmp/xcXXrFwIR
-1A76 cinit CODE >1804:/tmp/xcXXrFwIR
-1A78 cinit CODE >1805:/tmp/xcXXrFwIR
-1A7A cinit CODE >1806:/tmp/xcXXrFwIR
-1A7C cinit CODE >1807:/tmp/xcXXrFwIR
-1A7E cinit CODE >1808:/tmp/xcXXrFwIR
-1A80 cinit CODE >1809:/tmp/xcXXrFwIR
-1A82 cinit CODE >1810:/tmp/xcXXrFwIR
-1A86 cinit CODE >1811:/tmp/xcXXrFwIR
-1A8A cinit CODE >1812:/tmp/xcXXrFwIR
-1A8A cinit CODE >1813:/tmp/xcXXrFwIR
-1A8C cinit CODE >1814:/tmp/xcXXrFwIR
-1A90 cinit CODE >1815:/tmp/xcXXrFwIR
-1A92 cinit CODE >1816:/tmp/xcXXrFwIR
-1A94 cinit CODE >1817:/tmp/xcXXrFwIR
-1A96 cinit CODE >1821:/tmp/xcXXrFwIR
-1A98 cinit CODE >1822:/tmp/xcXXrFwIR
-1A9A cinit CODE >1823:/tmp/xcXXrFwIR
-1A9C cinit CODE >1824:/tmp/xcXXrFwIR
-1A9E cinit CODE >1825:/tmp/xcXXrFwIR
-1AA0 cinit CODE >1826:/tmp/xcXXrFwIR
-1AA2 cinit CODE >1827:/tmp/xcXXrFwIR
-1AA4 cinit CODE >1828:/tmp/xcXXrFwIR
-1AA8 cinit CODE >1829:/tmp/xcXXrFwIR
-1AAA cinit CODE >1830:/tmp/xcXXrFwIR
-1AAE cinit CODE >1831:/tmp/xcXXrFwIR
-1AB0 cinit CODE >1832:/tmp/xcXXrFwIR
-1AB4 cinit CODE >1836:/tmp/xcXXrFwIR
-1AB8 cinit CODE >1837:/tmp/xcXXrFwIR
-1ABA cinit CODE >1838:/tmp/xcXXrFwIR
-1ABA cinit CODE >1839:/tmp/xcXXrFwIR
-1ABC cinit CODE >1840:/tmp/xcXXrFwIR
-1ABE cinit CODE >1841:/tmp/xcXXrFwIR
-1AC0 cinit CODE >1844:/tmp/xcXXrFwIR
-1AC4 cinit CODE >1845:/tmp/xcXXrFwIR
-1AC6 cinit CODE >1846:/tmp/xcXXrFwIR
-1AC6 cinit CODE >1847:/tmp/xcXXrFwIR
-1AC8 cinit CODE >1848:/tmp/xcXXrFwIR
-1ACA cinit CODE >1849:/tmp/xcXXrFwIR
-1ACC cinit CODE >1852:/tmp/xcXXrFwIR
-1AD0 cinit CODE >1853:/tmp/xcXXrFwIR
-1AD2 cinit CODE >1854:/tmp/xcXXrFwIR
-1AD2 cinit CODE >1855:/tmp/xcXXrFwIR
-1AD4 cinit CODE >1856:/tmp/xcXXrFwIR
-1AD6 cinit CODE >1857:/tmp/xcXXrFwIR
-1AD8 cinit CODE >1863:/tmp/xcXXrFwIR
-1AD8 cinit CODE >1865:/tmp/xcXXrFwIR
-1ADA cinit CODE >1866:/tmp/xcXXrFwIR
-1ADC cinit CODE >1868:/tmp/xcXXrFwIR
-1ADE cinit CODE >1869:/tmp/xcXXrFwIR
-1AE0 cinit CODE >1870:/tmp/xcXXrFwIR
-1AE2 cinit CODE >1871:/tmp/xcXXrFwIR
+8 intcode CODE >228:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1FFA text56 CODE >75:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1FFA text56 CODE >77:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1FFC text56 CODE >78:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1FFE text56 CODE >79:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+2000 text56 CODE >80:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+2002 text56 CODE >81:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+2032 text55 CODE >60:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+2032 text55 CODE >67:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+2036 text55 CODE >68:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+202C text54 CODE >33:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+202C text54 CODE >40:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+2030 text54 CODE >41:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+2026 text53 CODE >42:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+2026 text53 CODE >49:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+202A text53 CODE >50:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+2020 text52 CODE >51:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+2020 text52 CODE >58:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+2024 text52 CODE >59:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1D44 text51 CODE >128:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1D46 text51 CODE >132:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1D4C text51 CODE >134:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1D5A text51 CODE >135:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1D62 text51 CODE >137:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1AE2 text50 CODE >148:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1AE2 text50 CODE >150:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1AE6 text50 CODE >151:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1AEE text50 CODE >153:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1AF4 text50 CODE >155:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1B00 text50 CODE >157:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1B0C text50 CODE >159:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1B14 text50 CODE >160:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1B18 text50 CODE >162:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1B26 text50 CODE >164:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1B2E text50 CODE >165:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1B32 text50 CODE >166:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1B36 text50 CODE >168:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1B36 text50 CODE >169:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1B38 text50 CODE >170:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1CBA text49 CODE >171:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1CBA text49 CODE >173:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1CBE text49 CODE >174:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1CC6 text49 CODE >176:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1CCC text49 CODE >178:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1CD8 text49 CODE >180:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1CE4 text49 CODE >182:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1CF2 text49 CODE >184:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1CFA text49 CODE >185:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1CFE text49 CODE >187:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1CFE text49 CODE >188:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1D00 text49 CODE >189:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1C28 text48 CODE >191:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1C28 text48 CODE >195:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1C30 text48 CODE >196:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1C36 text48 CODE >198:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1C3E text48 CODE >199:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1C44 text48 CODE >201:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1C4A text48 CODE >203:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1C52 text48 CODE >204:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1C6C text48 CODE >206:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1C72 intcode_body CODE >228:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1C8C intcode_body CODE >230:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1C90 intcode_body CODE >232:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1C92 intcode_body CODE >233:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1C96 intcode_body CODE >235:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1C98 intcode_body CODE >236:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1C9A intcode_body CODE >237:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1C9E intcode_body CODE >239:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+17A8 text46 CODE >62:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+17A8 text46 CODE >64:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+17B8 text46 CODE >65:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+17C6 text46 CODE >67:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+17C8 text46 CODE >68:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+17D0 text46 CODE >66:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+17EE text46 CODE >71:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+17F0 text46 CODE >72:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+17FC text46 CODE >73:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+1804 text46 CODE >70:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+1822 text46 CODE >76:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+1824 text46 CODE >77:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+182C text46 CODE >75:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+1836 text46 CODE >79:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+1838 text46 CODE >80:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+183A text46 CODE >81:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+183E text46 CODE >82:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+1842 text46 CODE >83:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+1846 text46 CODE >84:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+1848 text46 CODE >85:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+1854 text46 CODE >86:/opt/microchip/xc8/v2.05/pic/sources/c90/common/float.c
+1E06 text45 CODE >32:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
+1E06 text45 CODE >36:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
+1E0A text45 CODE >37:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
+1E0E text45 CODE >38:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
+1E16 text45 CODE >39:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
+1E1A text45 CODE >41:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
+1E3C text45 CODE >42:/opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
+1A0A text44 CODE >4:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
+1A0A text44 CODE >6:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
+1A0E text44 CODE >7:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
+1A2C text44 CODE >8:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
+1A30 text44 CODE >9:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
+1A4E text44 CODE >10:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
+1A5A text44 CODE >11:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
+1A66 text44 CODE >12:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
+1A7C text44 CODE >13:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
+152C text43 CODE >62:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+152C text43 CODE >67:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+1546 text43 CODE >68:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+1554 text43 CODE >69:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+156E text43 CODE >70:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+157C text43 CODE >71:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+1582 text43 CODE >72:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+1586 text43 CODE >73:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+158A text43 CODE >74:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+158E text43 CODE >75:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+1590 text43 CODE >77:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+1592 text43 CODE >78:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+159E text43 CODE >79:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15AA text43 CODE >134:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15AE text43 CODE >136:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15B2 text43 CODE >137:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15BE text43 CODE >138:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15C6 text43 CODE >139:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15CE text43 CODE >140:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15D2 text43 CODE >143:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15D6 text43 CODE >145:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15DA text43 CODE >146:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15E6 text43 CODE >147:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15EE text43 CODE >148:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15F6 text43 CODE >149:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+15FA text43 CODE >156:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+161E text43 CODE >157:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftmul.c
+10DE text42 CODE >86:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+10DE text42 CODE >90:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+10F2 text42 CODE >91:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1106 text42 CODE >92:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1120 text42 CODE >93:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+112E text42 CODE >94:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1148 text42 CODE >95:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1156 text42 CODE >96:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+115A text42 CODE >97:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+115C text42 CODE >98:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+115E text42 CODE >99:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1160 text42 CODE >100:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1162 text42 CODE >101:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1164 text42 CODE >102:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1170 text42 CODE >103:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1172 text42 CODE >104:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+117E text42 CODE >106:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1186 text42 CODE >110:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+118E text42 CODE >111:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1190 text42 CODE >112:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+11A8 text42 CODE >114:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+11B0 text42 CODE >115:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+11B2 text42 CODE >113:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+11BC text42 CODE >117:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+11C4 text42 CODE >121:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+11CC text42 CODE >122:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+11CE text42 CODE >123:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+11E6 text42 CODE >125:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+11EE text42 CODE >126:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+11F0 text42 CODE >124:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+11F8 text42 CODE >129:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+11FC text42 CODE >131:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1208 text42 CODE >132:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1214 text42 CODE >133:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1214 text42 CODE >134:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1218 text42 CODE >136:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1224 text42 CODE >137:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1230 text42 CODE >139:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1234 text42 CODE >140:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1240 text42 CODE >141:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1244 text42 CODE >142:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1250 text42 CODE >143:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+125C text42 CODE >144:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1260 text42 CODE >146:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1284 text42 CODE >148:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftadd.c
+1DC6 text41 CODE >19:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftsub.c
+1DC6 text41 CODE >22:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftsub.c
+1DD0 text41 CODE >23:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftsub.c
+1DDC text41 CODE >25:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftsub.c
+1E04 text41 CODE >26:/opt/microchip/xc8/v2.05/pic/sources/c90/common/ftsub.c
+1620 text40 CODE >44:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+1620 text40 CODE >49:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+163A text40 CODE >50:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+164C text40 CODE >51:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+1672 text40 CODE >52:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+1674 text40 CODE >53:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+1680 text40 CODE >54:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+168E text40 CODE >55:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+1692 text40 CODE >56:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+1696 text40 CODE >57:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+16A0 text40 CODE >60:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+16AA text40 CODE >61:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+16B0 text40 CODE >63:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+16B8 text40 CODE >66:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+16C2 text40 CODE >67:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+16C4 text40 CODE >65:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+16CA text40 CODE >70:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+16D0 text40 CODE >71:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+16E0 text40 CODE >72:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+16F0 text40 CODE >73:/opt/microchip/xc8/v2.05/pic/sources/c90/common/fttol.c
+1B3A text39 CODE >7:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B3A text39 CODE >13:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B42 text39 CODE >14:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B4A text39 CODE >15:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B4E text39 CODE >16:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B50 text39 CODE >17:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B56 text39 CODE >18:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B58 text39 CODE >16:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B5C text39 CODE >21:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B62 text39 CODE >22:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B6E text39 CODE >23:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B76 text39 CODE >24:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B78 text39 CODE >26:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B7E text39 CODE >27:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B82 text39 CODE >28:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B82 text39 CODE >29:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1B8A text39 CODE >30:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwdiv.c
+1D02 text38 CODE >7:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D02 text38 CODE >12:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D0A text38 CODE >13:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D0E text38 CODE >14:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D10 text38 CODE >15:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D16 text38 CODE >16:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D18 text38 CODE >14:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D1C text38 CODE >19:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D28 text38 CODE >20:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D30 text38 CODE >21:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D36 text38 CODE >22:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D3A text38 CODE >23:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D3A text38 CODE >24:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+1D42 text38 CODE >25:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwmod.c
+18F6 text37 CODE >17:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+18F6 text37 CODE >22:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+18FE text37 CODE >24:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+191A text37 CODE >25:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+191C text37 CODE >26:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1924 text37 CODE >27:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1930 text37 CODE >29:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1948 text37 CODE >30:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1964 text37 CODE >31:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+196A text37 CODE >32:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+196E text37 CODE >33:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1972 text37 CODE >34:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+197E text37 CODE >35:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1986 text37 CODE >36:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1988 text37 CODE >37:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1E72 text36 CODE >4:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1E72 text36 CODE >8:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1E76 text36 CODE >9:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1E82 text36 CODE >10:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1E8A text36 CODE >12:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+1EA2 text36 CODE >14:/opt/microchip/xc8/v2.05/pic/sources/c90/common/itoa.c
+E3E text35 CODE >190:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+E3E text35 CODE >200:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+E5E text35 CODE >201:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+E6A text35 CODE >203:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+E82 text35 CODE >204:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+EB6 text35 CODE >205:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+ED6 text35 CODE >207:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+EF6 text35 CODE >209:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+F2A text35 CODE >213:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+F42 text35 CODE >215:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+F50 text35 CODE >216:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+F5E text35 CODE >217:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+F6C text35 CODE >219:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+F8C text35 CODE >221:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+F9E text35 CODE >222:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+FA2 text35 CODE >223:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+FB2 text35 CODE >224:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+FB6 text35 CODE >226:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+FBA text35 CODE >228:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+FBE text35 CODE >229:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+FC6 text35 CODE >231:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+FD4 text35 CODE >232:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+FF6 text35 CODE >229:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+FFA text35 CODE >237:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+101A text35 CODE >242:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+102C text35 CODE >243:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1030 text35 CODE >244:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1040 text35 CODE >245:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1044 text35 CODE >248:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1052 text35 CODE >249:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1056 text35 CODE >252:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+105A text35 CODE >253:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1062 text35 CODE >255:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1070 text35 CODE >256:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1092 text35 CODE >253:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1096 text35 CODE >258:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+109A text35 CODE >259:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+109C text35 CODE >262:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+10A2 text35 CODE >264:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+10A6 text35 CODE >266:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+10B4 text35 CODE >267:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+10D6 text35 CODE >264:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+205C text34 CODE >95:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+205C text34 CODE >97:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+205E text34 CODE >98:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2058 text33 CODE >55:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2058 text33 CODE >57:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+205A text33 CODE >58:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2054 text32 CODE >59:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2054 text32 CODE >61:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2056 text32 CODE >62:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2050 text31 CODE >64:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2050 text31 CODE >66:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2052 text31 CODE >67:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+204C text30 CODE >68:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+204C text30 CODE >70:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+204E text30 CODE >71:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2048 text29 CODE >73:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2048 text29 CODE >75:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+204A text29 CODE >76:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2044 text28 CODE >77:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2044 text28 CODE >79:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2046 text28 CODE >80:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2040 text27 CODE >82:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2040 text27 CODE >84:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2042 text27 CODE >85:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+203C text26 CODE >86:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+203C text26 CODE >88:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+203E text26 CODE >89:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2038 text25 CODE >91:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+2038 text25 CODE >93:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+203A text25 CODE >94:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1D86 text24 CODE >134:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1D86 text24 CODE >137:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1D8A text24 CODE >139:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1DAE text24 CODE >137:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1DBA text24 CODE >142:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1DBC text24 CODE >143:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1DBE text24 CODE >144:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1DC0 text24 CODE >145:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1DC2 text24 CODE >146:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1DC4 text24 CODE >147:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1B8C text23 CODE >165:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1B8C text23 CODE >167:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1B9A text23 CODE >168:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1BA8 text23 CODE >170:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1BB6 text23 CODE >171:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1BC4 text23 CODE >172:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1BD2 text23 CODE >174:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1BD6 text23 CODE >175:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1BDA text23 CODE >176:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1856 text22 CODE >149:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1858 text22 CODE >152:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+185C text22 CODE >154:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+18A0 text22 CODE >155:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+18C4 text22 CODE >157:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+18E8 text22 CODE >152:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1F28 text21 CODE >178:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1F28 text21 CODE >182:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1F38 text21 CODE >183:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1F3E text21 CODE >185:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1F48 text21 CODE >186:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1F4C text21 CODE >187:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c
+1F90 text20 CODE >761:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1F90 text20 CODE >764:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1F94 text20 CODE >767:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FA4 text20 CODE >764:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+201A text19 CODE >419:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+201A text19 CODE >421:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+201E text19 CODE >422:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+16F2 text18 CODE >217:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+16F2 text18 CODE >389:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+16F4 text18 CODE >390:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+16F6 text18 CODE >391:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+16F8 text18 CODE >392:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+16FA text18 CODE >393:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+16FC text18 CODE >394:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1706 text18 CODE >395:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+170E text18 CODE >396:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1716 text18 CODE >397:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+171E text18 CODE >398:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1726 text18 CODE >401:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+172A text18 CODE >403:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1738 text18 CODE >404:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1746 text18 CODE >405:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1754 text18 CODE >406:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1762 text18 CODE >407:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1772 text18 CODE >408:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1786 text18 CODE >409:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+179A text18 CODE >401:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1F4E text17 CODE >28:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwtoft.c
+1F4E text17 CODE >30:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwtoft.c
+1F70 text17 CODE >31:/opt/microchip/xc8/v2.05/pic/sources/c90/common/lwtoft.c
+1BDC text16 CODE >510:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1BDE text16 CODE >512:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1BF0 text16 CODE >515:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1C0E text16 CODE >518:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1C20 text16 CODE >520:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1C24 text16 CODE >524:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1C26 text16 CODE >525:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+80E text15 CODE >545:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+80E text15 CODE >549:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+812 text15 CODE >551:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+824 text15 CODE >553:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+830 text15 CODE >555:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+842 text15 CODE >558:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+852 text15 CODE >560:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+860 text15 CODE >562:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+870 text15 CODE >564:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+880 text15 CODE >568:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+890 text15 CODE >571:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+8A0 text15 CODE >573:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+8B0 text15 CODE >576:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+8C0 text15 CODE >578:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+8D0 text15 CODE >580:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+8E0 text15 CODE >582:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+8F0 text15 CODE >586:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+8FE text15 CODE >591:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+910 text15 CODE >593:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+92C text15 CODE >594:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+93A text15 CODE >599:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+93A text15 CODE >603:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+95E text15 CODE >605:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+970 text15 CODE >607:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+984 text15 CODE >608:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+994 text15 CODE >610:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+994 text15 CODE >612:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+9A8 text15 CODE >614:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+9D2 text15 CODE >616:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+9E6 text15 CODE >617:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+9F6 text15 CODE >619:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+9F6 text15 CODE >620:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+A0A text15 CODE >622:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+A1C text15 CODE >624:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+A2A text15 CODE >625:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+A3A text15 CODE >627:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+A3A text15 CODE >628:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+A4E text15 CODE >630:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+A78 text15 CODE >632:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+A8C text15 CODE >633:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+A9C text15 CODE >635:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+A9C text15 CODE >637:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+AB0 text15 CODE >639:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+AC2 text15 CODE >641:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+AD0 text15 CODE >642:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+AE0 text15 CODE >644:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+AE0 text15 CODE >646:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+AF4 text15 CODE >648:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+B06 text15 CODE >650:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+B18 text15 CODE >652:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+B50 text15 CODE >654:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+B64 text15 CODE >656:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+B74 text15 CODE >657:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+B82 text15 CODE >659:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+B92 text15 CODE >663:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+BCA text15 CODE >665:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+BDE text15 CODE >667:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+BEE text15 CODE >668:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+BFC text15 CODE >670:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+C0C text15 CODE >672:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+C1C text15 CODE >676:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+C2C text15 CODE >679:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+C2C text15 CODE >684:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+C40 text15 CODE >686:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+C52 text15 CODE >688:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+C64 text15 CODE >690:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+C9C text15 CODE >692:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+CB0 text15 CODE >694:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+CC0 text15 CODE >695:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+CCE text15 CODE >697:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+CDE text15 CODE >702:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+D16 text15 CODE >704:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+D2A text15 CODE >706:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+D3A text15 CODE >707:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+D48 text15 CODE >710:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+D58 text15 CODE >712:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+D58 text15 CODE >715:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+D6A text15 CODE >717:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+D7C text15 CODE >719:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+D8C text15 CODE >721:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+D8C text15 CODE >723:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+DA0 text15 CODE >725:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+DB2 text15 CODE >727:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+DC2 text15 CODE >729:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+DC2 text15 CODE >731:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+DD6 text15 CODE >733:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+DE8 text15 CODE >735:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+E04 text15 CODE >736:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+E14 text15 CODE >737:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+E14 text15 CODE >739:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+E24 text15 CODE >742:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+E34 text15 CODE >549:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+200C text14 CODE >210:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+200C text14 CODE >212:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+2012 text14 CODE >213:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+2004 text13 CODE >194:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+2004 text13 CODE >196:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+200A text13 CODE >197:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FF0 text12 CODE >198:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FF0 text12 CODE >200:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FF8 text12 CODE >201:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FE6 text11 CODE >202:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FE6 text11 CODE >204:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FEE text11 CODE >205:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+2014 text10 CODE >206:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+2014 text10 CODE >208:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+2018 text10 CODE >209:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1286 text9 CODE >449:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1286 text9 CODE >451:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+128A text9 CODE >454:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+129C text9 CODE >456:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+12C6 text9 CODE >458:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+12C8 text9 CODE >461:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+12DA text9 CODE >463:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+12F0 text9 CODE >465:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1300 text9 CODE >467:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+132A text9 CODE >469:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1338 text9 CODE >470:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+133A text9 CODE >473:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+134A text9 CODE >474:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+135A text9 CODE >478:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+136E text9 CODE >480:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+139A text9 CODE >483:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+13AE text9 CODE >485:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+13C4 text9 CODE >487:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+13D4 text9 CODE >489:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+13FE text9 CODE >495:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+140E text9 CODE >496:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+141E text9 CODE >500:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FDC text8 CODE >414:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FDC text8 CODE >416:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FE0 text8 CODE >417:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FE4 text8 CODE >418:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FAE text7 CODE >427:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FB0 text7 CODE >429:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1FC8 text7 CODE >430:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c
+1EA4 text6 CODE >89:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1EA4 text6 CODE >92:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1EAC text6 CODE >94:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1EC2 text6 CODE >96:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1ECA text6 CODE >98:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1ED2 text6 CODE >100:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1FCA text5 CODE >101:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1FCA text5 CODE >103:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1FD6 text5 CODE >106:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1FDA text5 CODE >107:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+198A text4 CODE >172:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+198A text4 CODE >176:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1990 text4 CODE >178:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19A0 text4 CODE >180:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19A2 text4 CODE >181:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19A4 text4 CODE >182:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19AA text4 CODE >184:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19B0 text4 CODE >187:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19B6 text4 CODE >189:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19BE text4 CODE >191:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19C6 text4 CODE >193:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19CC text4 CODE >195:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19D0 text4 CODE >199:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19D2 text4 CODE >202:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19D4 text4 CODE >203:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19DA text4 CODE >206:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19E2 text4 CODE >208:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19E6 text4 CODE >210:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19F0 text4 CODE >213:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19F6 text4 CODE >218:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+19FE text4 CODE >220:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1A04 text4 CODE >223:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1A08 text4 CODE >226:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1F02 text3 CODE >15:/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
+1F02 text3 CODE >37:/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
+1F0E text3 CODE >38:/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
+1F16 text3 CODE >39:/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
+1F1E text3 CODE >52:/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
+1F26 text3 CODE >53:/opt/microchip/xc8/v2.05/pic/sources/c90/common/Umul16.c
+1ED4 text2 CODE >108:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1ED6 text2 CODE >111:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1EFC text2 CODE >113:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1F00 text2 CODE >114:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c
+1E3E text1 CODE >41:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E3E text1 CODE >43:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E42 text1 CODE >47:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E48 text1 CODE >49:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E4A text1 CODE >50:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E4E text1 CODE >51:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E50 text1 CODE >52:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E52 text1 CODE >53:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E56 text1 CODE >55:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E5A text1 CODE >57:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E64 text1 CODE >59:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E68 text1 CODE >60:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E6A text1 CODE >61:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E6E text1 CODE >64:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E6E text1 CODE >65:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1E70 text1 CODE >66:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1426 text0 CODE >67:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1426 text0 CODE >69:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+142A text0 CODE >70:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+142E text0 CODE >72:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1432 text0 CODE >73:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1436 text0 CODE >74:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+143A text0 CODE >75:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+143E text0 CODE >76:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1442 text0 CODE >80:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1446 text0 CODE >81:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+144A text0 CODE >84:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+144E text0 CODE >85:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1452 text0 CODE >86:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1456 text0 CODE >89:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1458 text0 CODE >90:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+145C text0 CODE >91:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+145E text0 CODE >93:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1460 text0 CODE >94:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1462 text0 CODE >96:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1464 text0 CODE >97:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1466 text0 CODE >98:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1468 text0 CODE >99:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+146A text0 CODE >101:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+146C text0 CODE >102:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+146E text0 CODE >104:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1470 text0 CODE >106:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1472 text0 CODE >107:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1474 text0 CODE >109:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1478 text0 CODE >110:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+147C text0 CODE >112:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+148C text0 CODE >113:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+148E text0 CODE >115:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1492 text0 CODE >118:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1496 text0 CODE >120:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1498 text0 CODE >121:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+149A text0 CODE >122:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+149A text0 CODE >124:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+149E text0 CODE >126:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+14A8 text0 CODE >128:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+14AC text0 CODE >130:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+14B0 text0 CODE >132:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+14BC text0 CODE >134:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+14C2 text0 CODE >136:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+14CE text0 CODE >138:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+14D4 text0 CODE >140:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+14E0 text0 CODE >142:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+14E6 text0 CODE >144:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+14F2 text0 CODE >146:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+14F8 text0 CODE >148:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1504 text0 CODE >151:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+150E text0 CODE >156:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1518 text0 CODE >158:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+151C text0 CODE >159:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1520 text0 CODE >162:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1524 text0 CODE >165:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1526 text0 CODE >166:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c
+1A7E cinit CODE >2075:/tmp/xcXq9eRaq
+1A7E cinit CODE >2077:/tmp/xcXq9eRaq
+1A7E cinit CODE >2080:/tmp/xcXq9eRaq
+1A7E cinit CODE >2151:/tmp/xcXq9eRaq
+1A80 cinit CODE >2152:/tmp/xcXq9eRaq
+1A82 cinit CODE >2153:/tmp/xcXq9eRaq
+1A84 cinit CODE >2154:/tmp/xcXq9eRaq
+1A86 cinit CODE >2155:/tmp/xcXq9eRaq
+1A88 cinit CODE >2156:/tmp/xcXq9eRaq
+1A8A cinit CODE >2157:/tmp/xcXq9eRaq
+1A8E cinit CODE >2158:/tmp/xcXq9eRaq
+1A92 cinit CODE >2159:/tmp/xcXq9eRaq
+1A92 cinit CODE >2160:/tmp/xcXq9eRaq
+1A94 cinit CODE >2161:/tmp/xcXq9eRaq
+1A98 cinit CODE >2162:/tmp/xcXq9eRaq
+1A9A cinit CODE >2163:/tmp/xcXq9eRaq
+1A9C cinit CODE >2164:/tmp/xcXq9eRaq
+1A9E cinit CODE >2168:/tmp/xcXq9eRaq
+1AA0 cinit CODE >2169:/tmp/xcXq9eRaq
+1AA2 cinit CODE >2170:/tmp/xcXq9eRaq
+1AA4 cinit CODE >2171:/tmp/xcXq9eRaq
+1AA6 cinit CODE >2172:/tmp/xcXq9eRaq
+1AA8 cinit CODE >2173:/tmp/xcXq9eRaq
+1AAA cinit CODE >2174:/tmp/xcXq9eRaq
+1AAC cinit CODE >2175:/tmp/xcXq9eRaq
+1AB0 cinit CODE >2179:/tmp/xcXq9eRaq
+1AB4 cinit CODE >2180:/tmp/xcXq9eRaq
+1AB6 cinit CODE >2181:/tmp/xcXq9eRaq
+1AB6 cinit CODE >2182:/tmp/xcXq9eRaq
+1AB8 cinit CODE >2183:/tmp/xcXq9eRaq
+1ABA cinit CODE >2184:/tmp/xcXq9eRaq
+1ABC cinit CODE >2187:/tmp/xcXq9eRaq
+1AC0 cinit CODE >2188:/tmp/xcXq9eRaq
+1AC2 cinit CODE >2189:/tmp/xcXq9eRaq
+1AC2 cinit CODE >2190:/tmp/xcXq9eRaq
+1AC4 cinit CODE >2191:/tmp/xcXq9eRaq
+1AC6 cinit CODE >2192:/tmp/xcXq9eRaq
+1AC8 cinit CODE >2195:/tmp/xcXq9eRaq
+1ACC cinit CODE >2196:/tmp/xcXq9eRaq
+1ACE cinit CODE >2197:/tmp/xcXq9eRaq
+1ACE cinit CODE >2198:/tmp/xcXq9eRaq
+1AD0 cinit CODE >2199:/tmp/xcXq9eRaq
+1AD2 cinit CODE >2200:/tmp/xcXq9eRaq
+1AD4 cinit CODE >2206:/tmp/xcXq9eRaq
+1AD4 cinit CODE >2208:/tmp/xcXq9eRaq
+1AD6 cinit CODE >2209:/tmp/xcXq9eRaq
+1AD8 cinit CODE >2211:/tmp/xcXq9eRaq
+1ADA cinit CODE >2212:/tmp/xcXq9eRaq
+1ADC cinit CODE >2213:/tmp/xcXq9eRaq
+1ADE cinit CODE >2214:/tmp/xcXq9eRaq
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -835,8 +850,8 @@ __Hspace_2 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __CFG_IESO$OFF 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __HidataBANK0 0 0 ABS 0 idataBANK0 dist/default/production/pulsonic.X.production.obj
 __Hibigdata 0 0 CODE 0 ibigdata dist/default/production/pulsonic.X.production.obj
-__mediumconst 0 0 MEDIUMCONST 0 mediumconst /tmp/xcXHd78Xb.obj
-_ikey_clear_all_flag 1F40 0 CODE 0 text19 dist/default/production/pulsonic.X.production.obj
+__mediumconst 0 0 MEDIUMCONST 0 mediumconst /tmp/xcXjmfDet.obj
+_ikey_clear_all_flag 1F90 0 CODE 0 text20 dist/default/production/pulsonic.X.production.obj
 ___awtoft@sign 16 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __Heeprom_data 0 0 EEDATA 0 eeprom_data dist/default/production/pulsonic.X.production.obj
 __CFG_MCLRE$ON 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
@@ -851,22 +866,22 @@ _LATD F8C 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 _LATE F8D 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 _UCFG F6F 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 _UCON F6D 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-___sp 0 0 STACK 2 stack /tmp/xcXHd78Xb.obj
-_itoa 1E40 0 CODE 0 text35 dist/default/production/pulsonic.X.production.obj
+___sp 0 0 STACK 2 stack /tmp/xcXjmfDet.obj
+_itoa 1E72 0 CODE 0 text36 dist/default/production/pulsonic.X.production.obj
 _main 1426 0 CODE 0 text0 dist/default/production/pulsonic.X.production.obj
 _mpap 37 0 COMRAM 1 bssCOMRAM dist/default/production/pulsonic.X.production.obj
-_utoa 18EE 0 CODE 0 text36 dist/default/production/pulsonic.X.production.obj
+_utoa 18F6 0 CODE 0 text37 dist/default/production/pulsonic.X.production.obj
 btemp 47 0 COMRAM 1 temp dist/default/production/pulsonic.X.production.obj
 ___ftadd@f1 13 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ___ftadd@f2 16 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-start E 0 CODE 0 init /tmp/xcXHd78Xb.obj
+start E 0 CODE 0 init /tmp/xcXjmfDet.obj
 __size_of_multiplexedDisp0_off 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_multiplexedDisp1_off 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_multiplexedDisp2_off 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_multiplexedDisp3_off 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_multiplexedDisp4_off 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-__end_of__mpap_off 1FD0 0 CODE 0 text55 dist/default/production/pulsonic.X.production.obj
-__end_of_nozzle_moveto 1ED0 0 CODE 0 text1 dist/default/production/pulsonic.X.production.obj
+__end_of__mpap_off 2004 0 CODE 0 text56 dist/default/production/pulsonic.X.production.obj
+__end_of_nozzle_moveto 1F02 0 CODE 0 text2 dist/default/production/pulsonic.X.production.obj
 __size_of___ftadd 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of___ftmul 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of___ftsub 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
@@ -881,29 +896,29 @@ __size_of__mpap_off 0 0 ABS 0 - dist/default/production/pulsonic.X.production.ob
 ikb_key_is_ready2read@k B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __size_of_multiplexedDisp_init 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 ?___wmul B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-disp_show_quantity@last_pos E0 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
+disp_show_quantity@last_pos E2 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
 __LidataBANK0 0 0 ABS 0 idataBANK0 dist/default/production/pulsonic.X.production.obj
 __Hpowerup E 0 CODE 0 powerup dist/default/production/pulsonic.X.production.obj
-__end_of_multiplexedDisp0_off 2028 0 CODE 0 text32 dist/default/production/pulsonic.X.production.obj
-__end_of_multiplexedDisp1_off 2020 0 CODE 0 text30 dist/default/production/pulsonic.X.production.obj
-__end_of_multiplexedDisp2_off 2018 0 CODE 0 text28 dist/default/production/pulsonic.X.production.obj
-__end_of_multiplexedDisp3_off 2010 0 CODE 0 text26 dist/default/production/pulsonic.X.production.obj
-__end_of_multiplexedDisp4_off 2008 0 CODE 0 text24 dist/default/production/pulsonic.X.production.obj
+__end_of_multiplexedDisp0_off 205C 0 CODE 0 text33 dist/default/production/pulsonic.X.production.obj
+__end_of_multiplexedDisp1_off 2054 0 CODE 0 text31 dist/default/production/pulsonic.X.production.obj
+__end_of_multiplexedDisp2_off 204C 0 CODE 0 text29 dist/default/production/pulsonic.X.production.obj
+__end_of_multiplexedDisp3_off 2044 0 CODE 0 text27 dist/default/production/pulsonic.X.production.obj
+__end_of_multiplexedDisp4_off 203C 0 CODE 0 text25 dist/default/production/pulsonic.X.production.obj
 ___ftge@ff1 16 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ___ftge@ff2 19 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ttemp5 48 0 COMRAM 1 temp dist/default/production/pulsonic.X.production.obj
 ttemp6 4B 0 COMRAM 1 temp dist/default/production/pulsonic.X.production.obj
 ttemp7 4F 0 COMRAM 1 temp dist/default/production/pulsonic.X.production.obj
 __HdataCOMRAM 0 0 ABS 0 dataCOMRAM dist/default/production/pulsonic.X.production.obj
-__mpap_off 1FC6 0 CODE 0 text55 dist/default/production/pulsonic.X.production.obj
-__end_of_multiplexedDisp_init 1DC8 0 CODE 0 text23 dist/default/production/pulsonic.X.production.obj
+__mpap_off 1FFA 0 CODE 0 text56 dist/default/production/pulsonic.X.production.obj
+__end_of_multiplexedDisp_init 1DC6 0 CODE 0 text24 dist/default/production/pulsonic.X.production.obj
 utoa@c 19 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 utoa@v 17 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-__accesstop 60 0 ABS 0 - /tmp/xcXHd78Xb.obj
-intlevel0 0 0 CODE 0 text /tmp/xcXHd78Xb.obj
-intlevel1 0 0 CODE 0 text /tmp/xcXHd78Xb.obj
-intlevel2 0 0 CODE 0 text /tmp/xcXHd78Xb.obj
-intlevel3 0 0 CODE 0 text /tmp/xcXHd78Xb.obj
+__accesstop 60 0 ABS 0 - /tmp/xcXjmfDet.obj
+intlevel0 0 0 CODE 0 text /tmp/xcXjmfDet.obj
+intlevel1 0 0 CODE 0 text /tmp/xcXjmfDet.obj
+intlevel2 0 0 CODE 0 text /tmp/xcXjmfDet.obj
+intlevel3 0 0 CODE 0 text /tmp/xcXjmfDet.obj
 __LbssCOMRAM 0 0 ABS 0 bssCOMRAM dist/default/production/pulsonic.X.production.obj
 __CFG_USBDIV$2 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __LnvFARRAM 0 0 FARRAM 0 nvFARRAM dist/default/production/pulsonic.X.production.obj
@@ -911,32 +926,33 @@ wtemp8 48 0 COMRAM 1 temp dist/default/production/pulsonic.X.production.obj
 mpap_do1step@i 46 0 COMRAM 1 dataCOMRAM dist/default/production/pulsonic.X.production.obj
 __Hifardata 0 0 CODE 0 ifardata dist/default/production/pulsonic.X.production.obj
 __Hclrtext 0 0 ABS 0 clrtext dist/default/production/pulsonic.X.production.obj
-_ikb_init 16EA 0 CODE 0 text17 dist/default/production/pulsonic.X.production.obj
-__pidataCOMRAM 202C 0 CODE 0 idataCOMRAM dist/default/production/pulsonic.X.production.obj
+_ikb_init 16F2 0 CODE 0 text18 dist/default/production/pulsonic.X.production.obj
+__pidataCOMRAM 2060 0 CODE 0 idataCOMRAM dist/default/production/pulsonic.X.production.obj
 ___ftmul@f1 13 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ___ftmul@f2 16 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-__end_of__mpap_step1 1FFE 0 CODE 0 text53 dist/default/production/pulsonic.X.production.obj
-__end_of__mpap_step2 1FF8 0 CODE 0 text52 dist/default/production/pulsonic.X.production.obj
-__end_of__mpap_step3 1FF2 0 CODE 0 text51 dist/default/production/pulsonic.X.production.obj
-__end_of__mpap_step4 2004 0 CODE 0 text54 dist/default/production/pulsonic.X.production.obj
+__end_of__mpap_step1 2032 0 CODE 0 text54 dist/default/production/pulsonic.X.production.obj
+__end_of__mpap_step2 202C 0 CODE 0 text53 dist/default/production/pulsonic.X.production.obj
+__end_of__mpap_step3 2026 0 CODE 0 text52 dist/default/production/pulsonic.X.production.obj
+__end_of__mpap_step4 2038 0 CODE 0 text55 dist/default/production/pulsonic.X.production.obj
 __size_of_ikb_job 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-__end_of_ikey_is_accessible 1C2C 0 CODE 0 text15 dist/default/production/pulsonic.X.production.obj
+__end_of_ikey_is_accessible 1C28 0 CODE 0 text16 dist/default/production/pulsonic.X.production.obj
 __size_of_disp_show_quantity 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 ___wmul@multiplicand D 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 _ADCON1 FC1 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-__end_of_ikb_init 17A0 0 CODE 0 text17 dist/default/production/pulsonic.X.production.obj
+pump_tick@cod_ret B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
+__end_of_ikb_init 17A8 0 CODE 0 text18 dist/default/production/pulsonic.X.production.obj
 _group_x B0 0 BANK0 1 bssBANK0 dist/default/production/pulsonic.X.production.obj
-___inthi_sp 0 0 STACK 2 stack /tmp/xcXHd78Xb.obj
-___intlo_sp 0 0 STACK 2 stack /tmp/xcXHd78Xb.obj
+___inthi_sp 0 0 STACK 2 stack /tmp/xcXjmfDet.obj
+___intlo_sp 0 0 STACK 2 stack /tmp/xcXjmfDet.obj
 __LdataCOMRAM 0 0 ABS 0 dataCOMRAM dist/default/production/pulsonic.X.production.obj
 __size_of___awtoft 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 ikey_parsing@k 23 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __Hintcode_body 0 0 ABS 0 intcode_body dist/default/production/pulsonic.X.production.obj
-__end_of___ftge 1A76 0 CODE 0 text43 dist/default/production/pulsonic.X.production.obj
-__end_of___wmul 1EF6 0 CODE 0 text2 dist/default/production/pulsonic.X.production.obj
+__end_of___ftge 1A7E 0 CODE 0 text44 dist/default/production/pulsonic.X.production.obj
+__end_of___wmul 1F28 0 CODE 0 text3 dist/default/production/pulsonic.X.production.obj
 _DISP7S_CHARS 80B 0 SMALLCONST 0 smallconst dist/default/production/pulsonic.X.production.obj
 __Lintsave_regs 0 0 BIGRAM 1 intsave_regs dist/default/production/pulsonic.X.production.obj
-__end_of_ikey_clear_all_flag 1F5E 0 CODE 0 text19 dist/default/production/pulsonic.X.production.obj
+__end_of_ikey_clear_all_flag 1FAE 0 CODE 0 text20 dist/default/production/pulsonic.X.production.obj
 main@c_access_disp 36 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ___ftsub@f1 1F 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ___ftsub@f2 22 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
@@ -946,50 +962,50 @@ __Hmediumconst 0 0 MEDIUMCONST 0 mediumconst dist/default/production/pulsonic.X.
 __Hintcodelo E 0 CODE 0 intcodelo dist/default/production/pulsonic.X.production.obj
 ___lwmod@divisor D 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __size_of___ftpack 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-__end_of___ftadd 1286 0 CODE 0 text41 dist/default/production/pulsonic.X.production.obj
-__end_of___ftmul 1618 0 CODE 0 text42 dist/default/production/pulsonic.X.production.obj
-__end_of___ftsub 1E08 0 CODE 0 text40 dist/default/production/pulsonic.X.production.obj
-__end_of___fttol 16EA 0 CODE 0 text39 dist/default/production/pulsonic.X.production.obj
-__end_of___lwdiv 1B90 0 CODE 0 text38 dist/default/production/pulsonic.X.production.obj
-__end_of___lwmod 1D46 0 CODE 0 text37 dist/default/production/pulsonic.X.production.obj
-_ikey_is_accessible 1BE0 0 CODE 0 text15 dist/default/production/pulsonic.X.production.obj
+__end_of___ftadd 1286 0 CODE 0 text42 dist/default/production/pulsonic.X.production.obj
+__end_of___ftmul 1620 0 CODE 0 text43 dist/default/production/pulsonic.X.production.obj
+__end_of___ftsub 1E06 0 CODE 0 text41 dist/default/production/pulsonic.X.production.obj
+__end_of___fttol 16F2 0 CODE 0 text40 dist/default/production/pulsonic.X.production.obj
+__end_of___lwdiv 1B8C 0 CODE 0 text39 dist/default/production/pulsonic.X.production.obj
+__end_of___lwmod 1D44 0 CODE 0 text38 dist/default/production/pulsonic.X.production.obj
+_ikey_is_accessible 1BDC 0 CODE 0 text16 dist/default/production/pulsonic.X.production.obj
 ___lwdiv@quotient 10 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __LidataCOMRAM 0 0 ABS 0 idataCOMRAM dist/default/production/pulsonic.X.production.obj
-__end_of_ikb_key_is_ready2read 1F96 0 CODE 0 text6 dist/default/production/pulsonic.X.production.obj
+__end_of_ikb_key_is_ready2read 1FCA 0 CODE 0 text7 dist/default/production/pulsonic.X.production.obj
 itoa@buf 1A 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 itoa@val 1B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __size_of___lwtoft 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 ___lwmod@dividend B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __Lintcodelo E 0 CODE 0 intcodelo dist/default/production/pulsonic.X.production.obj
 __CFG_FCMEN$OFF 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-start_initialization 1A76 0 CODE 0 cinit dist/default/production/pulsonic.X.production.obj
+start_initialization 1A7E 0 CODE 0 cinit dist/default/production/pulsonic.X.production.obj
 _INTERRUPCION 8 0 CODE 0 intcode dist/default/production/pulsonic.X.production.obj
 __HnvFARRAM 0 0 FARRAM 0 nvFARRAM dist/default/production/pulsonic.X.production.obj
-___awtoft 1E08 0 CODE 0 text44 dist/default/production/pulsonic.X.production.obj
-_mpap_do1step 1D46 0 CODE 0 text50 dist/default/production/pulsonic.X.production.obj
+___awtoft 1E06 0 CODE 0 text45 dist/default/production/pulsonic.X.production.obj
+_mpap_do1step 1D44 0 CODE 0 text51 dist/default/production/pulsonic.X.production.obj
 ___rparam_used 1 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-_ikb_key_is_ready2read 1F7A 0 CODE 0 text6 dist/default/production/pulsonic.X.production.obj
-_display7s_init 1B90 0 CODE 0 text22 dist/default/production/pulsonic.X.production.obj
-__end_of___awtoft 1E40 0 CODE 0 text44 dist/default/production/pulsonic.X.production.obj
-__pcstackBANK0 D1 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
-_mpap_job 1C74 0 CODE 0 text47 dist/default/production/pulsonic.X.production.obj
-_mpap_off 44 0 COMRAM 1 dataCOMRAM dist/default/production/pulsonic.X.production.obj
+_ikb_key_is_ready2read 1FAE 0 CODE 0 text7 dist/default/production/pulsonic.X.production.obj
+_display7s_init 1B8C 0 CODE 0 text23 dist/default/production/pulsonic.X.production.obj
+__end_of___awtoft 1E3E 0 CODE 0 text45 dist/default/production/pulsonic.X.production.obj
+__pcstackBANK0 D3 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
+_mpap_job 1C28 0 CODE 0 text48 dist/default/production/pulsonic.X.production.obj
+_mpap_off D1 0 BANK0 1 dataBANK0 dist/default/production/pulsonic.X.production.obj
 ___fttol@exp1 30 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ___fttol@lval 2C 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-disp_show_quantity@num DE 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
+disp_show_quantity@num E0 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
 _TMR0IE 7F95 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 _TMR0IF 7F92 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-__end_of_ikb_job 1FB2 0 CODE 0 text7 dist/default/production/pulsonic.X.production.obj
-_display7s_job 1EF6 0 CODE 0 text20 dist/default/production/pulsonic.X.production.obj
-___ftpack 17A0 0 CODE 0 text45 dist/default/production/pulsonic.X.production.obj
+__end_of_ikb_job 1FE6 0 CODE 0 text8 dist/default/production/pulsonic.X.production.obj
+_display7s_job 1F28 0 CODE 0 text21 dist/default/production/pulsonic.X.production.obj
+___ftpack 17A8 0 CODE 0 text46 dist/default/production/pulsonic.X.production.obj
 utoa@buf 12 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 utoa@val 13 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __end_of_DISP7S_CHARS 80D 0 SMALLCONST 0 smallconst dist/default/production/pulsonic.X.production.obj
-__end_of_mpap_job 1CBC 0 CODE 0 text47 dist/default/production/pulsonic.X.production.obj
+__end_of_mpap_job 1C72 0 CODE 0 text48 dist/default/production/pulsonic.X.production.obj
 ___ftpack@arg B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ___ftpack@exp E 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 _multiplexedDisp B5 0 BANK0 1 dataBANK0 dist/default/production/pulsonic.X.production.obj
-__end_of___ftpack 184E 0 CODE 0 text45 dist/default/production/pulsonic.X.production.obj
+__end_of___ftpack 1856 0 CODE 0 text46 dist/default/production/pulsonic.X.production.obj
 __end_of_DISP7S_NUMS 80B 0 SMALLCONST 0 smallconst dist/default/production/pulsonic.X.production.obj
 __Hbank0 0 0 ABS 0 bank0 dist/default/production/pulsonic.X.production.obj
 __Hbank1 0 0 ABS 0 bank1 dist/default/production/pulsonic.X.production.obj
@@ -1018,15 +1034,17 @@ __Htext7 0 0 ABS 0 text7 dist/default/production/pulsonic.X.production.obj
 __Htext8 0 0 ABS 0 text8 dist/default/production/pulsonic.X.production.obj
 __Htext9 0 0 ABS 0 text9 dist/default/production/pulsonic.X.production.obj
 ___lwdiv@counter F 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
+__end_of_pump_tick 1E72 0 CODE 0 text1 dist/default/production/pulsonic.X.production.obj
 __Hbigbss 0 0 BIGRAM 1 bigbss dist/default/production/pulsonic.X.production.obj
 __Hbigram 0 0 ABS 0 bigram dist/default/production/pulsonic.X.production.obj
-__smallconst 800 0 SMALLCONST 0 smallconst /tmp/xcXHd78Xb.obj
+__smallconst 800 0 SMALLCONST 0 smallconst /tmp/xcXjmfDet.obj
 __size_of_INTERRUPCION 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
+__size_of_pump_tick 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_mpap_do1step 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-_main_flag 42 0 COMRAM 1 bssCOMRAM dist/default/production/pulsonic.X.production.obj
+_main_flag 44 0 COMRAM 1 bssCOMRAM dist/default/production/pulsonic.X.production.obj
 __Hcomram 0 0 ABS 0 comram dist/default/production/pulsonic.X.production.obj
 __Hconfig 30000E 0 CONFIG 0 config dist/default/production/pulsonic.X.production.obj
-___lwtoft 1F1C 0 CODE 0 text16 dist/default/production/pulsonic.X.production.obj
+___lwtoft 1F4E 0 CODE 0 text17 dist/default/production/pulsonic.X.production.obj
 __Lbank0 0 0 ABS 0 bank0 dist/default/production/pulsonic.X.production.obj
 __Lbank1 0 0 ABS 0 bank1 dist/default/production/pulsonic.X.production.obj
 __Lbank2 0 0 ABS 0 bank2 dist/default/production/pulsonic.X.production.obj
@@ -1037,10 +1055,10 @@ __Lbank6 0 0 ABS 0 bank6 dist/default/production/pulsonic.X.production.obj
 __Lbank7 0 0 ABS 0 bank7 dist/default/production/pulsonic.X.production.obj
 __Lcinit 0 0 ABS 0 cinit dist/default/production/pulsonic.X.production.obj
 __Lconst 0 0 CONST 0 const dist/default/production/pulsonic.X.production.obj
-disp_show_quantity@I E1 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
+disp_show_quantity@I E3 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
 disp_show_quantity@f 31 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-disp_show_quantity@i E3 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
-disp_show_quantity@q DF 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
+disp_show_quantity@i E5 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
+disp_show_quantity@q E1 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
 __Lidata 0 0 CODE 0 idata dist/default/production/pulsonic.X.production.obj
 __Lidloc 200000 0 IDLOC 0 idloc dist/default/production/pulsonic.X.production.obj
 multiplexedDisp_init@i B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
@@ -1067,8 +1085,8 @@ __size_of__mpap_step3 0 0 ABS 0 - dist/default/production/pulsonic.X.production.
 __size_of__mpap_step4 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __Hfarbss 0 0 FARRAM 0 farbss dist/default/production/pulsonic.X.production.obj
 __Lintcode_body 0 0 ABS 0 intcode_body dist/default/production/pulsonic.X.production.obj
-__end_of___lwtoft 1F40 0 CODE 0 text16 dist/default/production/pulsonic.X.production.obj
-__end_of_display7s_init 1BE0 0 CODE 0 text22 dist/default/production/pulsonic.X.production.obj
+__end_of___lwtoft 1F72 0 CODE 0 text17 dist/default/production/pulsonic.X.production.obj
+__end_of_display7s_init 1BDC 0 CODE 0 text23 dist/default/production/pulsonic.X.production.obj
 __Habs1 0 0 ABS 0 abs1 dist/default/production/pulsonic.X.production.obj
 __Hdata 0 0 ABS 0 data dist/default/production/pulsonic.X.production.obj
 __Hinit 12 0 CODE 0 init dist/default/production/pulsonic.X.production.obj
@@ -1083,43 +1101,44 @@ __Lrbit 0 0 COMRAM 1 rbit dist/default/production/pulsonic.X.production.obj
 __Lrbss 0 0 COMRAM 1 rbss dist/default/production/pulsonic.X.production.obj
 __Ltemp 47 0 COMRAM 1 temp dist/default/production/pulsonic.X.production.obj
 __Ltext 0 0 ABS 0 text dist/default/production/pulsonic.X.production.obj
-___ftge 1A02 0 CODE 0 text43 dist/default/production/pulsonic.X.production.obj
-___wmul 1ED0 0 CODE 0 text2 dist/default/production/pulsonic.X.production.obj
+_pump_tick 1E3E 0 CODE 0 text1 dist/default/production/pulsonic.X.production.obj
+___ftge 1A0A 0 CODE 0 text44 dist/default/production/pulsonic.X.production.obj
+___wmul 1F02 0 CODE 0 text3 dist/default/production/pulsonic.X.production.obj
 __LcstackBANK0 0 0 ABS 0 cstackBANK0 dist/default/production/pulsonic.X.production.obj
 int$flags 47 0 COMRAM 1 temp dist/default/production/pulsonic.X.production.obj
 __HcstackCOMRAM 0 0 ABS 0 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __Hintret 0 0 ABS 0 intret dist/default/production/pulsonic.X.production.obj
-__end_of_INTERRUPCION 1C74 0 CODE 0 intcode_body dist/default/production/pulsonic.X.production.obj
+__end_of_INTERRUPCION 1CBA 0 CODE 0 intcode_body dist/default/production/pulsonic.X.production.obj
 __Hirdata 0 0 CODE 0 irdata dist/default/production/pulsonic.X.production.obj
 _GIE 7F97 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __S0 30000E 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __S1 17B 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __S2 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 _key 60 0 BANK0 1 bssBANK0 dist/default/production/pulsonic.X.production.obj
-__end_of_mpap_do1step 1D88 0 CODE 0 text50 dist/default/production/pulsonic.X.production.obj
+__end_of_mpap_do1step 1D86 0 CODE 0 text51 dist/default/production/pulsonic.X.production.obj
 __CFG_PLLDIV$5 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 utoa@base 15 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __CFG_PBADEN$OFF 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_mpap_setupToHomming 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-_keyRead_pin_key1 1FD0 0 CODE 0 text12 dist/default/production/pulsonic.X.production.obj
-_keyRead_pin_key2 1FBC 0 CODE 0 text11 dist/default/production/pulsonic.X.production.obj
-_keyRead_pin_key3 1FB2 0 CODE 0 text10 dist/default/production/pulsonic.X.production.obj
-_keyRead_pin_key4 1FE0 0 CODE 0 text9 dist/default/production/pulsonic.X.production.obj
-_keyRead_pin_key5 1FD8 0 CODE 0 text13 dist/default/production/pulsonic.X.production.obj
+_keyRead_pin_key1 2004 0 CODE 0 text13 dist/default/production/pulsonic.X.production.obj
+_keyRead_pin_key2 1FF0 0 CODE 0 text12 dist/default/production/pulsonic.X.production.obj
+_keyRead_pin_key3 1FE6 0 CODE 0 text11 dist/default/production/pulsonic.X.production.obj
+_keyRead_pin_key4 2014 0 CODE 0 text10 dist/default/production/pulsonic.X.production.obj
+_keyRead_pin_key5 200C 0 CODE 0 text14 dist/default/production/pulsonic.X.production.obj
 ___awtoft@c 13 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __HidataCOMRAM 0 0 ABS 0 idataCOMRAM dist/default/production/pulsonic.X.production.obj
 __Lbigdata 0 0 BIGRAM 1 bigdata dist/default/production/pulsonic.X.production.obj
 __Hnvrram 0 0 COMRAM 1 nvrram dist/default/production/pulsonic.X.production.obj
-_multiplexedDisp0_off 2024 0 CODE 0 text32 dist/default/production/pulsonic.X.production.obj
-_multiplexedDisp1_off 201C 0 CODE 0 text30 dist/default/production/pulsonic.X.production.obj
-_multiplexedDisp2_off 2014 0 CODE 0 text28 dist/default/production/pulsonic.X.production.obj
-_multiplexedDisp3_off 200C 0 CODE 0 text26 dist/default/production/pulsonic.X.production.obj
-_multiplexedDisp4_off 2004 0 CODE 0 text24 dist/default/production/pulsonic.X.production.obj
-__end_of_ikb_flush 1FEC 0 CODE 0 text18 dist/default/production/pulsonic.X.production.obj
-int_func 1C2C 0 CODE 0 intcode_body dist/default/production/pulsonic.X.production.obj
-_mpap_homming 1AE6 0 CODE 0 text49 dist/default/production/pulsonic.X.production.obj
+_multiplexedDisp0_off 2058 0 CODE 0 text33 dist/default/production/pulsonic.X.production.obj
+_multiplexedDisp1_off 2050 0 CODE 0 text31 dist/default/production/pulsonic.X.production.obj
+_multiplexedDisp2_off 2048 0 CODE 0 text29 dist/default/production/pulsonic.X.production.obj
+_multiplexedDisp3_off 2040 0 CODE 0 text27 dist/default/production/pulsonic.X.production.obj
+_multiplexedDisp4_off 2038 0 CODE 0 text25 dist/default/production/pulsonic.X.production.obj
+__end_of_ikb_flush 2020 0 CODE 0 text19 dist/default/production/pulsonic.X.production.obj
+int_func 1C72 0 CODE 0 intcode_body dist/default/production/pulsonic.X.production.obj
+_mpap_homming 1AE2 0 CODE 0 text50 dist/default/production/pulsonic.X.production.obj
 __size_of_ikb_flush 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-_multiplexedDisp_init 1D88 0 CODE 0 text23 dist/default/production/pulsonic.X.production.obj
+_multiplexedDisp_init 1D86 0 CODE 0 text24 dist/default/production/pulsonic.X.production.obj
 ikb_init@i B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ikey_is_accessible@k D 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __Lintentry 0 0 ABS 0 intentry dist/default/production/pulsonic.X.production.obj
@@ -1170,7 +1189,7 @@ __Htext42 0 0 ABS 0 text42 dist/default/production/pulsonic.X.production.obj
 __Htext43 0 0 ABS 0 text43 dist/default/production/pulsonic.X.production.obj
 __Htext44 0 0 ABS 0 text44 dist/default/production/pulsonic.X.production.obj
 __Htext45 0 0 ABS 0 text45 dist/default/production/pulsonic.X.production.obj
-__Htext47 0 0 ABS 0 text47 dist/default/production/pulsonic.X.production.obj
+__Htext46 0 0 ABS 0 text46 dist/default/production/pulsonic.X.production.obj
 __Htext48 0 0 ABS 0 text48 dist/default/production/pulsonic.X.production.obj
 __Htext49 0 0 ABS 0 text49 dist/default/production/pulsonic.X.production.obj
 __Htext50 0 0 ABS 0 text50 dist/default/production/pulsonic.X.production.obj
@@ -1180,8 +1199,9 @@ __Htext53 0 0 ABS 0 text53 dist/default/production/pulsonic.X.production.obj
 __Htext54 0 0 ABS 0 text54 dist/default/production/pulsonic.X.production.obj
 __Htext55 0 0 ABS 0 text55 dist/default/production/pulsonic.X.production.obj
 __Htext56 0 0 ABS 0 text56 dist/default/production/pulsonic.X.production.obj
+__Htext57 0 0 ABS 0 text57 dist/default/production/pulsonic.X.production.obj
 ?___awtoft 13 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-_ikb_flush 1FE6 0 CODE 0 text18 dist/default/production/pulsonic.X.production.obj
+_ikb_flush 201A 0 CODE 0 text19 dist/default/production/pulsonic.X.production.obj
 __size_of_multiplexedDisp0_on 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_multiplexedDisp1_on 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_multiplexedDisp2_on 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
@@ -1189,83 +1209,84 @@ __size_of_multiplexedDisp3_on 0 0 ABS 0 - dist/default/production/pulsonic.X.pro
 __size_of_multiplexedDisp4_on 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_multiplexedDisp_job 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 mpap_sych@sm0 41 0 COMRAM 1 bssCOMRAM dist/default/production/pulsonic.X.production.obj
-__ptext10 1FB2 0 CODE 0 text10 dist/default/production/pulsonic.X.production.obj
-__ptext11 1FBC 0 CODE 0 text11 dist/default/production/pulsonic.X.production.obj
-__ptext12 1FD0 0 CODE 0 text12 dist/default/production/pulsonic.X.production.obj
-__ptext13 1FD8 0 CODE 0 text13 dist/default/production/pulsonic.X.production.obj
-__ptext14 80E 0 CODE 0 text14 dist/default/production/pulsonic.X.production.obj
-__ptext15 1BE0 0 CODE 0 text15 dist/default/production/pulsonic.X.production.obj
-__ptext16 1F1C 0 CODE 0 text16 dist/default/production/pulsonic.X.production.obj
-__ptext17 16EA 0 CODE 0 text17 dist/default/production/pulsonic.X.production.obj
-__ptext18 1FE6 0 CODE 0 text18 dist/default/production/pulsonic.X.production.obj
-__ptext19 1F40 0 CODE 0 text19 dist/default/production/pulsonic.X.production.obj
-__ptext20 1EF6 0 CODE 0 text20 dist/default/production/pulsonic.X.production.obj
-__ptext21 184E 0 CODE 0 text21 dist/default/production/pulsonic.X.production.obj
-__ptext22 1B90 0 CODE 0 text22 dist/default/production/pulsonic.X.production.obj
-__ptext23 1D88 0 CODE 0 text23 dist/default/production/pulsonic.X.production.obj
-__ptext24 2004 0 CODE 0 text24 dist/default/production/pulsonic.X.production.obj
-__ptext25 2008 0 CODE 0 text25 dist/default/production/pulsonic.X.production.obj
-__ptext26 200C 0 CODE 0 text26 dist/default/production/pulsonic.X.production.obj
-__ptext27 2010 0 CODE 0 text27 dist/default/production/pulsonic.X.production.obj
-__ptext28 2014 0 CODE 0 text28 dist/default/production/pulsonic.X.production.obj
-__ptext29 2018 0 CODE 0 text29 dist/default/production/pulsonic.X.production.obj
-__ptext30 201C 0 CODE 0 text30 dist/default/production/pulsonic.X.production.obj
-__ptext31 2020 0 CODE 0 text31 dist/default/production/pulsonic.X.production.obj
-__ptext32 2024 0 CODE 0 text32 dist/default/production/pulsonic.X.production.obj
-__ptext33 2028 0 CODE 0 text33 dist/default/production/pulsonic.X.production.obj
-__ptext34 E3E 0 CODE 0 text34 dist/default/production/pulsonic.X.production.obj
-__ptext35 1E40 0 CODE 0 text35 dist/default/production/pulsonic.X.production.obj
-__ptext36 18EE 0 CODE 0 text36 dist/default/production/pulsonic.X.production.obj
-__ptext37 1D04 0 CODE 0 text37 dist/default/production/pulsonic.X.production.obj
-__ptext38 1B3E 0 CODE 0 text38 dist/default/production/pulsonic.X.production.obj
-__ptext39 1618 0 CODE 0 text39 dist/default/production/pulsonic.X.production.obj
-__ptext40 1DC8 0 CODE 0 text40 dist/default/production/pulsonic.X.production.obj
-__ptext41 10DE 0 CODE 0 text41 dist/default/production/pulsonic.X.production.obj
-__ptext42 1524 0 CODE 0 text42 dist/default/production/pulsonic.X.production.obj
-__ptext43 1A02 0 CODE 0 text43 dist/default/production/pulsonic.X.production.obj
-__ptext44 1E08 0 CODE 0 text44 dist/default/production/pulsonic.X.production.obj
-__ptext45 17A0 0 CODE 0 text45 dist/default/production/pulsonic.X.production.obj
-__ptext47 1C74 0 CODE 0 text47 dist/default/production/pulsonic.X.production.obj
-__ptext48 1CBC 0 CODE 0 text48 dist/default/production/pulsonic.X.production.obj
-__ptext49 1AE6 0 CODE 0 text49 dist/default/production/pulsonic.X.production.obj
-__ptext50 1D46 0 CODE 0 text50 dist/default/production/pulsonic.X.production.obj
-__ptext51 1FEC 0 CODE 0 text51 dist/default/production/pulsonic.X.production.obj
-__ptext52 1FF2 0 CODE 0 text52 dist/default/production/pulsonic.X.production.obj
-__ptext53 1FF8 0 CODE 0 text53 dist/default/production/pulsonic.X.production.obj
-__ptext54 1FFE 0 CODE 0 text54 dist/default/production/pulsonic.X.production.obj
-__ptext55 1FC6 0 CODE 0 text55 dist/default/production/pulsonic.X.production.obj
-__ptext56 0 0 CODE 0 text56 dist/default/production/pulsonic.X.production.obj
-___ftadd 10DE 0 CODE 0 text41 dist/default/production/pulsonic.X.production.obj
-___ftmul 1524 0 CODE 0 text42 dist/default/production/pulsonic.X.production.obj
-___ftsub 1DC8 0 CODE 0 text40 dist/default/production/pulsonic.X.production.obj
-___fttol 1618 0 CODE 0 text39 dist/default/production/pulsonic.X.production.obj
-_ikey_parsing 80E 0 CODE 0 text14 dist/default/production/pulsonic.X.production.obj
+__ptext10 2014 0 CODE 0 text10 dist/default/production/pulsonic.X.production.obj
+__ptext11 1FE6 0 CODE 0 text11 dist/default/production/pulsonic.X.production.obj
+__ptext12 1FF0 0 CODE 0 text12 dist/default/production/pulsonic.X.production.obj
+__ptext13 2004 0 CODE 0 text13 dist/default/production/pulsonic.X.production.obj
+__ptext14 200C 0 CODE 0 text14 dist/default/production/pulsonic.X.production.obj
+__ptext15 80E 0 CODE 0 text15 dist/default/production/pulsonic.X.production.obj
+__ptext16 1BDC 0 CODE 0 text16 dist/default/production/pulsonic.X.production.obj
+__ptext17 1F4E 0 CODE 0 text17 dist/default/production/pulsonic.X.production.obj
+__ptext18 16F2 0 CODE 0 text18 dist/default/production/pulsonic.X.production.obj
+__ptext19 201A 0 CODE 0 text19 dist/default/production/pulsonic.X.production.obj
+__ptext20 1F90 0 CODE 0 text20 dist/default/production/pulsonic.X.production.obj
+__ptext21 1F28 0 CODE 0 text21 dist/default/production/pulsonic.X.production.obj
+__ptext22 1856 0 CODE 0 text22 dist/default/production/pulsonic.X.production.obj
+__ptext23 1B8C 0 CODE 0 text23 dist/default/production/pulsonic.X.production.obj
+__ptext24 1D86 0 CODE 0 text24 dist/default/production/pulsonic.X.production.obj
+__ptext25 2038 0 CODE 0 text25 dist/default/production/pulsonic.X.production.obj
+__ptext26 203C 0 CODE 0 text26 dist/default/production/pulsonic.X.production.obj
+__ptext27 2040 0 CODE 0 text27 dist/default/production/pulsonic.X.production.obj
+__ptext28 2044 0 CODE 0 text28 dist/default/production/pulsonic.X.production.obj
+__ptext29 2048 0 CODE 0 text29 dist/default/production/pulsonic.X.production.obj
+__ptext30 204C 0 CODE 0 text30 dist/default/production/pulsonic.X.production.obj
+__ptext31 2050 0 CODE 0 text31 dist/default/production/pulsonic.X.production.obj
+__ptext32 2054 0 CODE 0 text32 dist/default/production/pulsonic.X.production.obj
+__ptext33 2058 0 CODE 0 text33 dist/default/production/pulsonic.X.production.obj
+__ptext34 205C 0 CODE 0 text34 dist/default/production/pulsonic.X.production.obj
+__ptext35 E3E 0 CODE 0 text35 dist/default/production/pulsonic.X.production.obj
+__ptext36 1E72 0 CODE 0 text36 dist/default/production/pulsonic.X.production.obj
+__ptext37 18F6 0 CODE 0 text37 dist/default/production/pulsonic.X.production.obj
+__ptext38 1D02 0 CODE 0 text38 dist/default/production/pulsonic.X.production.obj
+__ptext39 1B3A 0 CODE 0 text39 dist/default/production/pulsonic.X.production.obj
+__ptext40 1620 0 CODE 0 text40 dist/default/production/pulsonic.X.production.obj
+__ptext41 1DC6 0 CODE 0 text41 dist/default/production/pulsonic.X.production.obj
+__ptext42 10DE 0 CODE 0 text42 dist/default/production/pulsonic.X.production.obj
+__ptext43 152C 0 CODE 0 text43 dist/default/production/pulsonic.X.production.obj
+__ptext44 1A0A 0 CODE 0 text44 dist/default/production/pulsonic.X.production.obj
+__ptext45 1E06 0 CODE 0 text45 dist/default/production/pulsonic.X.production.obj
+__ptext46 17A8 0 CODE 0 text46 dist/default/production/pulsonic.X.production.obj
+__ptext48 1C28 0 CODE 0 text48 dist/default/production/pulsonic.X.production.obj
+__ptext49 1CBA 0 CODE 0 text49 dist/default/production/pulsonic.X.production.obj
+__ptext50 1AE2 0 CODE 0 text50 dist/default/production/pulsonic.X.production.obj
+__ptext51 1D44 0 CODE 0 text51 dist/default/production/pulsonic.X.production.obj
+__ptext52 2020 0 CODE 0 text52 dist/default/production/pulsonic.X.production.obj
+__ptext53 2026 0 CODE 0 text53 dist/default/production/pulsonic.X.production.obj
+__ptext54 202C 0 CODE 0 text54 dist/default/production/pulsonic.X.production.obj
+__ptext55 2032 0 CODE 0 text55 dist/default/production/pulsonic.X.production.obj
+__ptext56 1FFA 0 CODE 0 text56 dist/default/production/pulsonic.X.production.obj
+__ptext57 0 0 CODE 0 text57 dist/default/production/pulsonic.X.production.obj
+___ftadd 10DE 0 CODE 0 text42 dist/default/production/pulsonic.X.production.obj
+___ftmul 152C 0 CODE 0 text43 dist/default/production/pulsonic.X.production.obj
+___ftsub 1DC6 0 CODE 0 text41 dist/default/production/pulsonic.X.production.obj
+___fttol 1620 0 CODE 0 text40 dist/default/production/pulsonic.X.production.obj
+_ikey_parsing 80E 0 CODE 0 text15 dist/default/production/pulsonic.X.production.obj
 mpap_sych@c 40 0 COMRAM 1 bssCOMRAM dist/default/production/pulsonic.X.production.obj
-__pintcode_body 1C2C 0 CODE 0 intcode_body dist/default/production/pulsonic.X.production.obj
-___lwdiv 1B3E 0 CODE 0 text38 dist/default/production/pulsonic.X.production.obj
-___lwmod 1D04 0 CODE 0 text37 dist/default/production/pulsonic.X.production.obj
+__pintcode_body 1C72 0 CODE 0 intcode_body dist/default/production/pulsonic.X.production.obj
+___lwdiv 1B3A 0 CODE 0 text39 dist/default/production/pulsonic.X.production.obj
+___lwmod 1D02 0 CODE 0 text38 dist/default/production/pulsonic.X.production.obj
 __Lbigbss 0 0 BIGRAM 1 bigbss dist/default/production/pulsonic.X.production.obj
 __Lbigram 0 0 ABS 0 bigram dist/default/production/pulsonic.X.production.obj
 __CFG_BOR$OFF 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __CFG_BORV$3 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_ikey_is_accessible 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-_mpap_setupToHomming 1F96 0 CODE 0 text4 dist/default/production/pulsonic.X.production.obj
+_mpap_setupToHomming 1FCA 0 CODE 0 text5 dist/default/production/pulsonic.X.production.obj
 __Lcomram 0 0 ABS 0 comram dist/default/production/pulsonic.X.production.obj
 __Lconfig 300000 0 CONFIG 0 config dist/default/production/pulsonic.X.production.obj
 ?___ftpack B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-_mpap_normal_mode 1CBC 0 CODE 0 text48 dist/default/production/pulsonic.X.production.obj
+_mpap_normal_mode 1CBA 0 CODE 0 text49 dist/default/production/pulsonic.X.production.obj
 ___wmul@multiplier B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 nozzle_moveto@nozzle 15 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __size_of_mpap_homming 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-__end_of_display7s_job 1F1C 0 CODE 0 text20 dist/default/production/pulsonic.X.production.obj
+__end_of_display7s_job 1F4E 0 CODE 0 text21 dist/default/production/pulsonic.X.production.obj
 __Lfarbss 0 0 FARRAM 0 farbss dist/default/production/pulsonic.X.production.obj
 ___lwdiv@divisor D 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __Lfardata 0 0 FARRAM 0 fardata dist/default/production/pulsonic.X.production.obj
-_mpap_setupToTurn 1E72 0 CODE 0 text5 dist/default/production/pulsonic.X.production.obj
-__end_of_ikey_scan 1426 0 CODE 0 text8 dist/default/production/pulsonic.X.production.obj
+_mpap_setupToTurn 1EA4 0 CODE 0 text6 dist/default/production/pulsonic.X.production.obj
+__end_of_ikey_scan 1426 0 CODE 0 text9 dist/default/production/pulsonic.X.production.obj
 ___lwtoft@c 13 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-stackhi 7FF 0 ABS 0 - /tmp/xcXHd78Xb.obj
-stacklo 17B 0 ABS 0 - /tmp/xcXHd78Xb.obj
+stackhi 7FF 0 ABS 0 - /tmp/xcXjmfDet.obj
+stacklo 17B 0 ABS 0 - /tmp/xcXjmfDet.obj
 multiplexedDisp_job@i 12 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 multiplexedDisp_job@q 11 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __Lintcode 8 0 CODE 0 intcode dist/default/production/pulsonic.X.production.obj
@@ -1274,41 +1295,42 @@ __size_of_ikey_scan 0 0 ABS 0 - dist/default/production/pulsonic.X.production.ob
 __Lirdata 0 0 CODE 0 irdata dist/default/production/pulsonic.X.production.obj
 ?___lwtoft 13 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __CFG_LVP$OFF 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-__end_of_keyRead_pin_key1 1FD8 0 CODE 0 text12 dist/default/production/pulsonic.X.production.obj
-__end_of_keyRead_pin_key2 1FC6 0 CODE 0 text11 dist/default/production/pulsonic.X.production.obj
-__end_of_keyRead_pin_key3 1FBC 0 CODE 0 text10 dist/default/production/pulsonic.X.production.obj
-__end_of_keyRead_pin_key4 1FE6 0 CODE 0 text9 dist/default/production/pulsonic.X.production.obj
-__end_of_keyRead_pin_key5 1FE0 0 CODE 0 text13 dist/default/production/pulsonic.X.production.obj
+__end_of_keyRead_pin_key1 200C 0 CODE 0 text13 dist/default/production/pulsonic.X.production.obj
+__end_of_keyRead_pin_key2 1FFA 0 CODE 0 text12 dist/default/production/pulsonic.X.production.obj
+__end_of_keyRead_pin_key3 1FF0 0 CODE 0 text11 dist/default/production/pulsonic.X.production.obj
+__end_of_keyRead_pin_key4 201A 0 CODE 0 text10 dist/default/production/pulsonic.X.production.obj
+__end_of_keyRead_pin_key5 2014 0 CODE 0 text14 dist/default/production/pulsonic.X.production.obj
 __Lspace_0 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __Lspace_1 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __Lspace_2 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 ___ftmul@cntr 20 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __pbssCOMRAM 37 0 COMRAM 1 bssCOMRAM dist/default/production/pulsonic.X.production.obj
 ___ftmul@sign 21 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-__end_of_mpap_homming 1B3E 0 CODE 0 text49 dist/default/production/pulsonic.X.production.obj
+__end_of_mpap_homming 1B3A 0 CODE 0 text50 dist/default/production/pulsonic.X.production.obj
 __HcstackBANK0 0 0 ABS 0 cstackBANK0 dist/default/production/pulsonic.X.production.obj
-_multiplexedDisp0_on 2020 0 CODE 0 text31 dist/default/production/pulsonic.X.production.obj
-_multiplexedDisp1_on 2018 0 CODE 0 text29 dist/default/production/pulsonic.X.production.obj
-_multiplexedDisp2_on 2010 0 CODE 0 text27 dist/default/production/pulsonic.X.production.obj
-_multiplexedDisp3_on 2008 0 CODE 0 text25 dist/default/production/pulsonic.X.production.obj
-_multiplexedDisp4_on 2028 0 CODE 0 text33 dist/default/production/pulsonic.X.production.obj
-_multiplexedDisp_job 184E 0 CODE 0 text21 dist/default/production/pulsonic.X.production.obj
+_multiplexedDisp0_on 2054 0 CODE 0 text32 dist/default/production/pulsonic.X.production.obj
+_multiplexedDisp1_on 204C 0 CODE 0 text30 dist/default/production/pulsonic.X.production.obj
+_multiplexedDisp2_on 2044 0 CODE 0 text28 dist/default/production/pulsonic.X.production.obj
+_multiplexedDisp3_on 203C 0 CODE 0 text26 dist/default/production/pulsonic.X.production.obj
+_multiplexedDisp4_on 205C 0 CODE 0 text34 dist/default/production/pulsonic.X.production.obj
+_multiplexedDisp_job 1856 0 CODE 0 text22 dist/default/production/pulsonic.X.production.obj
 __size_of_ikey_parsing 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __LcstackCOMRAM 0 0 ABS 0 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-_isr_flag 43 0 COMRAM 1 bssCOMRAM dist/default/production/pulsonic.X.production.obj
+_isr_flag 45 0 COMRAM 1 bssCOMRAM dist/default/production/pulsonic.X.production.obj
+pump_tick@c 42 0 COMRAM 1 bssCOMRAM dist/default/production/pulsonic.X.production.obj
 __size_of_keyRead_pin_key1 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_keyRead_pin_key2 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_keyRead_pin_key3 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_keyRead_pin_key4 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_keyRead_pin_key5 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __CFG_CPUDIV$OSC1_PLL2 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-end_of_initialization 1AD8 0 CODE 0 cinit dist/default/production/pulsonic.X.production.obj
-_ikb_job 1FA8 0 CODE 0 text7 dist/default/production/pulsonic.X.production.obj
+end_of_initialization 1AD4 0 CODE 0 cinit dist/default/production/pulsonic.X.production.obj
+_ikb_job 1FDC 0 CODE 0 text8 dist/default/production/pulsonic.X.production.obj
 _pulsonic 100 0 BANK1 1 bssBANK1 dist/default/production/pulsonic.X.production.obj
-_ikey_scan 1286 0 CODE 0 text8 dist/default/production/pulsonic.X.production.obj
+_ikey_scan 1286 0 CODE 0 text9 dist/default/production/pulsonic.X.production.obj
 __Lnvrram 0 0 COMRAM 1 nvrram dist/default/production/pulsonic.X.production.obj
 __Hintentry 0 0 ABS 0 intentry dist/default/production/pulsonic.X.production.obj
-__end_of_disp_show_quantity 10DE 0 CODE 0 text34 dist/default/production/pulsonic.X.production.obj
+__end_of_disp_show_quantity 10DE 0 CODE 0 text35 dist/default/production/pulsonic.X.production.obj
 ___lwdiv@dividend B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ?___ftadd 13 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ?___ftmul 13 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
@@ -1317,30 +1339,30 @@ ___lwdiv@dividend B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.p
 ?___lwdiv B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ?___lwmod B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 main@c_access_kb 35 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-_mpap_setupToTurn$413 13 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
+_mpap_setupToTurn$418 13 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __Hreset_vec 4 0 CODE 0 reset_vec dist/default/production/pulsonic.X.production.obj
 __size_of_ikb_key_is_ready2read 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __HbssBANK0 0 0 ABS 0 bssBANK0 dist/default/production/pulsonic.X.production.obj
 __HbssBANK1 0 0 ABS 0 bssBANK1 dist/default/production/pulsonic.X.production.obj
 __Lramtop 800 0 RAM 0 ramtop dist/default/production/pulsonic.X.production.obj
 __Lrparam 0 0 COMRAM 1 rparam dist/default/production/pulsonic.X.production.obj
-__pcinit 1A76 0 CODE 0 cinit dist/default/production/pulsonic.X.production.obj
+__pcinit 1A7E 0 CODE 0 cinit dist/default/production/pulsonic.X.production.obj
 mpap_homming@cod_ret 3 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __ptext0 1426 0 CODE 0 text0 dist/default/production/pulsonic.X.production.obj
-__ptext1 1EA2 0 CODE 0 text1 dist/default/production/pulsonic.X.production.obj
-__ptext2 1ED0 0 CODE 0 text2 dist/default/production/pulsonic.X.production.obj
-__ptext3 1982 0 CODE 0 text3 dist/default/production/pulsonic.X.production.obj
-__ptext4 1F96 0 CODE 0 text4 dist/default/production/pulsonic.X.production.obj
-__ptext5 1E72 0 CODE 0 text5 dist/default/production/pulsonic.X.production.obj
-__ptext6 1F7A 0 CODE 0 text6 dist/default/production/pulsonic.X.production.obj
-__ptext7 1FA8 0 CODE 0 text7 dist/default/production/pulsonic.X.production.obj
-__ptext8 1286 0 CODE 0 text8 dist/default/production/pulsonic.X.production.obj
-__ptext9 1FE0 0 CODE 0 text9 dist/default/production/pulsonic.X.production.obj
-__end_of_ikey_parsing E3E 0 CODE 0 text14 dist/default/production/pulsonic.X.production.obj
-__mpap_step1 1FF8 0 CODE 0 text53 dist/default/production/pulsonic.X.production.obj
-__mpap_step2 1FF2 0 CODE 0 text52 dist/default/production/pulsonic.X.production.obj
-__mpap_step3 1FEC 0 CODE 0 text51 dist/default/production/pulsonic.X.production.obj
-__mpap_step4 1FFE 0 CODE 0 text54 dist/default/production/pulsonic.X.production.obj
+__ptext1 1E3E 0 CODE 0 text1 dist/default/production/pulsonic.X.production.obj
+__ptext2 1ED4 0 CODE 0 text2 dist/default/production/pulsonic.X.production.obj
+__ptext3 1F02 0 CODE 0 text3 dist/default/production/pulsonic.X.production.obj
+__ptext4 198A 0 CODE 0 text4 dist/default/production/pulsonic.X.production.obj
+__ptext5 1FCA 0 CODE 0 text5 dist/default/production/pulsonic.X.production.obj
+__ptext6 1EA4 0 CODE 0 text6 dist/default/production/pulsonic.X.production.obj
+__ptext7 1FAE 0 CODE 0 text7 dist/default/production/pulsonic.X.production.obj
+__ptext8 1FDC 0 CODE 0 text8 dist/default/production/pulsonic.X.production.obj
+__ptext9 1286 0 CODE 0 text9 dist/default/production/pulsonic.X.production.obj
+__end_of_ikey_parsing E3E 0 CODE 0 text15 dist/default/production/pulsonic.X.production.obj
+__mpap_step1 202C 0 CODE 0 text54 dist/default/production/pulsonic.X.production.obj
+__mpap_step2 2026 0 CODE 0 text53 dist/default/production/pulsonic.X.production.obj
+__mpap_step3 2020 0 CODE 0 text52 dist/default/production/pulsonic.X.production.obj
+__mpap_step4 2032 0 CODE 0 text55 dist/default/production/pulsonic.X.production.obj
 __Lstruct 0 0 COMRAM 1 struct dist/default/production/pulsonic.X.production.obj
 __Ltext10 0 0 ABS 0 text10 dist/default/production/pulsonic.X.production.obj
 __Ltext11 0 0 ABS 0 text11 dist/default/production/pulsonic.X.production.obj
@@ -1378,7 +1400,7 @@ __Ltext42 0 0 ABS 0 text42 dist/default/production/pulsonic.X.production.obj
 __Ltext43 0 0 ABS 0 text43 dist/default/production/pulsonic.X.production.obj
 __Ltext44 0 0 ABS 0 text44 dist/default/production/pulsonic.X.production.obj
 __Ltext45 0 0 ABS 0 text45 dist/default/production/pulsonic.X.production.obj
-__Ltext47 0 0 ABS 0 text47 dist/default/production/pulsonic.X.production.obj
+__Ltext46 0 0 ABS 0 text46 dist/default/production/pulsonic.X.production.obj
 __Ltext48 0 0 ABS 0 text48 dist/default/production/pulsonic.X.production.obj
 __Ltext49 0 0 ABS 0 text49 dist/default/production/pulsonic.X.production.obj
 __Ltext50 0 0 ABS 0 text50 dist/default/production/pulsonic.X.production.obj
@@ -1388,16 +1410,17 @@ __Ltext53 0 0 ABS 0 text53 dist/default/production/pulsonic.X.production.obj
 __Ltext54 0 0 ABS 0 text54 dist/default/production/pulsonic.X.production.obj
 __Ltext55 0 0 ABS 0 text55 dist/default/production/pulsonic.X.production.obj
 __Ltext56 0 0 ABS 0 text56 dist/default/production/pulsonic.X.production.obj
-__ramtop 800 0 RAM 0 ramtop /tmp/xcXHd78Xb.obj
-_nozzle_moveto 1EA2 0 CODE 0 text1 dist/default/production/pulsonic.X.production.obj
+__Ltext57 0 0 ABS 0 text57 dist/default/production/pulsonic.X.production.obj
+__ramtop 800 0 RAM 0 ramtop /tmp/xcXjmfDet.obj
+_nozzle_moveto 1ED4 0 CODE 0 text2 dist/default/production/pulsonic.X.production.obj
 __Lpowerup E 0 CODE 0 powerup dist/default/production/pulsonic.X.production.obj
 __Leeprom_data 0 0 EEDATA 0 eeprom_data dist/default/production/pulsonic.X.production.obj
 __psmallconst 800 0 SMALLCONST 0 smallconst dist/default/production/pulsonic.X.production.obj
-__end_of_mpap_normal_mode 1D04 0 CODE 0 text48 dist/default/production/pulsonic.X.production.obj
+__end_of_mpap_normal_mode 1D02 0 CODE 0 text49 dist/default/production/pulsonic.X.production.obj
 __Lreset_vec 0 0 CODE 0 reset_vec dist/default/production/pulsonic.X.production.obj
-_disp_show_quantity E3E 0 CODE 0 text34 dist/default/production/pulsonic.X.production.obj
-__end_of_mpap_sych 1A02 0 CODE 0 text3 dist/default/production/pulsonic.X.production.obj
-__end_of_mpap_setupToHomming 1FA8 0 CODE 0 text4 dist/default/production/pulsonic.X.production.obj
+_disp_show_quantity E3E 0 CODE 0 text35 dist/default/production/pulsonic.X.production.obj
+__end_of_mpap_sych 1A0A 0 CODE 0 text4 dist/default/production/pulsonic.X.production.obj
+__end_of_mpap_setupToHomming 1FDC 0 CODE 0 text5 dist/default/production/pulsonic.X.production.obj
 __size_of_mpap_normal_mode 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 ___param_bank 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __CFG_WDT$OFF 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
@@ -1405,29 +1428,30 @@ __size_of_mpap_sych 0 0 ABS 0 - dist/default/production/pulsonic.X.production.ob
 display7s_job@q 3F 0 COMRAM 1 bssCOMRAM dist/default/production/pulsonic.X.production.obj
 __Hbigdata 0 0 BIGRAM 1 bigdata dist/default/production/pulsonic.X.production.obj
 ___ftmul@exp 1C 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-__end_of__initialization 1AD8 0 CODE 0 cinit dist/default/production/pulsonic.X.production.obj
+__end_of__initialization 1AD4 0 CODE 0 cinit dist/default/production/pulsonic.X.production.obj
 __Libigdata 0 0 CODE 0 ibigdata dist/default/production/pulsonic.X.production.obj
-__end_of_mpap_setupToTurn 1EA2 0 CODE 0 text5 dist/default/production/pulsonic.X.production.obj
-__pidataBANK0 1F5E 0 CODE 0 idataBANK0 dist/default/production/pulsonic.X.production.obj
+__end_of_mpap_setupToTurn 1ED4 0 CODE 0 text6 dist/default/production/pulsonic.X.production.obj
+__pidataBANK0 1F72 0 CODE 0 idataBANK0 dist/default/production/pulsonic.X.production.obj
+pump_tick@sm0 43 0 COMRAM 1 bssCOMRAM dist/default/production/pulsonic.X.production.obj
 __Lclrtext 0 0 ABS 0 clrtext dist/default/production/pulsonic.X.production.obj
 ___ftpack@sign F 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __CFG_FOSC$HSPLL_HS 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __size_of_mpap_setupToTurn 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __pcstackCOMRAM 1 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 _mpap_step C9 0 BANK0 1 dataBANK0 dist/default/production/pulsonic.X.production.obj
-_mpap_sych 1982 0 CODE 0 text3 dist/default/production/pulsonic.X.production.obj
+_mpap_sych 198A 0 CODE 0 text4 dist/default/production/pulsonic.X.production.obj
 __size_of_display7s_init 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 __CFG_PWRT$ON 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
-__end_of_itoa 1E72 0 CODE 0 text35 dist/default/production/pulsonic.X.production.obj
-__end_of_main 1524 0 CODE 0 text0 dist/default/production/pulsonic.X.production.obj
-__end_of_utoa 1982 0 CODE 0 text36 dist/default/production/pulsonic.X.production.obj
+__end_of_itoa 1EA4 0 CODE 0 text36 dist/default/production/pulsonic.X.production.obj
+__end_of_main 152C 0 CODE 0 text0 dist/default/production/pulsonic.X.production.obj
+__end_of_utoa 198A 0 CODE 0 text37 dist/default/production/pulsonic.X.production.obj
 __pintcode 8 0 CODE 0 intcode dist/default/production/pulsonic.X.production.obj
-__end_of_multiplexedDisp0_on 2024 0 CODE 0 text31 dist/default/production/pulsonic.X.production.obj
-__end_of_multiplexedDisp1_on 201C 0 CODE 0 text29 dist/default/production/pulsonic.X.production.obj
-__end_of_multiplexedDisp2_on 2014 0 CODE 0 text27 dist/default/production/pulsonic.X.production.obj
-__end_of_multiplexedDisp3_on 200C 0 CODE 0 text25 dist/default/production/pulsonic.X.production.obj
-__end_of_multiplexedDisp4_on 202C 0 CODE 0 text33 dist/default/production/pulsonic.X.production.obj
-__end_of_multiplexedDisp_job 18EE 0 CODE 0 text21 dist/default/production/pulsonic.X.production.obj
+__end_of_multiplexedDisp0_on 2058 0 CODE 0 text32 dist/default/production/pulsonic.X.production.obj
+__end_of_multiplexedDisp1_on 2050 0 CODE 0 text30 dist/default/production/pulsonic.X.production.obj
+__end_of_multiplexedDisp2_on 2048 0 CODE 0 text28 dist/default/production/pulsonic.X.production.obj
+__end_of_multiplexedDisp3_on 2040 0 CODE 0 text26 dist/default/production/pulsonic.X.production.obj
+__end_of_multiplexedDisp4_on 2060 0 CODE 0 text34 dist/default/production/pulsonic.X.production.obj
+__end_of_multiplexedDisp_job 18F6 0 CODE 0 text22 dist/default/production/pulsonic.X.production.obj
 _CMCON FB4 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 mpap_setupToTurn@numSteps_tomove 11 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 _PORTC F82 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
@@ -1452,13 +1476,13 @@ __Lsfr 0 0 ABS 0 sfr dist/default/production/pulsonic.X.production.obj
 __size_of_ikey_clear_all_flag 0 0 ABS 0 - dist/default/production/pulsonic.X.production.obj
 mpap_normal_mode@cod_ret 2 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 ___fttol@sign1 2B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
-disp_show_quantity@buff D1 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
-disp_show_quantity@real DB 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
+disp_show_quantity@buff D3 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
+disp_show_quantity@real DD 0 BANK0 1 cstackBANK0 dist/default/production/pulsonic.X.production.obj
 __HdataBANK0 0 0 ABS 0 dataBANK0 dist/default/production/pulsonic.X.production.obj
-__initialization 1A76 0 CODE 0 cinit dist/default/production/pulsonic.X.production.obj
+__initialization 1A7E 0 CODE 0 cinit dist/default/production/pulsonic.X.production.obj
 __pbssBANK0 60 0 BANK0 1 bssBANK0 dist/default/production/pulsonic.X.production.obj
 __pbssBANK1 100 0 BANK1 1 bssBANK1 dist/default/production/pulsonic.X.production.obj
-__pdataCOMRAM 44 0 COMRAM 1 dataCOMRAM dist/default/production/pulsonic.X.production.obj
+__pdataCOMRAM 46 0 COMRAM 1 dataCOMRAM dist/default/production/pulsonic.X.production.obj
 ikey_clear_all_flag@i B 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
 __Hfardata 0 0 FARRAM 0 fardata dist/default/production/pulsonic.X.production.obj
 ___wmul@product F 0 COMRAM 1 cstackCOMRAM dist/default/production/pulsonic.X.production.obj
@@ -1494,10 +1518,10 @@ ___ftmul@f3_as_product 1D 0 COMRAM 1 cstackCOMRAM dist/default/production/pulson
 # All other numeric quantities are in decimal.
 %SEGMENTS
 idloc 0 200000 200000 8 1
-text14 0 80E 80E 1821 1
+text15 0 80E 80E 1853 1
 cstackCOMRAM 1 1 1 47 1
 reset_vec 0 0 0 4 1
-bssBANK0 1 60 60 84 1
+bssBANK0 1 60 60 86 1
 bssBANK1 1 100 100 7B 1
 intcode 0 8 8 A 1
 smallconst 0 800 800 E 1

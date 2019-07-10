@@ -3,8 +3,8 @@
 #include "mpap.h"
 #include "types.h"
 #include "pulsonic.h"
-//////////////////////////////////////////////////////
-//Secuencia Normal
+/////////////////UNIPOLAR /////////////////////////////////////
+//Secuencia Full unipolar 
 //        LATD = 0B00001100;
 //        __delay_ms(1);
 //        LATD = 0B00000110;
@@ -32,37 +32,37 @@
 //        __delay_ms(1);
 static void _mpap_step1(void)
 {
-//    PinTo0(PORTWxSTEPPERBIP0_A, PINxSTEPPERBIP0_A);
-//    PinTo0(PORTWxSTEPPERBIP0_B, PINxSTEPPERBIP0_B);
-//    PinTo1(PORTWxSTEPPERBIP0_C, PINxSTEPPERBIP0_C);
-//    PinTo1(PORTWxSTEPPERBIP0_D, PINxSTEPPERBIP0_D);
+//    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
+//    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
+//    PinTo1(PORTWxSTEPPER_C, PINxSTEPPER_C);
+//    PinTo1(PORTWxSTEPPER_D, PINxSTEPPER_D);
     //LATD = 0x0C;
     LATD = 0x08;
 }
 static void _mpap_step2(void)
 {
-//    PinTo0(PORTWxSTEPPERBIP0_A, PINxSTEPPERBIP0_A);
-//    PinTo1(PORTWxSTEPPERBIP0_B, PINxSTEPPERBIP0_B);
-//    PinTo1(PORTWxSTEPPERBIP0_C, PINxSTEPPERBIP0_C);
-//    PinTo0(PORTWxSTEPPERBIP0_D, PINxSTEPPERBIP0_D);
+//    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
+//    PinTo1(PORTWxSTEPPER_B, PINxSTEPPER_B);
+//    PinTo1(PORTWxSTEPPER_C, PINxSTEPPER_C);
+//    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
     //LATD = 0x06;
     LATD = 0x04;
 }
 static void _mpap_step3(void)
 {
-//    PinTo1(PORTWxSTEPPERBIP0_A, PINxSTEPPERBIP0_A);
-//    PinTo1(PORTWxSTEPPERBIP0_B, PINxSTEPPERBIP0_B);
-//    PinTo0(PORTWxSTEPPERBIP0_C, PINxSTEPPERBIP0_C);
-//    PinTo0(PORTWxSTEPPERBIP0_D, PINxSTEPPERBIP0_D);
+//    PinTo1(PORTWxSTEPPER_A, PINxSTEPPER_A);
+//    PinTo1(PORTWxSTEPPER_B, PINxSTEPPER_B);
+//    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
+//    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
     //LATD = 0x03;
     LATD = 0x02;
 }
 static void _mpap_step4(void)
 {
-//    PinTo1(PORTWxSTEPPERBIP0_A, PINxSTEPPERBIP0_A);
-//    PinTo0(PORTWxSTEPPERBIP0_B, PINxSTEPPERBIP0_B);
-//    PinTo0(PORTWxSTEPPERBIP0_C, PINxSTEPPERBIP0_C);
-//    PinTo1(PORTWxSTEPPERBIP0_D, PINxSTEPPERBIP0_D);
+//    PinTo1(PORTWxSTEPPER_A, PINxSTEPPER_A);
+//    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
+//    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
+//    PinTo1(PORTWxSTEPPER_D, PINxSTEPPER_D);
     //LATD = 0x09;
     LATD = 0x01;
 }
@@ -74,10 +74,10 @@ PTRFX_retVOID mpap_step[4] =
 
 static inline void _mpap_off(void)
 {
-    PinTo0(PORTWxSTEPPERBIP0_A, PINxSTEPPERBIP0_A);
-    PinTo0(PORTWxSTEPPERBIP0_B, PINxSTEPPERBIP0_B);
-    PinTo0(PORTWxSTEPPERBIP0_C, PINxSTEPPERBIP0_C);
-    PinTo0(PORTWxSTEPPERBIP0_D, PINxSTEPPERBIP0_D);
+    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
+    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
+    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
+    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
 }
 PTRFX_retVOID mpap_off= {_mpap_off};//PTRFX_retVOID mpap_off[NUM_STEPPER_BIPOLAR]= {_mpap_off};
 
@@ -100,19 +100,17 @@ void mpap_setupToTurn(int16_t numSteps_tomove)//posAbs_insteps: Absoulte positio
 }
 void mpap_setupToHomming(void)
 {
-    
-    
     mpap_setupToTurn( -1 *( (NOZZLE_NUMMAX*MPAP_NUMSTEP_1NOZZLE) +20));//direccion negativa
     //mpap.numSteps_current = 0x0000; //Obligaria al sistema a reponer el sensor
                                       //y arrancar desde 0
-
     mpap.mode = HOMMING_MODE;
 }
 void nozzle_moveto(int8_t nozzle)//0..NOZZLE_NUMMAX-1
 {
 	//mpap_setupToTurn( nozzle * MPAP_NUMSTEP_1NOZZLE);//se escala	
-    mpap.mode = NORMAL_MODE;
     mpap_setupToTurn( (nozzle*MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current);
+    
+    mpap.mode = NORMAL_MODE;
 }
 //int8_t nozzle_get_pos(void)//trunca, es solo referencial
 //{return (mpap.numSteps_current/MPAP_NUMSTEP_1NOZZLE);
@@ -125,7 +123,7 @@ void nozzle_moveto(int8_t nozzle)//0..NOZZLE_NUMMAX-1
 //{
 //	mpap.numSteps_tomove = 0x00;//mpap.flag.run = 0;
 //	mpap_off();
-//    //STEPPERBIP0_DISABLE();
+//    //STEPPER_DISABLE();
 //}
 void mpap_do1step(int8_t KI)//DIRECION +1 Pos, -1 negativo
 {
@@ -156,7 +154,7 @@ int8_t mpap_homming(void)
 		//
 		mpap.counter_steps+= mpap.KI;   //inc/dec +-1
                                 		//mpap.numSteps_current += mpap.counter_steps;//siempre mantiene la posicion 
-        if (PinRead(PORTRxSTEPPERBIP0_SENSOR_HOME, PINxSTEPPERBIP0_SENSOR_HOME) == 0)
+        if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 0)
         {
             mpap.numSteps_tomove = 0x0000;
             cod_ret = 1;
@@ -208,6 +206,63 @@ int8_t mpap_job(void)//se ejecuta desde la rutina de interrupcion
         mpap.mode = IDLE_MODE;
     }
 	return cod_ret;
+}
+
+ 
+void mpap_sych(void)//synch ISR
+{
+    static int8_t sm0;
+    static int8_t c;
+    if (sm0 == 0)//acepta ordenes
+    {
+        if ((mpap.mode == NORMAL_MODE) || (mpap.mode == HOMMING_MODE))
+        {
+            sm0++;
+        }
+        else if (mpap.mode == STALL_MODE)
+        {
+            sm0 = 2;
+        }
+    }
+    else if (sm0 == 1)//acabo un movimiento
+    {
+        if (mpap.numSteps_tomove == 0)//termino de mover?
+        {
+            if (mpap.mode == HOMMING_MODE)
+            {
+                if ( pulsonic.errors.flag.mpap_home_sensor == 1)
+                {
+                    pulsonic.errors.flag.mpap_home_sensor = 0;//clear flag
+                    //marcar error de Sensor de posicion en el display
+                }
+            }
+            else if (mpap.mode == NORMAL_MODE)
+            {
+            }
+            sm0++;
+            c = 0;
+        }
+    }
+    else if (sm0 == 2)
+    {
+        if (main_flag.f1ms)
+        {
+            if (++c == 10)
+            {
+                //c = 0;
+                mpap.mode = STALL_MODE;
+                sm0++;
+            }
+        }
+    }
+    else if (sm0 == 3)
+    {
+        if (mpap.mode == IDLE_MODE)
+        {
+            //libera para estar apto a cualquier orden
+            sm0 = 0;
+        }
+    }
 }
 /*
 void mpap_test(void)

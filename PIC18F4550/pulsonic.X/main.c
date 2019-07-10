@@ -33,19 +33,37 @@ volatile struct _isr_flag
 } isr_flag = {0};
 volatile struct _main_flag main_flag;
 
-//PUMP MOTOR
-#define PORTWxPUMP LATE
-#define PORTRxPUMP PORTE
-#define CONFIGIOxPUMP TRISE
-#define PINxPUMP  0
 
-#define PUMP_DISABLE()  do{PinTo1(PORTWxPUMP, PINxPUMP);}while(0)
-#define PUMP_ENABLE()   do{PinTo0(PORTWxPUMP, PINxPUMP);}while(0)
-   
 extern struct _multiplexedDisp multiplexedDisp[DISP_TOTAL_NUMMAX];
 
-void mpap_sych(void);
 
+
+int8_t pump_tick(void)
+{
+    int8_t cod_ret = 0;
+    static int8_t sm0;
+    static int8_t c;
+    
+    if (sm0 == 0)
+    {
+        PUMP_ENABLE();
+        c = 0x0;
+        sm0++;
+    }
+    else if (sm0 == 1)
+    {
+        if (main_flag.f1ms)
+        {
+            if (++c == 100)
+            {
+                c = 0;
+                PUMP_DISABLE();
+                cod_ret = 1;
+            }
+        }
+    }
+    return cod_ret;
+}
 void main(void) 
 {
     int8_t c_access_kb=0;
@@ -75,16 +93,19 @@ void main(void)
     PUMP_DISABLE();
     ConfigOutputPin(CONFIGIOxPUMP, PINxPUMP);
     
-    ConfigOutputPin(CONFIGIOxSTEPPERBIP0_A, PINxSTEPPERBIP0_A);
-    ConfigOutputPin(CONFIGIOxSTEPPERBIP0_B, PINxSTEPPERBIP0_B);
-    ConfigOutputPin(CONFIGIOxSTEPPERBIP0_C, PINxSTEPPERBIP0_C);
-    ConfigOutputPin(CONFIGIOxSTEPPERBIP0_D, PINxSTEPPERBIP0_D);
+    ConfigOutputPin(CONFIGIOxSTEPPER_A, PINxSTEPPER_A);
+    ConfigOutputPin(CONFIGIOxSTEPPER_B, PINxSTEPPER_B);
+    ConfigOutputPin(CONFIGIOxSTEPPER_C, PINxSTEPPER_C);
+    ConfigOutputPin(CONFIGIOxSTEPPER_D, PINxSTEPPER_D);
     
-    STEPPERBIP0_ENABLE();
-    ConfigOutputPin(CONFIGIOxSTEPPERBIP0_ENABLE, PINxSTEPPERBIP0_ENABLE);
+    STEPPER_ENABLE();
+    ConfigOutputPin(CONFIGIOxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);
     //
-    ConfigInputPin(CONFIGIOxSTEPPERBIP0_SENSOR_HOME, PINxSTEPPERBIP0_SENSOR_HOME);
+    ConfigInputPin(CONFIGIOxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME);
 
+    ConfigInputPin(CONFIGIOxLEVELOIL, PINxLEVELOIL);//ext. pullup
+    ConfigInputPin(CONFIGIOxSTARTSIGNAL, PINxSTARTSIGNAL);//ext. pullup
+    
     display7s_init();
     ikb_init();
     
@@ -126,7 +147,9 @@ void main(void)
                 }
                 if (ikb_key_is_ready2read(4))
                 {
-                    nozzle_moveto(4);
+                    //nozzle_moveto(4);
+//                    while (pump_tick())
+//                        ;
                 }
             }
             
@@ -137,71 +160,15 @@ void main(void)
             }
         }
         mpap_sych();
+        
         //////////
         main_flag.f1ms = 0;
         ikb_flush();
     }
 }
-
-void mpap_sych(void)//synch ISR
-{
-    static int8_t sm0;
-    static int8_t c;
-    if (sm0 == 0)//acepta ordenes
-    {
-        if ((mpap.mode == NORMAL_MODE) || (mpap.mode == HOMMING_MODE))
-        {
-            sm0++;
-        }
-        else if (mpap.mode == STALL_MODE)
-        {
-            sm0 = 2;
-        }
-    }
-    else if (sm0 == 1)//acabo un movimiento
-    {
-        if (mpap.numSteps_tomove == 0)//termino de mover?
-        {
-            if (mpap.mode == HOMMING_MODE)
-            {
-                if ( pulsonic.errors.flag.mpap_home_sensor == 1)
-                {
-                    pulsonic.errors.flag.mpap_home_sensor = 0;//clear flag
-                    //marcar error de Sensor de posicion en el display
-                }
-            }
-            else if (mpap.mode == NORMAL_MODE)
-            {
-            }
-            sm0++;
-            c = 0;
-        }
-    }
-    else if (sm0 == 2)
-    {
-        if (main_flag.f1ms)
-        {
-            if (++c == 10)
-            {
-                //c = 0;
-                mpap.mode = STALL_MODE;
-                sm0++;
-            }
-        }
-    }
-    else if (sm0 == 3)
-    {
-        if (mpap.mode == IDLE_MODE)
-        {
-            //libera para estar apto a cualquier orden
-            sm0 = 0;
-        }
-    }
-}
     
 void interrupt INTERRUPCION(void)//@1ms 
 {
-    //static uint8_t cm = 0;
     if (TMR0IF)
     {
         isr_flag.f1ms = 1;

@@ -5,15 +5,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 "10 main.h
 [s S366 :1 `uc 1 :7 `uc 1 ]
 [n S366 _main_flag f1ms __a ]
+"3375 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
+[v _LATE `Vuc ~T0 @X0 0 e@3981 ]
 [p mainexit ]
-"2973 /opt/microchip/xc8/v2.05/pic/include/pic18f4550.h
+"2973
 [v _LATA `Vuc ~T0 @X0 0 e@3977 ]
 "3185
 [v _LATC `Vuc ~T0 @X0 0 e@3979 ]
 "3263
 [v _LATD `Vuc ~T0 @X0 0 e@3980 ]
-"3375
-[v _LATE `Vuc ~T0 @X0 0 e@3981 ]
 "3073
 [v _LATB `Vuc ~T0 @X0 0 e@3978 ]
 "6581
@@ -56,7 +56,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _nozzle_moveto `(v ~T0 @X0 0 ef1`c ]
 "60 pulsonic.h
 [v _display7s_job `(v ~T0 @X0 0 ef ]
-"47 main.c
+"39 main.c
 [v _mpap_sych `(v ~T0 @X0 0 ef ]
 "310 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h
 [v _ikb_flush `(v ~T0 @X0 0 ef ]
@@ -65,7 +65,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S372 _mpap numSteps_current counter_steps numSteps_tomove KI mode ]
 "32
 [v _mpap `VS372 ~T0 @X0 0 e ]
-"166 main.c
+"178 main.c
 [c E3311 0 1 2 3 .. ]
 [n E3311 MPAP_MODES IDLE_MODE STALL_MODE HOMMING_MODE NORMAL_MODE  ]
 "36 pulsonic.h
@@ -3826,517 +3826,640 @@ Version 3.2 HI-TECH Software Intermediate Code
 "34
 [v _main_flag `VS366 ~T0 @X0 1 e ]
 [; ;main.c: 34: volatile struct _main_flag main_flag;
-[; ;main.c: 45: extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
-[; ;main.c: 47: void mpap_sych(void);
-[v $root$_main `(v ~T0 @X0 0 e ]
-"49
-[v _main `(v ~T0 @X0 1 ef ]
-"50
+[; ;main.c: 37: extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
+[; ;main.c: 39: void mpap_sych(void);
+"41
+[v _pump_tick `(c ~T0 @X0 1 ef ]
+"42
 {
-[; ;main.c: 49: void main(void)
-[; ;main.c: 50: {
-[e :U _main ]
+[; ;main.c: 41: int8_t pump_tick(void)
+[; ;main.c: 42: {
+[e :U _pump_tick ]
 [f ]
-"51
-[v _c_access_kb `c ~T0 @X0 1 a ]
-[; ;main.c: 51: int8_t c_access_kb=0;
-[e = _c_access_kb -> -> 0 `i `c ]
-"52
-[v _c_access_disp `c ~T0 @X0 1 a ]
-[; ;main.c: 52: int8_t c_access_disp=0;
-[e = _c_access_disp -> -> 0 `i `c ]
-[; ;main.c: 54: LATA = 0x00;
-"54
-[e = _LATA -> -> 0 `i `uc ]
-[; ;main.c: 55: LATC = 0x00;
-"55
-[e = _LATC -> -> 0 `i `uc ]
-[; ;main.c: 56: LATD = 0x00;
-"56
-[e = _LATD -> -> 0 `i `uc ]
-[; ;main.c: 57: LATE = 0x00;
-"57
-[e = _LATE -> -> 0 `i `uc ]
-[; ;main.c: 58: LATB = 0x00;
-"58
-[e = _LATB -> -> 0 `i `uc ]
-[; ;main.c: 62: ADCON1 = 0x0F;
-"62
-[e = _ADCON1 -> -> 15 `i `uc ]
-[; ;main.c: 63: CMCON=0xCF;
-"63
-[e = _CMCON -> -> 207 `i `uc ]
-[; ;main.c: 66: UCON = 0;
-"66
-[e = _UCON -> -> 0 `i `uc ]
-[; ;main.c: 67: UCFG = 1<<3;
-"67
-[e = _UCFG -> << -> 1 `i -> 3 `i `uc ]
-[; ;main.c: 68: T0CON = 0B10000111;
-"68
-[e = _T0CON -> -> 135 `i `uc ]
-[; ;main.c: 71: TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ) >> 8);
-"71
-[e = _TMR0H -> >> -> - -> << -> 1 `ul -> 16 `i `d / * .1.0e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui -> 8 `i `uc ]
-[; ;main.c: 72: TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
-"72
-[e = _TMR0L -> -> - -> << -> 1 `ul -> 16 `i `d / * .1.0e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui `uc ]
-[; ;main.c: 73: TMR0IE = 1;
-"73
-[e = _TMR0IE -> -> 1 `i `b ]
-[; ;main.c: 75: do{do{LATE |= 1<<0;}while(0);}while(0);
-"75
-[e :U 377 ]
+"43
+[v _cod_ret `c ~T0 @X0 1 a ]
+[; ;main.c: 43: int8_t cod_ret = 0;
+[e = _cod_ret -> -> 0 `i `c ]
+"44
+[v F3360 `c ~T0 @X0 1 s sm0 ]
+"45
+[v F3361 `c ~T0 @X0 1 s c ]
+[; ;main.c: 44: static int8_t sm0;
+[; ;main.c: 45: static int8_t c;
+[; ;main.c: 47: if (sm0 == 0)
+"47
+[e $ ! == -> F3360 `i -> 0 `i 375  ]
+[; ;main.c: 48: {
+"48
 {
+[; ;main.c: 49: do{do{LATE &= ~(1<<0);}while(0);}while(0);
+"49
+[e :U 378 ]
+{
+[e :U 381 ]
+{
+[e =& _LATE -> ~ << -> 1 `i -> 0 `i `uc ]
+}
 [e :U 380 ]
+}
+[e :U 377 ]
+[; ;main.c: 50: c = 0x0;
+"50
+[e = F3361 -> -> 0 `i `c ]
+[; ;main.c: 51: sm0++;
+"51
+[e ++ F3360 -> -> 1 `i `c ]
+"52
+}
+[; ;main.c: 52: }
+[e $U 382  ]
+"53
+[e :U 375 ]
+[; ;main.c: 53: else if (sm0 == 1)
+[e $ ! == -> F3360 `i -> 1 `i 383  ]
+[; ;main.c: 54: {
+"54
+{
+[; ;main.c: 55: if (main_flag.f1ms)
+"55
+[e $ ! != -> . _main_flag 0 `i -> -> -> 0 `i `Vuc `i 384  ]
+[; ;main.c: 56: {
+"56
+{
+[; ;main.c: 57: if (++c == 100)
+"57
+[e $ ! == -> =+ F3361 -> -> 1 `i `c `i -> 100 `i 385  ]
+[; ;main.c: 58: {
+"58
+{
+[; ;main.c: 59: c = 0;
+"59
+[e = F3361 -> -> 0 `i `c ]
+[; ;main.c: 60: do{do{LATE |= 1<<0;}while(0);}while(0);
+"60
+[e :U 388 ]
+{
+[e :U 391 ]
 {
 [e =| _LATE -> << -> 1 `i -> 0 `i `uc ]
 }
-[e :U 379 ]
+[e :U 390 ]
 }
-[e :U 376 ]
-[; ;main.c: 76: do{TRISE &= ~(1<<0);}while(0);
-"76
+[e :U 387 ]
+[; ;main.c: 61: cod_ret = 1;
+"61
+[e = _cod_ret -> -> 1 `i `c ]
+"62
+}
+[e :U 385 ]
+"63
+}
+[e :U 384 ]
+"64
+}
 [e :U 383 ]
+"65
+[e :U 382 ]
+[; ;main.c: 62: }
+[; ;main.c: 63: }
+[; ;main.c: 64: }
+[; ;main.c: 65: return cod_ret;
+[e ) _cod_ret ]
+[e $UE 374  ]
+[; ;main.c: 66: }
+"66
+[e :UE 374 ]
+}
+[v $root$_main `(v ~T0 @X0 0 e ]
+"67
+[v _main `(v ~T0 @X0 1 ef ]
+"68
+{
+[; ;main.c: 67: void main(void)
+[; ;main.c: 68: {
+[e :U _main ]
+[f ]
+"69
+[v _c_access_kb `c ~T0 @X0 1 a ]
+[; ;main.c: 69: int8_t c_access_kb=0;
+[e = _c_access_kb -> -> 0 `i `c ]
+"70
+[v _c_access_disp `c ~T0 @X0 1 a ]
+[; ;main.c: 70: int8_t c_access_disp=0;
+[e = _c_access_disp -> -> 0 `i `c ]
+[; ;main.c: 72: LATA = 0x00;
+"72
+[e = _LATA -> -> 0 `i `uc ]
+[; ;main.c: 73: LATC = 0x00;
+"73
+[e = _LATC -> -> 0 `i `uc ]
+[; ;main.c: 74: LATD = 0x00;
+"74
+[e = _LATD -> -> 0 `i `uc ]
+[; ;main.c: 75: LATE = 0x00;
+"75
+[e = _LATE -> -> 0 `i `uc ]
+[; ;main.c: 76: LATB = 0x00;
+"76
+[e = _LATB -> -> 0 `i `uc ]
+[; ;main.c: 80: ADCON1 = 0x0F;
+"80
+[e = _ADCON1 -> -> 15 `i `uc ]
+[; ;main.c: 81: CMCON=0xCF;
+"81
+[e = _CMCON -> -> 207 `i `uc ]
+[; ;main.c: 84: UCON = 0;
+"84
+[e = _UCON -> -> 0 `i `uc ]
+[; ;main.c: 85: UCFG = 1<<3;
+"85
+[e = _UCFG -> << -> 1 `i -> 3 `i `uc ]
+[; ;main.c: 86: T0CON = 0B10000111;
+"86
+[e = _T0CON -> -> 135 `i `uc ]
+[; ;main.c: 89: TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ) >> 8);
+"89
+[e = _TMR0H -> >> -> - -> << -> 1 `ul -> 16 `i `d / * .1.0e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui -> 8 `i `uc ]
+[; ;main.c: 90: TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
+"90
+[e = _TMR0L -> -> - -> << -> 1 `ul -> 16 `i `d / * .1.0e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui `uc ]
+[; ;main.c: 91: TMR0IE = 1;
+"91
+[e = _TMR0IE -> -> 1 `i `b ]
+[; ;main.c: 93: do{do{LATE |= 1<<0;}while(0);}while(0);
+"93
+[e :U 395 ]
+{
+[e :U 398 ]
+{
+[e =| _LATE -> << -> 1 `i -> 0 `i `uc ]
+}
+[e :U 397 ]
+}
+[e :U 394 ]
+[; ;main.c: 94: do{TRISE &= ~(1<<0);}while(0);
+"94
+[e :U 401 ]
 {
 [e =& _TRISE -> ~ << -> 1 `i -> 0 `i `uc ]
 }
-[e :U 382 ]
-[; ;main.c: 78: do{TRISD &= ~(1<<0);}while(0);
-"78
-[e :U 386 ]
+[e :U 400 ]
+[; ;main.c: 96: do{TRISD &= ~(1<<0);}while(0);
+"96
+[e :U 404 ]
 {
 [e =& _TRISD -> ~ << -> 1 `i -> 0 `i `uc ]
 }
-[e :U 385 ]
-[; ;main.c: 79: do{TRISD &= ~(1<<1);}while(0);
-"79
-[e :U 389 ]
+[e :U 403 ]
+[; ;main.c: 97: do{TRISD &= ~(1<<1);}while(0);
+"97
+[e :U 407 ]
 {
 [e =& _TRISD -> ~ << -> 1 `i -> 1 `i `uc ]
 }
-[e :U 388 ]
-[; ;main.c: 80: do{TRISD &= ~(1<<2);}while(0);
-"80
-[e :U 392 ]
+[e :U 406 ]
+[; ;main.c: 98: do{TRISD &= ~(1<<2);}while(0);
+"98
+[e :U 410 ]
 {
 [e =& _TRISD -> ~ << -> 1 `i -> 2 `i `uc ]
 }
-[e :U 391 ]
-[; ;main.c: 81: do{TRISD &= ~(1<<3);}while(0);
-"81
-[e :U 395 ]
+[e :U 409 ]
+[; ;main.c: 99: do{TRISD &= ~(1<<3);}while(0);
+"99
+[e :U 413 ]
 {
 [e =& _TRISD -> ~ << -> 1 `i -> 3 `i `uc ]
 }
-[e :U 394 ]
-[; ;main.c: 83: do{do{LATC &= ~(1<<1);}while(0);}while(0);
-"83
-[e :U 398 ]
+[e :U 412 ]
+[; ;main.c: 101: do{do{LATC &= ~(1<<1);}while(0);}while(0);
+"101
+[e :U 416 ]
 {
-[e :U 401 ]
+[e :U 419 ]
 {
 [e =& _LATC -> ~ << -> 1 `i -> 1 `i `uc ]
 }
-[e :U 400 ]
+[e :U 418 ]
 }
-[e :U 397 ]
-[; ;main.c: 84: do{TRISC &= ~(1<<1);}while(0);
-"84
-[e :U 404 ]
+[e :U 415 ]
+[; ;main.c: 102: do{TRISC &= ~(1<<1);}while(0);
+"102
+[e :U 422 ]
 {
 [e =& _TRISC -> ~ << -> 1 `i -> 1 `i `uc ]
 }
-[e :U 403 ]
-[; ;main.c: 86: do{TRISE |= 1<<1;}while(0);
-"86
-[e :U 407 ]
+[e :U 421 ]
+[; ;main.c: 104: do{TRISE |= 1<<1;}while(0);
+"104
+[e :U 425 ]
 {
 [e =| _TRISE -> << -> 1 `i -> 1 `i `uc ]
 }
-[e :U 406 ]
-[; ;main.c: 88: display7s_init();
-"88
-[e ( _display7s_init ..  ]
-[; ;main.c: 89: ikb_init();
-"89
-[e ( _ikb_init ..  ]
-[; ;main.c: 91: disp_show_quantity(77.7);
-"91
-[e ( _disp_show_quantity (1 .77.7 ]
-[; ;main.c: 96: GIE = 1;
-"96
-[e = _GIE -> -> 1 `i `b ]
-[; ;main.c: 106: mpap_setupToHomming();
+[e :U 424 ]
+[; ;main.c: 106: do{TRISC |= 1<<0;}while(0);
 "106
-[e ( _mpap_setupToHomming ..  ]
-[; ;main.c: 108: while(1)
-"108
-[e :U 409 ]
-[; ;main.c: 109: {
+[e :U 428 ]
+{
+[e =| _TRISC -> << -> 1 `i -> 0 `i `uc ]
+}
+[e :U 427 ]
+[; ;main.c: 107: do{TRISE |= 1<<2;}while(0);
+"107
+[e :U 431 ]
+{
+[e =| _TRISE -> << -> 1 `i -> 2 `i `uc ]
+}
+[e :U 430 ]
+[; ;main.c: 109: display7s_init();
 "109
-{
-[; ;main.c: 110: if (isr_flag.f1ms)
+[e ( _display7s_init ..  ]
+[; ;main.c: 110: ikb_init();
 "110
-[e $ ! != -> . _isr_flag 0 `i -> -> -> 0 `i `Vuc `i 411  ]
-[; ;main.c: 111: {
-"111
-{
-[; ;main.c: 112: isr_flag.f1ms = 0;
+[e ( _ikb_init ..  ]
+[; ;main.c: 112: disp_show_quantity(77.7);
 "112
-[e = . _isr_flag 0 -> -> 0 `i `uc ]
-[; ;main.c: 113: main_flag.f1ms = 1;
+[e ( _disp_show_quantity (1 .77.7 ]
+[; ;main.c: 113: GIE = 1;
 "113
-[e = . _main_flag 0 -> -> 1 `i `uc ]
-"114
-}
-[e :U 411 ]
-[; ;main.c: 114: }
-[; ;main.c: 117: if (main_flag.f1ms)
+[e = _GIE -> -> 1 `i `b ]
+[; ;main.c: 115: mpap_setupToHomming();
+"115
+[e ( _mpap_setupToHomming ..  ]
+[; ;main.c: 116: while(1)
+"116
+[e :U 433 ]
+[; ;main.c: 117: {
 "117
-[e $ ! != -> . _main_flag 0 `i -> -> -> 0 `i `Vuc `i 412  ]
-[; ;main.c: 118: {
+{
+[; ;main.c: 118: if (isr_flag.f1ms)
 "118
-{
-[; ;main.c: 119: if (++c_access_kb == 20)
+[e $ ! != -> . _isr_flag 0 `i -> -> -> 0 `i `Vuc `i 435  ]
+[; ;main.c: 119: {
 "119
-[e $ ! == -> =+ _c_access_kb -> -> 1 `i `c `i -> 20 `i 413  ]
-[; ;main.c: 120: {
+{
+[; ;main.c: 120: isr_flag.f1ms = 0;
 "120
-{
-[; ;main.c: 121: c_access_kb = 0;
+[e = . _isr_flag 0 -> -> 0 `i `uc ]
+[; ;main.c: 121: main_flag.f1ms = 1;
 "121
-[e = _c_access_kb -> -> 0 `i `c ]
-[; ;main.c: 123: ikb_job();
-"123
-[e ( _ikb_job ..  ]
-[; ;main.c: 125: if (ikb_key_is_ready2read(0))
+[e = . _main_flag 0 -> -> 1 `i `uc ]
+"122
+}
+[e :U 435 ]
+[; ;main.c: 122: }
+[; ;main.c: 124: if (main_flag.f1ms)
+"124
+[e $ ! != -> . _main_flag 0 `i -> -> -> 0 `i `Vuc `i 436  ]
+[; ;main.c: 125: {
 "125
-[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 414  ]
-[; ;main.c: 126: {
+{
+[; ;main.c: 126: if (++c_access_kb == 20)
 "126
-{
-[; ;main.c: 127: nozzle_moveto(0);
+[e $ ! == -> =+ _c_access_kb -> -> 1 `i `c `i -> 20 `i 437  ]
+[; ;main.c: 127: {
 "127
-[e ( _nozzle_moveto (1 -> -> 0 `i `c ]
+{
+[; ;main.c: 128: c_access_kb = 0;
 "128
-}
-[e :U 414 ]
-[; ;main.c: 128: }
-[; ;main.c: 129: if (ikb_key_is_ready2read(1))
-"129
-[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 415  ]
-[; ;main.c: 130: {
+[e = _c_access_kb -> -> 0 `i `c ]
+[; ;main.c: 130: ikb_job();
 "130
-{
-[; ;main.c: 131: nozzle_moveto(1);
-"131
-[e ( _nozzle_moveto (1 -> -> 1 `i `c ]
+[e ( _ikb_job ..  ]
+[; ;main.c: 132: if (ikb_key_is_ready2read(0))
 "132
-}
-[e :U 415 ]
-[; ;main.c: 132: }
-[; ;main.c: 133: if (ikb_key_is_ready2read(2))
+[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 438  ]
+[; ;main.c: 133: {
 "133
-[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 2 `i `uc `i -> -> -> 0 `i `uc `i 416  ]
-[; ;main.c: 134: {
+{
+[; ;main.c: 134: nozzle_moveto(0);
 "134
-{
-[; ;main.c: 135: nozzle_moveto(2);
+[e ( _nozzle_moveto (1 -> -> 0 `i `c ]
 "135
-[e ( _nozzle_moveto (1 -> -> 2 `i `c ]
+}
+[e :U 438 ]
+[; ;main.c: 135: }
+[; ;main.c: 136: if (ikb_key_is_ready2read(1))
 "136
-}
-[e :U 416 ]
-[; ;main.c: 136: }
-[; ;main.c: 137: if (ikb_key_is_ready2read(3))
+[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 439  ]
+[; ;main.c: 137: {
 "137
-[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 3 `i `uc `i -> -> -> 0 `i `uc `i 417  ]
-[; ;main.c: 138: {
+{
+[; ;main.c: 138: nozzle_moveto(1);
 "138
-{
-[; ;main.c: 139: nozzle_moveto(3);
+[e ( _nozzle_moveto (1 -> -> 1 `i `c ]
 "139
-[e ( _nozzle_moveto (1 -> -> 3 `i `c ]
+}
+[e :U 439 ]
+[; ;main.c: 139: }
+[; ;main.c: 140: if (ikb_key_is_ready2read(2))
 "140
-}
-[e :U 417 ]
-[; ;main.c: 140: }
-[; ;main.c: 141: if (ikb_key_is_ready2read(4))
+[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 2 `i `uc `i -> -> -> 0 `i `uc `i 440  ]
+[; ;main.c: 141: {
 "141
-[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 4 `i `uc `i -> -> -> 0 `i `uc `i 418  ]
-[; ;main.c: 142: {
+{
+[; ;main.c: 142: nozzle_moveto(2);
 "142
-{
-[; ;main.c: 143: nozzle_moveto(4);
+[e ( _nozzle_moveto (1 -> -> 2 `i `c ]
 "143
-[e ( _nozzle_moveto (1 -> -> 4 `i `c ]
+}
+[e :U 440 ]
+[; ;main.c: 143: }
+[; ;main.c: 144: if (ikb_key_is_ready2read(3))
 "144
-}
-[e :U 418 ]
+[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 3 `i `uc `i -> -> -> 0 `i `uc `i 441  ]
+[; ;main.c: 145: {
 "145
-}
-[e :U 413 ]
-[; ;main.c: 144: }
-[; ;main.c: 145: }
-[; ;main.c: 147: if (++c_access_disp == 2)
+{
+[; ;main.c: 146: nozzle_moveto(3);
+"146
+[e ( _nozzle_moveto (1 -> -> 3 `i `c ]
 "147
-[e $ ! == -> =+ _c_access_disp -> -> 1 `i `c `i -> 2 `i 419  ]
-[; ;main.c: 148: {
+}
+[e :U 441 ]
+[; ;main.c: 147: }
+[; ;main.c: 148: if (ikb_key_is_ready2read(4))
 "148
-{
-[; ;main.c: 149: c_access_disp = 0;
+[e $ ! != -> ( _ikb_key_is_ready2read (1 -> -> 4 `i `uc `i -> -> -> 0 `i `uc `i 442  ]
+[; ;main.c: 149: {
 "149
-[e = _c_access_disp -> -> 0 `i `c ]
-[; ;main.c: 150: display7s_job();
-"150
-[e ( _display7s_job ..  ]
-"151
-}
-[e :U 419 ]
-"152
-}
-[e :U 412 ]
-[; ;main.c: 151: }
-[; ;main.c: 152: }
-[; ;main.c: 153: mpap_sych();
-"153
-[e ( _mpap_sych ..  ]
-[; ;main.c: 155: main_flag.f1ms = 0;
-"155
-[e = . _main_flag 0 -> -> 0 `i `uc ]
-[; ;main.c: 156: ikb_flush();
-"156
-[e ( _ikb_flush ..  ]
-"157
-}
-[e :U 408 ]
-"108
-[e $U 409  ]
-[e :U 410 ]
-[; ;main.c: 157: }
-[; ;main.c: 158: }
-"158
-[e :UE 374 ]
-}
-"160
-[v _mpap_sych `(v ~T0 @X0 1 ef ]
-"161
 {
-[; ;main.c: 160: void mpap_sych(void)
-[; ;main.c: 161: {
+[; ;main.c: 151: while (pump_tick())
+"151
+[e $U 443  ]
+[e :U 444 ]
+[; ;main.c: 152: ;
+"152
+[e :U 443 ]
+"151
+[e $ != -> ( _pump_tick ..  `i -> -> -> 0 `i `c `i 444  ]
+[e :U 445 ]
+"153
+}
+[e :U 442 ]
+"154
+}
+[e :U 437 ]
+[; ;main.c: 153: }
+[; ;main.c: 154: }
+[; ;main.c: 156: if (++c_access_disp == 2)
+"156
+[e $ ! == -> =+ _c_access_disp -> -> 1 `i `c `i -> 2 `i 446  ]
+[; ;main.c: 157: {
+"157
+{
+[; ;main.c: 158: c_access_disp = 0;
+"158
+[e = _c_access_disp -> -> 0 `i `c ]
+[; ;main.c: 159: display7s_job();
+"159
+[e ( _display7s_job ..  ]
+"160
+}
+[e :U 446 ]
+"161
+}
+[e :U 436 ]
+[; ;main.c: 160: }
+[; ;main.c: 161: }
+[; ;main.c: 162: mpap_sych();
+"162
+[e ( _mpap_sych ..  ]
+[; ;main.c: 165: main_flag.f1ms = 0;
+"165
+[e = . _main_flag 0 -> -> 0 `i `uc ]
+[; ;main.c: 166: ikb_flush();
+"166
+[e ( _ikb_flush ..  ]
+"167
+}
+[e :U 432 ]
+"116
+[e $U 433  ]
+[e :U 434 ]
+[; ;main.c: 167: }
+[; ;main.c: 168: }
+"168
+[e :UE 392 ]
+}
+"172
+[v _mpap_sych `(v ~T0 @X0 1 ef ]
+"173
+{
+[; ;main.c: 172: void mpap_sych(void)
+[; ;main.c: 173: {
 [e :U _mpap_sych ]
 [f ]
-"162
-[v F3366 `c ~T0 @X0 1 s sm0 ]
-"163
-[v F3367 `c ~T0 @X0 1 s c ]
-[; ;main.c: 162: static int8_t sm0;
-[; ;main.c: 163: static int8_t c;
-[; ;main.c: 164: if (sm0 == 0)
-"164
-[e $ ! == -> F3366 `i -> 0 `i 421  ]
-[; ;main.c: 165: {
-"165
-{
-[; ;main.c: 166: if ((mpap.mode == NORMAL_MODE) || (mpap.mode == HOMMING_MODE))
-"166
-[e $ ! || == -> . _mpap 4 `i -> . `E3311 3 `i == -> . _mpap 4 `i -> . `E3311 2 `i 422  ]
-[; ;main.c: 167: {
-"167
-{
-[; ;main.c: 168: sm0++;
-"168
-[e ++ F3366 -> -> 1 `i `c ]
-"169
-}
-[; ;main.c: 169: }
-[e $U 423  ]
-"170
-[e :U 422 ]
-[; ;main.c: 170: else if (mpap.mode == STALL_MODE)
-[e $ ! == -> . _mpap 4 `i -> . `E3311 1 `i 424  ]
-[; ;main.c: 171: {
-"171
-{
-[; ;main.c: 172: sm0 = 2;
-"172
-[e = F3366 -> -> 2 `i `c ]
-"173
-}
-[e :U 424 ]
 "174
-[e :U 423 ]
-}
-[; ;main.c: 173: }
-[; ;main.c: 174: }
-[e $U 425  ]
+[v F3371 `c ~T0 @X0 1 s sm0 ]
 "175
-[e :U 421 ]
-[; ;main.c: 175: else if (sm0 == 1)
-[e $ ! == -> F3366 `i -> 1 `i 426  ]
-[; ;main.c: 176: {
+[v F3372 `c ~T0 @X0 1 s c ]
+[; ;main.c: 174: static int8_t sm0;
+[; ;main.c: 175: static int8_t c;
+[; ;main.c: 176: if (sm0 == 0)
 "176
-{
-[; ;main.c: 177: if (mpap.numSteps_tomove == 0)
+[e $ ! == -> F3371 `i -> 0 `i 448  ]
+[; ;main.c: 177: {
 "177
-[e $ ! == . _mpap 2 -> 0 `i 427  ]
-[; ;main.c: 178: {
+{
+[; ;main.c: 178: if ((mpap.mode == NORMAL_MODE) || (mpap.mode == HOMMING_MODE))
 "178
-{
-[; ;main.c: 179: if (mpap.mode == HOMMING_MODE)
+[e $ ! || == -> . _mpap 4 `i -> . `E3311 3 `i == -> . _mpap 4 `i -> . `E3311 2 `i 449  ]
+[; ;main.c: 179: {
 "179
-[e $ ! == -> . _mpap 4 `i -> . `E3311 2 `i 428  ]
-[; ;main.c: 180: {
+{
+[; ;main.c: 180: sm0++;
 "180
-{
-[; ;main.c: 181: if ( pulsonic.errors.flag.mpap_home_sensor == 1)
+[e ++ F3371 -> -> 1 `i `c ]
 "181
-[e $ ! == -> . . . _pulsonic 5 0 0 `i -> 1 `i 429  ]
-[; ;main.c: 182: {
+}
+[; ;main.c: 181: }
+[e $U 450  ]
 "182
-{
-[; ;main.c: 183: pulsonic.errors.flag.mpap_home_sensor = 0;
+[e :U 449 ]
+[; ;main.c: 182: else if (mpap.mode == STALL_MODE)
+[e $ ! == -> . _mpap 4 `i -> . `E3311 1 `i 451  ]
+[; ;main.c: 183: {
 "183
-[e = . . . _pulsonic 5 0 0 -> -> 0 `i `uc ]
+{
+[; ;main.c: 184: sm0 = 2;
+"184
+[e = F3371 -> -> 2 `i `c ]
 "185
 }
-[e :U 429 ]
+[e :U 451 ]
 "186
+[e :U 450 ]
 }
 [; ;main.c: 185: }
 [; ;main.c: 186: }
-[e $U 430  ]
+[e $U 452  ]
 "187
-[e :U 428 ]
-[; ;main.c: 187: else if (mpap.mode == NORMAL_MODE)
-[e $ ! == -> . _mpap 4 `i -> . `E3311 3 `i 431  ]
+[e :U 448 ]
+[; ;main.c: 187: else if (sm0 == 1)
+[e $ ! == -> F3371 `i -> 1 `i 453  ]
 [; ;main.c: 188: {
 "188
 {
+[; ;main.c: 189: if (mpap.numSteps_tomove == 0)
 "189
-}
-[e :U 431 ]
+[e $ ! == . _mpap 2 -> 0 `i 454  ]
+[; ;main.c: 190: {
 "190
-[e :U 430 ]
-[; ;main.c: 189: }
-[; ;main.c: 190: sm0++;
-[e ++ F3366 -> -> 1 `i `c ]
-[; ;main.c: 191: c = 0;
+{
+[; ;main.c: 191: if (mpap.mode == HOMMING_MODE)
 "191
-[e = F3367 -> -> 0 `i `c ]
+[e $ ! == -> . _mpap 4 `i -> . `E3311 2 `i 455  ]
+[; ;main.c: 192: {
 "192
-}
-[e :U 427 ]
+{
+[; ;main.c: 193: if ( pulsonic.errors.flag.mpap_home_sensor == 1)
 "193
-}
-[; ;main.c: 192: }
-[; ;main.c: 193: }
-[e $U 432  ]
+[e $ ! == -> . . . _pulsonic 5 0 0 `i -> 1 `i 456  ]
+[; ;main.c: 194: {
 "194
-[e :U 426 ]
-[; ;main.c: 194: else if (sm0 == 2)
-[e $ ! == -> F3366 `i -> 2 `i 433  ]
-[; ;main.c: 195: {
+{
+[; ;main.c: 195: pulsonic.errors.flag.mpap_home_sensor = 0;
 "195
-{
-[; ;main.c: 196: if (main_flag.f1ms)
-"196
-[e $ ! != -> . _main_flag 0 `i -> -> -> 0 `i `Vuc `i 434  ]
-[; ;main.c: 197: {
+[e = . . . _pulsonic 5 0 0 -> -> 0 `i `uc ]
 "197
-{
-[; ;main.c: 198: if (++c == 10)
-"198
-[e $ ! == -> =+ F3367 -> -> 1 `i `c `i -> 10 `i 435  ]
-[; ;main.c: 199: {
-"199
-{
-[; ;main.c: 201: mpap.mode = STALL_MODE;
-"201
-[e = . _mpap 4 -> . `E3311 1 `c ]
-[; ;main.c: 202: sm0++;
-"202
-[e ++ F3366 -> -> 1 `i `c ]
-"203
 }
-[e :U 435 ]
+[e :U 456 ]
+"198
+}
+[; ;main.c: 197: }
+[; ;main.c: 198: }
+[e $U 457  ]
+"199
+[e :U 455 ]
+[; ;main.c: 199: else if (mpap.mode == NORMAL_MODE)
+[e $ ! == -> . _mpap 4 `i -> . `E3311 3 `i 458  ]
+[; ;main.c: 200: {
+"200
+{
+"201
+}
+[e :U 458 ]
+"202
+[e :U 457 ]
+[; ;main.c: 201: }
+[; ;main.c: 202: sm0++;
+[e ++ F3371 -> -> 1 `i `c ]
+[; ;main.c: 203: c = 0;
+"203
+[e = F3372 -> -> 0 `i `c ]
 "204
 }
-[e :U 434 ]
+[e :U 454 ]
 "205
 }
-[; ;main.c: 203: }
 [; ;main.c: 204: }
 [; ;main.c: 205: }
-[e $U 436  ]
+[e $U 459  ]
 "206
-[e :U 433 ]
-[; ;main.c: 206: else if (sm0 == 3)
-[e $ ! == -> F3366 `i -> 3 `i 437  ]
+[e :U 453 ]
+[; ;main.c: 206: else if (sm0 == 2)
+[e $ ! == -> F3371 `i -> 2 `i 460  ]
 [; ;main.c: 207: {
 "207
 {
-[; ;main.c: 208: if (mpap.mode == IDLE_MODE)
+[; ;main.c: 208: if (main_flag.f1ms)
 "208
-[e $ ! == -> . _mpap 4 `i -> . `E3311 0 `i 438  ]
+[e $ ! != -> . _main_flag 0 `i -> -> -> 0 `i `Vuc `i 461  ]
 [; ;main.c: 209: {
 "209
 {
-[; ;main.c: 211: sm0 = 0;
+[; ;main.c: 210: if (++c == 10)
+"210
+[e $ ! == -> =+ F3372 -> -> 1 `i `c `i -> 10 `i 462  ]
+[; ;main.c: 211: {
 "211
-[e = F3366 -> -> 0 `i `c ]
-"212
-}
-[e :U 438 ]
+{
+[; ;main.c: 213: mpap.mode = STALL_MODE;
 "213
-}
-[e :U 437 ]
+[e = . _mpap 4 -> . `E3311 1 `c ]
+[; ;main.c: 214: sm0++;
 "214
-[e :U 436 ]
-[e :U 432 ]
-[e :U 425 ]
-[; ;main.c: 212: }
-[; ;main.c: 213: }
-[; ;main.c: 214: }
-[e :UE 420 ]
+[e ++ F3371 -> -> 1 `i `c ]
+"215
+}
+[e :U 462 ]
+"216
+}
+[e :U 461 ]
+"217
+}
+[; ;main.c: 215: }
+[; ;main.c: 216: }
+[; ;main.c: 217: }
+[e $U 463  ]
+"218
+[e :U 460 ]
+[; ;main.c: 218: else if (sm0 == 3)
+[e $ ! == -> F3371 `i -> 3 `i 464  ]
+[; ;main.c: 219: {
+"219
+{
+[; ;main.c: 220: if (mpap.mode == IDLE_MODE)
+"220
+[e $ ! == -> . _mpap 4 `i -> . `E3311 0 `i 465  ]
+[; ;main.c: 221: {
+"221
+{
+[; ;main.c: 223: sm0 = 0;
+"223
+[e = F3371 -> -> 0 `i `c ]
+"224
+}
+[e :U 465 ]
+"225
+}
+[e :U 464 ]
+"226
+[e :U 463 ]
+[e :U 459 ]
+[e :U 452 ]
+[; ;main.c: 224: }
+[; ;main.c: 225: }
+[; ;main.c: 226: }
+[e :UE 447 ]
 }
 [v $root$_INTERRUPCION `(v ~T0 @X0 0 e ]
-[v F3370 `(v ~T0 @X0 1 tf ]
-"216
-[v _INTERRUPCION `IF3370 ~T0 @X0 1 e ]
-"217
+[v F3375 `(v ~T0 @X0 1 tf ]
+"228
+[v _INTERRUPCION `IF3375 ~T0 @X0 1 e ]
+"229
 {
-[; ;main.c: 216: void interrupt INTERRUPCION(void)
-[; ;main.c: 217: {
+[; ;main.c: 228: void interrupt INTERRUPCION(void)
+[; ;main.c: 229: {
 [e :U _INTERRUPCION ]
 [f ]
-[; ;main.c: 219: if (TMR0IF)
-"219
-[e $ ! _TMR0IF 440  ]
-[; ;main.c: 220: {
-"220
-{
-[; ;main.c: 221: isr_flag.f1ms = 1;
-"221
-[e = . _isr_flag 0 -> -> 1 `i `uc ]
-[; ;main.c: 226: mpap_job();
-"226
-[e ( _mpap_job ..  ]
-[; ;main.c: 228: TMR0IF = 0;
-"228
-[e = _TMR0IF -> -> 0 `i `b ]
-[; ;main.c: 229: TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ) >> 8);
-"229
-[e = _TMR0H -> >> -> - -> << -> 1 `ul -> 16 `i `d / * .1.0e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui -> 8 `i `uc ]
-[; ;main.c: 230: TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
+[; ;main.c: 230: if (TMR0IF)
 "230
-[e = _TMR0L -> -> - -> << -> 1 `ul -> 16 `i `d / * .1.0e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui `uc ]
+[e $ ! _TMR0IF 467  ]
+[; ;main.c: 231: {
 "231
-}
-[e :U 440 ]
-[; ;main.c: 231: }
-[; ;main.c: 232: }
+{
+[; ;main.c: 232: isr_flag.f1ms = 1;
 "232
-[e :UE 439 ]
+[e = . _isr_flag 0 -> -> 1 `i `uc ]
+[; ;main.c: 233: mpap_job();
+"233
+[e ( _mpap_job ..  ]
+[; ;main.c: 235: TMR0IF = 0;
+"235
+[e = _TMR0IF -> -> 0 `i `b ]
+[; ;main.c: 236: TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ) >> 8);
+"236
+[e = _TMR0H -> >> -> - -> << -> 1 `ul -> 16 `i `d / * .1.0e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui -> 8 `i `uc ]
+[; ;main.c: 237: TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
+"237
+[e = _TMR0L -> -> - -> << -> 1 `ul -> 16 `i `d / * .1.0e-3 -> -> 48000000 `ul `d -> * -> 256 `i -> 4 `i `d `ui `uc ]
+"238
+}
+[e :U 467 ]
+[; ;main.c: 238: }
+[; ;main.c: 239: }
+"239
+[e :UE 466 ]
 }

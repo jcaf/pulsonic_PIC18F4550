@@ -27,6 +27,7 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>inputs.c</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>../../../../../../FIRWAR/eslibrary</Elem>
