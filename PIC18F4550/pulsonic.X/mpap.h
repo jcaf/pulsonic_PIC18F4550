@@ -44,7 +44,33 @@
 void mpap_test(void);
 void mpap_1(void);
 void mpap_setupToTurn(int16_t numSteps_tomove);
-    
+/////////////////UNIPOLAR /////////////////////////////////////
+//Secuencia Full unipolar 
+//        LATD = 0B00001100;
+//        __delay_ms(1);
+//        LATD = 0B00000110;
+//        __delay_ms(1);
+//        LATD = 0B00000011;
+//        __delay_ms(1);
+//        LATD = 0B00001001;
+//        __delay_ms(1);
+//MICROPASO MITAD
+//        LATD = 0B00001000;
+//        __delay_ms(1);
+//        LATD = 0B00001100;
+//        __delay_ms(1);
+//        LATD = 0B00000100;
+//        __delay_ms(1);
+//        LATD = 0B00000110;
+//        __delay_ms(1);
+//        LATD = 0B00000010;
+//        __delay_ms(1);
+//        LATD = 0B00000011;
+//        __delay_ms(1);
+//        LATD = 0B00000001;
+//        __delay_ms(1);
+//        LATD = 0B00001001;
+//        __delay_ms(1);    
     
 
 #ifdef	__cplusplus

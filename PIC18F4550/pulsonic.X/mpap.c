@@ -3,40 +3,13 @@
 #include "mpap.h"
 #include "types.h"
 #include "pulsonic.h"
-/////////////////UNIPOLAR /////////////////////////////////////
-//Secuencia Full unipolar 
-//        LATD = 0B00001100;
-//        __delay_ms(1);
-//        LATD = 0B00000110;
-//        __delay_ms(1);
-//        LATD = 0B00000011;
-//        __delay_ms(1);
-//        LATD = 0B00001001;
-//        __delay_ms(1);
-//MICROPASO MITAD
-//        LATD = 0B00001000;
-//        __delay_ms(1);
-//        LATD = 0B00001100;
-//        __delay_ms(1);
-//        LATD = 0B00000100;
-//        __delay_ms(1);
-//        LATD = 0B00000110;
-//        __delay_ms(1);
-//        LATD = 0B00000010;
-//        __delay_ms(1);
-//        LATD = 0B00000011;
-//        __delay_ms(1);
-//        LATD = 0B00000001;
-//        __delay_ms(1);
-//        LATD = 0B00001001;
-//        __delay_ms(1);
+
 static void _mpap_step1(void)
 {
     PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
     PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
     PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
     PinTo1(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    
     //LATD = 0x08;//LATD = 0x0C;
 }
 static void _mpap_step2(void)
@@ -45,7 +18,6 @@ static void _mpap_step2(void)
     PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
     PinTo1(PORTWxSTEPPER_C, PINxSTEPPER_C);
     PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    
     //LATD = 0x04;//LATD = 0x06;
 }
 static void _mpap_step3(void)
@@ -54,7 +26,6 @@ static void _mpap_step3(void)
     PinTo1(PORTWxSTEPPER_B, PINxSTEPPER_B);
     PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
     PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    
     //LATD = 0x02;//LATD = 0x03;
 }
 static void _mpap_step4(void)
@@ -63,10 +34,9 @@ static void _mpap_step4(void)
     PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
     PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
     PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    
     //LATD = 0x01;//LATD = 0x09;
 }
-//PTRFX_retVOID mpap_step[NUM_STEPPER_BIPOLAR][4] = 
+
 PTRFX_retVOID mpap_step[4] = 
 {    
     _mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
@@ -82,10 +52,8 @@ static inline void _mpap_off(void)
 PTRFX_retVOID mpap_off= {_mpap_off};//PTRFX_retVOID mpap_off[NUM_STEPPER_BIPOLAR]= {_mpap_off};
 
 volatile struct _mpap mpap;
-/*
-Deja todo listo para girar N pasos, se llama 1 vez
-*/
-//void mpap_setupToTurn(int16_t absPos_insteps)//posAbs_insteps: Absoulte position(in num steps)
+
+/* Deja todo listo para girar N pasos, se llama 1 vez */
 void mpap_setupToTurn(int16_t numSteps_tomove)//posAbs_insteps: Absoulte position(in num steps)
 {
 	//mpap.numSteps_tomove = absPos_insteps - mpap.numSteps_current;
@@ -116,15 +84,7 @@ void nozzle_moveto(int8_t nozzle)//0..NOZZLE_NUMMAX-1
 //{return (mpap.numSteps_current/MPAP_NUMSTEP_1NOZZLE);
 //}
  
-/*
- * mpap.numSteps_current se mantiene, no se pierde
- */
-//void mpap_stop(void)		
-//{
-//	mpap.numSteps_tomove = 0x00;//mpap.flag.run = 0;
-//	mpap_off();
-//    //STEPPER_DISABLE();
-//}
+/* mpap.numSteps_current se mantiene, no se pierde */
 void mpap_do1step(int8_t KI)//DIRECION +1 Pos, -1 negativo
 {
 	static int8_t i = -1;
@@ -208,7 +168,6 @@ int8_t mpap_job(void)//se ejecuta desde la rutina de interrupcion
 	return cod_ret;
 }
 
- 
 void mpap_sych(void)//synch ISR
 {
     static int8_t sm0;

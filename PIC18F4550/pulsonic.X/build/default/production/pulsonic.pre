@@ -5839,6 +5839,14 @@ extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
 
 void disp_show_quantity(double f);
 
+extern const uint8_t DISP7S_NUMS[10];
+extern const uint8_t DISP7S_CHARS[2];
+
+enum _DISP7S_CHARS {
+OFF,
+RAYA
+};
+
 # 5 "pulsonic.c"
 struct _pulsonic pulsonic;
 
@@ -5912,8 +5920,7 @@ struct _multiplexedDisp multiplexedDisp[(2 + 3)] =
 {multiplexedDisp3_off, multiplexedDisp3_on},
 {multiplexedDisp4_off, multiplexedDisp4_on},
 };
-extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
-
+struct _multiplexedDisp multiplexedDisp[(2 + 3)];
 
 const uint8_t DISP7S_NUMS[10] =
 {
@@ -5933,10 +5940,7 @@ const uint8_t DISP7S_CHARS[2] =
 0b00000000,
 0b01000000,
 };
-enum _DISP7S_CHARS {
-OFF,
-RAYA
-};
+
 
 void multiplexedDisp_init(void)
 {
@@ -5965,7 +5969,7 @@ multiplexedDisp[i].Qonoff[0]();
 }
 }
 
-# 165
+# 161
 void display7s_init(void)
 {
 pulsonic.display7s[MODE_DIG_1] = DISP7S_NUMS[2];

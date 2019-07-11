@@ -105,8 +105,7 @@ struct _multiplexedDisp multiplexedDisp[DISP_TOTAL_NUMMAX] =
     {multiplexedDisp3_off, multiplexedDisp3_on},
     {multiplexedDisp4_off, multiplexedDisp4_on},
 };
-extern struct _multiplexedDisp multiplexedDisp[DISP_TOTAL_NUMMAX];
-
+struct _multiplexedDisp multiplexedDisp[DISP_TOTAL_NUMMAX];
 //
 const uint8_t DISP7S_NUMS[10] = 
 {
@@ -126,10 +125,7 @@ const uint8_t DISP7S_CHARS[2] =
     0b00000000,//OFF
     0b01000000,//- raya
 };
-enum _DISP7S_CHARS {
-    OFF,
-    RAYA
-};
+
 
 void multiplexedDisp_init(void)
 {

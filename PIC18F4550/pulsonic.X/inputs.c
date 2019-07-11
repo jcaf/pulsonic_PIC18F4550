@@ -6,7 +6,7 @@ int8_t is_startSignal(void)
 }
 int8_t is_oilLevel(void)
 {
-    return PinRead(PORTRxoilLevel, PINxoilLevel);
+    return PinRead(PORTRxOILLEVEL, PINxOILLEVEL);
 }
 int8_t is_homeSensor(void)
 {

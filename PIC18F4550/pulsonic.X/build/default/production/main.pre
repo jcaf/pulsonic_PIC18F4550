@@ -5839,6 +5839,14 @@ extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
 
 void disp_show_quantity(double f);
 
+extern const uint8_t DISP7S_NUMS[10];
+extern const uint8_t DISP7S_CHARS[2];
+
+enum _DISP7S_CHARS {
+OFF,
+RAYA
+};
+
 # 11 "mpap.h"
 enum MPAP_MODES
 {
@@ -5873,8 +5881,18 @@ void mpap_test(void);
 void mpap_1(void);
 void mpap_setupToTurn(int16_t numSteps_tomove);
 
+# 15 "inputs.h"
+typedef int8_t intNumMaxErr_t;
 
-# 22 "main.c"
+# 22
+int8_t is_startSignal(void);
+int8_t is_oilLevel(void);
+int8_t is_homeSensor(void);
+int8_t is_unblockedNozzle(int8_t nozzle);
+int8_t is_inductiveSensorRPM(void);
+
+
+# 23 "main.c"
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
 #pragma warning disable 752
@@ -5893,7 +5911,7 @@ void ikb_set_ready2read(uint8_t k);
 void ikb_key_was_read(uint8_t k);
 void ikb_execfunct(uint8_t k);
 
-# 29 "main.c"
+# 31 "main.c"
 volatile struct _isr_flag
 {
 unsigned f1ms: 1;
@@ -5901,11 +5919,7 @@ unsigned __a: 7;
 } isr_flag = {0};
 volatile struct _main_flag main_flag;
 
-
-extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
-
-
-
+# 42
 int8_t pump_tick(void)
 {
 int8_t cod_ret = 0;
@@ -5922,9 +5936,10 @@ else if (sm0 == 1)
 {
 if (main_flag.f1ms)
 {
-if (++c == 100)
+if (++c == 50)
 {
-c = 0;
+sm0 = 0x00;
+
 do{do{LATE |= 1<<0;}while(0);}while(0);
 cod_ret = 1;
 }
@@ -5957,6 +5972,25 @@ DISPOWNER_CONFIG_MODE,
 };
 int8_t disp_owner = DISPOWNER_AUTO_MODE;
 
+
+union _errorDispFlag
+{
+struct _errorFlag_flags
+{
+unsigned startSignal:1;
+unsigned oilLevel:1;
+unsigned homeSensor:1;
+unsigned unblockedNozzle:1;
+unsigned inductiveSensorRPM:1;
+unsigned __a:1;
+unsigned __b:1;
+unsigned __c:1;
+
+}f;
+intNumMaxErr_t packed;
+};
+union _errorDispFlag error_requestToWriteDisp;
+union _errorDispFlag error_grantedToWriteDisp;
 void main(void)
 {
 int8_t c_access_kb=0;
@@ -6007,8 +6041,7 @@ GIE = 1;
 
 mpap_setupToHomming();
 
-
-
+int8_t unlock_pump = 0;
 while(1)
 {
 if (isr_flag.f1ms)
@@ -6023,24 +6056,23 @@ if (++c_access_kb == 20)
 {
 c_access_kb = 0;
 
-
-if (!lock.kb)
-{
 ikb_job();
+if (ikb_key_is_ready2read(0))
+{
+nozzle_moveto(0);
+}
+if (ikb_key_is_ready2read(1))
+{
+nozzle_moveto(1);
+}
+if (ikb_key_is_ready2read(2))
+{
+nozzle_moveto(2);
+}
+if (ikb_key_is_ready2read(3))
+{
 
-if (1)
-{
-disp_owner = DISPOWNER_VISUALIZER_MODE;
-}
-else if (1)
-{
-disp_owner = DISPOWNER_AUTO_MODE;
-}
-else
-{
-machineState = CONFIG;
-machineState = RUNNING;
-}
+unlock_pump = 1;
 }
 }
 
@@ -6051,45 +6083,13 @@ c_access_disp = 0;
 display7s_job();
 }
 }
-
-if (machineState == RUNNING)
+if (unlock_pump)
 {
-
-if (!lock.autoMode)
+if (pump_tick())
 {
-
-{
-
-
-if (disp_owner == DISPOWNER_AUTO_MODE)
-{
+unlock_pump = 0;
 }
 }
-}
-
-if (!lock.visualizerMode)
-{
-
-
-
-
-if (disp_owner == DISPOWNER_VISUALIZER_MODE)
-{
-}
-}
-}
-else if (machineState == CONFIG)
-{
-
-
-
-
-if (disp_owner == DISPOWNER_CONFIG_MODE)
-{
-}
-}
-
-
 
 
 mpap_sych();
@@ -6099,6 +6099,8 @@ main_flag.f1ms = 0;
 ikb_flush();
 }
 }
+
+# 366
 void interrupt INTERRUPCION(void)
 {
 if (TMR0IF)
@@ -6112,16 +6114,15 @@ TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
 }
 }
 
-# 255
-void errorHandler_startSignal(void)
+void check_startSignal(void)
 {
-static int8_t sm0;
-
-
+static int8_t sm0, sm1;
 if (sm0 == 0)
 {
-if ( (machineState == WORKING_MODE) && (!is_startSignal()) )
+if ( (machineState == RUNNING) && (!is_startSignal()) )
 {
+error_requestToWriteDisp.f.startSignal = 1;
+
 machineState = STALL;
 sm0++;
 }
@@ -6131,67 +6132,101 @@ else if (sm0 == 1)
 
 if ( is_startSignal() )
 {
-
+error_requestToWriteDisp.f.startSignal = 0;
+sm0 = 0x00;
+sm1 = 0x00;
 }
-else
+
+# 406
+if (error_grantedToWriteDisp.f.startSignal == 1)
+{
+if (sm1 == 0)
+{
+pulsonic.display7s[MODE_DIG_1] = DISP7S_NUMS[2];
+pulsonic.display7s[MODE_DIG_0] = DISP7S_NUMS[0];
+
+pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[RAYA];
+pulsonic.display7s[QUANT_DIG_1] = DISP7S_CHARS[RAYA];
+pulsonic.display7s[QUANT_DIG_0] = DISP7S_CHARS[RAYA];
+
+sm1++;
+}
+}
+}
+}
+
+void check_oilLevel(void)
+{
+static int8_t sm0, sm1;
+if (sm0 == 0)
+{
+if ( !is_oilLevel() )
+{
+error_requestToWriteDisp.f.oilLevel = 1;
+
+
+machineState = STALL;
+do{do{LATA |= 1<<5;}while(0);}while(0);
+sm0++;
+}
+}
+else if (sm0 == 1)
 {
 
-}
-
-
-
-
-flag = 00000010;
-
-
-}
-}
-union _errorFlag
+if ( is_oilLevel() )
 {
-struct _errorFlag_flags
-{
-unsigned startSignal:1;
-unsigned levelOil:1;
-unsigned homeSensor:1;
-unsigned unblockedNozzle:1;
-unsigned inductiveSensorRPM:1;
-unsigned __a:1;
-unsigned __b:1;
-unsigned __c:1;
+error_requestToWriteDisp.f.oilLevel = 0;
+sm0 = 0x00;
+sm1 = 0x00;
+}
 
-}f;
-intNumMaxErr_t packed;
-};
-union _errorFlag errorSignal;
-union _errorFlag errorPermission;
+# 452
+if (error_grantedToWriteDisp.f.oilLevel == 1)
+{
+if (sm1 == 0)
+{
+pulsonic.display7s[MODE_DIG_1] = 0x54;
+pulsonic.display7s[MODE_DIG_0] = 0x5C;
+
+pulsonic.display7s[QUANT_DIG_2] = DISP7S_NUMS[0];
+pulsonic.display7s[QUANT_DIG_1] = 0x30;
+pulsonic.display7s[QUANT_DIG_0] = 0x38;
+
+sm1++;
+}
+}
+}
+}
+
 
 
 void errorHandler_queue(void)
 {
 
+
 static int8_t i;
 static int8_t sm0;
 static uint16_t c;
-static _errorFlag permission;
+intNumMaxErr_t is_granted;
 
 if (sm0 == 0)
 {
-permission = errorSignal.packed & (1<<i);
-if (permission)
+is_granted = error_requestToWriteDisp.packed & (1<<i);
+if (is_granted)
 {
-errorPermission.packed = permission;
+error_grantedToWriteDisp.packed = is_granted;
 c = 0x0;
 }
 }
 else if (sm0 == 1)
 {
-if ( errorSignal.packed & (1<<i) )
+if ( error_requestToWriteDisp.packed & (1<<i) )
 {
 if (main_flag.f1ms)
 {
 if (++c == 2000)
 {
-if (++i == NUMMAX_ERRORS)
+if (++i == 8)
 {
 i = 0;
 }
@@ -6200,10 +6235,11 @@ i = 0;
 }
 else
 {
-if (++i==NUMMAX_ERRORS)
+if (++i==8)
 {
 i = 0;
 }
+sm0 = 0x00;
 }
 }
 

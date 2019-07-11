@@ -5,7 +5,7 @@ Linker command line:
 -W-3 --edf=/opt/microchip/xc8/v2.05/pic/dat/en_msgs.txt -cs \
   -h+dist/default/production/pulsonic.X.production.sym \
   --cmf=dist/default/production/pulsonic.X.production.cmf -z -Q18F4550 \
-  -o/tmp/xcXIMt6H7 -Mdist/default/production/pulsonic.X.production.map -E1 \
+  -o/tmp/xcXGa0oMz -Mdist/default/production/pulsonic.X.production.map -E1 \
   -ver=XC8 -ASTACK=017Bh-07FFh -pstack=STACK -ACODE=00h-07FFFh \
   -ACONST=00h-07FFFh -ASMALLCONST=0800h-08FFhx120 \
   -AMEDIUMCONST=0800h-07FFFh -ACOMRAM=01h-05Fh -AABS1=00h-07FFh \
@@ -22,7 +22,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE -prparam=COMRAM \
-  /tmp/xcXjmfDet.obj dist/default/production/pulsonic.X.production.obj 
+  /tmp/xcXOuN4xC.obj dist/default/production/pulsonic.X.production.obj 
 
 Object code version is 3.11
 
@@ -34,20 +34,20 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-/tmp/xcXjmfDet.obj
+/tmp/xcXOuN4xC.obj
                 init                                  E        E        4        4       0
                 reset_vec                             0        0        4        0       0
                 idloc                            200000   200000        8   200000       0
                 config                           300000   300000        E   300000       0
 dist/default/production/pulsonic.X.production.obj
                 intcode                               8        8        6        4       0
-                temp                                 47       47        1        1       1
+                temp                                 4C       4C        1        1       1
                 smallconst                          800      800        E      400       0
-                text56                             1FFA     1FFA        A      407       0
-                text55                             2032     2032        6      407       0
-                text54                             202C     202C        6      407       0
-                text53                             2026     2026        6      407       0
-                text52                             2020     2020        6      407       0
+                text56                             2022     2022        A      407       0
+                text55                             2018     2018        A      407       0
+                text54                             200E     200E        A      407       0
+                text53                             2004     2004        A      407       0
+                text52                             1FFA     1FFA        A      407       0
                 text51                             1D44     1D44       42      407       0
                 text50                             1AE2     1AE2       58      407       0
                 text49                             1CBA     1CBA       48      407       0
@@ -65,31 +65,31 @@ dist/default/production/pulsonic.X.production.obj
                 text37                             18F6     18F6       94      407       0
                 text36                             1E72     1E72       32      407       0
                 text35                              E3E      E3E      2A0      407       0
-                text34                             205C     205C        4      407       0
-                text33                             2058     2058        4      407       0
-                text32                             2054     2054        4      407       0
-                text31                             2050     2050        4      407       0
-                text30                             204C     204C        4      407       0
-                text29                             2048     2048        4      407       0
-                text28                             2044     2044        4      407       0
-                text27                             2040     2040        4      407       0
-                text26                             203C     203C        4      407       0
-                text25                             2038     2038        4      407       0
+                text34                             206C     206C        4      407       0
+                text33                             2068     2068        4      407       0
+                text32                             2064     2064        4      407       0
+                text31                             2060     2060        4      407       0
+                text30                             205C     205C        4      407       0
+                text29                             2058     2058        4      407       0
+                text28                             2054     2054        4      407       0
+                text27                             2050     2050        4      407       0
+                text26                             204C     204C        4      407       0
+                text25                             2048     2048        4      407       0
                 text24                             1D86     1D86       40      407       0
                 text23                             1B8C     1B8C       50      407       0
                 text22                             1856     1856       A0      407       0
                 text21                             1F28     1F28       26      407       0
                 text20                             1F90     1F90       1E      407       0
-                text19                             201A     201A        6      407       0
+                text19                             2042     2042        6      407       0
                 text18                             16F2     16F2       B6      407       0
                 text17                             1F4E     1F4E       24      407       0
                 text16                             1BDC     1BDC       4C      407       0
                 text15                              80E      80E      630      407       0
-                text14                             200C     200C        8      407       0
-                text13                             2004     2004        8      407       0
+                text14                             2034     2034        8      407       0
+                text13                             202C     202C        8      407       0
                 text12                             1FF0     1FF0        A      407       0
                 text11                             1FE6     1FE6        A      407       0
-                text10                             2014     2014        6      407       0
+                text10                             203C     203C        6      407       0
                 text9                              1286     1286      1A0      407       0
                 text8                              1FDC     1FDC        A      407       0
                 text7                              1FAE     1FAE       1C      407       0
@@ -100,16 +100,16 @@ dist/default/production/pulsonic.X.production.obj
                 text2                              1ED4     1ED4       2E      407       0
                 text1                              1E3E     1E3E       34      407       0
                 text0                              1426     1426      106      407       0
-                cstackCOMRAM                          1        1       36        1       1
-                cstackBANK0                          D3       D3       13       60       1
+                cstackCOMRAM                          1        1       37        1       1
+                cstackBANK0                          DC       DC       13       60       1
                 bssBANK1                            100      100       7B      100       1
-                dataBANK0                            B5       B5       1E       60       1
-                bssBANK0                             60       60       55       60       1
-                dataCOMRAM                           46       46        1        1       1
-                bssCOMRAM                            37       37        F        1       1
+                dataBANK0                            BE       BE       1E       60       1
+                bssBANK0                             60       60       5E       60       1
+                dataCOMRAM                           4B       4B        1        1       1
+                bssCOMRAM                            38       38       13        1       1
                 cinit                              1A7E     1A7E       64      407       0
                 idataBANK0                         1F72     1F72       1E      407       0
-                idataCOMRAM                        2060     2060        1      407       0
+                idataCOMRAM                        2070     2070        1      407       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   STACK          
@@ -118,11 +118,11 @@ TOTAL           Name                               Link     Load   Length     Sp
                 intcode                               8        8        6         0
                 init                                  E        E        4         0
                 reset_vec                             0        0        4         0
-                text56                             1FFA     1FFA        A         0
-                text55                             2032     2032        6         0
-                text54                             202C     202C        6         0
-                text53                             2026     2026        6         0
-                text52                             2020     2020        6         0
+                text56                             2022     2022        A         0
+                text55                             2018     2018        A         0
+                text54                             200E     200E        A         0
+                text53                             2004     2004        A         0
+                text52                             1FFA     1FFA        A         0
                 text51                             1D44     1D44       42         0
                 text50                             1AE2     1AE2       58         0
                 text49                             1CBA     1CBA       48         0
@@ -140,31 +140,31 @@ TOTAL           Name                               Link     Load   Length     Sp
                 text37                             18F6     18F6       94         0
                 text36                             1E72     1E72       32         0
                 text35                              E3E      E3E      2A0         0
-                text34                             205C     205C        4         0
-                text33                             2058     2058        4         0
-                text32                             2054     2054        4         0
-                text31                             2050     2050        4         0
-                text30                             204C     204C        4         0
-                text29                             2048     2048        4         0
-                text28                             2044     2044        4         0
-                text27                             2040     2040        4         0
-                text26                             203C     203C        4         0
-                text25                             2038     2038        4         0
+                text34                             206C     206C        4         0
+                text33                             2068     2068        4         0
+                text32                             2064     2064        4         0
+                text31                             2060     2060        4         0
+                text30                             205C     205C        4         0
+                text29                             2058     2058        4         0
+                text28                             2054     2054        4         0
+                text27                             2050     2050        4         0
+                text26                             204C     204C        4         0
+                text25                             2048     2048        4         0
                 text24                             1D86     1D86       40         0
                 text23                             1B8C     1B8C       50         0
                 text22                             1856     1856       A0         0
                 text21                             1F28     1F28       26         0
                 text20                             1F90     1F90       1E         0
-                text19                             201A     201A        6         0
+                text19                             2042     2042        6         0
                 text18                             16F2     16F2       B6         0
                 text17                             1F4E     1F4E       24         0
                 text16                             1BDC     1BDC       4C         0
                 text15                              80E      80E      630         0
-                text14                             200C     200C        8         0
-                text13                             2004     2004        8         0
+                text14                             2034     2034        8         0
+                text13                             202C     202C        8         0
                 text12                             1FF0     1FF0        A         0
                 text11                             1FE6     1FE6        A         0
-                text10                             2014     2014        6         0
+                text10                             203C     203C        6         0
                 text9                              1286     1286      1A0         0
                 text8                              1FDC     1FDC        A         0
                 text7                              1FAE     1FAE       1C         0
@@ -177,7 +177,7 @@ TOTAL           Name                               Link     Load   Length     Sp
                 text0                              1426     1426      106         0
                 cinit                              1A7E     1A7E       64         0
                 idataBANK0                         1F72     1F72       1E         0
-                idataCOMRAM                        2060     2060        1         0
+                idataCOMRAM                        2070     2070        1         0
 
         CLASS   CONST          
 
@@ -187,10 +187,10 @@ TOTAL           Name                               Link     Load   Length     Sp
         CLASS   MEDIUMCONST    
 
         CLASS   COMRAM         
-                temp                                 47       47        1         1
-                cstackCOMRAM                          1        1       36         1
-                dataCOMRAM                           46       46        1         1
-                bssCOMRAM                            37       37        F         1
+                temp                                 4C       4C        1         1
+                cstackCOMRAM                          1        1       37         1
+                dataCOMRAM                           4B       4B        1         1
+                bssCOMRAM                            38       38       13         1
 
         CLASS   ABS1           
 
@@ -199,9 +199,9 @@ TOTAL           Name                               Link     Load   Length     Sp
         CLASS   RAM            
 
         CLASS   BANK0          
-                cstackBANK0                          D3       D3       13         1
-                dataBANK0                            B5       B5       1E         1
-                bssBANK0                             60       60       55         1
+                cstackBANK0                          DC       DC       13         1
+                dataBANK0                            BE       BE       1E         1
+                bssBANK0                             60       60       5E         1
 
         CLASS   BANK1          
                 bssBANK1                            100      100       7B         1
@@ -235,12 +235,12 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class
 
                 reset_vec                      000000  000004  000004         0       0  CODE    
-                cstackCOMRAM                   000001  000047  000048         1       1  COMRAM  
+                cstackCOMRAM                   000001  00004C  00004D         1       1  COMRAM  
                 intcode                        000008  00000A  000012         4       0  CODE    
-                bssBANK0                       000060  000086  0000E6        60       1  BANK0   
+                bssBANK0                       000060  00008F  0000EF        60       1  BANK0   
                 bssBANK1                       000100  00007B  00017B       100       1  BANK1   
                 smallconst                     000800  00000E  00080E       400       0  SMALLCON
-                text15                         00080E  001853  002061       407       0  CODE    
+                text15                         00080E  001863  002071       407       0  CODE    
                 idloc                          200000  000008  200008    200000       0  IDLOC   
                 config                         300000  00000E  30000E    300000       0  CONFIG  
 
@@ -248,7 +248,7 @@ SEGMENTS        Name                           Load    Length   Top    Selector 
 UNUSED ADDRESS RANGES
 
         Name                Unused          Largest block    Delta
-        BANK0            0000E6-0000FF               1A
+        BANK0            0000EF-0000FF               11
         BANK1            00017B-0001FF               85
         BANK2            000200-0002FF              100
         BANK3            000300-0003FF              100
@@ -256,22 +256,22 @@ UNUSED ADDRESS RANGES
         BANK5            000500-0005FF              100
         BANK6            000600-0006FF              100
         BANK7            000700-0007FF              100
-        BIGRAM           000048-00005F               18
-                         0000E6-0000FF               1A
+        BIGRAM           00004D-00005F               13
+                         0000EF-0000FF               11
                          00017B-0007FF              685
         CODE             000004-000007                4
                          000012-0007FF              7EE
-                         002061-007FFF             5F9F
-        COMRAM           000048-00005F               18
+                         002071-007FFF             5F8F
+        COMRAM           00004D-00005F               13
         CONST            000004-000007                4
                          000012-0007FF              7EE
-                         002061-007FFF             5F9F
+                         002071-007FFF             5F8F
         EEDATA           F00000-F000FF              100
-        MEDIUMCONST      002061-007FFF             5F9F
-        RAM              0000E6-0000FF               1A
+        MEDIUMCONST      002071-007FFF             5F8F
+        RAM              0000EF-0000FF               11
                          00017B-0007FF              100
         SFR              000F60-000FFF               A0
-        SMALLCONST       002061-007FFF              100
+        SMALLCONST       002071-007FFF              100
         STACK            00017B-0007FF              685
 
                                   Symbol Table
@@ -390,7 +390,7 @@ __Hspace_1                       (abs)        00017B
 __Hspace_2                       (abs)        000000
 __Hstack                         stack        000000
 __Hstruct                        struct       000000
-__Htemp                          temp         000048
+__Htemp                          temp         00004D
 __Htext                          text         000000
 __Htext0                         text0        000000
 __Htext1                         text1        000000
@@ -513,7 +513,7 @@ __Lspace_1                       (abs)        000000
 __Lspace_2                       (abs)        000000
 __Lstack                         stack        000000
 __Lstruct                        struct       000000
-__Ltemp                          temp         000047
+__Ltemp                          temp         00004C
 __Ltext                          text         000000
 __Ltext0                         text0        000000
 __Ltext1                         text1        000000
@@ -643,15 +643,15 @@ __end_of___lwmod                 text38       001D44
 __end_of___lwtoft                text17       001F72
 __end_of___wmul                  text3        001F28
 __end_of__initialization         cinit        001AD4
-__end_of__mpap_off               text56       002004
-__end_of__mpap_step1             text54       002032
-__end_of__mpap_step2             text53       00202C
-__end_of__mpap_step3             text52       002026
-__end_of__mpap_step4             text55       002038
+__end_of__mpap_off               text56       00202C
+__end_of__mpap_step1             text54       002018
+__end_of__mpap_step2             text53       00200E
+__end_of__mpap_step3             text52       002004
+__end_of__mpap_step4             text55       002022
 __end_of_disp_show_quantity      text35       0010DE
 __end_of_display7s_init          text23       001BDC
 __end_of_display7s_job           text21       001F4E
-__end_of_ikb_flush               text19       002020
+__end_of_ikb_flush               text19       002048
 __end_of_ikb_init                text18       0017A8
 __end_of_ikb_job                 text8        001FE6
 __end_of_ikb_key_is_ready2read   text7        001FCA
@@ -660,11 +660,11 @@ __end_of_ikey_is_accessible      text16       001C28
 __end_of_ikey_parsing            text15       000E3E
 __end_of_ikey_scan               text9        001426
 __end_of_itoa                    text36       001EA4
-__end_of_keyRead_pin_key1        text13       00200C
+__end_of_keyRead_pin_key1        text13       002034
 __end_of_keyRead_pin_key2        text12       001FFA
 __end_of_keyRead_pin_key3        text11       001FF0
-__end_of_keyRead_pin_key4        text10       00201A
-__end_of_keyRead_pin_key5        text14       002014
+__end_of_keyRead_pin_key4        text10       002042
+__end_of_keyRead_pin_key5        text14       00203C
 __end_of_main                    text0        00152C
 __end_of_mpap_do1step            text51       001D86
 __end_of_mpap_homming            text50       001B3A
@@ -673,16 +673,16 @@ __end_of_mpap_normal_mode        text49       001D02
 __end_of_mpap_setupToHomming     text5        001FDC
 __end_of_mpap_setupToTurn        text6        001ED4
 __end_of_mpap_sych               text4        001A0A
-__end_of_multiplexedDisp0_off    text33       00205C
-__end_of_multiplexedDisp0_on     text32       002058
-__end_of_multiplexedDisp1_off    text31       002054
-__end_of_multiplexedDisp1_on     text30       002050
-__end_of_multiplexedDisp2_off    text29       00204C
-__end_of_multiplexedDisp2_on     text28       002048
-__end_of_multiplexedDisp3_off    text27       002044
-__end_of_multiplexedDisp3_on     text26       002040
-__end_of_multiplexedDisp4_off    text25       00203C
-__end_of_multiplexedDisp4_on     text34       002060
+__end_of_multiplexedDisp0_off    text33       00206C
+__end_of_multiplexedDisp0_on     text32       002068
+__end_of_multiplexedDisp1_off    text31       002064
+__end_of_multiplexedDisp1_on     text30       002060
+__end_of_multiplexedDisp2_off    text29       00205C
+__end_of_multiplexedDisp2_on     text28       002058
+__end_of_multiplexedDisp3_off    text27       002054
+__end_of_multiplexedDisp3_on     text26       002050
+__end_of_multiplexedDisp4_off    text25       00204C
+__end_of_multiplexedDisp4_on     text34       002070
 __end_of_multiplexedDisp_init    text24       001DC6
 __end_of_multiplexedDisp_job     text22       0018F6
 __end_of_nozzle_moveto           text2        001F02
@@ -690,53 +690,53 @@ __end_of_pump_tick               text1        001E72
 __end_of_utoa                    text37       00198A
 __initialization                 cinit        001A7E
 __mediumconst                    mediumconst  000000
-__mpap_off                       text56       001FFA
-__mpap_step1                     text54       00202C
-__mpap_step2                     text53       002026
-__mpap_step3                     text52       002020
-__mpap_step4                     text55       002032
+__mpap_off                       text56       002022
+__mpap_step1                     text54       00200E
+__mpap_step2                     text53       002004
+__mpap_step3                     text52       001FFA
+__mpap_step4                     text55       002018
 __pbssBANK0                      bssBANK0     000060
 __pbssBANK1                      bssBANK1     000100
-__pbssCOMRAM                     bssCOMRAM    000037
+__pbssCOMRAM                     bssCOMRAM    000038
 __pcinit                         cinit        001A7E
-__pcstackBANK0                   cstackBANK0  0000D3
+__pcstackBANK0                   cstackBANK0  0000DC
 __pcstackCOMRAM                  cstackCOMRAM 000001
-__pdataBANK0                     dataBANK0    0000B5
-__pdataCOMRAM                    dataCOMRAM   000046
+__pdataBANK0                     dataBANK0    0000BE
+__pdataCOMRAM                    dataCOMRAM   00004B
 __pidataBANK0                    idataBANK0   001F72
-__pidataCOMRAM                   idataCOMRAM  002060
+__pidataCOMRAM                   idataCOMRAM  002070
 __pintcode                       intcode      000008
 __pintcode_body                  intcode_body 001C72
 __psmallconst                    smallconst   000800
 __ptext0                         text0        001426
 __ptext1                         text1        001E3E
-__ptext10                        text10       002014
+__ptext10                        text10       00203C
 __ptext11                        text11       001FE6
 __ptext12                        text12       001FF0
-__ptext13                        text13       002004
-__ptext14                        text14       00200C
+__ptext13                        text13       00202C
+__ptext14                        text14       002034
 __ptext15                        text15       00080E
 __ptext16                        text16       001BDC
 __ptext17                        text17       001F4E
 __ptext18                        text18       0016F2
-__ptext19                        text19       00201A
+__ptext19                        text19       002042
 __ptext2                         text2        001ED4
 __ptext20                        text20       001F90
 __ptext21                        text21       001F28
 __ptext22                        text22       001856
 __ptext23                        text23       001B8C
 __ptext24                        text24       001D86
-__ptext25                        text25       002038
-__ptext26                        text26       00203C
-__ptext27                        text27       002040
-__ptext28                        text28       002044
-__ptext29                        text29       002048
+__ptext25                        text25       002048
+__ptext26                        text26       00204C
+__ptext27                        text27       002050
+__ptext28                        text28       002054
+__ptext29                        text29       002058
 __ptext3                         text3        001F02
-__ptext30                        text30       00204C
-__ptext31                        text31       002050
-__ptext32                        text32       002054
-__ptext33                        text33       002058
-__ptext34                        text34       00205C
+__ptext30                        text30       00205C
+__ptext31                        text31       002060
+__ptext32                        text32       002064
+__ptext33                        text33       002068
+__ptext34                        text34       00206C
 __ptext35                        text35       000E3E
 __ptext36                        text36       001E72
 __ptext37                        text37       0018F6
@@ -755,11 +755,11 @@ __ptext49                        text49       001CBA
 __ptext5                         text5        001FCA
 __ptext50                        text50       001AE2
 __ptext51                        text51       001D44
-__ptext52                        text52       002020
-__ptext53                        text53       002026
-__ptext54                        text54       00202C
-__ptext55                        text55       002032
-__ptext56                        text56       001FFA
+__ptext52                        text52       001FFA
+__ptext53                        text53       002004
+__ptext54                        text54       00200E
+__ptext55                        text55       002018
+__ptext56                        text56       002022
 __ptext57                        text57       000000
 __ptext6                         text6        001EA4
 __ptext7                         text7        001FAE
@@ -824,11 +824,14 @@ __size_of_nozzle_moveto          (abs)        000000
 __size_of_pump_tick              (abs)        000000
 __size_of_utoa                   (abs)        000000
 __smallconst                     smallconst   000800
+_disp_owner                      bssCOMRAM    000044
 _disp_show_quantity              text35       000E3E
 _display7s_init                  text23       001B8C
 _display7s_job                   text21       001F28
+_error_grantedToWriteDisp        bssBANK0     0000BD
+_error_requestToWriteDisp        bssCOMRAM    000043
 _group_x                         bssBANK0     0000B0
-_ikb_flush                       text19       00201A
+_ikb_flush                       text19       002042
 _ikb_init                        text18       0016F2
 _ikb_job                         text8        001FDC
 _ikb_key_is_ready2read           text7        001FAE
@@ -836,54 +839,56 @@ _ikey_clear_all_flag             text20       001F90
 _ikey_is_accessible              text16       001BDC
 _ikey_parsing                    text15       00080E
 _ikey_scan                       text9        001286
-_isr_flag                        bssCOMRAM    000045
+_isr_flag                        bssCOMRAM    00004A
 _itoa                            text36       001E72
 _key                             bssBANK0     000060
-_keyRead_pin_key1                text13       002004
+_keyRead_pin_key1                text13       00202C
 _keyRead_pin_key2                text12       001FF0
 _keyRead_pin_key3                text11       001FE6
-_keyRead_pin_key4                text10       002014
-_keyRead_pin_key5                text14       00200C
+_keyRead_pin_key4                text10       00203C
+_keyRead_pin_key5                text14       002034
+_lock                            bssCOMRAM    000046
+_machineState                    bssCOMRAM    000045
 _main                            text0        001426
-_main_flag                       bssCOMRAM    000044
-_mpap                            bssCOMRAM    000037
+_main_flag                       bssCOMRAM    000049
+_mpap                            bssCOMRAM    000038
 _mpap_do1step                    text51       001D44
 _mpap_homming                    text50       001AE2
 _mpap_job                        text48       001C28
 _mpap_normal_mode                text49       001CBA
-_mpap_off                        dataBANK0    0000D1
+_mpap_off                        dataBANK0    0000DA
 _mpap_setupToHomming             text5        001FCA
 _mpap_setupToTurn                text6        001EA4
-_mpap_setupToTurn$418            cstackCOMRAM 000013
-_mpap_step                       dataBANK0    0000C9
+_mpap_setupToTurn$515            cstackCOMRAM 000013
+_mpap_step                       dataBANK0    0000D2
 _mpap_sych                       text4        00198A
-_multiplexedDisp                 dataBANK0    0000B5
-_multiplexedDisp0_off            text33       002058
-_multiplexedDisp0_on             text32       002054
-_multiplexedDisp1_off            text31       002050
-_multiplexedDisp1_on             text30       00204C
-_multiplexedDisp2_off            text29       002048
-_multiplexedDisp2_on             text28       002044
-_multiplexedDisp3_off            text27       002040
-_multiplexedDisp3_on             text26       00203C
-_multiplexedDisp4_off            text25       002038
-_multiplexedDisp4_on             text34       00205C
+_multiplexedDisp                 dataBANK0    0000BE
+_multiplexedDisp0_off            text33       002068
+_multiplexedDisp0_on             text32       002064
+_multiplexedDisp1_off            text31       002060
+_multiplexedDisp1_on             text30       00205C
+_multiplexedDisp2_off            text29       002058
+_multiplexedDisp2_on             text28       002054
+_multiplexedDisp3_off            text27       002050
+_multiplexedDisp3_on             text26       00204C
+_multiplexedDisp4_off            text25       002048
+_multiplexedDisp4_on             text34       00206C
 _multiplexedDisp_init            text24       001D86
 _multiplexedDisp_job             text22       001856
 _nozzle_moveto                   text2        001ED4
 _pulsonic                        bssBANK1     000100
 _pump_tick                       text1        001E3E
 _utoa                            text37       0018F6
-btemp                            temp         000047
-disp_show_quantity@I             cstackBANK0  0000E3
-disp_show_quantity@buff          cstackBANK0  0000D3
+btemp                            temp         00004C
+disp_show_quantity@I             cstackBANK0  0000EC
+disp_show_quantity@buff          cstackBANK0  0000DC
 disp_show_quantity@f             cstackCOMRAM 000031
-disp_show_quantity@i             cstackBANK0  0000E5
-disp_show_quantity@last_pos      cstackBANK0  0000E2
-disp_show_quantity@num           cstackBANK0  0000E0
-disp_show_quantity@q             cstackBANK0  0000E1
-disp_show_quantity@real          cstackBANK0  0000DD
-display7s_job@q                  bssCOMRAM    00003F
+disp_show_quantity@i             cstackBANK0  0000EE
+disp_show_quantity@last_pos      cstackBANK0  0000EB
+disp_show_quantity@num           cstackBANK0  0000E9
+disp_show_quantity@q             cstackBANK0  0000EA
+disp_show_quantity@real          cstackBANK0  0000E6
+display7s_job@q                  bssCOMRAM    000042
 end_of_initialization            cinit        001AD4
 ikb_init@i                       cstackCOMRAM 00000B
 ikb_key_is_ready2read@k          cstackCOMRAM 00000B
@@ -891,7 +896,7 @@ ikey_clear_all_flag@i            cstackCOMRAM 00000B
 ikey_is_accessible@k             cstackCOMRAM 00000D
 ikey_parsing@k                   cstackCOMRAM 000023
 ikey_scan@k                      cstackCOMRAM 00000C
-int$flags                        temp         000047
+int$flags                        temp         00004C
 int_func                         intcode_body 001C72
 intlevel0                        text         000000
 intlevel1                        text         000000
@@ -902,8 +907,9 @@ itoa@buf                         cstackCOMRAM 00001A
 itoa@val                         cstackCOMRAM 00001B
 main@c_access_disp               cstackCOMRAM 000036
 main@c_access_kb                 cstackCOMRAM 000035
+main@unlock_pump                 cstackCOMRAM 000037
 mpap_do1step@KI                  cstackCOMRAM 000001
-mpap_do1step@i                   dataCOMRAM   000046
+mpap_do1step@i                   dataCOMRAM   00004B
 mpap_homming@cod_ret             cstackCOMRAM 000003
 mpap_normal_mode@cod_ret         cstackCOMRAM 000002
 mpap_setupToTurn@numSteps_tomove cstackCOMRAM 000011
@@ -913,32 +919,33 @@ multiplexedDisp_init@i           cstackCOMRAM 00000B
 multiplexedDisp_job@i            cstackCOMRAM 000012
 multiplexedDisp_job@q            cstackCOMRAM 000011
 nozzle_moveto@nozzle             cstackCOMRAM 000015
-pump_tick@c                      bssCOMRAM    000042
+pump_tick@c                      bssCOMRAM    000047
 pump_tick@cod_ret                cstackCOMRAM 00000B
-pump_tick@sm0                    bssCOMRAM    000043
+pump_tick@sm0                    bssCOMRAM    000048
 stackhi                          (abs)        0007FF
 stacklo                          (abs)        00017B
 start                            init         00000E
 start_initialization             cinit        001A7E
-ttemp5                           temp         000048
-ttemp6                           temp         00004B
-ttemp7                           temp         00004F
+ttemp5                           temp         00004D
+ttemp6                           temp         000050
+ttemp7                           temp         000054
 utoa@base                        cstackCOMRAM 000015
 utoa@buf                         cstackCOMRAM 000012
 utoa@c                           cstackCOMRAM 000019
 utoa@v                           cstackCOMRAM 000017
 utoa@val                         cstackCOMRAM 000013
-wtemp8                           temp         000048
+wtemp8                           temp         00004D
 
 
 FUNCTION INFORMATION:
 
  *************** function _main *****************
  Defined at:
-		line 67 in file "main.c"
+		line 113 in file "main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
+  unlock_pump     1   54[COMRAM] char 
   c_access_dis    1   53[COMRAM] char 
   c_access_kb     1   52[COMRAM] char 
  Return value:  Size  Location     Type
@@ -951,10 +958,10 @@ FUNCTION INFORMATION:
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
       Params:         0       0       0       0       0       0       0       0       0
-      Locals:         2       0       0       0       0       0       0       0       0
+      Locals:         3       0       0       0       0       0       0       0       0
       Temps:          0       0       0       0       0       0       0       0       0
-      Totals:         2       0       0       0       0       0       0       0       0
-Total ram usage:        2 bytes
+      Totals:         3       0       0       0       0       0       0       0       0
+Total ram usage:        3 bytes
  Hardware stack levels required when called:    9
  This function calls:
 		_disp_show_quantity
@@ -975,7 +982,7 @@ Total ram usage:        2 bytes
 
  *************** function _pump_tick *****************
  Defined at:
-		line 41 in file "main.c"
+		line 42 in file "main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1005,7 +1012,7 @@ Total ram usage:        1 bytes
 
  *************** function _nozzle_moveto *****************
  Defined at:
-		line 108 in file "mpap.c"
+		line 76 in file "mpap.c"
  Parameters:    Size  Location     Type
   nozzle          1    wreg     char 
  Auto vars:     Size  Location     Type
@@ -1067,7 +1074,7 @@ Total ram usage:        6 bytes
 
  *************** function _mpap_sych *****************
  Defined at:
-		line 172 in file "main.c"
+		line 171 in file "mpap.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1097,7 +1104,7 @@ Total ram usage:        0 bytes
 
  *************** function _mpap_setupToHomming *****************
  Defined at:
-		line 101 in file "mpap.c"
+		line 69 in file "mpap.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1127,7 +1134,7 @@ Total ram usage:        0 bytes
 
  *************** function _mpap_setupToTurn *****************
  Defined at:
-		line 89 in file "mpap.c"
+		line 57 in file "mpap.c"
  Parameters:    Size  Location     Type
   numSteps_tom    2   16[COMRAM] int 
  Auto vars:     Size  Location     Type
@@ -1590,7 +1597,7 @@ Total ram usage:        1 bytes
 
  *************** function _display7s_job *****************
  Defined at:
-		line 178 in file "pulsonic.c"
+		line 174 in file "pulsonic.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1620,7 +1627,7 @@ Total ram usage:        0 bytes
 
  *************** function _multiplexedDisp_job *****************
  Defined at:
-		line 149 in file "pulsonic.c"
+		line 145 in file "pulsonic.c"
  Parameters:    Size  Location     Type
   q               1    wreg     char 
  Auto vars:     Size  Location     Type
@@ -1660,7 +1667,7 @@ Total ram usage:        8 bytes
 
  *************** function _display7s_init *****************
  Defined at:
-		line 165 in file "pulsonic.c"
+		line 161 in file "pulsonic.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1690,7 +1697,7 @@ Total ram usage:        0 bytes
 
  *************** function _multiplexedDisp_init *****************
  Defined at:
-		line 134 in file "pulsonic.c"
+		line 130 in file "pulsonic.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -2039,7 +2046,7 @@ Total ram usage:        0 bytes
 
  *************** function _disp_show_quantity *****************
  Defined at:
-		line 190 in file "pulsonic.c"
+		line 186 in file "pulsonic.c"
  Parameters:    Size  Location     Type
   f               3   48[COMRAM] void 
  Auto vars:     Size  Location     Type
@@ -2439,7 +2446,7 @@ Total ram usage:        8 bytes
 
  *************** function _INTERRUPCION *****************
  Defined at:
-		line 228 in file "main.c"
+		line 366 in file "main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -2469,7 +2476,7 @@ Total ram usage:        6 bytes
 
  *************** function _mpap_job *****************
  Defined at:
-		line 191 in file "mpap.c"
+		line 151 in file "mpap.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -2501,7 +2508,7 @@ Total ram usage:        1 bytes
 
  *************** function _mpap_normal_mode *****************
  Defined at:
-		line 171 in file "mpap.c"
+		line 131 in file "mpap.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -2531,7 +2538,7 @@ Total ram usage:        1 bytes
 
  *************** function _mpap_homming *****************
  Defined at:
-		line 148 in file "mpap.c"
+		line 108 in file "mpap.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -2561,7 +2568,7 @@ Total ram usage:        2 bytes
 
  *************** function _mpap_do1step *****************
  Defined at:
-		line 128 in file "mpap.c"
+		line 88 in file "mpap.c"
  Parameters:    Size  Location     Type
   KI              1    wreg     char 
  Auto vars:     Size  Location     Type
@@ -2595,7 +2602,7 @@ Total ram usage:        1 bytes
 
  *************** function __mpap_step3 *****************
  Defined at:
-		line 51 in file "mpap.c"
+		line 23 in file "mpap.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -2603,7 +2610,7 @@ Total ram usage:        1 bytes
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
-		wreg, status,2
+		status,2, status,0
  Tracked objects:
 		On entry : 
 		On exit  : 
@@ -2624,7 +2631,7 @@ Total ram usage:        0 bytes
 
  *************** function __mpap_step2 *****************
  Defined at:
-		line 42 in file "mpap.c"
+		line 15 in file "mpap.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -2632,7 +2639,7 @@ Total ram usage:        0 bytes
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
-		wreg, status,2
+		status,2, status,0
  Tracked objects:
 		On entry : 
 		On exit  : 
@@ -2653,7 +2660,7 @@ Total ram usage:        0 bytes
 
  *************** function __mpap_step1 *****************
  Defined at:
-		line 33 in file "mpap.c"
+		line 7 in file "mpap.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -2661,7 +2668,7 @@ Total ram usage:        0 bytes
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
-		wreg, status,2
+		status,2, status,0
  Tracked objects:
 		On entry : 
 		On exit  : 
@@ -2682,7 +2689,7 @@ Total ram usage:        0 bytes
 
  *************** function __mpap_step4 *****************
  Defined at:
-		line 60 in file "mpap.c"
+		line 31 in file "mpap.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -2690,7 +2697,7 @@ Total ram usage:        0 bytes
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
-		wreg, status,2
+		status,2, status,0
  Tracked objects:
 		On entry : 
 		On exit  : 
@@ -2711,7 +2718,7 @@ Total ram usage:        0 bytes
 
  *************** function __mpap_off *****************
  Defined at:
-		line 75 in file "mpap.c"
+		line 45 in file "mpap.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -2761,17 +2768,18 @@ mpap.c
 		_mpap_setupToTurn		CODE           	1EA4	0000	49
 		_mpap_normal_mode		CODE           	1CBA	0000	73
 		_nozzle_moveto 		CODE           	1ED4	0000	47
+		_mpap_sych     		CODE           	198A	0000	129
 		_mpap_job      		CODE           	1C28	0000	75
 		_mpap_do1step  		CODE           	1D44	0000	67
-		__mpap_step1   		CODE           	202C	0000	7
-		__mpap_step2   		CODE           	2026	0000	7
-		__mpap_step3   		CODE           	2020	0000	7
-		__mpap_step4   		CODE           	2032	0000	7
+		__mpap_step1   		CODE           	200E	0000	11
+		__mpap_step2   		CODE           	2004	0000	11
+		__mpap_step3   		CODE           	1FFA	0000	11
+		__mpap_step4   		CODE           	2018	0000	11
 		_mpap_setupToHomming		CODE           	1FCA	0000	19
-		__mpap_off     		CODE           	1FFA	0000	11
+		__mpap_off     		CODE           	2022	0000	11
 		_mpap_homming  		CODE           	1AE2	0000	89
 
-mpap.c estimated size: 458
+mpap.c estimated size: 603
 
 /opt/microchip/xc8/v2.05/pic/sources/c90/common/ftge.c
 		___ftge        		CODE           	1A0A	0000	117
@@ -2785,12 +2793,12 @@ mpap.c estimated size: 458
 
 ../../../../../../FIRWAR/eslibrary/ikb/ikb.c
 		_ikb_init      		CODE           	16F2	0000	183
-		_keyRead_pin_key1		CODE           	2004	0000	9
+		_keyRead_pin_key1		CODE           	202C	0000	9
 		_keyRead_pin_key2		CODE           	1FF0	0000	11
 		_keyRead_pin_key3		CODE           	1FE6	0000	11
-		_keyRead_pin_key4		CODE           	2014	0000	7
-		_keyRead_pin_key5		CODE           	200C	0000	9
-		_ikb_flush     		CODE           	201A	0000	7
+		_keyRead_pin_key4		CODE           	203C	0000	7
+		_keyRead_pin_key5		CODE           	2034	0000	9
+		_ikb_flush     		CODE           	2042	0000	7
 		_ikey_is_accessible		CODE           	1BDC	0000	77
 		_ikey_scan     		CODE           	1286	0000	417
 		_ikb_key_is_ready2read		CODE           	1FAE	0000	29
@@ -2834,20 +2842,20 @@ shared estimated size: 101
 
 pulsonic.c
 		_multiplexedDisp_job		CODE           	1856	0000	161
-		_multiplexedDisp0_on		CODE           	2054	0000	5
-		_multiplexedDisp1_on		CODE           	204C	0000	5
-		_multiplexedDisp2_on		CODE           	2044	0000	5
-		_multiplexedDisp3_on		CODE           	203C	0000	5
-		_multiplexedDisp4_on		CODE           	205C	0000	5
+		_multiplexedDisp0_on		CODE           	2064	0000	5
+		_multiplexedDisp1_on		CODE           	205C	0000	5
+		_multiplexedDisp2_on		CODE           	2054	0000	5
+		_multiplexedDisp3_on		CODE           	204C	0000	5
+		_multiplexedDisp4_on		CODE           	206C	0000	5
 		_display7s_job 		CODE           	1F28	0000	39
 		_multiplexedDisp_init		CODE           	1D86	0000	65
 		_disp_show_quantity		CODE           	0E3E	0000	673
 		_display7s_init		CODE           	1B8C	0000	81
-		_multiplexedDisp0_off		CODE           	2058	0000	5
-		_multiplexedDisp1_off		CODE           	2050	0000	5
-		_multiplexedDisp2_off		CODE           	2048	0000	5
-		_multiplexedDisp3_off		CODE           	2040	0000	5
-		_multiplexedDisp4_off		CODE           	2038	0000	5
+		_multiplexedDisp0_off		CODE           	2068	0000	5
+		_multiplexedDisp1_off		CODE           	2060	0000	5
+		_multiplexedDisp2_off		CODE           	2058	0000	5
+		_multiplexedDisp3_off		CODE           	2050	0000	5
+		_multiplexedDisp4_off		CODE           	2048	0000	5
 
 pulsonic.c estimated size: 1069
 
@@ -2860,10 +2868,9 @@ pulsonic.c estimated size: 1069
 main.c
 		_main          		CODE           	1426	0000	263
 		_pump_tick     		CODE           	1E3E	0000	53
-		_mpap_sych     		CODE           	198A	0000	129
 		_INTERRUPCION  		CODE           	0008	0000	79
 
-main.c estimated size: 524
+main.c estimated size: 395
 
 /opt/microchip/xc8/v2.05/pic/sources/c90/common/awtoft.c
 		___awtoft      		CODE           	1E06	0000	57

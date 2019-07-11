@@ -66,6 +66,14 @@ struct _multiplexedDisp
 extern struct _multiplexedDisp multiplexedDisp[DISP_TOTAL_NUMMAX];
 
 void disp_show_quantity(double f);
+
+extern const uint8_t DISP7S_NUMS[10];
+extern const uint8_t DISP7S_CHARS[2];
+
+enum _DISP7S_CHARS {
+    OFF,
+    RAYA
+};
 #endif	/* PULSONIC_H */
 
 

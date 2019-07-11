@@ -12,7 +12,7 @@
 #define NUMMAX_ERRORS 8//16
 
 #if NUMMAX_ERRORS == 8
-    typedef int8_t intNumMaxErr_t
+    typedef int8_t intNumMaxErr_t;
 #elif NUMMAX_ERRORS == 16
     typedef int16_t intNumMaxErr_t
 #else

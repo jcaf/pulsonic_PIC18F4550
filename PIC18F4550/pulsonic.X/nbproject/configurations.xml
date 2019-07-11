@@ -22,6 +22,7 @@
       <itemPath>../../../../../../FIRWAR/eslibrary/ikb/ikb.c</itemPath>
       <itemPath>pulsonic.c</itemPath>
       <itemPath>mpap.c</itemPath>
+      <itemPath>pump.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -29,6 +30,7 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
     <itemPath>inputs.c</itemPath>
+    <itemPath>pump.h</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>../../../../../../FIRWAR/eslibrary</Elem>
