@@ -5891,14 +5891,6 @@ int8_t is_homeSensor(void);
 int8_t is_unblockedNozzle(int8_t nozzle);
 int8_t is_inductiveSensorRPM(void);
 
-
-# 23 "main.c"
-#pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
-#pragma config "MCLRE=ON","BOR=OFF"
-#pragma warning disable 752
-#pragma warning disable 356
-#pragma warning disable 373
-
 # 308 "/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h"
 void ikb_init(void);
 void ikb_job(void);
@@ -5911,7 +5903,25 @@ void ikb_set_ready2read(uint8_t k);
 void ikb_key_was_read(uint8_t k);
 void ikb_execfunct(uint8_t k);
 
-# 31 "main.c"
+# 12 "pump.h"
+struct _pump
+{
+uint16_t ticks;
+int8_t sm0;
+};
+
+void pump_setTick(uint16_t ticks);
+void pump_stop(void);
+int8_t pump_job(void);
+
+
+# 25 "main.c"
+#pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
+#pragma config "MCLRE=ON","BOR=OFF"
+#pragma warning disable 752
+#pragma warning disable 356
+#pragma warning disable 373
+
 volatile struct _isr_flag
 {
 unsigned f1ms: 1;
@@ -5919,34 +5929,6 @@ unsigned __a: 7;
 } isr_flag = {0};
 volatile struct _main_flag main_flag;
 
-# 42
-int8_t pump_tick(void)
-{
-int8_t cod_ret = 0;
-static int8_t sm0;
-static int8_t c;
-
-if (sm0 == 0)
-{
-do{do{LATE &= ~(1<<0);}while(0);}while(0);
-c = 0x0;
-sm0++;
-}
-else if (sm0 == 1)
-{
-if (main_flag.f1ms)
-{
-if (++c == 50)
-{
-sm0 = 0x00;
-
-do{do{LATE |= 1<<0;}while(0);}while(0);
-cod_ret = 1;
-}
-}
-}
-return cod_ret;
-}
 
 struct _lock
 {
@@ -6003,7 +5985,6 @@ LATE = 0x00;
 LATB = 0x00;
 
 
-
 ADCON1 = 0x0F;
 CMCON=0xCF;
 
@@ -6011,7 +5992,6 @@ CMCON=0xCF;
 UCON = 0;
 UCFG = 1<<3;
 T0CON = 0B10000111;
-
 
 TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ) >> 8);
 TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
@@ -6041,7 +6021,6 @@ GIE = 1;
 
 mpap_setupToHomming();
 
-int8_t unlock_pump = 0;
 while(1)
 {
 if (isr_flag.f1ms)
@@ -6071,8 +6050,7 @@ nozzle_moveto(2);
 }
 if (ikb_key_is_ready2read(3))
 {
-
-unlock_pump = 1;
+pump_setTick(3);
 }
 }
 
@@ -6083,15 +6061,8 @@ c_access_disp = 0;
 display7s_job();
 }
 }
-if (unlock_pump)
-{
-if (pump_tick())
-{
-unlock_pump = 0;
-}
-}
 
-
+pump_job();
 mpap_sych();
 
 
@@ -6100,7 +6071,7 @@ ikb_flush();
 }
 }
 
-# 366
+# 324
 void interrupt INTERRUPCION(void)
 {
 if (TMR0IF)
@@ -6137,7 +6108,7 @@ sm0 = 0x00;
 sm1 = 0x00;
 }
 
-# 406
+# 364
 if (error_grantedToWriteDisp.f.startSignal == 1)
 {
 if (sm1 == 0)
@@ -6180,7 +6151,7 @@ sm0 = 0x00;
 sm1 = 0x00;
 }
 
-# 452
+# 410
 if (error_grantedToWriteDisp.f.oilLevel == 1)
 {
 if (sm1 == 0)

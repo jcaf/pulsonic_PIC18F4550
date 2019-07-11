@@ -20,6 +20,7 @@
 #include "mpap.h"
 #include "inputs.h"
 #include "ikb/ikb.h"
+#include "pump.h"
 
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
@@ -87,21 +88,19 @@ void main(void)
     LATC = 0x00;
     LATD = 0x00;
     LATE = 0x00;
-    LATB = 0x00;    //0B00000111;
+    LATB = 0x00;    
     //TRISB= 0x00;   //All segments controlled by NPN    
     
-    //All analog inputs as DIGITAL
-    ADCON1 = 0x0F;
-    CMCON=0xCF; //POR default mode comparators OFF
+    ADCON1 = 0x0F;  //All analog inputs as DIGITAL
+    CMCON=0xCF;     //POR default mode comparators OFF
             
-    //RC4/RC5 config as digital inputs
-    UCON = 0;   //USBEN Disable
-    UCFG = 1<<3;//UTRDIS Digital input enable RC4/RC5
+                    //RC4/RC5 config as digital inputs
+    UCON = 0;       //USBEN Disable
+    UCFG = 1<<3;    //UTRDIS Digital input enable RC4/RC5
     T0CON = 0B10000111; //16BITS
-    //TMR0H = (uint8_t)(TMR16B_OVF(2e-3, 256) >> 8);
-    //TMR0L = (uint8_t)(TMR16B_OVF(2e-3, 256));
-    TMR0H = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256) >> 8);
-    TMR0L = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256));
+    
+    TMR0H = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256) >> 8);//TMR0H = (uint8_t)(TMR16B_OVF(2e-3, 256) >> 8);
+    TMR0L = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256));//TMR0L = (uint8_t)(TMR16B_OVF(2e-3, 256));
     TMR0IE = 1;
     //.....
     PUMP_DISABLE();
@@ -128,7 +127,6 @@ void main(void)
 
     mpap_setupToHomming();
 
-int8_t unlock_pump = 0;
     while(1)
     {
         if (isr_flag.f1ms)//sync para toda la pasada
@@ -158,8 +156,7 @@ int8_t unlock_pump = 0;
                 }
                 if (ikb_key_is_ready2read(3))
                 {
-                    //nozzle_moveto(3);
-                    unlock_pump = 1;
+                    pump_setTick(3);
                 }
             }
             
@@ -170,15 +167,8 @@ int8_t unlock_pump = 0;
                 display7s_job();
             }
         }
-        if (unlock_pump)
-        {
-            if (pump_tick())
-            {
-                unlock_pump = 0;
-            }
-        }
-        
-        
+
+        pump_job();
         mpap_sych();
         
         //////////
