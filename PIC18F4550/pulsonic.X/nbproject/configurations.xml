@@ -9,6 +9,7 @@
       <itemPath>../../../../../../FIRWAR/eslibrary/system.h</itemPath>
       <itemPath>pulsonic.h</itemPath>
       <itemPath>mpap.h</itemPath>
+      <itemPath>inputs.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

@@ -5866,6 +5866,7 @@ void mpap_setupToHomming(void);
 void nozzle_moveto(int8_t nozzle);
 
 
+void mpap_sych(void);
 
 
 void mpap_test(void);
@@ -5903,7 +5904,7 @@ volatile struct _main_flag main_flag;
 
 extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
 
-void mpap_sych(void);
+
 
 int8_t pump_tick(void)
 {
@@ -5931,6 +5932,31 @@ cod_ret = 1;
 }
 return cod_ret;
 }
+
+struct _lock
+{
+unsigned kb:1;
+unsigned autoMode:1;
+unsigned visualizerMode:1;
+unsigned __a:5;
+}lock;
+
+enum _MACHINESTATE
+{
+STALL = 0,
+RUNNING,
+CONFIG
+};
+int8_t machineState;
+
+enum _DISPOWNER_MODE
+{
+DISPOWNER_AUTO_MODE = 0,
+DISPOWNER_VISUALIZER_MODE,
+DISPOWNER_CONFIG_MODE,
+};
+int8_t disp_owner = DISPOWNER_AUTO_MODE;
+
 void main(void)
 {
 int8_t c_access_kb=0;
@@ -5980,6 +6006,9 @@ disp_show_quantity(77.7);
 GIE = 1;
 
 mpap_setupToHomming();
+
+
+
 while(1)
 {
 if (isr_flag.f1ms)
@@ -5994,31 +6023,27 @@ if (++c_access_kb == 20)
 {
 c_access_kb = 0;
 
+
+if (!lock.kb)
+{
 ikb_job();
 
-if (ikb_key_is_ready2read(0))
+if (1)
 {
-nozzle_moveto(0);
+disp_owner = DISPOWNER_VISUALIZER_MODE;
 }
-if (ikb_key_is_ready2read(1))
+else if (1)
 {
-nozzle_moveto(1);
+disp_owner = DISPOWNER_AUTO_MODE;
 }
-if (ikb_key_is_ready2read(2))
+else
 {
-nozzle_moveto(2);
+machineState = CONFIG;
+machineState = RUNNING;
 }
-if (ikb_key_is_ready2read(3))
-{
-nozzle_moveto(3);
 }
-if (ikb_key_is_ready2read(4))
-{
+}
 
-while (pump_tick())
-;
-}
-}
 
 if (++c_access_disp == 2)
 {
@@ -6026,6 +6051,47 @@ c_access_disp = 0;
 display7s_job();
 }
 }
+
+if (machineState == RUNNING)
+{
+
+if (!lock.autoMode)
+{
+
+{
+
+
+if (disp_owner == DISPOWNER_AUTO_MODE)
+{
+}
+}
+}
+
+if (!lock.visualizerMode)
+{
+
+
+
+
+if (disp_owner == DISPOWNER_VISUALIZER_MODE)
+{
+}
+}
+}
+else if (machineState == CONFIG)
+{
+
+
+
+
+if (disp_owner == DISPOWNER_CONFIG_MODE)
+{
+}
+}
+
+
+
+
 mpap_sych();
 
 
@@ -6033,65 +6099,6 @@ main_flag.f1ms = 0;
 ikb_flush();
 }
 }
-
-
-
-void mpap_sych(void)
-{
-static int8_t sm0;
-static int8_t c;
-if (sm0 == 0)
-{
-if ((mpap.mode == NORMAL_MODE) || (mpap.mode == HOMMING_MODE))
-{
-sm0++;
-}
-else if (mpap.mode == STALL_MODE)
-{
-sm0 = 2;
-}
-}
-else if (sm0 == 1)
-{
-if (mpap.numSteps_tomove == 0)
-{
-if (mpap.mode == HOMMING_MODE)
-{
-if ( pulsonic.errors.flag.mpap_home_sensor == 1)
-{
-pulsonic.errors.flag.mpap_home_sensor = 0;
-
-}
-}
-else if (mpap.mode == NORMAL_MODE)
-{
-}
-sm0++;
-c = 0;
-}
-}
-else if (sm0 == 2)
-{
-if (main_flag.f1ms)
-{
-if (++c == 10)
-{
-
-mpap.mode = STALL_MODE;
-sm0++;
-}
-}
-}
-else if (sm0 == 3)
-{
-if (mpap.mode == IDLE_MODE)
-{
-
-sm0 = 0;
-}
-}
-}
-
 void interrupt INTERRUPCION(void)
 {
 if (TMR0IF)
@@ -6103,4 +6110,101 @@ TMR0IF = 0;
 TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ) >> 8);
 TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
 }
+}
+
+# 255
+void errorHandler_startSignal(void)
+{
+static int8_t sm0;
+
+
+if (sm0 == 0)
+{
+if ( (machineState == WORKING_MODE) && (!is_startSignal()) )
+{
+machineState = STALL;
+sm0++;
+}
+}
+else if (sm0 == 1)
+{
+
+if ( is_startSignal() )
+{
+
+}
+else
+{
+
+}
+
+
+
+
+flag = 00000010;
+
+
+}
+}
+union _errorFlag
+{
+struct _errorFlag_flags
+{
+unsigned startSignal:1;
+unsigned levelOil:1;
+unsigned homeSensor:1;
+unsigned unblockedNozzle:1;
+unsigned inductiveSensorRPM:1;
+unsigned __a:1;
+unsigned __b:1;
+unsigned __c:1;
+
+}f;
+intNumMaxErr_t packed;
+};
+union _errorFlag errorSignal;
+union _errorFlag errorPermission;
+
+
+void errorHandler_queue(void)
+{
+
+static int8_t i;
+static int8_t sm0;
+static uint16_t c;
+static _errorFlag permission;
+
+if (sm0 == 0)
+{
+permission = errorSignal.packed & (1<<i);
+if (permission)
+{
+errorPermission.packed = permission;
+c = 0x0;
+}
+}
+else if (sm0 == 1)
+{
+if ( errorSignal.packed & (1<<i) )
+{
+if (main_flag.f1ms)
+{
+if (++c == 2000)
+{
+if (++i == NUMMAX_ERRORS)
+{
+i = 0;
+}
+}
+}
+}
+else
+{
+if (++i==NUMMAX_ERRORS)
+{
+i = 0;
+}
+}
+}
+
 }
