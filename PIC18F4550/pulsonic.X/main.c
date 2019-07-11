@@ -25,6 +25,7 @@
 #pragma warning disable 356
 #pragma warning disable 373//warning: (373) implicit signed to unsigned conversion
 #include "ikb/ikb.h"
+#include "inputs.h"
 
 volatile struct _isr_flag
 {
@@ -128,7 +129,7 @@ void main(void)
     //
     ConfigInputPin(CONFIGIOxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME);
 
-    ConfigInputPin(CONFIGIOxLEVELOIL, PINxLEVELOIL);//ext. pullup
+    ConfigInputPin(CONFIGIOxoilLevel, PINxoilLevel);//ext. pullup
     ConfigInputPin(CONFIGIOxSTARTSIGNAL, PINxSTARTSIGNAL);//ext. pullup
     
     display7s_init();
@@ -184,6 +185,8 @@ void main(void)
             }
         }
         //+--------------------------------------------------------------------
+        
+        //+--------------------------------------------------------------------
         if (machineState == RUNNING)//solo para darle mas claridad a la lectura del programa, xq podria manejarse con locks
         {
             //sobre estos 2, igual la maquina puede entrar a modo "Config"
@@ -231,6 +234,7 @@ void main(void)
         ikb_flush();
     }
 }
+////////////////////////////////////////////////////////////////////////////////
 void interrupt INTERRUPCION(void)//@1ms 
 {
     if (TMR0IF)
@@ -243,54 +247,104 @@ void interrupt INTERRUPCION(void)//@1ms
         TMR0L = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256));
     }
 }
-/*
-    int8_t is_levelOil(void);
-    int8_t is_startSignal(void);
-    int8_t is_homeSensor(void);
-    int8_t is_unblocked_nozzle(int8_t nozzle);
-    int8_t is_inductiveSensorRPM(void);
-
- */
-//////////////////////////////
-void errorHandler_startSignal(void)
+////////////////////////////////////////////////////////////////////////////////
+void check_startSignal(void)
 {
-	static int8_t sm0;
-//uint8_t display7s[DISP_TOTAL_NUMMAX];
-    
+	static int8_t sm0, sm1;
 	if (sm0 == 0)
 	{
-		if (  (machineState == WORKING_MODE) && (!is_startSignal()) ) //cada error decide apropiarse del display
+		if ( (machineState == WORKING_MODE) && (!is_startSignal()) ) //cada error decide apropiarse del display
 		{
-			machineState = STALL;
+			error_requestToWriteDisp.f.startSignal = 1;//request write
+            //
+            machineState = STALL;//puede ser NOT_RUNNING or IDLE
 			sm0++;
 		}	
 	}
-	else if (sm0 == 1) //2 partes: el proceso y el display
+	else if (sm0 == 1) //2 parts: the process and the display
 	{
-		//1) el proceso
-        if ( is_startSignal() )//desaparecio el error?
+		//1)the process
+        if ( is_startSignal() )
 		{
-            
+            error_requestToWriteDisp.f.startSignal = 0;//kill signal queue
+            sm0 = 0x00;
+            sm1 = 0x00;
 		}
-		else
+		/*else
 		{
-
-		}
-
-		//una una version buffered de los display, para luego volcarse en su debido
-		//momento
-		//
-        flag = 00000010;//su respectivo flag
+		}*/
 		
-		//2) necesito el display?
+        //2) need to write on display
+        if (error_grantedToWriteDisp.f.startSignal == 1)//se concede
+        {
+            if (sm1 == 0)
+            {
+                pulsonic.display7s[MODE_DIG_1] = DISP7S_NUMS[2];
+                pulsonic.display7s[MODE_DIG_0] = DISP7S_NUMS[0];
+                //
+                pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[RAYA];
+                pulsonic.display7s[QUANT_DIG_1] = DISP7S_CHARS[RAYA];
+                pulsonic.display7s[QUANT_DIG_0] = DISP7S_CHARS[RAYA];
+                //
+                sm1++;
+            }
+        }
 	}
 }
-union _errorFlag
+////////////////////////////////////////////////////////////////////////////////
+void check_oilLevel(void)
+{
+	static int8_t sm0, sm1;
+	if (sm0 == 0)
+	{
+		if ( !is_oilLevel() )
+		{
+			error_requestToWriteDisp.f.oilLevel = 1;//request write
+            //
+            
+            machineState = STALL;
+            RELAY_DISABLE();
+			sm0++;
+		}	
+	}
+	else if (sm0 == 1) //2 parts: the process and the display
+	{
+		//1)the process
+        if ( is_oilLevel() )
+		{
+            error_requestToWriteDisp.f.oilLevel = 0;//kill signal queue
+            sm0 = 0x00;
+            sm1 = 0x00;
+		}
+		/*else
+		{
+		}*/
+		
+        //2) need to write on display
+        if (error_grantedToWriteDisp.f.oilLevel == 1)//se concede
+        {
+            if (sm1 == 0)
+            {   //no OIL
+                pulsonic.display7s[MODE_DIG_1] = 0x54;  //0b01010100;//n
+                pulsonic.display7s[MODE_DIG_0] = 0x5C;  //0b01011100;//o
+                //
+                pulsonic.display7s[QUANT_DIG_2] = DISP7S_NUMS[0];//O
+                pulsonic.display7s[QUANT_DIG_1] = 0x30;//I
+                pulsonic.display7s[QUANT_DIG_0] = 0x38;//L
+                //
+                sm1++;
+            }
+        }
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+union _errorDispFlag
 {
     struct _errorFlag_flags
     {
         unsigned startSignal:1;
-        unsigned levelOil:1;
+        unsigned oilLevel:1;
         unsigned homeSensor:1;
         unsigned unblockedNozzle:1;
         unsigned inductiveSensorRPM:1;
@@ -301,34 +355,35 @@ union _errorFlag
     }f;
     intNumMaxErr_t packed;
 };
-union _errorFlag errorSignal;//senala requiere
-union _errorFlag errorPermission;//aqui el tiene el permiso en la misma ubicacion
+union _errorDispFlag error_requestToWriteDisp;//senala requiere el display
+union _errorDispFlag error_grantedToWriteDisp;//aqui el tiene el permiso en la misma ubicacion
 
 ////////////////////////////
 void errorHandler_queue(void)
 {
+    #define ERROR_QUEUE_OWNER_DISP_TIME 2000//2000*1mS
     //static intNumMaxErr_t i;
     static int8_t i;
     static int8_t sm0;
     static uint16_t c;
-	static _errorFlag permission;
+	struct _errorFlag is_granted;
     
     if (sm0 == 0)
     {
-        permission = errorSignal.packed & (1<<i);
-        if (permission)
+        is_granted = error_requestToWriteDisp.packed & (1<<i);
+        if (is_granted)
         {
-            errorPermission.packed = permission;//solo 1 tiene el permiso
+            error_grantedToWriteDisp.packed = is_granted;//solo 1 tiene el permiso
             c = 0x0;
         }
     }
     else if (sm0 == 1)
     {
-        if ( errorSignal.packed & (1<<i) )//aun se mantiene?
+        if ( error_requestToWriteDisp.packed & (1<<i) )//aun se mantiene?
         {
             if (main_flag.f1ms)
             {
-                if (++c == 2000)//2 ms
+                if (++c == ERROR_QUEUE_OWNER_DISP_TIME)//2 s
                 {
                     if (++i == NUMMAX_ERRORS)
                     {
@@ -343,6 +398,7 @@ void errorHandler_queue(void)
             {
                 i = 0;
             }
+            sm0 = 0x00;
         }
     }
     

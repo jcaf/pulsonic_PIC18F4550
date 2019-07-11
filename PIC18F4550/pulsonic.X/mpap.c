@@ -32,39 +32,39 @@
 //        __delay_ms(1);
 static void _mpap_step1(void)
 {
-//    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
-//    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
-//    PinTo1(PORTWxSTEPPER_C, PINxSTEPPER_C);
-//    PinTo1(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    //LATD = 0x0C;
-    LATD = 0x08;
+    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
+    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
+    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
+    PinTo1(PORTWxSTEPPER_D, PINxSTEPPER_D);
+    
+    //LATD = 0x08;//LATD = 0x0C;
 }
 static void _mpap_step2(void)
 {
-//    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
-//    PinTo1(PORTWxSTEPPER_B, PINxSTEPPER_B);
-//    PinTo1(PORTWxSTEPPER_C, PINxSTEPPER_C);
-//    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    //LATD = 0x06;
-    LATD = 0x04;
+    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
+    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
+    PinTo1(PORTWxSTEPPER_C, PINxSTEPPER_C);
+    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
+    
+    //LATD = 0x04;//LATD = 0x06;
 }
 static void _mpap_step3(void)
 {
-//    PinTo1(PORTWxSTEPPER_A, PINxSTEPPER_A);
-//    PinTo1(PORTWxSTEPPER_B, PINxSTEPPER_B);
-//    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
-//    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    //LATD = 0x03;
-    LATD = 0x02;
+    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
+    PinTo1(PORTWxSTEPPER_B, PINxSTEPPER_B);
+    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
+    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
+    
+    //LATD = 0x02;//LATD = 0x03;
 }
 static void _mpap_step4(void)
 {
-//    PinTo1(PORTWxSTEPPER_A, PINxSTEPPER_A);
-//    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
-//    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
-//    PinTo1(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    //LATD = 0x09;
-    LATD = 0x01;
+    PinTo1(PORTWxSTEPPER_A, PINxSTEPPER_A);
+    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
+    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
+    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
+    
+    //LATD = 0x01;//LATD = 0x09;
 }
 //PTRFX_retVOID mpap_step[NUM_STEPPER_BIPOLAR][4] = 
 PTRFX_retVOID mpap_step[4] = 

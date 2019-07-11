@@ -16,15 +16,6 @@
     
     #define myitoa(_integer_, _buffer_, _base_) itoa(_buffer_, _integer_, _base_)
 
-    ////////////////////////////////////////////////////////////////////////////
-    //OIL-PUMP MOTOR
-    #define PORTWxPUMP LATE
-    #define PORTRxPUMP PORTE
-    #define CONFIGIOxPUMP TRISE
-    #define PINxPUMP  0
-
-    #define PUMP_DISABLE()  do{PinTo1(PORTWxPUMP, PINxPUMP);}while(0)
-    #define PUMP_ENABLE()   do{PinTo0(PORTWxPUMP, PINxPUMP);}while(0)
     
     ////////////////////////////////////////////////////////////////////////////
     //MOTOR PAP UNIPOLAR
@@ -57,22 +48,40 @@
     #define STEPPER_ENABLE() do{PinTo0(PORTWxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);}while(0)
     #define STEPPER_DISABLE() do{PinTo1(PORTWxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);}while(0)
     //
+    ////////////////////////////////////////////////////////////////////////////
+    //OIL-PUMP MOTOR
+    #define PORTWxPUMP LATE
+    #define PORTRxPUMP PORTE
+    #define CONFIGIOxPUMP TRISE
+    #define PINxPUMP  0
+
+    #define PUMP_DISABLE()  do{PinTo1(PORTWxPUMP, PINxPUMP);}while(0)
+    #define PUMP_ENABLE()   do{PinTo0(PORTWxPUMP, PINxPUMP);}while(0)
+    ////////////////////////////////////////////////////////////////////////////
+    // INPUTS
+    #define PORTWxOILLEVEL LATC
+    #define PORTRxOILLEVEL PORTC
+    #define CONFIGIOxOILLEVEL TRISC
+    #define PINxOILLEVEL  0
+
     #define PORTWxSTEPPER_SENSOR_HOME LATE
     #define PORTRxSTEPPER_SENSOR_HOME PORTE
     #define CONFIGIOxSTEPPER_SENSOR_HOME TRISE
     #define PINxSTEPPER_SENSOR_HOME 1
-    
-    ////////////////////////////////////////////////////////////////////////////
-    // INPUTS
-    #define PORTWxLEVELOIL LATC
-    #define PORTRxLEVELOIL PORTC
-    #define CONFIGIOxLEVELOIL TRISC
-    #define PINxLEVELOIL  0
 
     #define PORTWxSTARTSIGNAL LATE
     #define PORTRxSTARTSIGNAL PORTE
     #define CONFIGIOxSTARTSIGNAL TRISE
     #define PINxSTARTSIGNAL  2
+    
+    #define PORTWxRELAY LATA
+    #define PORTRxRELAY PORTA
+    #define CONFIGIOxRELAY TRISA
+    #define PINxRELAY  5
+
+    #define RELAY_ENABLE() do{PinTo0(PORTWxRELAY, PINxRELAY);}while(0)
+    #define RELAY_DISABLE() do{PinTo1(PORTWxRELAY, PINxRELAY);}while(0)
+    
     
 #ifdef	__cplusplus
     extern "C" {

@@ -20,7 +20,7 @@
 #endif
 
     int8_t is_startSignal(void);
-    int8_t is_levelOil(void);
+    int8_t is_oilLevel(void);
     int8_t is_homeSensor(void);
     int8_t is_unblockedNozzle(int8_t nozzle);
     int8_t is_inductiveSensorRPM(void);
