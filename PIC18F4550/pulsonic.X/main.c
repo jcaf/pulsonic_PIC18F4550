@@ -21,12 +21,11 @@
 #include "inputs.h"
 #include "ikb/ikb.h"
 #include "pump.h"
+#include "display.h"
+#include "automode.h"
 
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
-#pragma warning disable 752
-#pragma warning disable 356
-#pragma warning disable 373//warning: (373) implicit signed to unsigned conversion
 
 volatile struct _isr_flag
 {
@@ -79,6 +78,8 @@ union _errorDispFlag
 };
 union _errorDispFlag error_requestToWriteDisp;//senala requiere el display
 union _errorDispFlag error_grantedToWriteDisp;//aqui el tiene el permiso en la misma ubicacion
+
+
 void main(void) 
 {
     int8_t c_access_kb=0;
@@ -89,7 +90,6 @@ void main(void)
     LATD = 0x00;
     LATE = 0x00;
     LATB = 0x00;    
-    //TRISB= 0x00;   //All segments controlled by NPN    
     
     ADCON1 = 0x0F;  //All analog inputs as DIGITAL
     CMCON=0xCF;     //POR default mode comparators OFF
@@ -119,14 +119,15 @@ void main(void)
     ConfigInputPin(CONFIGIOxOILLEVEL, PINxOILLEVEL);//ext. pullup
     ConfigInputPin(CONFIGIOxSTARTSIGNAL, PINxSTARTSIGNAL);//ext. pullup
     
-    display7s_init();
     ikb_init();
+    disp7s_init();
+    pulsonic_init();
+    //autoMode_init();
+    //
+    disp7s_modeDisp_writeFloat(20 );
+    disp7s_qtyDisp_writeFloat(19.5);
     
-    disp_show_quantity(77.7);
     GIE = 1;
-
-    mpap_setupToHomming();
-
     while(1)
     {
         if (isr_flag.f1ms)//sync para toda la pasada
@@ -141,33 +142,77 @@ void main(void)
             {
                 c_access_kb = 0;
             
-                ikb_job();
-                if (ikb_key_is_ready2read(0))
+                //keyboard
+                if (!lock.kb)
                 {
-                    nozzle_moveto(0);
-                }
-                if (ikb_key_is_ready2read(1))
-                {
-                    nozzle_moveto(1);
-                }
-                if (ikb_key_is_ready2read(2))
-                {
-                    nozzle_moveto(2);
-                }
-                if (ikb_key_is_ready2read(3))
-                {
-                    pump_setTick(3);
+                    ikb_job();
+                    
+                    if (1)//en que modo estoy
+                    {
+                        disp_owner = DISPOWNER_VISUALIZER_MODE;
+                    }
+                    else if (1)
+                    {
+                        disp_owner = DISPOWNER_AUTO_MODE;
+                    }
+                    else //entra y sale de config
+                    {
+                        machineState = CONFIG; //config
+                        machineState = RUNNING;
+                    }	
                 }
             }
             
             //display
-            if (++c_access_disp == 2)
+            if (++c_access_disp == 3)
             {
                 c_access_disp = 0;
-                display7s_job();
+                disp7s_job();
             }
         }
+        /*
+        //+--------------------------------------------------------------------
+        
+        //+--------------------------------------------------------------------
+        if (machineState == RUNNING)//solo para darle mas claridad a la lectura del programa, xq podria manejarse con locks
+        {
+            //sobre estos 2, igual la maquina puede entrar a modo "Config"
+            if (!lock.autoMode)//esto es un proceso
+            {
+                //autoMode()//cada proceso puede apropiarse del display
+                {
+                    //1) proceso
+                    //2) display
+                    if (disp_owner == DISPOWNER_AUTO_MODE)
+                    {
+                    }
+                }	 
+            }
 
+            if (!lock.visualizerMode)//este es otro proceso
+            {
+                //visualizerMode();
+                //1) proceso
+                            //despues de un tiempo sale automaticamente	
+                //2) display
+                if (disp_owner == DISPOWNER_VISUALIZER_MODE)
+                {
+                }
+            }
+        }
+        else if (machineState == CONFIG)
+        {
+            //config()	//para la maquina y espera el start --> aqui va a estar a la espera del start
+                        //aqui podria convivir con el error en "paralelo"	
+            //1)proceso
+            //2)display
+            if (disp_owner == DISPOWNER_CONFIG_MODE)
+            {
+            }
+        }
+        */
+        //autoMode_job();
+        
         pump_job();
         mpap_sych();
         
@@ -176,150 +221,6 @@ void main(void)
         ikb_flush();
     }
 }
-//void main(void) 
-//{
-//    int8_t c_access_kb=0;
-//    int8_t c_access_disp=0;
-//
-//    LATA = 0x00;
-//    LATC = 0x00;
-//    LATD = 0x00;
-//    LATE = 0x00;
-//    LATB = 0x00;    //0B00000111;
-//    //TRISB= 0x00;   //All segments controlled by NPN    
-//    
-//    //All analog inputs as DIGITAL
-//    ADCON1 = 0x0F;
-//    CMCON=0xCF; //POR default mode comparators OFF
-//            
-//    //RC4/RC5 config as digital inputs
-//    UCON = 0;   //USBEN Disable
-//    UCFG = 1<<3;//UTRDIS Digital input enable RC4/RC5
-//    T0CON = 0B10000111; //16BITS
-//    //TMR0H = (uint8_t)(TMR16B_OVF(2e-3, 256) >> 8);
-//    //TMR0L = (uint8_t)(TMR16B_OVF(2e-3, 256));
-//    TMR0H = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256) >> 8);
-//    TMR0L = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256));
-//    TMR0IE = 1;
-//    //.....
-//    PUMP_DISABLE();
-//    ConfigOutputPin(CONFIGIOxPUMP, PINxPUMP);
-//    
-//    ConfigOutputPin(CONFIGIOxSTEPPER_A, PINxSTEPPER_A);
-//    ConfigOutputPin(CONFIGIOxSTEPPER_B, PINxSTEPPER_B);
-//    ConfigOutputPin(CONFIGIOxSTEPPER_C, PINxSTEPPER_C);
-//    ConfigOutputPin(CONFIGIOxSTEPPER_D, PINxSTEPPER_D);
-//    
-//    STEPPER_ENABLE();
-//    ConfigOutputPin(CONFIGIOxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);
-//    //
-//    ConfigInputPin(CONFIGIOxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME);
-//
-//    ConfigInputPin(CONFIGIOxOILLEVEL, PINxOILLEVEL);//ext. pullup
-//    ConfigInputPin(CONFIGIOxSTARTSIGNAL, PINxSTARTSIGNAL);//ext. pullup
-//    
-//    display7s_init();
-//    ikb_init();
-//    
-//    disp_show_quantity(77.7);
-//    GIE = 1;
-//
-//    mpap_setupToHomming();
-//    
-//    
-//
-//    while(1)
-//    {
-//        if (isr_flag.f1ms)//sync para toda la pasada
-//        {
-//            isr_flag.f1ms = 0;
-//            main_flag.f1ms = 1;
-//        }
-//
-//        if (main_flag.f1ms)
-//        {
-//            if (++c_access_kb == 20)
-//            {
-//                c_access_kb = 0;
-//            
-//                //keyboard
-//                if (!lock.kb)
-//                {
-//                    ikb_job();
-//                    
-//                    if (1)//en que modo estoy
-//                    {
-//                        disp_owner = DISPOWNER_VISUALIZER_MODE;
-//                    }
-//                    else if (1)
-//                    {
-//                        disp_owner = DISPOWNER_AUTO_MODE;
-//                    }
-//                    else //entra y sale de config
-//                    {
-//                        machineState = CONFIG; //config
-//                        machineState = RUNNING;
-//                    }	
-//                }
-//            }
-//            
-//            //display
-//            if (++c_access_disp == 2)
-//            {
-//                c_access_disp = 0;
-//                display7s_job();
-//            }
-//        }
-//        //+--------------------------------------------------------------------
-//        
-//        //+--------------------------------------------------------------------
-//        if (machineState == RUNNING)//solo para darle mas claridad a la lectura del programa, xq podria manejarse con locks
-//        {
-//            //sobre estos 2, igual la maquina puede entrar a modo "Config"
-//            if (!lock.autoMode)//esto es un proceso
-//            {
-//                //autoMode()//cada proceso puede apropiarse del display
-//                {
-//                    //1) proceso
-//                    //2) display
-//                    if (disp_owner == DISPOWNER_AUTO_MODE)
-//                    {
-//                    }
-//                }	 
-//            }
-//
-//            if (!lock.visualizerMode)//este es otro proceso
-//            {
-//                //visualizerMode();
-//                //1) proceso
-//                            //despues de un tiempo sale automaticamente	
-//                //2) display
-//                if (disp_owner == DISPOWNER_VISUALIZER_MODE)
-//                {
-//                }
-//            }
-//        }
-//        else if (machineState == CONFIG)
-//        {
-//            //config()	//para la maquina y espera el start --> aqui va a estar a la espera del start
-//                        //aqui podria convivir con el error en "paralelo"	
-//            //1)proceso
-//            //2)display
-//            if (disp_owner == DISPOWNER_CONFIG_MODE)
-//            {
-//            }
-//        }
-//        
-//        
-//        
-//        
-//        mpap_sych();
-//        
-//        //////////
-//        main_flag.f1ms = 0;
-//        ikb_flush();
-//    }
-//}
 ////////////////////////////////////////////////////////////////////////////////
 void interrupt INTERRUPCION(void)//@1ms 
 {
@@ -365,12 +266,12 @@ void check_startSignal(void)
         {
             if (sm1 == 0)
             {
-                pulsonic.display7s[MODE_DIG_1] = DISP7S_NUMS[2];
-                pulsonic.display7s[MODE_DIG_0] = DISP7S_NUMS[0];
-                //
-                pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[RAYA];
-                pulsonic.display7s[QUANT_DIG_1] = DISP7S_CHARS[RAYA];
-                pulsonic.display7s[QUANT_DIG_0] = DISP7S_CHARS[RAYA];
+//                pulsonic.display7s[MODE_DIG_1] = DISP7S_NUMS[2];
+//                pulsonic.display7s[MODE_DIG_0] = DISP7S_NUMS[0];
+//                //
+//                pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[RAYA];
+//                pulsonic.display7s[QUANT_DIG_1] = DISP7S_CHARS[RAYA];
+//                pulsonic.display7s[QUANT_DIG_0] = DISP7S_CHARS[RAYA];
                 //
                 sm1++;
             }
@@ -411,12 +312,12 @@ void check_oilLevel(void)
         {
             if (sm1 == 0)
             {   //no OIL
-                pulsonic.display7s[MODE_DIG_1] = 0x54;  //0b01010100;//n
-                pulsonic.display7s[MODE_DIG_0] = 0x5C;  //0b01011100;//o
-                //
-                pulsonic.display7s[QUANT_DIG_2] = DISP7S_NUMS[0];//O
-                pulsonic.display7s[QUANT_DIG_1] = 0x30;//I
-                pulsonic.display7s[QUANT_DIG_0] = 0x38;//L
+//                pulsonic.display7s[MODE_DIG_1] = 0x54;  //0b01010100;//n
+//                pulsonic.display7s[MODE_DIG_0] = 0x5C;  //0b01011100;//o
+//                //
+//                pulsonic.display7s[QUANT_DIG_2] = DISP7S_NUMS[0];//O
+//                pulsonic.display7s[QUANT_DIG_1] = 0x30;//I
+//                pulsonic.display7s[QUANT_DIG_0] = 0x38;//L
                 //
                 sm1++;
             }

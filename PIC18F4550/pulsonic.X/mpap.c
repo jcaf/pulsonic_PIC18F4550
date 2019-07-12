@@ -1,7 +1,5 @@
 #include "main.h"
-#include "system.h"
 #include "mpap.h"
-#include "types.h"
 #include "pulsonic.h"
 
 static void _mpap_step1(void)
@@ -42,7 +40,7 @@ PTRFX_retVOID mpap_step[4] =
     _mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
 };
 
-static inline void _mpap_off(void)
+static void _mpap_off(void)
 {
     PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
     PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
@@ -71,19 +69,9 @@ void mpap_setupToHomming(void)
     mpap_setupToTurn( -1 *( (NOZZLE_NUMMAX*MPAP_NUMSTEP_1NOZZLE) +20));//direccion negativa
     //mpap.numSteps_current = 0x0000; //Obligaria al sistema a reponer el sensor
                                       //y arrancar desde 0
-    mpap.mode = HOMMING_MODE;
+    mpap.mode = MPAP_HOMMING_MODE;
 }
-void nozzle_moveto(int8_t nozzle)//0..NOZZLE_NUMMAX-1
-{
-	//mpap_setupToTurn( nozzle * MPAP_NUMSTEP_1NOZZLE);//se escala	
-    mpap_setupToTurn( (nozzle*MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current);
-    
-    mpap.mode = NORMAL_MODE;
-}
-//int8_t nozzle_get_pos(void)//trunca, es solo referencial
-//{return (mpap.numSteps_current/MPAP_NUMSTEP_1NOZZLE);
-//}
- 
+
 /* mpap.numSteps_current se mantiene, no se pierde */
 void mpap_do1step(int8_t KI)//DIRECION +1 Pos, -1 negativo
 {
@@ -128,16 +116,17 @@ int8_t mpap_homming(void)
 	}
 	return cod_ret;
 }
-int8_t mpap_normal_mode(void)//mode ubicacion en los nozzle
+/*mode ubicacion en los nozzle*/
+int8_t mpap_normal_mode(void)
 {
     int8_t cod_ret = 0;
     if (mpap.numSteps_tomove!=0)//(mpap.flag.run)
     {
         mpap_do1step(mpap.KI);
         //
-        mpap.counter_steps+= mpap.KI;               //inc/dec +-1
+        mpap.counter_steps+= mpap.KI;   //inc/dec +-1
         
-        mpap.numSteps_current+= mpap.KI;// += mpap.counter_steps;//siempre mantiene la posicion 
+        mpap.numSteps_current+= mpap.KI;//+= mpap.counter_steps;//siempre mantiene la posicion 
         
         if ( mpap.counter_steps== mpap.numSteps_tomove)//AQUI PUEDE SER COMPARAR CON < > segun el caso si es negativo o positivo la comparacion
         {
@@ -147,38 +136,38 @@ int8_t mpap_normal_mode(void)//mode ubicacion en los nozzle
     }
     return cod_ret;
 }
-//la parada debe ser sincronizada
-int8_t mpap_job(void)//se ejecuta desde la rutina de interrupcion
+/*la parada debe ser sincronizada en la rutina de interrupcion*/
+int8_t mpap_job(void)
 {
-	int8_t cod_ret;// = 0;
+	int8_t cod_ret;
     
-    if (mpap.mode == HOMMING_MODE)
+    if (mpap.mode == MPAP_HOMMING_MODE)
         {cod_ret = mpap_homming();}
     
-    else if (mpap.mode == NORMAL_MODE)
+    else if (mpap.mode == MPAP_NORMAL_MODE)
         {cod_ret = mpap_normal_mode();}
     
-    else if (mpap.mode == STALL_MODE)
+    else if (mpap.mode == MPAP_STALL_MODE)
     {
         mpap.numSteps_tomove = 0x00;//mpap.flag.run = 0;
         mpap_off();
         //
-        mpap.mode = IDLE_MODE;
+        mpap.mode = MPAP_IDLE_MODE;
     }
 	return cod_ret;
 }
-
-void mpap_sych(void)//synch ISR
+/* acepta ordenes desde el hilo main*/
+void mpap_sych(void)
 {
     static int8_t sm0;
     static int8_t c;
-    if (sm0 == 0)//acepta ordenes
+    if (sm0 == 0)
     {
-        if ((mpap.mode == NORMAL_MODE) || (mpap.mode == HOMMING_MODE))
+        if ((mpap.mode == MPAP_NORMAL_MODE) || (mpap.mode == MPAP_HOMMING_MODE))
         {
             sm0++;
         }
-        else if (mpap.mode == STALL_MODE)
+        else if (mpap.mode == MPAP_STALL_MODE)
         {
             sm0 = 2;
         }
@@ -187,7 +176,7 @@ void mpap_sych(void)//synch ISR
     {
         if (mpap.numSteps_tomove == 0)//termino de mover?
         {
-            if (mpap.mode == HOMMING_MODE)
+            if (mpap.mode == MPAP_HOMMING_MODE)
             {
                 if ( pulsonic.errors.flag.mpap_home_sensor == 1)
                 {
@@ -195,7 +184,7 @@ void mpap_sych(void)//synch ISR
                     //marcar error de Sensor de posicion en el display
                 }
             }
-            else if (mpap.mode == NORMAL_MODE)
+            else if (mpap.mode == MPAP_NORMAL_MODE)
             {
             }
             sm0++;
@@ -209,19 +198,32 @@ void mpap_sych(void)//synch ISR
             if (++c == 10)
             {
                 //c = 0;
-                mpap.mode = STALL_MODE;
+                mpap.mode = MPAP_STALL_MODE;
                 sm0++;
             }
         }
     }
     else if (sm0 == 3)
     {
-        if (mpap.mode == IDLE_MODE)
+        if (mpap.mode == MPAP_IDLE_MODE)
         {
             //libera para estar apto a cualquier orden
             sm0 = 0;
         }
     }
+}
+void mpap_movetoNozzle(int8_t n)//0..NOZZLE_NUMMAX-1
+{
+	//mpap_setupToTurn( nozzle * MPAP_NUMSTEP_1NOZZLE);//se escala	
+    mpap_setupToTurn( (n*MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current);
+    
+    mpap.mode = MPAP_NORMAL_MODE;
+}
+int8_t mpap_isIdle(void)
+{
+    if (mpap.mode == MPAP_IDLE_MODE)
+        {return 1;}
+    return 0;
 }
 /*
 void mpap_test(void)

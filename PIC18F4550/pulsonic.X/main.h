@@ -7,6 +7,11 @@
     #include "system.h"
     #include "types.h"
 
+    #pragma warning disable 752
+    #pragma warning disable 356
+    #pragma warning disable 373//implicit signed to unsigned conversion
+    #pragma warning disable 520//function is never called
+
     struct _main_flag
     {
         unsigned f1ms:1;

@@ -5776,7 +5776,13 @@ typedef void (*PTRFX_retVOID_arg1_INT8_T)(int8_t);
 typedef void (*PTRFX_retVOID_arg1_PCHAR)(char *);
 typedef unsigned char BOOL;
 
+
 # 10 "main.h"
+#pragma warning disable 752
+#pragma warning disable 356
+#pragma warning disable 373
+#pragma warning disable 520
+
 struct _main_flag
 {
 unsigned f1ms:1;
@@ -5784,21 +5790,24 @@ unsigned __a:7;
 };
 extern volatile struct _main_flag main_flag;
 
-# 16 "pulsonic.h"
-enum _QUANT_DIG
-{
-QUANT_DIG_0,
-QUANT_DIG_1,
-QUANT_DIG_2,
+# 18 "nozzle.h"
+int8_t nozzle_isEnabled(int n);
+
+# 48 "display.h"
+void disp7s_qtyDisp_writeFloat(float f);
+void disp7s_modeDisp_writeFloat(float f);
+void disp7s_init(void);
+void disp7s_job(void);
+
+extern const uint8_t DISP7S_NUMS[10];
+extern const uint8_t DISP7S_CHARS[2];
+
+enum _DISP7S_CHARS {
+OFF,
+RAYA
 };
-enum _MODE_DIG
-{
-MODE_DIG_0,
-MODE_DIG_1,
-};
 
-
-
+# 14 "pulsonic.h"
 struct _pulsonic
 {
 uint16_t Kticks_0p1ml;
@@ -5810,7 +5819,12 @@ struct _pulsonic_nozzle
 float Q_mlh;
 uint16_t total_ticks_mlh;
 int8_t nticks_slicetime;
-}nozzle[18];
+}nozzle[8];
+
+struct _pulsonic_oil
+{
+int8_t viscosity;
+}oil;
 
 float sum_all_mlh;
 
@@ -5824,256 +5838,42 @@ unsigned __a:7;
 uint8_t e;
 }errors;
 
-uint8_t display7s[(2 + 3)];
+struct _pulsonic_display
+{
+uint8_t qty[3];
+uint8_t mode[2];
+}disp7s;
+
+
 };
 extern struct _pulsonic pulsonic;
 
-void display7s_init(void);
-void display7s_job(void);
+void pulsonic_init(void);
+uint16_t pulsonic_getTotalSum_mlh(void);
 
-struct _multiplexedDisp
-{
-PTRFX_retVOID Qonoff[2];
-};
-extern struct _multiplexedDisp multiplexedDisp[(2 + 3)];
-
-void disp_show_quantity(double f);
-
-extern const uint8_t DISP7S_NUMS[10];
-extern const uint8_t DISP7S_CHARS[2];
-
-enum _DISP7S_CHARS {
-OFF,
-RAYA
-};
-
-# 5 "pulsonic.c"
+# 4 "pulsonic.c"
 struct _pulsonic pulsonic;
 
 void pulsonic_init(void)
 {
+int8_t i;
 pulsonic.dist_total_time = 60;
 
+
+
+for (i=0; i< 8; i++)
+{
+pulsonic.nozzle[i].Q_mlh = 12.0;
 }
-uint16_t get_total_sum_mlh(void)
+}
+
+uint16_t pulsonic_getTotalSum_mlh(void)
 {
 int i;
 uint16_t acc = 0;
-for (i=0; i<18; i++)
+for (i=0; i<8; i++)
 {
 acc += pulsonic.nozzle[i].Q_mlh;
 }
 return acc;
-}
-
-# 55
-static inline void multiplexedDisp0_off(void)
-{
-do{LATA |= 1<<4;}while(0);
-}
-static inline void multiplexedDisp0_on(void)
-{
-do{LATA &= ~(1<<4);}while(0);
-}
-
-static inline void multiplexedDisp1_off(void)
-{
-do{LATA |= 1<<3;}while(0);
-}
-static inline void multiplexedDisp1_on(void)
-{
-do{LATA &= ~(1<<3);}while(0);
-}
-
-static inline void multiplexedDisp2_off(void)
-{
-do{LATA |= 1<<2;}while(0);
-}
-static inline void multiplexedDisp2_on(void)
-{
-do{LATA &= ~(1<<2);}while(0);
-}
-
-static inline void multiplexedDisp3_off(void)
-{
-do{LATA |= 1<<1;}while(0);
-}
-static inline void multiplexedDisp3_on(void)
-{
-do{LATA &= ~(1<<1);}while(0);
-}
-
-static inline void multiplexedDisp4_off(void)
-{
-do{LATA |= 1<<0;}while(0);
-}
-static inline void multiplexedDisp4_on(void)
-{
-do{LATA &= ~(1<<0);}while(0);
-}
-
-struct _multiplexedDisp multiplexedDisp[(2 + 3)] =
-{
-{multiplexedDisp0_off, multiplexedDisp0_on},
-{multiplexedDisp1_off, multiplexedDisp1_on},
-{multiplexedDisp2_off, multiplexedDisp2_on},
-{multiplexedDisp3_off, multiplexedDisp3_on},
-{multiplexedDisp4_off, multiplexedDisp4_on},
-};
-struct _multiplexedDisp multiplexedDisp[(2 + 3)];
-
-const uint8_t DISP7S_NUMS[10] =
-{
-0b00111111,
-0b00000110,
-0b01011011,
-0b01001111,
-0b01100110,
-0b01101101,
-0b01111100,
-0b00000111,
-0b01111111,
-0b01100111,
-};
-const uint8_t DISP7S_CHARS[2] =
-{
-0b00000000,
-0b01000000,
-};
-
-
-void multiplexedDisp_init(void)
-{
-int8_t i;
-for (i=0; i< (2 + 3); i++)
-{
-multiplexedDisp[i].Qonoff[0]();
-}
-
-do{TRISA &= ~(1<<4);}while(0);
-do{TRISA &= ~(1<<3);}while(0);
-do{TRISA &= ~(1<<2);}while(0);
-do{TRISA &= ~(1<<1);}while(0);
-do{TRISA &= ~(1<<0);}while(0);
-}
-
-void multiplexedDisp_job(int8_t q)
-{
-int8_t i;
-for (i=0; i< (2 + 3); i++)
-{
-if ((0x01<<i) & (0x1<<q))
-multiplexedDisp[i].Qonoff[1]();
-else
-multiplexedDisp[i].Qonoff[0]();
-}
-}
-
-# 161
-void display7s_init(void)
-{
-pulsonic.display7s[MODE_DIG_1] = DISP7S_NUMS[2];
-pulsonic.display7s[MODE_DIG_0] = DISP7S_NUMS[0];
-
-pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[RAYA];
-pulsonic.display7s[QUANT_DIG_1] = DISP7S_CHARS[RAYA];
-pulsonic.display7s[QUANT_DIG_0] = DISP7S_CHARS[RAYA];
-
-TRISB = 0x00;
-multiplexedDisp_init();
-}
-
-void display7s_job(void)
-{
-static int8_t q;
-
-LATB = pulsonic.display7s[q];
-multiplexedDisp_job(q);
-
-if (++q == (2 + 3))
-{q=0;}
-}
-
-
-void disp_show_quantity(double f)
-{
-int16_t I;
-char buff[10];
-uint8_t num;
-int8_t i;
-int8_t last_pos;
-int8_t q;
-double real;
-
-if (f>= 1000.0f)
-f=999.0f;
-
-I = (int16_t)f;
-real = f-I;
-if (real > 0.0f)
-{
-if (f<100.0f)
-{
-I = (int)(f*10);
-}
-
-}
-itoa(buff, I, 10);
-
-pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[OFF];
-pulsonic.display7s[QUANT_DIG_1] = DISP7S_CHARS[OFF];
-pulsonic.display7s[QUANT_DIG_0] = DISP7S_CHARS[OFF];
-
-if (real<0.01)
-{
-if (I>99)
-last_pos = 2;
-else if (I>9)
-last_pos = 1;
-else
-last_pos = 0;
-
-q = 0;
-for (i=last_pos; i>=0; i--)
-{
-num = buff[i] - 0x30;
-pulsonic.display7s[q++] = DISP7S_NUMS[num];
-}
-}
-else
-{
-if (f<100.0)
-{
-
-
-
-if (I>99)
-{last_pos = 2;}
-else if (I>9)
-{last_pos = 1;}
-else
-{
-pulsonic.display7s[QUANT_DIG_1] = DISP7S_NUMS[0];
-last_pos = 0;
-}
-
-q = 0;
-for (i=last_pos; i>=0; i--)
-{
-num = buff[i] - 0x30;
-pulsonic.display7s[q++] = DISP7S_NUMS[num];
-}
-pulsonic.display7s[QUANT_DIG_1] |= 0x80;
-}
-else
-{
-q = 0;
-last_pos = 2;
-for (i=last_pos; i>=0; i--)
-{
-num = buff[i] - 0x30;
-pulsonic.display7s[q++] = DISP7S_NUMS[num];
-}
-}
-}
 }

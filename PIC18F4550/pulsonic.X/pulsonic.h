@@ -7,25 +7,9 @@
 
 #ifndef PULSONIC_H
 #define	PULSONIC_H
-
-    #define NOZZLE_NUMMAX 18
-    //
-    #define DISP_MODE_NUMMAX 2
-    #define QUANTITY_NUMAX 3
-    
-    enum _QUANT_DIG
-    {
-        QUANT_DIG_0,
-        QUANT_DIG_1,
-        QUANT_DIG_2,
-    };
-    enum _MODE_DIG
-    {
-        MODE_DIG_0,
-        MODE_DIG_1,
-    };
-
-    #define DISP_TOTAL_NUMMAX (DISP_MODE_NUMMAX + QUANTITY_NUMAX)
+  
+    #include "nozzle.h"
+    #include "display.h"
     //
     struct _pulsonic
     {
@@ -40,6 +24,11 @@
             int8_t nticks_slicetime;    //total ticks in slicetime
         }nozzle[NOZZLE_NUMMAX];
 
+        struct _pulsonic_oil
+        {
+            int8_t viscosity;
+        }oil;
+        
         float sum_all_mlh;                    //sum_all_mlh
 
         union _pulsonic_errors
@@ -52,28 +41,19 @@
             uint8_t e;
         }errors;
 
-        uint8_t display7s[DISP_TOTAL_NUMMAX];
+        struct _pulsonic_display
+        {
+            uint8_t qty[DISP7S_QTY_NUMMAX];
+            uint8_t mode[DISP7S_MODE_NUMMAX];
+        }disp7s;
+        //uint8_t display7s[DISP_TOTAL_NUMMAX];
+        
     };
     extern struct _pulsonic pulsonic;
 
-    void display7s_init(void);
-    void display7s_job(void);
-
-struct _multiplexedDisp
-{
-    PTRFX_retVOID Qonoff[2];//0=..off(), 1=..on()
-};
-extern struct _multiplexedDisp multiplexedDisp[DISP_TOTAL_NUMMAX];
-
-void disp_show_quantity(double f);
-
-extern const uint8_t DISP7S_NUMS[10];
-extern const uint8_t DISP7S_CHARS[2];
-
-enum _DISP7S_CHARS {
-    OFF,
-    RAYA
-};
+    void pulsonic_init(void);
+    uint16_t pulsonic_getTotalSum_mlh(void);
+    
 #endif	/* PULSONIC_H */
 
 

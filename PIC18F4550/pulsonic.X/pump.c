@@ -2,6 +2,7 @@
 #include "pump.h"
 
 #define PUMP_TICK_TIME 50//in ms
+
 static struct _pump pump;
 
 void pump_setTick(uint16_t ticks)
@@ -58,8 +59,13 @@ int8_t pump_job(void)
                     }
                 }
             }
-            
         }
     }
     return cod_ret;
+}
+int8_t pump_isIdle(void)
+{
+    if (pump.ticks == 0)
+        {return 1;}
+    return 0;
 }
