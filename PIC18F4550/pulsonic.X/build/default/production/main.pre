@@ -5790,6 +5790,16 @@ unsigned __a:7;
 };
 extern volatile struct _main_flag main_flag;
 
+
+
+extern int8_t disp_owner;
+enum _DISPOWNER_MODE
+{
+DISPOWNER_AUTO_MODE = 0,
+DISPOWNER_VISUALIZER_MODE,
+DISPOWNER_CONFIG_MODE,
+};
+
 # 18 "nozzle.h"
 int8_t nozzle_isEnabled(int n);
 
@@ -5894,7 +5904,7 @@ int8_t is_homeSensor(void);
 int8_t is_unblockedNozzle(int8_t nozzle);
 int8_t is_inductiveSensorRPM(void);
 
-# 308 "/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h"
+# 128 "/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h"
 void ikb_init(void);
 void ikb_job(void);
 void ikb_flush(void);
@@ -5921,10 +5931,14 @@ int8_t pump_isIdle(void);
 
 # 11 "automode.h"
 void autoMode_init(void);
-void autoMode_job(void);
+int8_t autoMode_job(void);
+
+# 11 "visualizerMode.h"
+void visMode_init(void);
+int8_t visMode_job(void);
 
 
-# 27 "main.c"
+# 28 "main.c"
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
 
@@ -5952,12 +5966,7 @@ CONFIG
 };
 int8_t machineState;
 
-enum _DISPOWNER_MODE
-{
-DISPOWNER_AUTO_MODE = 0,
-DISPOWNER_VISUALIZER_MODE,
-DISPOWNER_CONFIG_MODE,
-};
+
 int8_t disp_owner = DISPOWNER_AUTO_MODE;
 
 
@@ -6024,9 +6033,10 @@ ikb_init();
 disp7s_init();
 pulsonic_init();
 
-# 130
-disp7s_modeDisp_writeInt(100);
-disp7s_qtyDisp_writeInt(1000);
+# 127
+visMode_init();
+disp_owner = DISPOWNER_VISUALIZER_MODE;
+
 
 GIE = 1;
 while(1)
@@ -6072,7 +6082,36 @@ disp7s_job();
 }
 }
 
-# 219
+
+
+
+if (machineState == RUNNING)
+{
+
+if (!lock.autoMode)
+{
+if (autoMode_job())
+{
+}
+}
+if (!lock.visualizerMode)
+{
+if (visMode_job())
+{
+}
+}
+}
+else if (machineState == CONFIG)
+{
+
+
+
+
+if (disp_owner == DISPOWNER_CONFIG_MODE)
+{
+}
+}
+
 pump_job();
 mpap_sych();
 
@@ -6118,13 +6157,13 @@ sm0 = 0x00;
 sm1 = 0x00;
 }
 
-# 268
+# 254
 if (error_grantedToWriteDisp.f.startSignal == 1)
 {
 if (sm1 == 0)
 {
 
-# 279
+# 265
 sm1++;
 }
 }
@@ -6156,13 +6195,13 @@ sm0 = 0x00;
 sm1 = 0x00;
 }
 
-# 314
+# 300
 if (error_grantedToWriteDisp.f.oilLevel == 1)
 {
 if (sm1 == 0)
 {
 
-# 325
+# 311
 sm1++;
 }
 }

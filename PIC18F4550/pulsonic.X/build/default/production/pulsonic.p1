@@ -3653,6 +3653,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.h: 18: unsigned __a:7;
 [; ;main.h: 19: };
 [; ;main.h: 20: extern volatile struct _main_flag main_flag;
+[; ;main.h: 24: extern int8_t disp_owner;
+[; ;main.h: 25: enum _DISPOWNER_MODE
+[; ;main.h: 26: {
+[; ;main.h: 27: DISPOWNER_AUTO_MODE = 0,
+[; ;main.h: 28: DISPOWNER_VISUALIZER_MODE,
+[; ;main.h: 29: DISPOWNER_CONFIG_MODE,
+[; ;main.h: 30: };
 [; ;nozzle.h: 18: int8_t nozzle_isEnabled(int n);
 [; ;display.h: 48: void disp7s_qtyDisp_writeFloat(float num);
 [; ;display.h: 49: void disp7s_modeDisp_writeFloat(float num);

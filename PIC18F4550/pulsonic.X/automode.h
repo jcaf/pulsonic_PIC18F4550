@@ -9,7 +9,7 @@
 #define	AUTOMODE_H
 
     void autoMode_init(void);
-    void autoMode_job(void);
+    int8_t autoMode_job(void);
 #ifdef	__cplusplus
 extern "C" {
 #endif

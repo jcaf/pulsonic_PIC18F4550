@@ -23,6 +23,7 @@
 #include "pump.h"
 #include "display.h"
 #include "automode.h"
+#include "visualizerMode.h"
 
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
@@ -51,12 +52,7 @@ enum _MACHINESTATE
 };
 int8_t machineState;
 
-enum _DISPOWNER_MODE
-{
-	DISPOWNER_AUTO_MODE = 0,
-	DISPOWNER_VISUALIZER_MODE,
-	DISPOWNER_CONFIG_MODE,
-};
+
 int8_t disp_owner = DISPOWNER_AUTO_MODE;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -122,14 +118,16 @@ void main(void)
     ikb_init();
     disp7s_init();
     pulsonic_init();
-    //autoMode_init();
-    //
-    //disp7s_modeDisp_writeFloat(19.1);
-    //disp7s_qtyDisp_writeFloat(191);
-
-    //disp7s_modeDisp_writeInt(100);
-    //disp7s_qtyDisp_writeInt(1000);    
     
+    //
+    //autoMode_init();
+    //disp_owner = DISPOWNER_AUTO_MODE;
+    //
+    
+    visMode_init();
+    disp_owner = DISPOWNER_VISUALIZER_MODE;
+    
+    //
     GIE = 1;
     while(1)
     {
@@ -173,7 +171,7 @@ void main(void)
                 disp7s_job();
             }
         }
-        /*
+        
         //+--------------------------------------------------------------------
         
         //+--------------------------------------------------------------------
@@ -182,23 +180,13 @@ void main(void)
             //sobre estos 2, igual la maquina puede entrar a modo "Config"
             if (!lock.autoMode)//esto es un proceso
             {
-                //autoMode()//cada proceso puede apropiarse del display
+                if (autoMode_job())//cada proceso puede apropiarse del display
                 {
-                    //1) proceso
-                    //2) display
-                    if (disp_owner == DISPOWNER_AUTO_MODE)
-                    {
-                    }
                 }	 
             }
-
             if (!lock.visualizerMode)//este es otro proceso
             {
-                //visualizerMode();
-                //1) proceso
-                            //despues de un tiempo sale automaticamente	
-                //2) display
-                if (disp_owner == DISPOWNER_VISUALIZER_MODE)
+                if (visMode_job())//despues de un tiempo sale automaticamente
                 {
                 }
             }
@@ -213,9 +201,7 @@ void main(void)
             {
             }
         }
-        */
-        //autoMode_job();
-        
+
         pump_job();
         mpap_sych();
         

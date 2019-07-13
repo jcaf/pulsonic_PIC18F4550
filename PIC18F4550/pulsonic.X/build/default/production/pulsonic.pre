@@ -5790,6 +5790,16 @@ unsigned __a:7;
 };
 extern volatile struct _main_flag main_flag;
 
+
+
+extern int8_t disp_owner;
+enum _DISPOWNER_MODE
+{
+DISPOWNER_AUTO_MODE = 0,
+DISPOWNER_VISUALIZER_MODE,
+DISPOWNER_CONFIG_MODE,
+};
+
 # 18 "nozzle.h"
 int8_t nozzle_isEnabled(int n);
 

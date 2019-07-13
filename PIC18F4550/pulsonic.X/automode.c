@@ -11,12 +11,17 @@ static struct _autoMode
 
 void autoMode_init(void)
 {
-    disp7s_qtyDisp_writeFloat( pulsonic_getTotalSum_mlh() );
+    if (disp_owner == DISPOWNER_AUTO_MODE)
+    {
+        disp7s_qtyDisp_writeFloat( pulsonic_getTotalSum_mlh() );
+    }
     autoMode.n = 0x0;
 }
 
-void autoMode_job(void)
+int8_t autoMode_job(void)
 {
+    int8_t cod_ret = 0;
+    
     if (autoMode.sm0 == 0)
     {
         mpap_setupToHomming();
@@ -56,7 +61,7 @@ void autoMode_job(void)
             autoMode.sm0 = 0x2;
         }
     }
-    
+    return cod_ret;
 }
 void autoMode_kb(void)
 {

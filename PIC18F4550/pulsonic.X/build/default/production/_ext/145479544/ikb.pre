@@ -5776,7 +5776,7 @@ typedef void (*PTRFX_retVOID_arg1_INT8_T)(int8_t);
 typedef void (*PTRFX_retVOID_arg1_PCHAR)(char *);
 typedef unsigned char BOOL;
 
-# 308 "../../../../../../FIRWAR/eslibrary/ikb/ikb.h"
+# 128 "../../../../../../FIRWAR/eslibrary/ikb/ikb.h"
 void ikb_init(void);
 void ikb_job(void);
 void ikb_flush(void);
@@ -5788,7 +5788,7 @@ void ikb_set_ready2read(uint8_t k);
 void ikb_key_was_read(uint8_t k);
 void ikb_execfunct(uint8_t k);
 
-# 5 "../../../../../../FIRWAR/eslibrary/ikb/ikb.c"
+# 4 "../../../../../../FIRWAR/eslibrary/ikb/ikb.c"
 struct _key
 {
 PTRFX_retUINT8_T keyRead;
@@ -5826,24 +5826,24 @@ int8_t ikey_is_all_hw_released(void);
 void ikey_clear_all_flag(void);
 int8_t ikey_is_all_process_finished(void);
 
-# 194
-static inline uint8_t keyRead_pin_key1(void)
+# 193
+static inline uint8_t keyRead_pin_key0(void)
 {
 return ((PORTC & (1<<4))>>4);
 }
-static inline uint8_t keyRead_pin_key2(void)
+static inline uint8_t keyRead_pin_key1(void)
 {
 return ((PORTC & (1<<5))>>5);
 }
-static inline uint8_t keyRead_pin_key3(void)
+static inline uint8_t keyRead_pin_key2(void)
 {
 return ((PORTC & (1<<6))>>6);
 }
-static inline uint8_t keyRead_pin_key4(void)
+static inline uint8_t keyRead_pin_key3(void)
 {
 return ((PORTC & (1<<7))>>7);
 }
-static inline uint8_t keyRead_pin_key5(void)
+static inline uint8_t keyRead_pin_key4(void)
 {
 return ((PORTD & (1<<4))>>4);
 }
@@ -5854,17 +5854,17 @@ void ikb_init(void)
 {
 int8_t i;
 
-# 389
+# 388
 do{TRISC |= 1<<4;}while(0);
 do{TRISC |= 1<<5;}while(0);
 do{TRISC |= 1<<6;}while(0);
 do{TRISC |= 1<<7;}while(0);
 do{TRISD |= 1<<4;}while(0);
-key[0].keyRead = keyRead_pin_key1;
-key[1].keyRead = keyRead_pin_key2;
-key[2].keyRead = keyRead_pin_key3;
-key[3].keyRead = keyRead_pin_key4;
-key[4].keyRead = keyRead_pin_key5;
+key[0].keyRead = keyRead_pin_key0;
+key[1].keyRead = keyRead_pin_key1;
+key[2].keyRead = keyRead_pin_key2;
+key[3].keyRead = keyRead_pin_key3;
+key[4].keyRead = keyRead_pin_key4;
 
 
 for (i=0; i<5; i++)
@@ -5910,7 +5910,7 @@ void ikb_execfunct(uint8_t k)
 key[k].keyDo();
 }
 
-# 449
+# 448
 void ikey_scan(void)
 {
 int8_t k = 5-1;
@@ -5965,7 +5965,7 @@ key[k].sm0 = 0x00;
 }while (--k >= 0);
 }
 
-# 508
+# 507
 uint8_t group_x[5];
 
 static uint8_t ikey_is_accessible(uint8_t k)
@@ -5985,7 +5985,7 @@ return 0;
 return 1;
 }
 
-# 545
+# 544
 void ikey_parsing(void)
 {
 uint8_t k;
@@ -6093,7 +6093,7 @@ key[k].counter1++;
 
 if (key[k].bf.state == 0)
 {
-if (key[k].counter1 <= (1000E-3/5E-3) )
+if (key[k].counter1 <= ((1000E-3/5E-3)) )
 {
 key[k].counter1 = 0;
 
@@ -6104,7 +6104,7 @@ key[k].sm1 = (2);
 }
 }
 
-if (key[k].counter1 > (1000E-3/5E-3) )
+if (key[k].counter1 > ((1000E-3/5E-3)) )
 {
 key[k].counter1 = 0x0000;
 
@@ -6131,7 +6131,7 @@ key[k].counter1++;
 
 if (key[k].bf.state == 0)
 {
-if (key[k].counter1 <= (1000E-3/5E-3))
+if (key[k].counter1 <= ((1000E-3/5E-3)))
 {
 key[k].counter1 = 0;
 
@@ -6143,7 +6143,7 @@ key[k].sm1 = (2);
 }
 
 
-if (key[k].counter1 >= (3000E-3/5E-3))
+if (key[k].counter1 >= ((3000E-3/5E-3)))
 {
 key[k].counter1 = 0x0000;
 

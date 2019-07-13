@@ -21,7 +21,13 @@
     
     #define myitoa(_integer_, _buffer_, _base_) itoa(_buffer_, _integer_, _base_)
 
-    
+    extern int8_t disp_owner;
+    enum _DISPOWNER_MODE
+    {
+        DISPOWNER_AUTO_MODE = 0,
+        DISPOWNER_VISUALIZER_MODE,
+        DISPOWNER_CONFIG_MODE,
+    };
     ////////////////////////////////////////////////////////////////////////////
     //MOTOR PAP UNIPOLAR
     #define PORTWxSTEPPER_A LATD
@@ -87,7 +93,13 @@
     #define RELAY_ENABLE() do{PinTo0(PORTWxRELAY, PINxRELAY);}while(0)
     #define RELAY_DISABLE() do{PinTo1(PORTWxRELAY, PINxRELAY);}while(0)
     
-    
+    ////////////////////////////////////////////////////////////////////////////
+    #define KB_LYOUT_KEY_UP      0
+    #define KB_LYOUT_KEY_DOWN    1
+    #define KB_LYOUT_KEY_PLUS    2
+    #define KB_LYOUT_KEY_MINUS   3
+    #define KB_LYOUT_KEY_ENTER_F 4//Enter/Flush
+
 #ifdef	__cplusplus
     extern "C" {
     #endif 
