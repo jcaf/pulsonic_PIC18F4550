@@ -5794,8 +5794,12 @@ extern volatile struct _main_flag main_flag;
 int8_t nozzle_isEnabled(int n);
 
 # 48 "display.h"
-void disp7s_qtyDisp_writeFloat(float f);
-void disp7s_modeDisp_writeFloat(float f);
+void disp7s_qtyDisp_writeFloat(float num);
+void disp7s_modeDisp_writeFloat(float num);
+
+void disp7s_qtyDisp_writeInt(int16_t num);
+void disp7s_modeDisp_writeInt(int16_t num);
+
 void disp7s_init(void);
 void disp7s_job(void);
 
@@ -6020,9 +6024,9 @@ ikb_init();
 disp7s_init();
 pulsonic_init();
 
-
-disp7s_modeDisp_writeFloat(20);
-disp7s_qtyDisp_writeFloat(19.5);
+# 130
+disp7s_modeDisp_writeInt(100);
+disp7s_qtyDisp_writeInt(1000);
 
 GIE = 1;
 while(1)
@@ -6068,7 +6072,7 @@ disp7s_job();
 }
 }
 
-# 216
+# 219
 pump_job();
 mpap_sych();
 
@@ -6114,13 +6118,13 @@ sm0 = 0x00;
 sm1 = 0x00;
 }
 
-# 265
+# 268
 if (error_grantedToWriteDisp.f.startSignal == 1)
 {
 if (sm1 == 0)
 {
 
-# 276
+# 279
 sm1++;
 }
 }
@@ -6152,13 +6156,13 @@ sm0 = 0x00;
 sm1 = 0x00;
 }
 
-# 311
+# 314
 if (error_grantedToWriteDisp.f.oilLevel == 1)
 {
 if (sm1 == 0)
 {
 
-# 322
+# 325
 sm1++;
 }
 }

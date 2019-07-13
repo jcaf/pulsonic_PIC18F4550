@@ -124,8 +124,11 @@ void main(void)
     pulsonic_init();
     //autoMode_init();
     //
-    disp7s_modeDisp_writeFloat(20 );
-    disp7s_qtyDisp_writeFloat(19.5);
+    //disp7s_modeDisp_writeFloat(19.1);
+    //disp7s_qtyDisp_writeFloat(191);
+
+    //disp7s_modeDisp_writeInt(100);
+    //disp7s_qtyDisp_writeInt(1000);    
     
     GIE = 1;
     while(1)

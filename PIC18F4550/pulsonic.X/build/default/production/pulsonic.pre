@@ -5794,8 +5794,12 @@ extern volatile struct _main_flag main_flag;
 int8_t nozzle_isEnabled(int n);
 
 # 48 "display.h"
-void disp7s_qtyDisp_writeFloat(float f);
-void disp7s_modeDisp_writeFloat(float f);
+void disp7s_qtyDisp_writeFloat(float num);
+void disp7s_modeDisp_writeFloat(float num);
+
+void disp7s_qtyDisp_writeInt(int16_t num);
+void disp7s_modeDisp_writeInt(int16_t num);
+
 void disp7s_init(void);
 void disp7s_job(void);
 

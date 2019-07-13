@@ -3654,16 +3654,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.h: 19: };
 [; ;main.h: 20: extern volatile struct _main_flag main_flag;
 [; ;nozzle.h: 18: int8_t nozzle_isEnabled(int n);
-[; ;display.h: 48: void disp7s_qtyDisp_writeFloat(float f);
-[; ;display.h: 49: void disp7s_modeDisp_writeFloat(float f);
-[; ;display.h: 50: void disp7s_init(void);
-[; ;display.h: 51: void disp7s_job(void);
-[; ;display.h: 53: extern const uint8_t DISP7S_NUMS[10];
-[; ;display.h: 54: extern const uint8_t DISP7S_CHARS[2];
-[; ;display.h: 56: enum _DISP7S_CHARS {
-[; ;display.h: 57: OFF,
-[; ;display.h: 58: RAYA
-[; ;display.h: 59: };
+[; ;display.h: 48: void disp7s_qtyDisp_writeFloat(float num);
+[; ;display.h: 49: void disp7s_modeDisp_writeFloat(float num);
+[; ;display.h: 51: void disp7s_qtyDisp_writeInt(int16_t num);
+[; ;display.h: 52: void disp7s_modeDisp_writeInt(int16_t num);
+[; ;display.h: 54: void disp7s_init(void);
+[; ;display.h: 55: void disp7s_job(void);
+[; ;display.h: 57: extern const uint8_t DISP7S_NUMS[10];
+[; ;display.h: 58: extern const uint8_t DISP7S_CHARS[2];
+[; ;display.h: 60: enum _DISP7S_CHARS {
+[; ;display.h: 61: OFF,
+[; ;display.h: 62: RAYA
+[; ;display.h: 63: };
 [; ;pulsonic.h: 14: struct _pulsonic
 [; ;pulsonic.h: 15: {
 [; ;pulsonic.h: 16: uint16_t Kticks_0p1ml;

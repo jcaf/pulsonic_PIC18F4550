@@ -18,12 +18,12 @@
     #define PORTWxENABLE_DISP_0 	LATA
     #define PORTRxENABLE_DISP_0 	PORTA
     #define CONFIGIOxENABLE_DISP_0 	TRISA
-    #define PINxENABLE_DISP_0 		0
+    #define PINxENABLE_DISP_0 		4
 
     #define PORTWxENABLE_DISP_1 	LATA
     #define PORTRxENABLE_DISP_1 	PORTA
     #define CONFIGIOxENABLE_DISP_1 	TRISA
-    #define PINxENABLE_DISP_1 		1
+    #define PINxENABLE_DISP_1 		3
 
     #define PORTWxENABLE_DISP_2 	LATA
     #define PORTRxENABLE_DISP_2 	PORTA
@@ -33,20 +33,24 @@
     #define PORTWxENABLE_DISP_3 	LATA
     #define PORTRxENABLE_DISP_3 	PORTA
     #define CONFIGIOxENABLE_DISP_3 	TRISA
-    #define PINxENABLE_DISP_3 		3
+    #define PINxENABLE_DISP_3 		1
 
     #define PORTWxENABLE_DISP_4 	LATA
     #define PORTRxENABLE_DISP_4 	PORTA
     #define CONFIGIOxENABLE_DISP_4 	TRISA
-    #define PINxENABLE_DISP_4 		4
+    #define PINxENABLE_DISP_4 		0
 
      //
     #define DISP7S_MODE_NUMMAX 2
     #define DISP7S_QTY_NUMMAX 3
     #define DISP7S_TOTAL_NUMMAX (DISP7S_MODE_NUMMAX + DISP7S_QTY_NUMMAX)
 
-    void disp7s_qtyDisp_writeFloat(float f);
-    void disp7s_modeDisp_writeFloat(float f);
+    void disp7s_qtyDisp_writeFloat(float num);
+    void disp7s_modeDisp_writeFloat(float num);
+    
+    void disp7s_qtyDisp_writeInt(int16_t num);
+    void disp7s_modeDisp_writeInt(int16_t num);
+    
     void disp7s_init(void);
     void disp7s_job(void);
     
