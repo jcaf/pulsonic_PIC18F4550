@@ -34,7 +34,7 @@ int8_t pump_job(void)
         }
         else if (pump.sm0 == 1)
         {
-            if (main_flag.f1ms)
+            if (smain.f.f1ms)
             {
                 if (++c == PUMP_TICK_TIME)
                 {
@@ -46,7 +46,7 @@ int8_t pump_job(void)
         }
         else if (pump.sm0 == 2)
         {
-            if (main_flag.f1ms)
+            if (smain.f.f1ms)
             {
                 if (++c == PUMP_TICK_TIME)
                 {

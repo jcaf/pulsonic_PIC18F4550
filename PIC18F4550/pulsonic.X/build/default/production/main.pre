@@ -5783,12 +5783,21 @@ typedef unsigned char BOOL;
 #pragma warning disable 373
 #pragma warning disable 520
 
+struct _smain
+{
 struct _main_flag
 {
 unsigned f1ms:1;
 unsigned __a:7;
+}f;
+
+struct _main_focus
+{
+int8_t kb;
+int8_t disp;
+}focus;
 };
-extern volatile struct _main_flag main_flag;
+extern volatile struct _smain smain;
 
 
 
@@ -5800,14 +5809,13 @@ DISPOWNER_VISMODE,
 DISPOWNER_CONFIGMODE,
 };
 
-struct _unlock
+enum _FOCUS
 {
-unsigned kb:1;
-unsigned autoMode:1;
-unsigned visMode:1;
-unsigned __a:5;
+FOCUS_KB_NONE,
+FOCUS_KB_AUTOMODE,
+FOCUS_KB_VISMODE,
+FOCUS_KB_CONFIG
 };
-extern struct _unlock unlock;
 
 # 18 "nozzle.h"
 int8_t nozzle_isEnabled(int n);
@@ -5953,10 +5961,9 @@ AUTOMODE_INIT_CONTINUE
 };
 void autoMode_init(int8_t init);
 int8_t autoMode_job(void);
-int8_t autoMode_kb(void);
 
 # 13 "visualizerMode.h"
-void visMode_init(int8_t c);
+void visMode_init(int8_t numVista);
 int8_t visMode_job(void);
 
 
@@ -5969,9 +5976,15 @@ volatile struct _isr_flag
 unsigned f1ms: 1;
 unsigned __a: 7;
 } isr_flag = {0};
-volatile struct _main_flag main_flag;
+volatile struct _smain smain;
 
-
+struct _unlock
+{
+unsigned kb:1;
+unsigned autoMode:1;
+unsigned visMode:1;
+unsigned __a:5;
+};
 
 struct _unlock unlock;
 
@@ -5982,6 +5995,7 @@ MACHSTATE_RUNNING,
 MACHSTATE_CONFIG
 };
 int8_t machState;
+
 
 
 int8_t disp_owner = DISPOWNER_AUTOMODE;
@@ -6006,17 +6020,12 @@ intNumMaxErr_t packed;
 union _errorDispFlag error_requestToWriteDisp;
 union _errorDispFlag error_grantedToWriteDisp;
 
-enum _KB_MODE
-{
-KB_MODE_AUTOMODE=0,
-KB_MODE_VISMODE,
-KB_MODE_CONFIG
-};
+
 void main(void)
 {
 int8_t c_access_kb=0;
 int8_t c_access_disp=0;
-int8_t kb_mode=0;
+
 int8_t codapp;
 
 LATA = 0x00;
@@ -6067,16 +6076,18 @@ disp_owner = DISPOWNER_AUTOMODE;
 
 machState = MACHSTATE_RUNNING;
 
+smain.focus.kb = FOCUS_KB_AUTOMODE;
+
 GIE = 1;
 while(1)
 {
 if (isr_flag.f1ms)
 {
 isr_flag.f1ms = 0;
-main_flag.f1ms = 1;
+smain.f.f1ms = 1;
 }
 
-if (main_flag.f1ms)
+if (smain.f.f1ms)
 {
 if (++c_access_kb == 20)
 {
@@ -6085,24 +6096,6 @@ c_access_kb = 0;
 if (unlock.kb)
 {
 ikb_job();
-
-if (kb_mode == KB_MODE_AUTOMODE)
-{
-if (autoMode_kb())
-{
-kb_mode = KB_MODE_VISMODE;
-disp_owner = DISPOWNER_VISMODE;
-}
-}
-else if (kb_mode == KB_MODE_VISMODE)
-{
-
-}
-else
-{
-machState = MACHSTATE_CONFIG;
-machState = MACHSTATE_RUNNING;
-}
 }
 }
 
@@ -6116,29 +6109,39 @@ disp7s_job();
 
 
 
-
 if (machState == MACHSTATE_RUNNING)
 {
 
 if (unlock.autoMode)
 {
-if (autoMode_job())
+codapp = autoMode_job();
+
+if (codapp == 1)
 {
+smain.focus.kb = FOCUS_KB_VISMODE;
+disp_owner = DISPOWNER_VISMODE;
+unlock.visMode = 1;
+}
+else if (codapp == 2)
+{
+machState = MACHSTATE_CONFIG;
 }
 }
 if (unlock.visMode)
 {
 codapp = visMode_job();
+
 if (codapp == 1)
 {
-unlock.visMode = 0;
-kb_mode = KB_MODE_AUTOMODE;
+smain.focus.kb = FOCUS_KB_AUTOMODE;
 disp_owner = DISPOWNER_AUTOMODE;
+unlock.visMode = 0;
+
 autoMode_init(AUTOMODE_INIT_CONTINUE);
 }
 else if (codapp == 2)
 {
-
+machState = MACHSTATE_CONFIG;
 }
 }
 }
@@ -6157,7 +6160,7 @@ pump_job();
 mpap_sych();
 
 
-main_flag.f1ms = 0;
+smain.f.f1ms = 0;
 
 }
 }
@@ -6198,13 +6201,13 @@ sm0 = 0x00;
 sm1 = 0x00;
 }
 
-# 269
+# 265
 if (error_grantedToWriteDisp.f.startSignal == 1)
 {
 if (sm1 == 0)
 {
 
-# 280
+# 276
 sm1++;
 }
 }
@@ -6236,13 +6239,13 @@ sm0 = 0x00;
 sm1 = 0x00;
 }
 
-# 315
+# 311
 if (error_grantedToWriteDisp.f.oilLevel == 1)
 {
 if (sm1 == 0)
 {
 
-# 326
+# 322
 sm1++;
 }
 }
@@ -6273,7 +6276,7 @@ else if (sm0 == 1)
 {
 if ( error_requestToWriteDisp.packed & (1<<i) )
 {
-if (main_flag.f1ms)
+if (smain.f.f1ms)
 {
 if (++c == 2000)
 {

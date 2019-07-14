@@ -33,10 +33,16 @@ volatile struct _isr_flag
     unsigned f1ms: 1;
     unsigned __a: 7;
 } isr_flag = {0};
-volatile struct _main_flag main_flag;
-
-
-
+volatile struct _smain smain;
+ 
+struct _unlock
+{
+    unsigned kb:1;
+    unsigned autoMode:1;
+    unsigned visMode:1;
+    unsigned __a:5;
+};
+//extern struct _unlock unlock;
 struct _unlock unlock;
 
 enum _MACHSTATE
@@ -46,6 +52,7 @@ enum _MACHSTATE
     MACHSTATE_CONFIG
 };
 int8_t machState;
+
 
 
 int8_t disp_owner = DISPOWNER_AUTOMODE;
@@ -70,17 +77,12 @@ union _errorDispFlag
 union _errorDispFlag error_requestToWriteDisp;//senala requiere el display
 union _errorDispFlag error_grantedToWriteDisp;//aqui el tiene el permiso en la misma ubicacion
 
-enum _KB_MODE
-{
-    KB_MODE_AUTOMODE=0,
-    KB_MODE_VISMODE,
-    KB_MODE_CONFIG
-};
+
 void main(void) 
 {
     int8_t c_access_kb=0;
     int8_t c_access_disp=0;
-    int8_t kb_mode=0;
+    //int8_t kb_focus=KB_FOCUS_AUTOMODE;
     int8_t codapp;
 
     LATA = 0x00;
@@ -130,17 +132,19 @@ void main(void)
     disp_owner = DISPOWNER_AUTOMODE;
     
     machState = MACHSTATE_RUNNING;
-
+    
+    smain.focus.kb = FOCUS_KB_AUTOMODE;
+    
     GIE = 1;
     while(1)
     {
         if (isr_flag.f1ms)//sync para toda la pasada
         {
             isr_flag.f1ms = 0;
-            main_flag.f1ms = 1;
+            smain.f.f1ms = 1;
         }
 
-        if (main_flag.f1ms)
+        if (smain.f.f1ms)
         {
             if (++c_access_kb == 20)
             {
@@ -149,24 +153,6 @@ void main(void)
                 if (unlock.kb)
                 {
                     ikb_job();
-                    
-                    if (kb_mode == KB_MODE_AUTOMODE)
-                    {
-                        if (autoMode_kb())
-                        {
-                            kb_mode = KB_MODE_VISMODE;
-                            disp_owner = DISPOWNER_VISMODE;
-                        }
-                    }
-                    else if (kb_mode == KB_MODE_VISMODE)
-                    {
-                        //disp_owner = DISPOWNER_AUTOMODE;
-                    }
-                    else //entra y sale de config
-                    {
-                        machState = MACHSTATE_CONFIG; //config
-                        machState = MACHSTATE_RUNNING;
-                    }	
                 }
             }
             
@@ -177,32 +163,42 @@ void main(void)
                 disp7s_job();
             }
         }
-        
         //+--------------------------------------------------------------------
         
         //+--------------------------------------------------------------------
         if (machState == MACHSTATE_RUNNING)//solo para darle mas claridad a la lectura del programa, xq podria manejarse con locks
         {
             //sobre estos 2, igual la maquina puede entrar a modo "Config"
-            if (unlock.autoMode)//esto es un proceso
+            if (unlock.autoMode)
             {
-                if (autoMode_job())//cada proceso puede apropiarse del display
+                codapp = autoMode_job();
+                
+                if (codapp == 1)
                 {
-                }	 
+                    smain.focus.kb = FOCUS_KB_VISMODE;
+                    disp_owner = DISPOWNER_VISMODE;
+                    unlock.visMode = 1;
+                }
+                else if (codapp == 2)
+                {
+                    machState = MACHSTATE_CONFIG;
+                }
             }
             if (unlock.visMode)//este es otro proceso
             {
-                codapp = visMode_job();
-                if (codapp == 1)//despues de un tiempo sale automaticamente
+                codapp = visMode_job();//despues de un tiempo sale automaticamente
+                
+                if (codapp == 1)
                 {
-                    unlock.visMode = 0;
-                    kb_mode = KB_MODE_AUTOMODE;
+                    smain.focus.kb = FOCUS_KB_AUTOMODE;
                     disp_owner = DISPOWNER_AUTOMODE;
+                    unlock.visMode = 0;
+                    
                     autoMode_init(AUTOMODE_INIT_CONTINUE);
                 }
                 else if (codapp == 2)
                 {
-                    
+                    machState = MACHSTATE_CONFIG;
                 }
             }
         }
@@ -221,7 +217,7 @@ void main(void)
         mpap_sych();
         
         //////////
-        main_flag.f1ms = 0;
+        smain.f.f1ms = 0;
         //ikb_flush();
     }
 }
@@ -353,7 +349,7 @@ void errorHandler_queue(void)
     {
         if ( error_requestToWriteDisp.packed & (1<<i) )//aun se mantiene?
         {
-            if (main_flag.f1ms)
+            if (smain.f.f1ms)
             {
                 if (++c == ERROR_QUEUE_OWNER_DISP_TIME)//2 s
                 {

@@ -16,12 +16,34 @@ void visMode_init(int8_t numVista)
     visMode.numVista = numVista;
     visMode.disp7s_accessReq = 1;//ingresa mostrando en numVista
 }
+/*
+ * proceso
+ * keyboard
+ * displayer
+ */
+static int8_t visMode_kb(void);
 
 int8_t visMode_job(void)
 {
     int8_t cod_ret = 0;
     
-    //1)process
+    if (smain.focus.kb == FOCUS_KB_VISMODE)
+    {
+        cod_ret = visMode_kb();
+    }
+    
+    if ( visMode.disp7s_accessReq == 1)
+    {
+        visMode_disp(visMode.numVista);
+        visMode.disp7s_accessReq = 0;
+    }
+
+    return cod_ret;
+}
+static int8_t visMode_kb(void)
+{
+    int8_t cod_ret = 0;
+    
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_UP))
     {
         ikb_key_was_read(KB_LYOUT_KEY_UP);
@@ -66,14 +88,6 @@ int8_t visMode_job(void)
         ikb_key_was_read(KB_LYOUT_KEY_ENTER_F);
         //
     }
-    
-    //2)display
-    if ( visMode.disp7s_accessReq == 1)
-    {
-        visMode_disp(visMode.numVista);
-        visMode.disp7s_accessReq = 0;
-    }
-
     return cod_ret;
 }
 static void visMode_disp(int8_t c)

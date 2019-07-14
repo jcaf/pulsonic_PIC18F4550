@@ -12,12 +12,21 @@
     #pragma warning disable 373//implicit signed to unsigned conversion
     #pragma warning disable 520//function is never called
 
-    struct _main_flag
+    struct _smain
     {
-        unsigned f1ms:1;
-        unsigned __a:7;
+        struct _main_flag
+        {
+            unsigned f1ms:1;
+            unsigned __a:7;
+        }f;
+        
+        struct _main_focus
+        {
+            int8_t kb;
+            int8_t disp;
+        }focus;
     };
-    extern volatile struct _main_flag main_flag;
+    extern volatile struct _smain smain;
     
     #define myitoa(_integer_, _buffer_, _base_) itoa(_buffer_, _integer_, _base_)
 
@@ -28,16 +37,14 @@
         DISPOWNER_VISMODE,
         DISPOWNER_CONFIGMODE,
     };
-    
-    struct _unlock
+   
+    enum _FOCUS
     {
-        unsigned kb:1;
-        unsigned autoMode:1;
-        unsigned visMode:1;
-        unsigned __a:5;
+        FOCUS_KB_NONE,
+        FOCUS_KB_AUTOMODE,
+        FOCUS_KB_VISMODE,
+        FOCUS_KB_CONFIG
     };
-    extern struct _unlock unlock;
-    
     
     
     ////////////////////////////////////////////////////////////////////////////

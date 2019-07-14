@@ -11,6 +11,7 @@ static struct _autoMode
     int8_t sm0;
 }autoMode;
 
+static int8_t autoMode_kb(void);
 
 void autoMode_init(int8_t init)
 {
@@ -28,6 +29,11 @@ void autoMode_init(int8_t init)
 int8_t autoMode_job(void)
 {
     int8_t cod_ret = 0;
+    
+    if (smain.focus.kb == FOCUS_KB_AUTOMODE)
+    {
+        cod_ret = autoMode_kb();
+    }
     
     if (autoMode.sm0 == 0)
     {
@@ -70,8 +76,10 @@ int8_t autoMode_job(void)
     }
     return cod_ret;
 }
-
-int8_t autoMode_kb(void)
+/*
+ * 1 = return and exit from current process
+ */
+static int8_t autoMode_kb(void)
 {
     int8_t cod_ret = 0;
     
@@ -80,16 +88,13 @@ int8_t autoMode_kb(void)
         ikb_key_was_read(KB_LYOUT_KEY_UP);
         //
         visMode_init(0x00);
-        unlock.visMode = 1;
         cod_ret = 1;
-        
     }
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_DOWN))
     {
         ikb_key_was_read(KB_LYOUT_KEY_DOWN);
         //
         visMode_init(VISMODE_NUMMAX_VISTAS-1);
-        unlock.visMode = 1;
         cod_ret = 1;
     }
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS))
@@ -107,6 +112,5 @@ int8_t autoMode_kb(void)
         ikb_key_was_read(KB_LYOUT_KEY_ENTER_F);
         //
     }
-
     return cod_ret;
 }

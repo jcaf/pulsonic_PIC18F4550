@@ -15,7 +15,7 @@
     };
     void autoMode_init(int8_t init);
     int8_t autoMode_job(void);
-    int8_t autoMode_kb(void);
+    
     
 #ifdef	__cplusplus
 extern "C" {

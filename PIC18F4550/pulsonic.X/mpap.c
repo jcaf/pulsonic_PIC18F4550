@@ -193,7 +193,7 @@ void mpap_sych(void)
     }
     else if (sm0 == 2)
     {
-        if (main_flag.f1ms)
+        if (smain.f.f1ms)
         {
             if (++c == 10)
             {
