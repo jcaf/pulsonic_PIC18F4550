@@ -1,19 +1,20 @@
 #include "main.h"
+#include "visualizerMode.h"
 #include "pulsonic.h"
 #include "ikb/ikb.h"
 
 static struct _visMode
 {
-    int8_t disp7s_req;//request
-    int8_t c;
+    int8_t disp7s_accessReq;//access request
+    int8_t numVista;        //number of "vista"
 }visMode;
 
 static void visMode_disp(int8_t c);
 
-void visMode_init(void)
+void visMode_init(int8_t numVista)
 {
-    visMode.c = 0x00;
-    visMode.disp7s_req = 1;
+    visMode.numVista = numVista;
+    visMode.disp7s_accessReq = 1;//ingresa mostrando en numVista
 }
 
 int8_t visMode_job(void)
@@ -23,46 +24,54 @@ int8_t visMode_job(void)
     //1)process
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_UP))
     {
-        if (++visMode.c>NOZZLE_NUMMAX)
+        ikb_key_was_read(KB_LYOUT_KEY_UP);
+        //
+        if (++visMode.numVista >= VISMODE_NUMMAX_VISTAS)
         {
-            visMode.c = 0x00;
+            visMode.numVista = 0x00;
             cod_ret = 1;
         }
         else
         {
-           visMode.disp7s_req = 1;
+           visMode.disp7s_accessReq = 1;
         }
     }
+
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_DOWN))
     {
-        if (--visMode.c < 0)
+        ikb_key_was_read(KB_LYOUT_KEY_DOWN);
+        //
+        if (--visMode.numVista < 0)
         {
-            visMode.c = NOZZLE_NUMMAX;
+            visMode.numVista = VISMODE_NUMMAX_VISTAS-1;
             cod_ret = 1;
         }
         else
         {
-            visMode.disp7s_req = 1;
+            visMode.disp7s_accessReq = 1;
         }
     }
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS))
     {
-        
+        ikb_key_was_read(KB_LYOUT_KEY_PLUS);
+        //
     }
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
     {
-        
+        ikb_key_was_read(KB_LYOUT_KEY_MINUS);
+        //
     }
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_ENTER_F))
     {
-        
+        ikb_key_was_read(KB_LYOUT_KEY_ENTER_F);
+        //
     }
     
     //2)display
-    if ( visMode.disp7s_req == 1)
+    if ( visMode.disp7s_accessReq == 1)
     {
-        visMode_disp(visMode.c);
-        visMode.disp7s_req = 0;
+        visMode_disp(visMode.numVista);
+        visMode.disp7s_accessReq = 0;
     }
 
     return cod_ret;
@@ -72,7 +81,7 @@ static void visMode_disp(int8_t c)
     double qty;
     
     //2) display
-    if (disp_owner == DISPOWNER_VISUALIZER_MODE)       
+    if (disp_owner == DISPOWNER_VISMODE)       
     {
         disp7s_modeDisp_writeInt(c+1);
         
@@ -81,7 +90,7 @@ static void visMode_disp(int8_t c)
             qty = pulsonic.nozzle[c].Q_mlh;
             if (qty == 0)
             {
-                disp7s_qtyDisp_writeFloat( qty );//disp OFF
+                disp7s_qtyDisp_writeText_OFF();
             }
             else
             {
@@ -90,6 +99,7 @@ static void visMode_disp(int8_t c)
         }
         else
         {
+            disp7s_modeDisp_writeText_oil();
             disp7s_qtyDisp_writeInt( pulsonic.oil.viscosity );
         }
 

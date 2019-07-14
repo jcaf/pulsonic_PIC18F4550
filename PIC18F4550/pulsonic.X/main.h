@@ -24,10 +24,22 @@
     extern int8_t disp_owner;
     enum _DISPOWNER_MODE
     {
-        DISPOWNER_AUTO_MODE = 0,
-        DISPOWNER_VISUALIZER_MODE,
-        DISPOWNER_CONFIG_MODE,
+        DISPOWNER_AUTOMODE = 0,
+        DISPOWNER_VISMODE,
+        DISPOWNER_CONFIGMODE,
     };
+    
+    struct _unlock
+    {
+        unsigned kb:1;
+        unsigned autoMode:1;
+        unsigned visMode:1;
+        unsigned __a:5;
+    };
+    extern struct _unlock unlock;
+    
+    
+    
     ////////////////////////////////////////////////////////////////////////////
     //MOTOR PAP UNIPOLAR
     #define PORTWxSTEPPER_A LATD

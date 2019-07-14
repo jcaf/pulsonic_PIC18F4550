@@ -46,11 +46,12 @@
             uint8_t qty[DISP7S_QTY_NUMMAX];
             uint8_t mode[DISP7S_MODE_NUMMAX];
         }disp7s;
-        //uint8_t display7s[DISP_TOTAL_NUMMAX];
-        
     };
     extern struct _pulsonic pulsonic;
 
+    extern const int8_t OIL_VISCOSITY[4];
+    
+    
     void pulsonic_init(void);
     uint16_t pulsonic_getTotalSum_mlh(void);
     

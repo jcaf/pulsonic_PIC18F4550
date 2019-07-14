@@ -5795,10 +5795,19 @@ extern volatile struct _main_flag main_flag;
 extern int8_t disp_owner;
 enum _DISPOWNER_MODE
 {
-DISPOWNER_AUTO_MODE = 0,
-DISPOWNER_VISUALIZER_MODE,
-DISPOWNER_CONFIG_MODE,
+DISPOWNER_AUTOMODE = 0,
+DISPOWNER_VISMODE,
+DISPOWNER_CONFIGMODE,
 };
+
+struct _unlock
+{
+unsigned kb:1;
+unsigned autoMode:1;
+unsigned visMode:1;
+unsigned __a:5;
+};
+extern struct _unlock unlock;
 
 # 18 "nozzle.h"
 int8_t nozzle_isEnabled(int n);
@@ -5809,6 +5818,12 @@ void disp7s_modeDisp_writeFloat(float num);
 
 void disp7s_qtyDisp_writeInt(int16_t num);
 void disp7s_modeDisp_writeInt(int16_t num);
+
+void disp7s_modeDisp_off(void);
+void disp7s_qtyDsp_off(void);
+
+void disp7s_modeDisp_writeText_oil(void);
+void disp7s_qtyDisp_writeText_OFF(void);
 
 void disp7s_init(void);
 void disp7s_job(void);
@@ -5857,10 +5872,11 @@ struct _pulsonic_display
 uint8_t qty[3];
 uint8_t mode[2];
 }disp7s;
-
-
 };
 extern struct _pulsonic pulsonic;
+
+extern const int8_t OIL_VISCOSITY[4];
+
 
 void pulsonic_init(void);
 uint16_t pulsonic_getTotalSum_mlh(void);
@@ -5930,11 +5946,17 @@ int8_t pump_job(void);
 int8_t pump_isIdle(void);
 
 # 11 "automode.h"
-void autoMode_init(void);
+enum _AUTOMODE_INIT_I
+{
+AUTOMODE_INIT_RESTART = 0,
+AUTOMODE_INIT_CONTINUE
+};
+void autoMode_init(int8_t init);
 int8_t autoMode_job(void);
+int8_t autoMode_kb(void);
 
-# 11 "visualizerMode.h"
-void visMode_init(void);
+# 13 "visualizerMode.h"
+void visMode_init(int8_t c);
 int8_t visMode_job(void);
 
 
@@ -5950,24 +5972,19 @@ unsigned __a: 7;
 volatile struct _main_flag main_flag;
 
 
-struct _lock
-{
-unsigned kb:1;
-unsigned autoMode:1;
-unsigned visualizerMode:1;
-unsigned __a:5;
-}lock;
 
-enum _MACHINESTATE
+struct _unlock unlock;
+
+enum _MACHSTATE
 {
-STALL = 0,
-RUNNING,
-CONFIG
+MACHSTATE_STALL = 0,
+MACHSTATE_RUNNING,
+MACHSTATE_CONFIG
 };
-int8_t machineState;
+int8_t machState;
 
 
-int8_t disp_owner = DISPOWNER_AUTO_MODE;
+int8_t disp_owner = DISPOWNER_AUTOMODE;
 
 
 union _errorDispFlag
@@ -5989,11 +6006,18 @@ intNumMaxErr_t packed;
 union _errorDispFlag error_requestToWriteDisp;
 union _errorDispFlag error_grantedToWriteDisp;
 
-
+enum _KB_MODE
+{
+KB_MODE_AUTOMODE=0,
+KB_MODE_VISMODE,
+KB_MODE_CONFIG
+};
 void main(void)
 {
 int8_t c_access_kb=0;
 int8_t c_access_disp=0;
+int8_t kb_mode=0;
+int8_t codapp;
 
 LATA = 0x00;
 LATC = 0x00;
@@ -6033,10 +6057,15 @@ ikb_init();
 disp7s_init();
 pulsonic_init();
 
-# 127
-visMode_init();
-disp_owner = DISPOWNER_VISUALIZER_MODE;
 
+unlock.kb = 1;
+unlock.autoMode = 1;
+unlock.visMode = 0;
+
+autoMode_init(AUTOMODE_INIT_RESTART);
+disp_owner = DISPOWNER_AUTOMODE;
+
+machState = MACHSTATE_RUNNING;
 
 GIE = 1;
 while(1)
@@ -6053,23 +6082,26 @@ if (++c_access_kb == 20)
 {
 c_access_kb = 0;
 
-
-if (!lock.kb)
+if (unlock.kb)
 {
 ikb_job();
 
-if (1)
+if (kb_mode == KB_MODE_AUTOMODE)
 {
-disp_owner = DISPOWNER_VISUALIZER_MODE;
+if (autoMode_kb())
+{
+kb_mode = KB_MODE_VISMODE;
+disp_owner = DISPOWNER_VISMODE;
 }
-else if (1)
+}
+else if (kb_mode == KB_MODE_VISMODE)
 {
-disp_owner = DISPOWNER_AUTO_MODE;
+
 }
 else
 {
-machineState = CONFIG;
-machineState = RUNNING;
+machState = MACHSTATE_CONFIG;
+machState = MACHSTATE_RUNNING;
 }
 }
 }
@@ -6085,29 +6117,38 @@ disp7s_job();
 
 
 
-if (machineState == RUNNING)
+if (machState == MACHSTATE_RUNNING)
 {
 
-if (!lock.autoMode)
+if (unlock.autoMode)
 {
 if (autoMode_job())
 {
 }
 }
-if (!lock.visualizerMode)
+if (unlock.visMode)
 {
-if (visMode_job())
+codapp = visMode_job();
+if (codapp == 1)
 {
+unlock.visMode = 0;
+kb_mode = KB_MODE_AUTOMODE;
+disp_owner = DISPOWNER_AUTOMODE;
+autoMode_init(AUTOMODE_INIT_CONTINUE);
+}
+else if (codapp == 2)
+{
+
 }
 }
 }
-else if (machineState == CONFIG)
+else if (machState == MACHSTATE_CONFIG)
 {
 
 
 
 
-if (disp_owner == DISPOWNER_CONFIG_MODE)
+if (disp_owner == DISPOWNER_CONFIGMODE)
 {
 }
 }
@@ -6117,7 +6158,7 @@ mpap_sych();
 
 
 main_flag.f1ms = 0;
-ikb_flush();
+
 }
 }
 
@@ -6139,11 +6180,11 @@ void check_startSignal(void)
 static int8_t sm0, sm1;
 if (sm0 == 0)
 {
-if ( (machineState == RUNNING) && (!is_startSignal()) )
+if ( (machState == MACHSTATE_RUNNING) && (!is_startSignal()) )
 {
 error_requestToWriteDisp.f.startSignal = 1;
 
-machineState = STALL;
+machState = MACHSTATE_STALL;
 sm0++;
 }
 }
@@ -6157,13 +6198,13 @@ sm0 = 0x00;
 sm1 = 0x00;
 }
 
-# 254
+# 269
 if (error_grantedToWriteDisp.f.startSignal == 1)
 {
 if (sm1 == 0)
 {
 
-# 265
+# 280
 sm1++;
 }
 }
@@ -6180,7 +6221,7 @@ if ( !is_oilLevel() )
 error_requestToWriteDisp.f.oilLevel = 1;
 
 
-machineState = STALL;
+machState = MACHSTATE_STALL;
 do{do{LATA |= 1<<5;}while(0);}while(0);
 sm0++;
 }
@@ -6195,13 +6236,13 @@ sm0 = 0x00;
 sm1 = 0x00;
 }
 
-# 300
+# 315
 if (error_grantedToWriteDisp.f.oilLevel == 1)
 {
 if (sm1 == 0)
 {
 
-# 311
+# 326
 sm1++;
 }
 }

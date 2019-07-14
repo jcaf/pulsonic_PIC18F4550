@@ -51,6 +51,12 @@
     void disp7s_qtyDisp_writeInt(int16_t num);
     void disp7s_modeDisp_writeInt(int16_t num);
     
+    void disp7s_modeDisp_off(void);
+    void disp7s_qtyDsp_off(void);
+    
+    void disp7s_modeDisp_writeText_oil(void);
+    void disp7s_qtyDisp_writeText_OFF(void);
+
     void disp7s_init(void);
     void disp7s_job(void);
     

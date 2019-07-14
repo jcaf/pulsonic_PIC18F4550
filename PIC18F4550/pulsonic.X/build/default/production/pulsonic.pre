@@ -5795,10 +5795,19 @@ extern volatile struct _main_flag main_flag;
 extern int8_t disp_owner;
 enum _DISPOWNER_MODE
 {
-DISPOWNER_AUTO_MODE = 0,
-DISPOWNER_VISUALIZER_MODE,
-DISPOWNER_CONFIG_MODE,
+DISPOWNER_AUTOMODE = 0,
+DISPOWNER_VISMODE,
+DISPOWNER_CONFIGMODE,
 };
+
+struct _unlock
+{
+unsigned kb:1;
+unsigned autoMode:1;
+unsigned visMode:1;
+unsigned __a:5;
+};
+extern struct _unlock unlock;
 
 # 18 "nozzle.h"
 int8_t nozzle_isEnabled(int n);
@@ -5809,6 +5818,12 @@ void disp7s_modeDisp_writeFloat(float num);
 
 void disp7s_qtyDisp_writeInt(int16_t num);
 void disp7s_modeDisp_writeInt(int16_t num);
+
+void disp7s_modeDisp_off(void);
+void disp7s_qtyDsp_off(void);
+
+void disp7s_modeDisp_writeText_oil(void);
+void disp7s_qtyDisp_writeText_OFF(void);
 
 void disp7s_init(void);
 void disp7s_job(void);
@@ -5857,16 +5872,18 @@ struct _pulsonic_display
 uint8_t qty[3];
 uint8_t mode[2];
 }disp7s;
-
-
 };
 extern struct _pulsonic pulsonic;
+
+extern const int8_t OIL_VISCOSITY[4];
+
 
 void pulsonic_init(void);
 uint16_t pulsonic_getTotalSum_mlh(void);
 
-# 4 "pulsonic.c"
+# 5 "pulsonic.c"
 struct _pulsonic pulsonic;
+const int8_t OIL_VISCOSITY[4]={22, 32, 46, 68};
 
 void pulsonic_init(void)
 {
@@ -5879,6 +5896,10 @@ for (i=0; i< 8; i++)
 {
 pulsonic.nozzle[i].Q_mlh = 12.0;
 }
+pulsonic.oil.viscosity = OIL_VISCOSITY[0];
+
+pulsonic.nozzle[3].Q_mlh = 0;
+pulsonic.nozzle[5].Q_mlh = 0;
 }
 
 uint16_t pulsonic_getTotalSum_mlh(void)

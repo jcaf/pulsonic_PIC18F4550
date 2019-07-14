@@ -36,24 +36,19 @@ volatile struct _isr_flag
 volatile struct _main_flag main_flag;
 
 
-struct _lock
-{
-    unsigned kb:1;
-    unsigned autoMode:1;
-    unsigned visualizerMode:1;
-    unsigned __a:5;
-}lock;
 
-enum _MACHINESTATE
+struct _unlock unlock;
+
+enum _MACHSTATE
 {
-    STALL = 0,
-    RUNNING,
-    CONFIG
+    MACHSTATE_STALL = 0,
+    MACHSTATE_RUNNING,
+    MACHSTATE_CONFIG
 };
-int8_t machineState;
+int8_t machState;
 
 
-int8_t disp_owner = DISPOWNER_AUTO_MODE;
+int8_t disp_owner = DISPOWNER_AUTOMODE;
 
 ////////////////////////////////////////////////////////////////////////////////
 union _errorDispFlag
@@ -75,11 +70,18 @@ union _errorDispFlag
 union _errorDispFlag error_requestToWriteDisp;//senala requiere el display
 union _errorDispFlag error_grantedToWriteDisp;//aqui el tiene el permiso en la misma ubicacion
 
-
+enum _KB_MODE
+{
+    KB_MODE_AUTOMODE=0,
+    KB_MODE_VISMODE,
+    KB_MODE_CONFIG
+};
 void main(void) 
 {
     int8_t c_access_kb=0;
     int8_t c_access_disp=0;
+    int8_t kb_mode=0;
+    int8_t codapp;
 
     LATA = 0x00;
     LATC = 0x00;
@@ -120,14 +122,15 @@ void main(void)
     pulsonic_init();
     
     //
-    //autoMode_init();
-    //disp_owner = DISPOWNER_AUTO_MODE;
-    //
+    unlock.kb = 1;
+    unlock.autoMode = 1;
+    unlock.visMode = 0;
+            
+    autoMode_init(AUTOMODE_INIT_RESTART);//RESTART
+    disp_owner = DISPOWNER_AUTOMODE;
     
-    visMode_init();
-    disp_owner = DISPOWNER_VISUALIZER_MODE;
-    
-    //
+    machState = MACHSTATE_RUNNING;
+
     GIE = 1;
     while(1)
     {
@@ -143,23 +146,26 @@ void main(void)
             {
                 c_access_kb = 0;
             
-                //keyboard
-                if (!lock.kb)
+                if (unlock.kb)
                 {
                     ikb_job();
                     
-                    if (1)//en que modo estoy
+                    if (kb_mode == KB_MODE_AUTOMODE)
                     {
-                        disp_owner = DISPOWNER_VISUALIZER_MODE;
+                        if (autoMode_kb())
+                        {
+                            kb_mode = KB_MODE_VISMODE;
+                            disp_owner = DISPOWNER_VISMODE;
+                        }
                     }
-                    else if (1)
+                    else if (kb_mode == KB_MODE_VISMODE)
                     {
-                        disp_owner = DISPOWNER_AUTO_MODE;
+                        //disp_owner = DISPOWNER_AUTOMODE;
                     }
                     else //entra y sale de config
                     {
-                        machineState = CONFIG; //config
-                        machineState = RUNNING;
+                        machState = MACHSTATE_CONFIG; //config
+                        machState = MACHSTATE_RUNNING;
                     }	
                 }
             }
@@ -175,29 +181,38 @@ void main(void)
         //+--------------------------------------------------------------------
         
         //+--------------------------------------------------------------------
-        if (machineState == RUNNING)//solo para darle mas claridad a la lectura del programa, xq podria manejarse con locks
+        if (machState == MACHSTATE_RUNNING)//solo para darle mas claridad a la lectura del programa, xq podria manejarse con locks
         {
             //sobre estos 2, igual la maquina puede entrar a modo "Config"
-            if (!lock.autoMode)//esto es un proceso
+            if (unlock.autoMode)//esto es un proceso
             {
                 if (autoMode_job())//cada proceso puede apropiarse del display
                 {
                 }	 
             }
-            if (!lock.visualizerMode)//este es otro proceso
+            if (unlock.visMode)//este es otro proceso
             {
-                if (visMode_job())//despues de un tiempo sale automaticamente
+                codapp = visMode_job();
+                if (codapp == 1)//despues de un tiempo sale automaticamente
                 {
+                    unlock.visMode = 0;
+                    kb_mode = KB_MODE_AUTOMODE;
+                    disp_owner = DISPOWNER_AUTOMODE;
+                    autoMode_init(AUTOMODE_INIT_CONTINUE);
+                }
+                else if (codapp == 2)
+                {
+                    
                 }
             }
         }
-        else if (machineState == CONFIG)
+        else if (machState == MACHSTATE_CONFIG)
         {
             //config()	//para la maquina y espera el start --> aqui va a estar a la espera del start
                         //aqui podria convivir con el error en "paralelo"	
             //1)proceso
             //2)display
-            if (disp_owner == DISPOWNER_CONFIG_MODE)
+            if (disp_owner == DISPOWNER_CONFIGMODE)
             {
             }
         }
@@ -207,7 +222,7 @@ void main(void)
         
         //////////
         main_flag.f1ms = 0;
-        ikb_flush();
+        //ikb_flush();
     }
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -229,11 +244,11 @@ void check_startSignal(void)
 	static int8_t sm0, sm1;
 	if (sm0 == 0)
 	{
-		if ( (machineState == RUNNING) && (!is_startSignal()) ) //cada error decide apropiarse del display
+		if ( (machState == MACHSTATE_RUNNING) && (!is_startSignal()) ) //cada error decide apropiarse del display
 		{
 			error_requestToWriteDisp.f.startSignal = 1;//request write
             //
-            machineState = STALL;//puede ser NOT_RUNNING or IDLE
+            machState = MACHSTATE_STALL;//puede ser NOT_RUNNING or IDLE
 			sm0++;
 		}	
 	}
@@ -278,7 +293,7 @@ void check_oilLevel(void)
 			error_requestToWriteDisp.f.oilLevel = 1;//request write
             //
             
-            machineState = STALL;
+            machState = MACHSTATE_STALL;
             RELAY_DISABLE();
 			sm0++;
 		}	

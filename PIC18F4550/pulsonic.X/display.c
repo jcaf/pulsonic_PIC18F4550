@@ -146,6 +146,32 @@ void disp7s_job(void)
     if (++q == DISP7S_TOTAL_NUMMAX)
         {q=0x0;}
 }
+
+void disp7s_off(uint8_t *pDisp, int8_t NUM_OF_DISP)
+{
+    int8_t i;
+    for (i=0; i<NUM_OF_DISP; i++)
+        {pDisp[i] = DISP7S_CHARS[OFF];}   
+}
+void disp7s_modeDisp_off(void)
+{
+    disp7s_off(pulsonic.disp7s.mode, DISP7S_MODE_NUMMAX);
+}
+void disp7s_qtyDsp_off(void)
+{
+    disp7s_off(pulsonic.disp7s.qty, DISP7S_QTY_NUMMAX);
+}
+void disp7s_modeDisp_writeText_oil(void)
+{
+   pulsonic.disp7s.mode[1] =0x5C;
+   pulsonic.disp7s.mode[0] =0x16;
+}
+void disp7s_qtyDisp_writeText_OFF(void)
+{
+   pulsonic.disp7s.qty[2] =0x3F;
+   pulsonic.disp7s.qty[1] =0x71;
+   pulsonic.disp7s.qty[0] =0x71;
+}
 /*
 Take 1 decimal
   
@@ -173,8 +199,9 @@ void disp7s_write_f(uint8_t *pDisp, int8_t NUM_OF_DISP, double num)
     if (num >= K10MULT)
         {num= K10MULT-1;}
         
-    for (i=0; i<NUM_OF_DISP; i++)
-        {pDisp[i] = DISP7S_CHARS[OFF];}
+    disp7s_off(pDisp, NUM_OF_DISP);
+//    for (i=0; i<NUM_OF_DISP; i++)
+//        {pDisp[i] = DISP7S_CHARS[OFF];}
     
     K10MULT = 1;
     for (i=0; i<=NUM_OF_DISP; i++)
@@ -259,143 +286,4 @@ void disp7s_modeDisp_writeInt(int16_t num)
 {
     disp7s_write_i(pulsonic.disp7s.mode, DISP7S_MODE_NUMMAX, num);
 }
-
-/*
-void disp_show_quantity(double f)
-{
-	int16_t I;
-	char buff[10];
-    uint8_t num;
-    int8_t i;
-    int8_t last_pos;
-    int8_t q;
-
-    if (f>= 1000.0f)
-        {f=999.0f;}
-    
-    pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[OFF];
-    pulsonic.display7s[QUANT_DIG_1] = DISP7S_CHARS[OFF];
-    pulsonic.display7s[QUANT_DIG_0] = DISP7S_CHARS[OFF];
-    
-    if (f < 100.0f)         //si menor a 100, por ejmp 99.9, se puede representar en el display
-    {                       //99.9X * 10 -> 999.X, con esto obtengo el decimal tal y cual es,
-        I = (int16_t)(f*10);    //la multip. trunca al ser un entero I //si es un 101.6 -> quedo truncado I y se muestra solo los 3 digitos enteros
-        myitoa(I, buff, 10);
-        //
-        if (I>99)
-            {last_pos = 2;}
-        else if (I>9)
-            {last_pos = 1;}
-        else 
-        {
-            pulsonic.display7s[QUANT_DIG_1] = DISP7S_NUMS[0];
-            last_pos = 0;
-        }
-        q = 0;
-        for (i=last_pos; i>=0; i--)
-        {
-            num = buff[i] - 0x30;
-            pulsonic.display7s[q++] = DISP7S_NUMS[num];
-        }
-        pulsonic.display7s[QUANT_DIG_1] |= 0x80;    //add . decimalpoint
-    }                       
-    else
-    {
-        I = (int16_t)f; //mostrar solo los 3 digitos enteros
-        myitoa(I, buff, 10);
-        //
-        q = 0;
-        last_pos = 2;
-        for (i=last_pos; i>=0; i--)
-        {
-            num = buff[i] - 0x30;
-            pulsonic.display7s[q++] = DISP7S_NUMS[num];
-        }
-    }
-}
-*/
-/*
-void disp_show_quantity(double f)//no presenta el decimal si es .0
-{
-	int16_t I;
-	char buff[10];
-    uint8_t num;
-    int8_t i;
-    int8_t last_pos;
-    int8_t q;
-    double decimal;
-
-    if (f>= 1000.0f)
-        f=999.0f;//truncar al max. valor 
-    //    
-	I = (int16_t)f;//parte entera
-	decimal = f-I;
-    if (decimal > 0.0f)//tiene un decimal diferente de 0
-    {
-        if (f < 100.0f)//si menor a 100, por ejmp 99.9, se puede representar en el display
-        {
-            I = (int)(f*10); //99.9 * 10 -> 999, con esto obtengo el decimal tal y cual es,
-        }             //la multip. trunca al ser un entero I
-                        //si es un 101.6 -> quedo truncado I y se muestra solo los 3 digitos enteros
-    }
-    myitoa(I, buff, 10);
-    //
-    pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[OFF];
-    pulsonic.display7s[QUANT_DIG_1] = DISP7S_CHARS[OFF];
-    pulsonic.display7s[QUANT_DIG_0] = DISP7S_CHARS[OFF];
-	//
-    if (decimal<0.01)//no existe parte decimal
-	{
-		if (I>99)
-			last_pos = 2;
-		else if (I>9)
-            last_pos = 1;
-		else 
-            last_pos = 0;
         
-        q = 0;
-        for (i=last_pos; i>=0; i--)
-        {
-            num = buff[i] - 0x30;
-            pulsonic.display7s[q++] = DISP7S_NUMS[num];
-        }
-	}
-	else
-	{
-        if (f<100.0)//
-        {
-            //I = f*10; //1.8
-            //myitoa(I, buff, 10);
-            
-            if (I>99)
-                {last_pos = 2;}
-            else if (I>9)
-                {last_pos = 1;}
-            else 
-            {
-                pulsonic.display7s[QUANT_DIG_1] = DISP7S_NUMS[0];
-                last_pos = 0;
-            }
-            
-            q = 0;
-            for (i=last_pos; i>=0; i--)
-            {
-                num = buff[i] - 0x30;
-                pulsonic.display7s[q++] = DISP7S_NUMS[num];
-            }
-            pulsonic.display7s[QUANT_DIG_1] |= 0x80;
-        }
-        else//mostrar solo los 3 digitos enteros
-        {
-            q = 0;
-            last_pos = 2;
-            for (i=last_pos; i>=0; i--)
-            {
-                num = buff[i] - 0x30;
-                pulsonic.display7s[q++] = DISP7S_NUMS[num];
-            }
-        }
-	}
-}
-
- */

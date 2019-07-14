@@ -8,14 +8,18 @@
 #ifndef AUTOMODE_H
 #define	AUTOMODE_H
 
-    void autoMode_init(void);
+    enum _AUTOMODE_INIT_I
+    {
+        AUTOMODE_INIT_RESTART = 0,
+        AUTOMODE_INIT_CONTINUE
+    };
+    void autoMode_init(int8_t init);
     int8_t autoMode_job(void);
+    int8_t autoMode_kb(void);
+    
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
-
-
 
 #ifdef	__cplusplus
 }
