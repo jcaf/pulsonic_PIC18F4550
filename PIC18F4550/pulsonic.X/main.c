@@ -43,7 +43,6 @@ struct _unlock
     unsigned visMode:1;
     unsigned __a:5;
 };
-//extern struct _unlock unlock;
 struct _unlock unlock;
 
 enum _MACHSTATE
@@ -76,12 +75,26 @@ union _errorDispFlag
 union _errorDispFlag error_requestToWriteDisp;//senala requiere el display
 union _errorDispFlag error_grantedToWriteDisp;//aqui el tiene el permiso en la misma ubicacion
 
+void errorHandler_queue(void);
 
+void check_startSignal(void);
+void check_oilLevel(void);
+////////////////////////////////////////////////////////////////////////
+void ps_autoMode_start(void)
+{
+    unlock.autoMode = 1;
+    unlock.visMode = 0;
+    autoMode_init(AUTOMODE_INIT_RESTART);
+    smain.focus.kb = FOCUS_KB_AUTOMODE;
+    disp_owner = DISPOWNER_AUTOMODE;
+    machState = MACHSTATE_RUNNING;
+    //
+    ikb_flush();
+}
 void main(void) 
 {
     int8_t c_access_kb=0;
     int8_t c_access_disp=0;
-    //int8_t kb_focus=KB_FOCUS_AUTOMODE;
     int8_t codapp;
 
     LATA = 0x00;
@@ -122,19 +135,18 @@ void main(void)
     disp7s_init();
     pulsonic_init();
     
-    //
     unlock.kb = 1;
-    unlock.autoMode = 1;
+    
     unlock.visMode = 0;
-            
-    autoMode_init(AUTOMODE_INIT_RESTART);//RESTART
-    disp_owner = DISPOWNER_AUTOMODE;
-    
+
+    //
+    unlock.autoMode = 0;
+//    autoMode_init(AUTOMODE_INIT_RESTART);
+//    smain.focus.kb = FOCUS_KB_AUTOMODE;
+//    disp_owner = DISPOWNER_AUTOMODE;
+
     machState = MACHSTATE_RUNNING;
-    
-    smain.focus.kb = FOCUS_KB_AUTOMODE;
-//si no hay START, entonces el teclado debe inchibirse, y antes de retomar
-//hacer un flush!!!!... para todos los cambios deberia de hacerlo
+    //machState = MACHSTATE_STALL;
     
     GIE = 1;
     while(1)
@@ -144,30 +156,29 @@ void main(void)
             isr_flag.f1ms = 0;
             smain.f.f1ms = 1;
         }
-
-        if (smain.f.f1ms)
+      if (smain.f.f1ms)
         {
             if (++c_access_kb == 20)
             {
                 c_access_kb = 0;
-            
                 if (unlock.kb)
                     {ikb_job();}
             }
-            
-            //display
             if (++c_access_disp == 3)
             {
                 c_access_disp = 0;
                 disp7s_job();
             }
         }
-        //+--------------------------------------------------------------------
         
-        //+--------------------------------------------------------------------
-        if (machState == MACHSTATE_RUNNING)//solo para darle mas claridad a la lectura del programa, xq podria manejarse con locks
+        //+--------------------------
+        check_startSignal();
+        check_oilLevel();
+        errorHandler_queue();
+        //+--------------------------
+        if (machState == MACHSTATE_RUNNING)
         {
-            //sobre estos 2, igual la maquina puede entrar a modo "Config"
+            /*sobre estos 2, igual la maquina puede entrar a modo "Config"*/
             if (unlock.autoMode)
             {
                 codapp = autoMode_job();
@@ -212,28 +223,20 @@ void main(void)
         }
         else if (machState == MACHSTATE_CONFIG)
         {
-            //config()	//para la maquina y espera el start --> aqui va a estar a la espera del start
-                        //aqui podria convivir con el error en "paralelo"	
             if (configMode_job())
             {
-                smain.focus.kb = FOCUS_KB_AUTOMODE;
-                disp_owner = DISPOWNER_AUTOMODE;
-                unlock.autoMode = 1;
-                
-                autoMode_init(AUTOMODE_INIT_RESTART);
-
-                machState = MACHSTATE_RUNNING;
-                
+                ps_autoMode_start();
+                //
                 RELAY_ENABLE();
             }
         }
-
+        //////////
+        //////////
         pump_job();
         mpap_sych();
-        
         //////////
         smain.f.f1ms = 0;
-        //ikb_flush();
+        ikb_flush();
     }
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -255,13 +258,14 @@ void check_startSignal(void)
 	static int8_t sm0, sm1;
 	if (sm0 == 0)
 	{
-		if ( (machState == MACHSTATE_RUNNING) && (!is_startSignal()) ) //cada error decide apropiarse del display
+		if ( (machState == MACHSTATE_RUNNING) && (!is_startSignal()) )          //cada error decide apropiarse del display
 		{
-			error_requestToWriteDisp.f.startSignal = 1;//request write
+			error_requestToWriteDisp.f.startSignal = 1;                         //request write
             //
-            machState = MACHSTATE_STALL;//puede ser NOT_RUNNING or IDLE
+            //machState = MACHSTATE_STALL;                                      //puede ser NOT_RUNNING or IDLE
 			sm0++;
 		}	
+        //ante un cambio-> tiene que chequear el estado
 	}
 	else if (sm0 == 1) //2 parts: the process and the display
 	{
@@ -271,25 +275,24 @@ void check_startSignal(void)
             error_requestToWriteDisp.f.startSignal = 0;//kill signal queue
             sm0 = 0x00;
             sm1 = 0x00;
+            
+            ps_autoMode_start();
+            //
 		}
-		/*else
-		{
-		}*/
+		/*else {}*/
 		
         //2) need to write on display
         if (error_grantedToWriteDisp.f.startSignal == 1)//se concede
         {
             if (sm1 == 0)
             {
-//                pulsonic.display7s[MODE_DIG_1] = DISP7S_NUMS[2];
-//                pulsonic.display7s[MODE_DIG_0] = DISP7S_NUMS[0];
-//                //
-//                pulsonic.display7s[QUANT_DIG_2] = DISP7S_CHARS[RAYA];
-//                pulsonic.display7s[QUANT_DIG_1] = DISP7S_CHARS[RAYA];
-//                pulsonic.display7s[QUANT_DIG_0] = DISP7S_CHARS[RAYA];
-                //
+                disp7s_qtyDisp_writeText_20_3RAYAS();
                 sm1++;
             }
+        }
+        else
+        {
+            sm1 = 0x0;
         }
 	}
 }
@@ -303,7 +306,6 @@ void check_oilLevel(void)
 		{
 			error_requestToWriteDisp.f.oilLevel = 1;//request write
             //
-            
             machState = MACHSTATE_STALL;
             RELAY_DISABLE();
 			sm0++;
@@ -317,48 +319,51 @@ void check_oilLevel(void)
             error_requestToWriteDisp.f.oilLevel = 0;//kill signal queue
             sm0 = 0x00;
             sm1 = 0x00;
+            //
+            ps_autoMode_start();
+            RELAY_ENABLE();
 		}
-		/*else
-		{
-		}*/
+		/*else{}*/
 		
         //2) need to write on display
-        if (error_grantedToWriteDisp.f.oilLevel == 1)//se concede
+        if (error_grantedToWriteDisp.f.oilLevel == 1)
         {
             if (sm1 == 0)
-            {   //no OIL
-//                pulsonic.display7s[MODE_DIG_1] = 0x54;  //0b01010100;//n
-//                pulsonic.display7s[MODE_DIG_0] = 0x5C;  //0b01011100;//o
-//                //
-//                pulsonic.display7s[QUANT_DIG_2] = DISP7S_NUMS[0];//O
-//                pulsonic.display7s[QUANT_DIG_1] = 0x30;//I
-//                pulsonic.display7s[QUANT_DIG_0] = 0x38;//L
-                //
+            {
+                disp7s_qtyDisp_writeText_NO_OIL();
+                
                 sm1++;
             }
+        }
+        else
+        {
+            sm1 = 0x0;
         }
 	}
 }
 
-
-////////////////////////////
 void errorHandler_queue(void)
 {
     #define ERROR_QUEUE_OWNER_DISP_TIME 2000//2000*1mS
     
-    static int8_t i;
+    static int8_t i =-1;
     static int8_t sm0;
     static uint16_t c;
 	intNumMaxErr_t is_granted;
     
     if (sm0 == 0)
     {
+        if (++i == NUMMAX_ERRORS)
+            {i = 0x00;}
+        //
         is_granted = error_requestToWriteDisp.packed & (1<<i);
         if (is_granted)
         {
             error_grantedToWriteDisp.packed = is_granted;//solo 1 tiene el permiso
             c = 0x0;
+            sm0++;
         }
+        //
     }
     else if (sm0 == 1)
     {
@@ -366,23 +371,16 @@ void errorHandler_queue(void)
         {
             if (smain.f.f1ms)
             {
-                if (++c == ERROR_QUEUE_OWNER_DISP_TIME)//2 s
+                if (++c >= ERROR_QUEUE_OWNER_DISP_TIME)//2 s
                 {
-                    if (++i == NUMMAX_ERRORS)
-                    {
-                        i = 0;
-                    }
+                    c = 0;
+                    sm0 = 0;
                 }
             }
         }
         else//kill 
         {
-            if (++i==NUMMAX_ERRORS)
-            {
-                i = 0;
-            }
             sm0 = 0x00;
         }
     }
-    
 }

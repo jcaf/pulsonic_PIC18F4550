@@ -5835,6 +5835,9 @@ void disp7s_qtyDsp_off(void);
 void disp7s_modeDisp_writeText_oil(void);
 void disp7s_qtyDisp_writeText_OFF(void);
 
+void disp7s_qtyDisp_writeText_20_3RAYAS(void);
+void disp7s_qtyDisp_writeText_NO_OIL(void);
+
 void disp7s_init(void);
 void disp7s_job(void);
 
@@ -5992,7 +5995,6 @@ unsigned autoMode:1;
 unsigned visMode:1;
 unsigned __a:5;
 };
-
 struct _unlock unlock;
 
 enum _MACHSTATE
@@ -6002,8 +6004,6 @@ MACHSTATE_RUNNING,
 MACHSTATE_CONFIG
 };
 int8_t machState;
-
-
 
 int8_t disp_owner = DISPOWNER_AUTOMODE;
 
@@ -6027,12 +6027,26 @@ intNumMaxErr_t packed;
 union _errorDispFlag error_requestToWriteDisp;
 union _errorDispFlag error_grantedToWriteDisp;
 
+void errorHandler_queue(void);
 
+void check_startSignal(void);
+void check_oilLevel(void);
+
+void ps_autoMode_start(void)
+{
+unlock.autoMode = 1;
+unlock.visMode = 0;
+autoMode_init(AUTOMODE_INIT_RESTART);
+smain.focus.kb = FOCUS_KB_AUTOMODE;
+disp_owner = DISPOWNER_AUTOMODE;
+machState = MACHSTATE_RUNNING;
+
+ikb_flush();
+}
 void main(void)
 {
 int8_t c_access_kb=0;
 int8_t c_access_disp=0;
-
 int8_t codapp;
 
 LATA = 0x00;
@@ -6073,18 +6087,17 @@ ikb_init();
 disp7s_init();
 pulsonic_init();
 
-
 unlock.kb = 1;
-unlock.autoMode = 1;
+
 unlock.visMode = 0;
 
-autoMode_init(AUTOMODE_INIT_RESTART);
-disp_owner = DISPOWNER_AUTOMODE;
+
+unlock.autoMode = 0;
+
+
+
 
 machState = MACHSTATE_RUNNING;
-
-smain.focus.kb = FOCUS_KB_AUTOMODE;
-
 
 
 GIE = 1;
@@ -6095,18 +6108,14 @@ if (isr_flag.f1ms)
 isr_flag.f1ms = 0;
 smain.f.f1ms = 1;
 }
-
 if (smain.f.f1ms)
 {
 if (++c_access_kb == 20)
 {
 c_access_kb = 0;
-
 if (unlock.kb)
 {ikb_job();}
 }
-
-
 if (++c_access_disp == 3)
 {
 c_access_disp = 0;
@@ -6114,7 +6123,9 @@ disp7s_job();
 }
 }
 
-
+check_startSignal();
+check_oilLevel();
+errorHandler_queue();
 
 if (machState == MACHSTATE_RUNNING)
 {
@@ -6163,17 +6174,9 @@ machState = MACHSTATE_CONFIG;
 }
 else if (machState == MACHSTATE_CONFIG)
 {
-
-
 if (configMode_job())
 {
-smain.focus.kb = FOCUS_KB_AUTOMODE;
-disp_owner = DISPOWNER_AUTOMODE;
-unlock.autoMode = 1;
-
-autoMode_init(AUTOMODE_INIT_RESTART);
-
-machState = MACHSTATE_RUNNING;
+ps_autoMode_start();
 
 do{do{LATA &= ~(1<<5);}while(0);}while(0);
 }
@@ -6184,7 +6187,7 @@ mpap_sych();
 
 
 smain.f.f1ms = 0;
-
+ikb_flush();
 }
 }
 
@@ -6210,7 +6213,7 @@ if ( (machState == MACHSTATE_RUNNING) && (!is_startSignal()) )
 {
 error_requestToWriteDisp.f.startSignal = 1;
 
-machState = MACHSTATE_STALL;
+
 sm0++;
 }
 }
@@ -6222,17 +6225,25 @@ if ( is_startSignal() )
 error_requestToWriteDisp.f.startSignal = 0;
 sm0 = 0x00;
 sm1 = 0x00;
+
+ps_autoMode_start();
+
 }
 
-# 282
+
+
 if (error_grantedToWriteDisp.f.startSignal == 1)
 {
 if (sm1 == 0)
 {
+disp7s_qtyDisp_writeText_20_3RAYAS();
 
-# 293
 sm1++;
 }
+}
+else
+{
+sm1 = 0x0;
 }
 }
 }
@@ -6245,7 +6256,6 @@ if (sm0 == 0)
 if ( !is_oilLevel() )
 {
 error_requestToWriteDisp.f.oilLevel = 1;
-
 
 machState = MACHSTATE_STALL;
 do{do{LATA |= 1<<5;}while(0);}while(0);
@@ -6260,40 +6270,51 @@ if ( is_oilLevel() )
 error_requestToWriteDisp.f.oilLevel = 0;
 sm0 = 0x00;
 sm1 = 0x00;
+
+ps_autoMode_start();
+do{do{LATA &= ~(1<<5);}while(0);}while(0);
 }
 
-# 328
+
+
 if (error_grantedToWriteDisp.f.oilLevel == 1)
 {
 if (sm1 == 0)
 {
+disp7s_qtyDisp_writeText_NO_OIL();
 
-# 339
 sm1++;
 }
 }
+else
+{
+sm1 = 0x0;
 }
 }
-
-
+}
 
 void errorHandler_queue(void)
 {
 
 
-static int8_t i;
+static int8_t i =-1;
 static int8_t sm0;
 static uint16_t c;
 intNumMaxErr_t is_granted;
 
 if (sm0 == 0)
 {
+if (++i == 8)
+{i = 0x00;}
+
 is_granted = error_requestToWriteDisp.packed & (1<<i);
 if (is_granted)
 {
 error_grantedToWriteDisp.packed = is_granted;
 c = 0x0;
+sm0++;
 }
+
 }
 else if (sm0 == 1)
 {
@@ -6301,23 +6322,17 @@ if ( error_requestToWriteDisp.packed & (1<<i) )
 {
 if (smain.f.f1ms)
 {
-if (++c == 2000)
+if (++c >= 1000)
 {
-if (++i == 8)
-{
-i = 0;
-}
+c = 0;
+sm0 = 0;
 }
 }
 }
 else
 {
-if (++i==8)
-{
-i = 0;
-}
 sm0 = 0x00;
 }
 }
-
 }
+

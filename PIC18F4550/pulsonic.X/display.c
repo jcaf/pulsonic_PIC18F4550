@@ -172,6 +172,25 @@ void disp7s_qtyDisp_writeText_OFF(void)
    pulsonic.disp7s.qty[1] =0x71;
    pulsonic.disp7s.qty[0] =0x71;
 }
+void disp7s_qtyDisp_writeText_20_3RAYAS(void)
+{
+   disp7s_modeDisp_writeInt(20);
+   
+   pulsonic.disp7s.qty[2] =DISP7S_CHARS[RAYA];
+   pulsonic.disp7s.qty[1] =DISP7S_CHARS[RAYA];
+   pulsonic.disp7s.qty[0] =DISP7S_CHARS[RAYA];
+}
+void disp7s_qtyDisp_writeText_NO_OIL(void)
+{
+    pulsonic.disp7s.mode[1] = 0x54;  //0b01010100;//n
+    pulsonic.disp7s.mode[0] = 0x5C;  //0b01011100;//o
+    //
+    pulsonic.disp7s.qty[2] = DISP7S_NUMS[0];//O
+    pulsonic.disp7s.qty[1] = 0x30;//I
+    pulsonic.disp7s.qty[0] = 0x38;//L
+}
+
+
 /*
 Take 1 decimal
   

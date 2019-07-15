@@ -2,10 +2,12 @@
 
 int8_t is_startSignal(void)
 {
-    return PinRead(PORTRxSTARTSIGNAL, PINxSTARTSIGNAL);
+    //1=Not Signal(pull-up), 0=Signal present!
+    return !PinRead(PORTRxSTARTSIGNAL, PINxSTARTSIGNAL);
 }
 int8_t is_oilLevel(void)
 {
+    //1=OIl ok (pull-up), 0=oil emplty
     return PinRead(PORTRxOILLEVEL, PINxOILLEVEL);
 }
 int8_t is_homeSensor(void)

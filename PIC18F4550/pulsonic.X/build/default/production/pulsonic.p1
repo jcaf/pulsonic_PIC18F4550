@@ -3685,14 +3685,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;display.h: 55: void disp7s_qtyDsp_off(void);
 [; ;display.h: 57: void disp7s_modeDisp_writeText_oil(void);
 [; ;display.h: 58: void disp7s_qtyDisp_writeText_OFF(void);
-[; ;display.h: 60: void disp7s_init(void);
-[; ;display.h: 61: void disp7s_job(void);
-[; ;display.h: 63: extern const uint8_t DISP7S_NUMS[10];
-[; ;display.h: 64: extern const uint8_t DISP7S_CHARS[2];
-[; ;display.h: 66: enum _DISP7S_CHARS {
-[; ;display.h: 67: OFF,
-[; ;display.h: 68: RAYA
-[; ;display.h: 69: };
+[; ;display.h: 60: void disp7s_qtyDisp_writeText_20_3RAYAS(void);
+[; ;display.h: 61: void disp7s_qtyDisp_writeText_NO_OIL(void);
+[; ;display.h: 63: void disp7s_init(void);
+[; ;display.h: 64: void disp7s_job(void);
+[; ;display.h: 66: extern const uint8_t DISP7S_NUMS[10];
+[; ;display.h: 67: extern const uint8_t DISP7S_CHARS[2];
+[; ;display.h: 69: enum _DISP7S_CHARS {
+[; ;display.h: 70: OFF,
+[; ;display.h: 71: RAYA
+[; ;display.h: 72: };
 [; ;pulsonic.h: 14: struct _pulsonic
 [; ;pulsonic.h: 15: {
 [; ;pulsonic.h: 16: uint16_t Kticks_0p1ml;
