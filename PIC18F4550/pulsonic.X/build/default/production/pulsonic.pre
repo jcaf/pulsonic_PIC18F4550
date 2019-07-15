@@ -5814,10 +5814,12 @@ enum _FOCUS
 FOCUS_KB_NONE,
 FOCUS_KB_AUTOMODE,
 FOCUS_KB_VISMODE,
-FOCUS_KB_CONFIG
+FOCUS_KB_CONFIGMODE
 };
 
-# 18 "nozzle.h"
+# 16 "nozzle.h"
+extern double NOZZLE_QTY_DIFF;
+
 int8_t nozzle_isEnabled(int n);
 
 # 48 "display.h"
@@ -5860,6 +5862,7 @@ int8_t nticks_slicetime;
 
 struct _pulsonic_oil
 {
+int8_t i;
 int8_t viscosity;
 }oil;
 
@@ -5887,10 +5890,11 @@ extern const int8_t OIL_VISCOSITY[4];
 
 
 void pulsonic_init(void);
-uint16_t pulsonic_getTotalSum_mlh(void);
+double pulsonic_getTotalSum_mlh(void);
 
-# 5 "pulsonic.c"
+# 3 "pulsonic.c"
 struct _pulsonic pulsonic;
+
 const int8_t OIL_VISCOSITY[4]={22, 32, 46, 68};
 
 void pulsonic_init(void)
@@ -5902,7 +5906,7 @@ pulsonic.dist_total_time = 60;
 
 for (i=0; i< 8; i++)
 {
-pulsonic.nozzle[i].Q_mlh = 12.0;
+pulsonic.nozzle[i].Q_mlh = 2.4f;
 }
 pulsonic.oil.viscosity = OIL_VISCOSITY[0];
 
@@ -5910,10 +5914,11 @@ pulsonic.nozzle[3].Q_mlh = 0;
 pulsonic.nozzle[5].Q_mlh = 0;
 }
 
-uint16_t pulsonic_getTotalSum_mlh(void)
+double pulsonic_getTotalSum_mlh(void)
 {
 int i;
-uint16_t acc = 0;
+double acc = 0;
+
 for (i=0; i<8; i++)
 {
 acc += pulsonic.nozzle[i].Q_mlh;

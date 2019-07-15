@@ -26,6 +26,7 @@
 
         struct _pulsonic_oil
         {
+            int8_t i;
             int8_t viscosity;
         }oil;
         
@@ -48,12 +49,12 @@
         }disp7s;
     };
     extern struct _pulsonic pulsonic;
-
-    extern const int8_t OIL_VISCOSITY[4];
+    #define OIL_VISCOSITY_NUMMAX 4
+    extern const int8_t OIL_VISCOSITY[OIL_VISCOSITY_NUMMAX];
     
     
     void pulsonic_init(void);
-    uint16_t pulsonic_getTotalSum_mlh(void);
+    double pulsonic_getTotalSum_mlh(void);
     
 #endif	/* PULSONIC_H */
 

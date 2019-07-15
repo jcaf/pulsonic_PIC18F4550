@@ -8,7 +8,7 @@
 #ifndef VISUALIZERMODE_H
 #define	VISUALIZERMODE_H
 
-    #define VISMODE_NUMMAX_VISTAS (NOZZLE_NUMMAX+1)//+1=oil viscosity
+    #define VISMODE_NUMMAX_VISTAS (NOZZLE_NUMMAX+1)//+1=oil viscosity    
 
     void visMode_init(int8_t numVista);
     int8_t visMode_job(void);

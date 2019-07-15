@@ -9,7 +9,7 @@ static struct _visMode
     int8_t numVista;        //number of "vista"
 }visMode;
 
-static void visMode_disp(int8_t c);
+static void visMode_disp(int8_t numVista);
 
 void visMode_init(int8_t numVista)
 {
@@ -34,7 +34,10 @@ int8_t visMode_job(void)
     
     if ( visMode.disp7s_accessReq == 1)
     {
-        visMode_disp(visMode.numVista);
+        if (disp_owner == DISPOWNER_VISMODE)       
+        {
+            visMode_disp(visMode.numVista);
+        }
         visMode.disp7s_accessReq = 0;
     }
 
@@ -90,33 +93,29 @@ static int8_t visMode_kb(void)
     }
     return cod_ret;
 }
-static void visMode_disp(int8_t c)
+static void visMode_disp(int8_t numVista)
 {
     double qty;
-    
-    //2) display
-    if (disp_owner == DISPOWNER_VISMODE)       
+
+    if (numVista < NOZZLE_NUMMAX)                
     {
-        disp7s_modeDisp_writeInt(c+1);
+        disp7s_modeDisp_writeInt(numVista+1);
         
-        if (c < NOZZLE_NUMMAX)                
+        qty = pulsonic.nozzle[numVista].Q_mlh;
+        if (qty == 0)
         {
-            qty = pulsonic.nozzle[c].Q_mlh;
-            if (qty == 0)
-            {
-                disp7s_qtyDisp_writeText_OFF();
-            }
-            else
-            {
-                disp7s_qtyDisp_writeFloat( qty );
-            }
+            disp7s_qtyDisp_writeText_OFF();
         }
         else
         {
-            disp7s_modeDisp_writeText_oil();
-            disp7s_qtyDisp_writeInt( pulsonic.oil.viscosity );
+            disp7s_qtyDisp_writeFloat( qty );
         }
-
     }
+    else
+    {
+        disp7s_modeDisp_writeText_oil();
+        disp7s_qtyDisp_writeInt( pulsonic.oil.viscosity );
+    }
+
 }
 

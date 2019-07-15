@@ -47,42 +47,40 @@ static void _mpap_off(void)
     PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
     PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
 }
-PTRFX_retVOID mpap_off= {_mpap_off};//PTRFX_retVOID mpap_off[NUM_STEPPER_BIPOLAR]= {_mpap_off};
+PTRFX_retVOID mpap_off= {_mpap_off};
 
 volatile struct _mpap mpap;
 
 /* Deja todo listo para girar N pasos, se llama 1 vez */
-void mpap_setupToTurn(int16_t numSteps_tomove)//posAbs_insteps: Absoulte position(in num steps)
+void mpap_setupToTurn(int16_t numSteps_tomove)
 {
-	//mpap.numSteps_tomove = absPos_insteps - mpap.numSteps_current;
 	if (numSteps_tomove !=0)
 	{
         mpap.KI = (numSteps_tomove<0)? -1: 1; //+-1
-        //        
 		mpap.counter_steps = 0;
-		//mpap.flag.run = 1;	
         mpap.numSteps_tomove = numSteps_tomove; 
 	}
 }
 void mpap_setupToHomming(void)
 {
-    mpap_setupToTurn( -1 *( (NOZZLE_NUMMAX*MPAP_NUMSTEP_1NOZZLE) +20));//direccion negativa
-    //mpap.numSteps_current = 0x0000; //Obligaria al sistema a reponer el sensor
-                                      //y arrancar desde 0
+    //mpap_setupToTurn( -1 *( (NOZZLE_NUMMAX*MPAP_NUMSTEP_1NOZZLE) +20));//direccion negativa
+    mpap_setupToTurn( -1 *( (18*MPAP_NUMSTEP_1NOZZLE) +20));//direccion negativa
+    
     mpap.mode = MPAP_HOMMING_MODE;
 }
 
-/* mpap.numSteps_current se mantiene, no se pierde */
-void mpap_do1step(int8_t KI)//DIRECION +1 Pos, -1 negativo
+/* mpap.numSteps_current se mantiene, no se pierde 
+ * DIRECION +1 Pos, -1 negativo
+ */
+void mpap_do1step(int8_t KI)
 {
 	static int8_t i = -1;
     
 	i= i + KI;
-	
     if (i>3){i=0;}
 	if (i<0){i=3;}
     
-    mpap_step[i]();//trae los pasos 0 1 2 3
+    mpap_step[i]();
 }
 
 /*
@@ -96,15 +94,16 @@ void mpap_do1step(int8_t KI)//DIRECION +1 Pos, -1 negativo
 int8_t mpap_homming(void)
 {
 	int8_t cod_ret = 0;
-	if (mpap.numSteps_tomove!=0)//(mpap.flag.run)
+	if (mpap.numSteps_tomove!=0)
 	{
         mpap_do1step(mpap.KI);
 		//
 		mpap.counter_steps+= mpap.KI;   //inc/dec +-1
-                                		//mpap.numSteps_current += mpap.counter_steps;//siempre mantiene la posicion 
+                                		
         if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 0)
         {
             mpap.numSteps_tomove = 0x0000;
+            mpap.numSteps_current = 0x0000; 
             cod_ret = 1;
         }
         if ( mpap.counter_steps == mpap.numSteps_tomove)
@@ -169,7 +168,7 @@ void mpap_sych(void)
         }
         else if (mpap.mode == MPAP_STALL_MODE)
         {
-            sm0 = 2;
+            sm0 = 3;
         }
     }
     else if (sm0 == 1)//acabo un movimiento
@@ -197,7 +196,7 @@ void mpap_sych(void)
         {
             if (++c == 10)
             {
-                //c = 0;
+                c = 0;
                 mpap.mode = MPAP_STALL_MODE;
                 sm0++;
             }
@@ -207,15 +206,14 @@ void mpap_sych(void)
     {
         if (mpap.mode == MPAP_IDLE_MODE)
         {
-            //libera para estar apto a cualquier orden
             sm0 = 0;
         }
     }
 }
-void mpap_movetoNozzle(int8_t n)//0..NOZZLE_NUMMAX-1
+void mpap_movetoNozzle(int8_t numNozzle)//0..NOZZLE_NUMMAX-1
 {
 	//mpap_setupToTurn( nozzle * MPAP_NUMSTEP_1NOZZLE);//se escala	
-    mpap_setupToTurn( (n*MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current);
+    mpap_setupToTurn( (numNozzle*MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current);
     
     mpap.mode = MPAP_NORMAL_MODE;
 }
@@ -225,143 +223,3 @@ int8_t mpap_isIdle(void)
         {return 1;}
     return 0;
 }
-/*
-void mpap_test(void)
-{
-    static int8_t k = 10;
-    static int8_t sm0;
-    
-    if (sm0 == 0)//acepta ordenes
-    {
-        if ((mpap.mode == NORMAL_MODE) || (mpap.mode == HOMMING_MODE))
-        {
-            sm0++;
-        }
-        else if (mpap.mode == STALL_MODE)
-        {
-            sm0 = 2;
-        }
-    }
-    else if (sm0 == 1)//acabo un movimiento
-    {
-        if (mpap.numSteps_tomove == 0)//termino de mover?
-        {
-            if (mpap.mode == HOMMING_MODE)
-            {
-                if ( pulsonic.errors.flag.mpap_home_sensor == 1)
-                {
-                    pulsonic.errors.flag.mpap_home_sensor = 0;//clear flag
-                    //marcar error de Sensor de posicion en el display
-                }
-            }
-            else if (mpap.mode == NORMAL_MODE)
-            {
-            }
-            __delay_ms(20);
-            mpap.mode = STALL_MODE;
-            sm0++;
-        }
-    }
-    else if (sm0 == 2)
-    {
-        if (mpap.mode == IDLE_MODE)
-        {
-            //libera para estar apto a cualquier orden
-            sm0 = 0;
-            __delay_ms(2000);
-            
-            k = k*-1;
-            mpap_setupToTurn( (k*MPAP_NUMSTEP_1NOZZLE));
-            
-            mpap.mode = NORMAL_MODE;
-        }
-    }
-}
-
-void mpap_1(void)
-{
-#define nk 10
-#define dd 2
-    int i;
-    
-    LATD = 0;
-    
-    while (1)
-    {
-        for (i=0; i<50*nk; i++)
-        {
-            LATD = 0B00001000;
-            __delay_ms(dd);
-            LATD = 0B00000100;
-            __delay_ms(dd);
-            LATD = 0B00000010;
-            __delay_ms(dd);
-            LATD = 0B00000001;
-            __delay_ms(dd);
-        }
-        __delay_ms(20);
-        LATD = 0;
-        __delay_ms(1000);
-
-        for (i=0; i<50*nk; i++)
-        {
-            LATD = 0B00000010;
-            __delay_ms(dd);
-            LATD = 0B00000100;
-            __delay_ms(dd);
-            LATD = 0B00001000;
-            __delay_ms(dd);
-            LATD = 0B00000001;
-            __delay_ms(dd);
-        }
-        __delay_ms(20);
-        LATD = 0;
-        __delay_ms(1000);
-    }
-    return;
-}
-*/
-
-/*
-void mpap_1(void)
-{
-#define nk 1
-#define dd 6
-    int i;
-    LATD = 0;
-    while (1)
-    {
-        for (i=0; i<50*nk; i++)
-        {
-            LATD = 0B00001100;
-            __delay_ms(dd);
-            LATD = 0B00000110;
-            __delay_ms(dd);
-            LATD = 0B00000011;
-            __delay_ms(dd);
-            LATD = 0B00001001;
-            __delay_ms(dd);
-        }
-        __delay_ms(20);
-        LATD = 0;
-        __delay_ms(2000);
-        
-        for (i=0; i<50*nk; i++)
-        {
-            LATD = 0B00000011;
-            __delay_ms(dd);
-            LATD = 0B00000110;
-            __delay_ms(dd);
-            LATD = 0B00001100;
-            __delay_ms(dd);
-            LATD = 0B00001001;
-            __delay_ms(dd);
-        }
-        __delay_ms(20);
-        LATD = 0;
-        __delay_ms(2000);
-    }
-    return;
-}
-
- */

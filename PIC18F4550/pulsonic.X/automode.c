@@ -7,7 +7,7 @@
 #include "ikb/ikb.h"
 static struct _autoMode
 {
-    int8_t n;   //current nozzle position
+    int8_t numNozzle;   //current nozzle position
     int8_t sm0;
 }autoMode;
 
@@ -22,7 +22,8 @@ void autoMode_init(int8_t init)
     }
     if (init == AUTOMODE_INIT_RESTART)
     {
-        autoMode.n = 0x0;
+        autoMode.numNozzle = 0x0;
+        autoMode.sm0 = 0x0;
     }
 }
 
@@ -35,6 +36,7 @@ int8_t autoMode_job(void)
         cod_ret = autoMode_kb();
     }
     
+    ////////////////////////////////////////////////
     if (autoMode.sm0 == 0)
     {
         mpap_setupToHomming();
@@ -50,14 +52,14 @@ int8_t autoMode_job(void)
     /* Distribute oil */
     else if (autoMode.sm0 == 2)
     {
-        if (nozzle_isEnabled(autoMode.n))
+        if (nozzle_isEnabled(autoMode.numNozzle))
         {
-            mpap_movetoNozzle(autoMode.n);
+            mpap_movetoNozzle(autoMode.numNozzle);
             autoMode.sm0++;
         }
         
-        if (++autoMode.n == NOZZLE_NUMMAX)
-            {autoMode.n = 0x00;}
+        if (++autoMode.numNozzle == NOZZLE_NUMMAX)
+            {autoMode.numNozzle = 0x00;}
     }
     else if (autoMode.sm0 == 3)
     {
@@ -109,6 +111,7 @@ static int8_t autoMode_kb(void)
     }
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_ENTER_F))
     {
+cod_ret = 2;        
         ikb_key_was_read(KB_LYOUT_KEY_ENTER_F);
         //
     }

@@ -24,6 +24,7 @@
 #include "display.h"
 #include "automode.h"
 #include "visualizerMode.h"
+#include "configMode.h"
 
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
@@ -52,8 +53,6 @@ enum _MACHSTATE
     MACHSTATE_CONFIG
 };
 int8_t machState;
-
-
 
 int8_t disp_owner = DISPOWNER_AUTOMODE;
 
@@ -134,6 +133,8 @@ void main(void)
     machState = MACHSTATE_RUNNING;
     
     smain.focus.kb = FOCUS_KB_AUTOMODE;
+//si no hay START, entonces el teclado debe inchibirse, y antes de retomar
+//hacer un flush!!!!... para todos los cambios deberia de hacerlo
     
     GIE = 1;
     while(1)
@@ -151,9 +152,7 @@ void main(void)
                 c_access_kb = 0;
             
                 if (unlock.kb)
-                {
-                    ikb_job();
-                }
+                    {ikb_job();}
             }
             
             //display
@@ -181,10 +180,19 @@ void main(void)
                 }
                 else if (codapp == 2)
                 {
+                    mpap.mode = MPAP_STALL_MODE;
+                    
                     machState = MACHSTATE_CONFIG;
+                    //
+                    smain.focus.kb = FOCUS_KB_CONFIGMODE;
+                    disp_owner = DISPOWNER_CONFIGMODE;
+                    unlock.visMode = 0;
+                    unlock.autoMode = 0;
+                    configMode_init(0x0);
+                    RELAY_DISABLE();
                 }
             }
-            if (unlock.visMode)//este es otro proceso
+            if (unlock.visMode)
             {
                 codapp = visMode_job();//despues de un tiempo sale automaticamente
                 
@@ -206,10 +214,17 @@ void main(void)
         {
             //config()	//para la maquina y espera el start --> aqui va a estar a la espera del start
                         //aqui podria convivir con el error en "paralelo"	
-            //1)proceso
-            //2)display
-            if (disp_owner == DISPOWNER_CONFIGMODE)
+            if (configMode_job())
             {
+                smain.focus.kb = FOCUS_KB_AUTOMODE;
+                disp_owner = DISPOWNER_AUTOMODE;
+                unlock.autoMode = 1;
+                
+                autoMode_init(AUTOMODE_INIT_RESTART);
+
+                machState = MACHSTATE_RUNNING;
+                
+                RELAY_ENABLE();
             }
         }
 

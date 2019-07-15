@@ -43,9 +43,8 @@
         FOCUS_KB_NONE,
         FOCUS_KB_AUTOMODE,
         FOCUS_KB_VISMODE,
-        FOCUS_KB_CONFIG
+        FOCUS_KB_CONFIGMODE
     };
-    
     
     ////////////////////////////////////////////////////////////////////////////
     //MOTOR PAP UNIPOLAR
