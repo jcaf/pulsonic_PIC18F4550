@@ -172,6 +172,19 @@ void disp7s_qtyDisp_writeText_OFF(void)
    pulsonic.disp7s.qty[1] =0x71;
    pulsonic.disp7s.qty[0] =0x71;
 }
+void disp7s_qtyDisp_writeText_FFF(void)
+{
+   pulsonic.disp7s.qty[2] =0x71;
+   pulsonic.disp7s.qty[1] =0x71;
+   pulsonic.disp7s.qty[0] =0x71;
+}
+void disp7s_qtyDisp_writeText_FLU(void)
+{
+   pulsonic.disp7s.qty[2] =0x71;
+   pulsonic.disp7s.qty[1] =0x38;
+   pulsonic.disp7s.qty[0] =0x3E;
+}
+
 void disp7s_qtyDisp_writeText_20_3RAYAS(void)
 {
    disp7s_modeDisp_writeInt(20);

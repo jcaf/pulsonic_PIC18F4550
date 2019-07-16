@@ -5801,6 +5801,19 @@ extern volatile struct _smain smain;
 
 
 
+struct _ps
+{
+struct _unlock_flag
+{
+unsigned kb:1;
+unsigned disp:1;
+unsigned ps:1;
+unsigned __f:5;
+}unlock;
+
+};
+
+
 extern int8_t disp_owner;
 enum _DISPOWNER_MODE
 {
@@ -5834,6 +5847,9 @@ void disp7s_qtyDsp_off(void);
 
 void disp7s_modeDisp_writeText_oil(void);
 void disp7s_qtyDisp_writeText_OFF(void);
+
+void disp7s_qtyDisp_writeText_FFF(void);
+void disp7s_qtyDisp_writeText_FLU(void);
 
 void disp7s_qtyDisp_writeText_20_3RAYAS(void);
 void disp7s_qtyDisp_writeText_NO_OIL(void);

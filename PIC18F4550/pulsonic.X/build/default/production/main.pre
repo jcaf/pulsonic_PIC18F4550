@@ -5801,6 +5801,19 @@ extern volatile struct _smain smain;
 
 
 
+struct _ps
+{
+struct _unlock_flag
+{
+unsigned kb:1;
+unsigned disp:1;
+unsigned ps:1;
+unsigned __f:5;
+}unlock;
+
+};
+
+
 extern int8_t disp_owner;
 enum _DISPOWNER_MODE
 {
@@ -5834,6 +5847,9 @@ void disp7s_qtyDsp_off(void);
 
 void disp7s_modeDisp_writeText_oil(void);
 void disp7s_qtyDisp_writeText_OFF(void);
+
+void disp7s_qtyDisp_writeText_FFF(void);
+void disp7s_qtyDisp_writeText_FLU(void);
 
 void disp7s_qtyDisp_writeText_20_3RAYAS(void);
 void disp7s_qtyDisp_writeText_NO_OIL(void);
@@ -5959,7 +5975,7 @@ void pump_stop(void);
 int8_t pump_job(void);
 int8_t pump_isIdle(void);
 
-# 11 "automode.h"
+# 11 "autoMode.h"
 enum _AUTOMODE_INIT_I
 {
 AUTOMODE_INIT_RESTART = 0,
@@ -5968,7 +5984,10 @@ AUTOMODE_INIT_CONTINUE
 void autoMode_init(int8_t init);
 int8_t autoMode_job(void);
 
-# 13 "visualizerMode.h"
+
+extern struct _ps ps_autoMode;
+
+# 13 "visMode.h"
 void visMode_init(int8_t numVista);
 int8_t visMode_job(void);
 
@@ -5976,8 +5995,18 @@ int8_t visMode_job(void);
 void configMode_init(int8_t numRegistro);
 int8_t configMode_job(void);
 
+# 12 "flushMode.h"
+void flushMode_cmd(int8_t cmd);
+void flushMode_job(void);
 
-# 29 "main.c"
+enum _FLUSH_CMD
+{
+FLUSH_CMD_RESTART = 0,
+FLUSH_CMD_STOP
+};
+
+
+# 30 "main.c"
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
 
@@ -6100,6 +6129,10 @@ disp_owner = DISPOWNER_AUTOMODE;
 funcMach = FUNCMACH_NORMAL;
 
 
+ps_autoMode.unlock.kb = 1;
+ps_autoMode.unlock.disp = 1;
+ps_autoMode.unlock.ps = 1;
+
 GIE = 1;
 while(1)
 {
@@ -6123,61 +6156,27 @@ disp7s_job();
 }
 }
 
-# 179
+# 184
 if (funcMach == FUNCMACH_NORMAL)
 {
-
-if (unlock.autoMode)
+if (1)
 {
-codapp = autoMode_job();
-
-if (codapp == 1)
+if (autoMode_job())
 {
-smain.focus.kb = FOCUS_KB_VISMODE;
-disp_owner = DISPOWNER_VISMODE;
-unlock.visMode = 1;
-}
-else if (codapp == 2)
-{
-mpap.mode = MPAP_STALL_MODE;
 
-funcMach = FUNCMACH_CONFIG;
-
-smain.focus.kb = FOCUS_KB_CONFIGMODE;
-disp_owner = DISPOWNER_CONFIGMODE;
-unlock.visMode = 0;
-unlock.autoMode = 0;
-configMode_init(0x0);
-do{do{LATA |= 1<<5;}while(0);}while(0);
 }
 }
-if (unlock.visMode)
+else
 {
-codapp = visMode_job();
 
-if (codapp == 1)
-{
-smain.focus.kb = FOCUS_KB_AUTOMODE;
-disp_owner = DISPOWNER_AUTOMODE;
-unlock.visMode = 0;
-
-autoMode_init(AUTOMODE_INIT_CONTINUE);
-}
-else if (codapp == 2)
-{
-funcMach = FUNCMACH_CONFIG;
-}
 }
 }
 else if (funcMach == FUNCMACH_CONFIG)
 {
-if (configMode_job())
-{
-ps_autoMode_start();
 
-do{do{LATA &= ~(1<<5);}while(0);}while(0);
 }
-}
+flushMode_job();
+
 
 
 pump_job();
@@ -6235,7 +6234,7 @@ disp7s_qtyDisp_writeText_20_3RAYAS();
 }
 }
 
-# 323
+# 294
 void check_inductiveSensorRPM(void)
 {
 static int8_t sm0, sm1;

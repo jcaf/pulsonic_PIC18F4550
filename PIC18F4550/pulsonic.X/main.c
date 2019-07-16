@@ -22,9 +22,10 @@
 #include "ikb/ikb.h"
 #include "pump.h"
 #include "display.h"
-#include "automode.h"
-#include "visualizerMode.h"
+#include "autoMode.h"
+#include "visMode.h"
 #include "configMode.h"
+#include "flushMode.h"
 
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
@@ -148,6 +149,10 @@ void main(void)
     funcMach = FUNCMACH_NORMAL;
     //machState = MACHSTATE_STALL;
     
+    ps_autoMode.unlock.kb = 1;
+    ps_autoMode.unlock.disp = 1;
+    ps_autoMode.unlock.ps = 1;
+    
     GIE = 1;
     while(1)
     {
@@ -156,7 +161,7 @@ void main(void)
             isr_flag.f1ms = 0;
             smain.f.f1ms = 1;
         }
-      if (smain.f.f1ms)
+        if (smain.f.f1ms)
         {
             if (++c_access_kb == KB_PERIODIC_ACCESS)
             {
@@ -178,58 +183,24 @@ void main(void)
         //+--------------------------
         if (funcMach == FUNCMACH_NORMAL)
         {
-            /*sobre estos 2, igual la maquina puede entrar a modo "Config"*/
-            if (unlock.autoMode)//podra inhibirse, pero el teclado no
+            if (1)
             {
-                codapp = autoMode_job();
-                
-                if (codapp == 1)
+                if (autoMode_job())
                 {
-                    smain.focus.kb = FOCUS_KB_VISMODE;
-                    disp_owner = DISPOWNER_VISMODE;
-                    unlock.visMode = 1;
-                }
-                else if (codapp == 2)
-                {
-                    mpap.mode = MPAP_STALL_MODE;
                     
-                    funcMach = FUNCMACH_CONFIG;
-                    //
-                    smain.focus.kb = FOCUS_KB_CONFIGMODE;
-                    disp_owner = DISPOWNER_CONFIGMODE;
-                    unlock.visMode = 0;
-                    unlock.autoMode = 0;
-                    configMode_init(0x0);
-                    RELAY_DISABLE();
                 }
             }
-            if (unlock.visMode)
+            else
             {
-                codapp = visMode_job();//despues de un tiempo sale automaticamente
                 
-                if (codapp == 1)
-                {
-                    smain.focus.kb = FOCUS_KB_AUTOMODE;
-                    disp_owner = DISPOWNER_AUTOMODE;
-                    unlock.visMode = 0;
-                    
-                    autoMode_init(AUTOMODE_INIT_CONTINUE);
-                }
-                else if (codapp == 2)
-                {
-                    funcMach = FUNCMACH_CONFIG;
-                }
             }
         }
         else if (funcMach == FUNCMACH_CONFIG)
         {
-            if (configMode_job())
-            {
-                ps_autoMode_start();
-                //
-                RELAY_ENABLE();
-            }
+            
         }
+        flushMode_job();
+        
         //////////
         //////////
         pump_job();

@@ -17,6 +17,8 @@
     int8_t autoMode_job(void);
     
     
+    extern struct _ps ps_autoMode;
+    
 #ifdef	__cplusplus
 extern "C" {
 #endif

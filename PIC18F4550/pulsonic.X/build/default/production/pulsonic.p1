@@ -1,22 +1,22 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "20 pulsonic.h
-[s S370 `f 1 `ui 1 `c 1 ]
-[n S370 _pulsonic_nozzle Q_mlh total_ticks_mlh nticks_slicetime ]
+[s S372 `f 1 `ui 1 `c 1 ]
+[n S372 _pulsonic_nozzle Q_mlh total_ticks_mlh nticks_slicetime ]
 "27
-[s S371 `c 1 `c 1 ]
-[n S371 _pulsonic_oil i viscosity ]
+[s S373 `c 1 `c 1 ]
+[n S373 _pulsonic_oil i viscosity ]
 "37
-[s S373 :1 `uc 1 :7 `uc 1 ]
-[n S373 _pulsonic_flags mpap_home_sensor __a ]
+[s S375 :1 `uc 1 :7 `uc 1 ]
+[n S375 _pulsonic_flags mpap_home_sensor __a ]
 "35
-[u S372 `S373 1 `uc 1 ]
-[n S372 _pulsonic_errors flag e ]
+[u S374 `S375 1 `uc 1 ]
+[n S374 _pulsonic_errors flag e ]
 "45
-[s S374 `uc -> 3 `i `uc -> 2 `i ]
-[n S374 _pulsonic_display qty mode ]
+[s S376 `uc -> 3 `i `uc -> 2 `i ]
+[n S376 _pulsonic_display qty mode ]
 "14
-[s S369 `ui 1 `ui 1 `ui 1 `S370 -> 8 `i `S371 1 `f 1 `S372 1 `S374 1 ]
-[n S369 _pulsonic Kticks_0p1ml dist_total_time dist_access_time nozzle oil sum_all_mlh errors disp7s ]
+[s S371 `ui 1 `ui 1 `ui 1 `S372 -> 8 `i `S373 1 `f 1 `S374 1 `S376 1 ]
+[n S371 _pulsonic Kticks_0p1ml dist_total_time dist_access_time nozzle oil sum_all_mlh errors disp7s ]
 [; ;xc.h: 18: extern const char __xc8_OPTIM_SPEED;
 [; ;xc.h: 20: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3661,20 +3661,30 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.h: 27: }focus;
 [; ;main.h: 28: };
 [; ;main.h: 29: extern volatile struct _smain smain;
-[; ;main.h: 33: extern int8_t disp_owner;
-[; ;main.h: 34: enum _DISPOWNER_MODE
-[; ;main.h: 35: {
-[; ;main.h: 36: DISPOWNER_AUTOMODE = 0,
-[; ;main.h: 37: DISPOWNER_VISMODE,
-[; ;main.h: 38: DISPOWNER_CONFIGMODE,
-[; ;main.h: 39: };
-[; ;main.h: 41: enum _FOCUS
-[; ;main.h: 42: {
-[; ;main.h: 43: FOCUS_KB_NONE,
-[; ;main.h: 44: FOCUS_KB_AUTOMODE,
-[; ;main.h: 45: FOCUS_KB_VISMODE,
-[; ;main.h: 46: FOCUS_KB_CONFIGMODE
-[; ;main.h: 47: };
+[; ;main.h: 33: struct _ps
+[; ;main.h: 34: {
+[; ;main.h: 35: struct _unlock_flag
+[; ;main.h: 36: {
+[; ;main.h: 37: unsigned kb:1;
+[; ;main.h: 38: unsigned disp:1;
+[; ;main.h: 39: unsigned ps:1;
+[; ;main.h: 40: unsigned __f:5;
+[; ;main.h: 41: }unlock;
+[; ;main.h: 43: };
+[; ;main.h: 46: extern int8_t disp_owner;
+[; ;main.h: 47: enum _DISPOWNER_MODE
+[; ;main.h: 48: {
+[; ;main.h: 49: DISPOWNER_AUTOMODE = 0,
+[; ;main.h: 50: DISPOWNER_VISMODE,
+[; ;main.h: 51: DISPOWNER_CONFIGMODE,
+[; ;main.h: 52: };
+[; ;main.h: 54: enum _FOCUS
+[; ;main.h: 55: {
+[; ;main.h: 56: FOCUS_KB_NONE,
+[; ;main.h: 57: FOCUS_KB_AUTOMODE,
+[; ;main.h: 58: FOCUS_KB_VISMODE,
+[; ;main.h: 59: FOCUS_KB_CONFIGMODE
+[; ;main.h: 60: };
 [; ;nozzle.h: 16: extern double NOZZLE_QTY_DIFF;
 [; ;nozzle.h: 18: int8_t nozzle_isEnabled(int n);
 [; ;display.h: 48: void disp7s_qtyDisp_writeFloat(float num);
@@ -3685,16 +3695,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;display.h: 55: void disp7s_qtyDsp_off(void);
 [; ;display.h: 57: void disp7s_modeDisp_writeText_oil(void);
 [; ;display.h: 58: void disp7s_qtyDisp_writeText_OFF(void);
-[; ;display.h: 60: void disp7s_qtyDisp_writeText_20_3RAYAS(void);
-[; ;display.h: 61: void disp7s_qtyDisp_writeText_NO_OIL(void);
-[; ;display.h: 63: void disp7s_init(void);
-[; ;display.h: 64: void disp7s_job(void);
-[; ;display.h: 66: extern const uint8_t DISP7S_NUMS[10];
-[; ;display.h: 67: extern const uint8_t DISP7S_CHARS[2];
-[; ;display.h: 69: enum _DISP7S_CHARS {
-[; ;display.h: 70: OFF,
-[; ;display.h: 71: RAYA
-[; ;display.h: 72: };
+[; ;display.h: 60: void disp7s_qtyDisp_writeText_FFF(void);
+[; ;display.h: 61: void disp7s_qtyDisp_writeText_FLU(void);
+[; ;display.h: 63: void disp7s_qtyDisp_writeText_20_3RAYAS(void);
+[; ;display.h: 64: void disp7s_qtyDisp_writeText_NO_OIL(void);
+[; ;display.h: 66: void disp7s_init(void);
+[; ;display.h: 67: void disp7s_job(void);
+[; ;display.h: 69: extern const uint8_t DISP7S_NUMS[10];
+[; ;display.h: 70: extern const uint8_t DISP7S_CHARS[2];
+[; ;display.h: 72: enum _DISP7S_CHARS {
+[; ;display.h: 73: OFF,
+[; ;display.h: 74: RAYA
+[; ;display.h: 75: };
 [; ;pulsonic.h: 14: struct _pulsonic
 [; ;pulsonic.h: 15: {
 [; ;pulsonic.h: 16: uint16_t Kticks_0p1ml;
@@ -3732,7 +3744,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 56: void pulsonic_init(void);
 [; ;pulsonic.h: 57: double pulsonic_getTotalSum_mlh(void);
 "3 pulsonic.c
-[v _pulsonic `S369 ~T0 @X0 1 e ]
+[v _pulsonic `S371 ~T0 @X0 1 e ]
 [; ;pulsonic.c: 3: struct _pulsonic pulsonic;
 "5
 [v _OIL_VISCOSITY `Cc ~T0 @X0 -> 4 `i e ]
@@ -3763,10 +3775,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "14
 {
 [e = _i -> -> 0 `i `c ]
-[e $ < -> _i `i -> 8 `i 376  ]
-[e $U 377  ]
+[e $ < -> _i `i -> 8 `i 378  ]
+[e $U 379  ]
 "15
-[e :U 376 ]
+[e :U 378 ]
 [; ;pulsonic.c: 15: {
 {
 [; ;pulsonic.c: 16: pulsonic.nozzle[i].Q_mlh = 2.4f;
@@ -3776,8 +3788,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "14
 [e ++ _i -> -> 1 `i `c ]
-[e $ < -> _i `i -> 8 `i 376  ]
-[e :U 377 ]
+[e $ < -> _i `i -> 8 `i 378  ]
+[e :U 379 ]
 "17
 }
 [; ;pulsonic.c: 17: }
@@ -3792,7 +3804,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . *U + &U . _pulsonic 3 * -> -> -> 5 `i `ui `ux -> -> # *U &U . _pulsonic 3 `ui `ux 0 -> -> 0 `i `f ]
 [; ;pulsonic.c: 22: }
 "22
-[e :UE 375 ]
+[e :UE 377 ]
 }
 "24
 [v _pulsonic_getTotalSum_mlh `(d ~T0 @X0 1 ef ]
@@ -3813,10 +3825,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "29
 {
 [e = _i -> 0 `i ]
-[e $ < _i -> 8 `i 380  ]
-[e $U 381  ]
+[e $ < _i -> 8 `i 382  ]
+[e $U 383  ]
 "30
-[e :U 380 ]
+[e :U 382 ]
 [; ;pulsonic.c: 30: {
 {
 [; ;pulsonic.c: 31: acc += pulsonic.nozzle[i].Q_mlh;
@@ -3826,16 +3838,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "29
 [e ++ _i -> 1 `i ]
-[e $ < _i -> 8 `i 380  ]
-[e :U 381 ]
+[e $ < _i -> 8 `i 382  ]
+[e :U 383 ]
 "32
 }
 [; ;pulsonic.c: 32: }
 [; ;pulsonic.c: 33: return acc;
 "33
 [e ) _acc ]
-[e $UE 379  ]
+[e $UE 381  ]
 [; ;pulsonic.c: 34: }
 "34
-[e :UE 379 ]
+[e :UE 381 ]
 }

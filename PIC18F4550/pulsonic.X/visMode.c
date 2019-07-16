@@ -1,5 +1,5 @@
 #include "main.h"
-#include "visualizerMode.h"
+#include "visMode.h"
 #include "pulsonic.h"
 #include "ikb/ikb.h"
 

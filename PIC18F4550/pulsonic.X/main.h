@@ -30,6 +30,19 @@
     
     #define myitoa(_integer_, _buffer_, _base_) itoa(_buffer_, _integer_, _base_)
 
+    struct _ps
+    {
+        struct _unlock_flag
+        {
+            unsigned kb:1;
+            unsigned disp:1;
+            unsigned ps:1;
+            unsigned __f:5;
+        }unlock;
+
+    };
+    
+    
     extern int8_t disp_owner;
     enum _DISPOWNER_MODE
     {
