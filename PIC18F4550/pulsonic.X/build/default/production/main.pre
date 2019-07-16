@@ -5997,13 +5997,13 @@ unsigned __a:5;
 };
 struct _unlock unlock;
 
-enum _MACHSTATE
+enum _FUNMACH
 {
 MACHSTATE_STALL = 0,
-MACHSTATE_RUNNING,
-MACHSTATE_CONFIG
+FUNCMACH_NORMAL,
+FUNCMACH_CONFIG
 };
-int8_t machState;
+int8_t funcMach;
 
 int8_t disp_owner = DISPOWNER_AUTOMODE;
 
@@ -6039,7 +6039,7 @@ unlock.visMode = 0;
 autoMode_init(AUTOMODE_INIT_RESTART);
 smain.focus.kb = FOCUS_KB_AUTOMODE;
 disp_owner = DISPOWNER_AUTOMODE;
-machState = MACHSTATE_RUNNING;
+funcMach = FUNCMACH_NORMAL;
 
 ikb_flush();
 }
@@ -6092,12 +6092,12 @@ unlock.kb = 1;
 unlock.visMode = 0;
 
 
-unlock.autoMode = 0;
+unlock.autoMode = 1;
+autoMode_init(AUTOMODE_INIT_RESTART);
+smain.focus.kb = FOCUS_KB_AUTOMODE;
+disp_owner = DISPOWNER_AUTOMODE;
 
-
-
-
-machState = MACHSTATE_RUNNING;
+funcMach = FUNCMACH_NORMAL;
 
 
 GIE = 1;
@@ -6123,11 +6123,8 @@ disp7s_job();
 }
 }
 
-check_startSignal();
-check_oilLevel();
-errorHandler_queue();
-
-if (machState == MACHSTATE_RUNNING)
+# 179
+if (funcMach == FUNCMACH_NORMAL)
 {
 
 if (unlock.autoMode)
@@ -6144,7 +6141,7 @@ else if (codapp == 2)
 {
 mpap.mode = MPAP_STALL_MODE;
 
-machState = MACHSTATE_CONFIG;
+funcMach = FUNCMACH_CONFIG;
 
 smain.focus.kb = FOCUS_KB_CONFIGMODE;
 disp_owner = DISPOWNER_CONFIGMODE;
@@ -6168,11 +6165,11 @@ autoMode_init(AUTOMODE_INIT_CONTINUE);
 }
 else if (codapp == 2)
 {
-machState = MACHSTATE_CONFIG;
+funcMach = FUNCMACH_CONFIG;
 }
 }
 }
-else if (machState == MACHSTATE_CONFIG)
+else if (funcMach == FUNCMACH_CONFIG)
 {
 if (configMode_job())
 {
@@ -6182,12 +6179,12 @@ do{do{LATA &= ~(1<<5);}while(0);}while(0);
 }
 }
 
+
 pump_job();
 mpap_sych();
 
-
 smain.f.f1ms = 0;
-ikb_flush();
+
 }
 }
 
@@ -6206,37 +6203,71 @@ TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
 
 void check_startSignal(void)
 {
+static struct _lock_startSignal
+{
+unsigned startIs:1;
+unsigned startIsnt:1;
+unsigned __a:6;
+}lock={0};
+
+if (is_startSignal())
+{
+if (!lock.startIs)
+{
+lock.startIs = 1;
+lock.startIsnt = 0;
+
+ps_autoMode_start();
+}
+
+}
+else
+{
+if (!lock.startIsnt)
+{
+lock.startIsnt = 1;
+lock.startIs = 0;
+
+mpap.mode = MPAP_STALL_MODE;
+disp7s_qtyDisp_writeText_20_3RAYAS();
+
+}
+}
+}
+
+# 323
+void check_inductiveSensorRPM(void)
+{
 static int8_t sm0, sm1;
 if (sm0 == 0)
 {
-if ( (machState == MACHSTATE_RUNNING) && (!is_startSignal()) )
+if ( !is_inductiveSensorRPM() )
 {
-error_requestToWriteDisp.f.startSignal = 1;
+error_requestToWriteDisp.f.inductiveSensorRPM = 1;
 
-
+funcMach = MACHSTATE_STALL;
+do{do{LATA |= 1<<5;}while(0);}while(0);
 sm0++;
 }
 }
 else if (sm0 == 1)
 {
 
-if ( is_startSignal() )
+if ( is_inductiveSensorRPM() )
 {
-error_requestToWriteDisp.f.startSignal = 0;
+error_requestToWriteDisp.f.inductiveSensorRPM = 0;
 sm0 = 0x00;
 sm1 = 0x00;
 
-ps_autoMode_start();
-
+do{do{LATA &= ~(1<<5);}while(0);}while(0);
 }
 
 
 
-if (error_grantedToWriteDisp.f.startSignal == 1)
+if (error_grantedToWriteDisp.f.inductiveSensorRPM == 1)
 {
 if (sm1 == 0)
 {
-disp7s_qtyDisp_writeText_20_3RAYAS();
 
 sm1++;
 }
@@ -6257,7 +6288,7 @@ if ( !is_oilLevel() )
 {
 error_requestToWriteDisp.f.oilLevel = 1;
 
-machState = MACHSTATE_STALL;
+funcMach = MACHSTATE_STALL;
 do{do{LATA |= 1<<5;}while(0);}while(0);
 sm0++;
 }
@@ -6322,7 +6353,7 @@ if ( error_requestToWriteDisp.packed & (1<<i) )
 {
 if (smain.f.f1ms)
 {
-if (++c >= 1000)
+if (++c >= 2000)
 {
 c = 0;
 sm0 = 0;
@@ -6335,4 +6366,3 @@ sm0 = 0x00;
 }
 }
 }
-

@@ -35,7 +35,8 @@ int8_t autoMode_job(void)
     {
         cod_ret = autoMode_kb();
     }
-    
+    return cod_ret;
+    //a continuacion el prceso
     ////////////////////////////////////////////////
     if (autoMode.sm0 == 0)
     {
@@ -99,19 +100,20 @@ static int8_t autoMode_kb(void)
         visMode_init(VISMODE_NUMMAX_VISTAS-1);
         cod_ret = 1;
     }
-    if (ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS))
-    {
-        ikb_key_was_read(KB_LYOUT_KEY_PLUS);
-        //
-    }
-    if (ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
-    {
-        ikb_key_was_read(KB_LYOUT_KEY_MINUS);
-        //
-    }
+    if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_PLUS)==KB_AFTER_THR) &&
+        ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS) &&
+        (ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_MINUS)==KB_AFTER_THR) &&
+        ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
+        {
+            ikb_key_was_read(KB_LYOUT_KEY_PLUS);
+            ikb_key_was_read(KB_LYOUT_KEY_MINUS);
+            //
+            cod_ret = 2;     
+        }
+    
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_ENTER_F))
     {
-cod_ret = 2;        
+   
         ikb_key_was_read(KB_LYOUT_KEY_ENTER_F);
         //
     }

@@ -3,4 +3,5 @@
  ../../../../../../FIRWAR/eslibrary/ikb/ikb.c  \
 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/system.h  \
 ../../../../../../FIRWAR/eslibrary/ikb/ikb.h  \
-/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/types.h 
+/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/types.h  \
+./main.h 

@@ -45,13 +45,13 @@ struct _unlock
 };
 struct _unlock unlock;
 
-enum _MACHSTATE
+enum _FUNMACH
 {
     MACHSTATE_STALL = 0,
-    MACHSTATE_RUNNING,
-    MACHSTATE_CONFIG
+    FUNCMACH_NORMAL,
+    FUNCMACH_CONFIG
 };
-int8_t machState;
+int8_t funcMach;
 
 int8_t disp_owner = DISPOWNER_AUTOMODE;
 
@@ -87,7 +87,7 @@ void ps_autoMode_start(void)
     autoMode_init(AUTOMODE_INIT_RESTART);
     smain.focus.kb = FOCUS_KB_AUTOMODE;
     disp_owner = DISPOWNER_AUTOMODE;
-    machState = MACHSTATE_RUNNING;
+    funcMach = FUNCMACH_NORMAL;
     //
     ikb_flush();
 }
@@ -140,12 +140,12 @@ void main(void)
     unlock.visMode = 0;
 
     //
-    unlock.autoMode = 0;
-//    autoMode_init(AUTOMODE_INIT_RESTART);
-//    smain.focus.kb = FOCUS_KB_AUTOMODE;
-//    disp_owner = DISPOWNER_AUTOMODE;
+    unlock.autoMode = 1;
+    autoMode_init(AUTOMODE_INIT_RESTART);
+    smain.focus.kb = FOCUS_KB_AUTOMODE;
+    disp_owner = DISPOWNER_AUTOMODE;
 
-    machState = MACHSTATE_RUNNING;
+    funcMach = FUNCMACH_NORMAL;
     //machState = MACHSTATE_STALL;
     
     GIE = 1;
@@ -158,7 +158,7 @@ void main(void)
         }
       if (smain.f.f1ms)
         {
-            if (++c_access_kb == 20)
+            if (++c_access_kb == KB_PERIODIC_ACCESS)
             {
                 c_access_kb = 0;
                 if (unlock.kb)
@@ -172,14 +172,14 @@ void main(void)
         }
         
         //+--------------------------
-        check_startSignal();
-        check_oilLevel();
-        errorHandler_queue();
+        //check_startSignal();
+        //check_oilLevel();
+        //errorHandler_queue();
         //+--------------------------
-        if (machState == MACHSTATE_RUNNING)
+        if (funcMach == FUNCMACH_NORMAL)
         {
             /*sobre estos 2, igual la maquina puede entrar a modo "Config"*/
-            if (unlock.autoMode)
+            if (unlock.autoMode)//podra inhibirse, pero el teclado no
             {
                 codapp = autoMode_job();
                 
@@ -193,7 +193,7 @@ void main(void)
                 {
                     mpap.mode = MPAP_STALL_MODE;
                     
-                    machState = MACHSTATE_CONFIG;
+                    funcMach = FUNCMACH_CONFIG;
                     //
                     smain.focus.kb = FOCUS_KB_CONFIGMODE;
                     disp_owner = DISPOWNER_CONFIGMODE;
@@ -217,11 +217,11 @@ void main(void)
                 }
                 else if (codapp == 2)
                 {
-                    machState = MACHSTATE_CONFIG;
+                    funcMach = FUNCMACH_CONFIG;
                 }
             }
         }
-        else if (machState == MACHSTATE_CONFIG)
+        else if (funcMach == FUNCMACH_CONFIG)
         {
             if (configMode_job())
             {
@@ -236,7 +236,7 @@ void main(void)
         mpap_sych();
         //////////
         smain.f.f1ms = 0;
-        ikb_flush();
+        //ikb_flush();//->c/ps es responsable de limpiar su buffer de teclado
     }
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -255,38 +255,104 @@ void interrupt INTERRUPCION(void)//@1ms
 ////////////////////////////////////////////////////////////////////////////////
 void check_startSignal(void)
 {
+    static struct _lock_startSignal
+    {
+        unsigned startIs:1;
+        unsigned startIsnt:1;
+        unsigned __a:6;
+    }lock={0};
+	
+    if (is_startSignal())
+    {
+        if (!lock.startIs)
+        {
+            lock.startIs = 1;
+            lock.startIsnt = 0;
+            //
+            ps_autoMode_start(); 
+        }
+        
+    }
+    else
+    {
+        if (!lock.startIsnt)
+        {
+            lock.startIsnt = 1;
+            lock.startIs = 0;
+            //
+            mpap.mode = MPAP_STALL_MODE;
+            disp7s_qtyDisp_writeText_20_3RAYAS();
+            
+        }
+    }
+}
+////////////////////////////////////////////////////////////////////////////////
+/*
+void error_man(void)
+{
+    if (error !=last)
+    {
+        error = last;   
+    
+        if (error =! 0)
+        {
+            //pone el sistema en modo STALL
+        }
+        else
+        {
+            //pone el sistema en modo RUNNING
+        }
+    }
+    //
+}
+ * 
+ * check check_startSignal
+if (existe_start)
+{
+	if (error()== cambios)
+	{
+		if (error == 0)
+		{
+			//ahora 
+			//salio de errores totalmente-->> ahora va a
+		}
+	}	
+}
+
+  */
+void check_inductiveSensorRPM(void)
+{
 	static int8_t sm0, sm1;
 	if (sm0 == 0)
 	{
-		if ( (machState == MACHSTATE_RUNNING) && (!is_startSignal()) )          //cada error decide apropiarse del display
+		if ( !is_inductiveSensorRPM() )
 		{
-			error_requestToWriteDisp.f.startSignal = 1;                         //request write
+			error_requestToWriteDisp.f.inductiveSensorRPM = 1;//request write
             //
-            //machState = MACHSTATE_STALL;                                      //puede ser NOT_RUNNING or IDLE
+            funcMach = MACHSTATE_STALL;
+            RELAY_DISABLE();
 			sm0++;
 		}	
-        //ante un cambio-> tiene que chequear el estado
 	}
 	else if (sm0 == 1) //2 parts: the process and the display
 	{
 		//1)the process
-        if ( is_startSignal() )
+        if ( is_inductiveSensorRPM() )
 		{
-            error_requestToWriteDisp.f.startSignal = 0;//kill signal queue
+            error_requestToWriteDisp.f.inductiveSensorRPM = 0;//kill signal queue
             sm0 = 0x00;
             sm1 = 0x00;
-            
-            ps_autoMode_start();
             //
+            RELAY_ENABLE();
 		}
-		/*else {}*/
+		/*else{}*/
 		
         //2) need to write on display
-        if (error_grantedToWriteDisp.f.startSignal == 1)//se concede
+        if (error_grantedToWriteDisp.f.inductiveSensorRPM == 1)
         {
             if (sm1 == 0)
             {
-                disp7s_qtyDisp_writeText_20_3RAYAS();
+                //disp7s_qtyDisp_writeText_NO_OIL();
                 sm1++;
             }
         }
@@ -306,7 +372,7 @@ void check_oilLevel(void)
 		{
 			error_requestToWriteDisp.f.oilLevel = 1;//request write
             //
-            machState = MACHSTATE_STALL;
+            funcMach = MACHSTATE_STALL;
             RELAY_DISABLE();
 			sm0++;
 		}	
