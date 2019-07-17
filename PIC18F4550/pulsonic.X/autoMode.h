@@ -14,7 +14,9 @@
         AUTOMODE_INIT_CONTINUE
     };
     void autoMode_init(int8_t init);
-    int8_t autoMode_job(void);
+    
+    //int8_t 
+    codapp_t autoMode_job(void);
     
     
     extern struct _ps ps_autoMode;

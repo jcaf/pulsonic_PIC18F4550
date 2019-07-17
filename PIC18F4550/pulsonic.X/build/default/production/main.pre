@@ -5812,7 +5812,13 @@ unsigned __f:5;
 }unlock;
 
 };
+struct _codapp
+{
+int8_t ret;
+int8_t param0;
 
+};
+typedef struct _codapp codapp_t;
 
 extern int8_t disp_owner;
 enum _DISPOWNER_MODE
@@ -5982,14 +5988,19 @@ AUTOMODE_INIT_RESTART = 0,
 AUTOMODE_INIT_CONTINUE
 };
 void autoMode_init(int8_t init);
-int8_t autoMode_job(void);
+
+
+codapp_t autoMode_job(void);
 
 
 extern struct _ps ps_autoMode;
 
 # 13 "visMode.h"
 void visMode_init(int8_t numVista);
-int8_t visMode_job(void);
+
+codapp_t visMode_job(void);
+
+extern struct _ps ps_visMode;
 
 # 12 "configMode.h"
 void configMode_init(int8_t numRegistro);
@@ -6076,7 +6087,8 @@ void main(void)
 {
 int8_t c_access_kb=0;
 int8_t c_access_disp=0;
-int8_t codapp;
+
+codapp_t cod;
 
 LATA = 0x00;
 LATC = 0x00;
@@ -6133,6 +6145,7 @@ ps_autoMode.unlock.kb = 1;
 ps_autoMode.unlock.disp = 1;
 ps_autoMode.unlock.ps = 1;
 
+
 GIE = 1;
 while(1)
 {
@@ -6156,15 +6169,59 @@ disp7s_job();
 }
 }
 
-# 184
+# 186
 if (funcMach == FUNCMACH_NORMAL)
 {
 if (1)
 {
-if (autoMode_job())
+cod = autoMode_job();
+if (cod.ret == 1)
+{
+
+smain.focus.kb = FOCUS_KB_VISMODE;
+disp_owner = DISPOWNER_VISMODE;
+
+if (cod.param0 == '+')
+{visMode_init(0x00);}
+else if (cod.param0 == '-')
+{visMode_init((8+1)-1);}
+
+
+ps_visMode.unlock.ps = 1;
+
+}
+else if (cod.ret == 2)
+{
+mpap.mode = MPAP_STALL_MODE;
+
+funcMach = FUNCMACH_CONFIG;
+
+smain.focus.kb = FOCUS_KB_CONFIGMODE;
+disp_owner = DISPOWNER_CONFIGMODE;
+unlock.visMode = 0;
+unlock.autoMode = 0;
+configMode_init(0x0);
+do{do{LATA |= 1<<5;}while(0);}while(0);
+
+}
+
+cod = visMode_job();
+if (cod.ret == 1)
+{
+smain.focus.kb = FOCUS_KB_AUTOMODE;
+disp_owner = DISPOWNER_AUTOMODE;
+unlock.visMode = 0;
+
+autoMode_init(AUTOMODE_INIT_CONTINUE);
+
+ps_visMode.unlock.ps = 0;
+}
+else if (cod.ret == 2)
 {
 
 }
+
+
 }
 else
 {
@@ -6234,7 +6291,7 @@ disp7s_qtyDisp_writeText_20_3RAYAS();
 }
 }
 
-# 294
+# 340
 void check_inductiveSensorRPM(void)
 {
 static int8_t sm0, sm1;

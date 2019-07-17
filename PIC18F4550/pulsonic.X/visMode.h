@@ -11,8 +11,11 @@
     #define VISMODE_NUMMAX_VISTAS (NOZZLE_NUMMAX+1)//+1=oil viscosity    
 
     void visMode_init(int8_t numVista);
-    int8_t visMode_job(void);
+    //int8_t 
+    codapp_t visMode_job(void);
 
+    extern struct _ps ps_visMode;
+    
 #ifdef	__cplusplus
 extern "C" {
 #endif

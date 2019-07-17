@@ -3,16 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/autoMode.c</file>
             <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pump.c</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/autoMode.h</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/configMode.c</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/visMode.c</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/display.c</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/visMode.h</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/display.h</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/flushMode.c</file>
             <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/inputs.c</file>
             <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.h</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/visualizerMode.h</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/automode.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/flushMode.h</file>
             <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/display.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/automode.h</file>
             <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/inputs.h</file>
         </group>
     </open-files>

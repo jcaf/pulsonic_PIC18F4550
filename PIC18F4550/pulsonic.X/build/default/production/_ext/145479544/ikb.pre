@@ -5812,7 +5812,13 @@ unsigned __f:5;
 }unlock;
 
 };
+struct _codapp
+{
+int8_t ret;
+int8_t param0;
 
+};
+typedef struct _codapp codapp_t;
 
 extern int8_t disp_owner;
 enum _DISPOWNER_MODE

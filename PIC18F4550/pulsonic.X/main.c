@@ -96,7 +96,8 @@ void main(void)
 {
     int8_t c_access_kb=0;
     int8_t c_access_disp=0;
-    int8_t codapp;
+    //int8_t codapp;
+    codapp_t cod;
 
     LATA = 0x00;
     LATC = 0x00;
@@ -153,6 +154,7 @@ void main(void)
     ps_autoMode.unlock.disp = 1;
     ps_autoMode.unlock.ps = 1;
     
+    
     GIE = 1;
     while(1)
     {
@@ -183,12 +185,56 @@ void main(void)
         //+--------------------------
         if (funcMach == FUNCMACH_NORMAL)
         {
-            if (1)
+            if (1)//start
             {
-                if (autoMode_job())
+                cod = autoMode_job();
+                if (cod.ret == 1)
+                {
+                   //ps_autoMode.unlock.kb = 0;
+                   smain.focus.kb = FOCUS_KB_VISMODE;
+                   disp_owner = DISPOWNER_VISMODE;
+                   
+                   if (cod.param0 == '+')
+                        {visMode_init(0x00);}
+                   else if (cod.param0 == '-')
+                        {visMode_init(VISMODE_NUMMAX_VISTAS-1);}
+                   
+                   //
+                   ps_visMode.unlock.ps = 1;
+                   
+                }
+                else if (cod.ret == 2)
+                {
+                    mpap.mode = MPAP_STALL_MODE;
+                    
+                    funcMach = FUNCMACH_CONFIG;
+                    //
+                    smain.focus.kb = FOCUS_KB_CONFIGMODE;
+                    disp_owner = DISPOWNER_CONFIGMODE;
+                    unlock.visMode = 0;
+                    unlock.autoMode = 0;
+                    configMode_init(0x0);
+                    RELAY_DISABLE();
+                    
+                }
+                //---------------------
+                cod = visMode_job();
+                if (cod.ret == 1)
+                {
+                    smain.focus.kb = FOCUS_KB_AUTOMODE;
+                    disp_owner = DISPOWNER_AUTOMODE;
+                    unlock.visMode = 0;
+                    
+                    autoMode_init(AUTOMODE_INIT_CONTINUE);
+                    
+                    ps_visMode.unlock.ps = 0;
+                }
+                else if (cod.ret == 2)
                 {
                     
                 }
+                //
+                
             }
             else
             {

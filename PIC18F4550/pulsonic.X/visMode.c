@@ -21,31 +21,42 @@ void visMode_init(int8_t numVista)
  * keyboard
  * displayer
  */
-static int8_t visMode_kb(void);
+//static int8_t visMode_kb(void);
+static codapp_t visMode_kb(void);
 
-int8_t visMode_job(void)
+struct _ps ps_visMode;
+
+//int8_t 
+codapp_t visMode_job(void)
 {
-    int8_t cod_ret = 0;
-    
-    if (smain.focus.kb == FOCUS_KB_VISMODE)
+    //int8_t cod_ret = 0;
+    codapp_t cod={0,0};
+
+    if (ps_visMode.unlock.ps)
     {
-        cod_ret = visMode_kb();
-    }
-    
-    if ( visMode.disp7s_accessReq == 1)
-    {
-        if (disp_owner == DISPOWNER_VISMODE)       
+        if (smain.focus.kb == FOCUS_KB_VISMODE)
         {
-            visMode_disp(visMode.numVista);
+            cod = visMode_kb();
         }
-        visMode.disp7s_accessReq = 0;
-    }
 
-    return cod_ret;
+        if ( visMode.disp7s_accessReq == 1)
+        {
+            if (disp_owner == DISPOWNER_VISMODE)       
+            {
+                visMode_disp(visMode.numVista);
+            }
+            visMode.disp7s_accessReq = 0;
+        }
+    }
+    
+
+    return cod;
 }
-static int8_t visMode_kb(void)
+//static int8_t 
+static codapp_t visMode_kb(void)
 {
-    int8_t cod_ret = 0;
+    //int8_t cod_ret = 0;
+    codapp_t cod={0,0};
     
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_UP))
     {
@@ -54,7 +65,7 @@ static int8_t visMode_kb(void)
         if (++visMode.numVista >= VISMODE_NUMMAX_VISTAS)
         {
             visMode.numVista = 0x00;
-            cod_ret = 1;
+            cod.ret = 1;
         }
         else
         {
@@ -69,7 +80,7 @@ static int8_t visMode_kb(void)
         if (--visMode.numVista < 0)
         {
             visMode.numVista = VISMODE_NUMMAX_VISTAS-1;
-            cod_ret = 1;
+            cod.ret = 1;
         }
         else
         {
@@ -91,7 +102,7 @@ static int8_t visMode_kb(void)
         ikb_key_was_read(KB_LYOUT_KEY_ENTER_F);
         //
     }
-    return cod_ret;
+    return cod;
 }
 static void visMode_disp(int8_t numVista)
 {

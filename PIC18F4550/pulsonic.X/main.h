@@ -41,7 +41,13 @@
         }unlock;
 
     };
-    
+    struct _codapp
+    {
+        int8_t ret;
+        int8_t param0;
+        //int8_t param1;
+    };
+    typedef struct _codapp codapp_t;
     
     extern int8_t disp_owner;
     enum _DISPOWNER_MODE

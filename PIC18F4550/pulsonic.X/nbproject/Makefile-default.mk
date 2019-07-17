@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c ../../../../../../FIRWAR/eslibrary/ikb/ikb.c pulsonic.c mpap.c pump.c display.c automode.c nozzle.c inputs.c visualizerMode.c configMode.c flush.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c ../../../../../../FIRWAR/eslibrary/ikb/ikb.c pulsonic.c mpap.c pump.c display.c nozzle.c inputs.c configMode.c flushMode.c visMode.c autoMode.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.p1 ${OBJECTDIR}/_ext/145479544/ikb.p1 ${OBJECTDIR}/pulsonic.p1 ${OBJECTDIR}/mpap.p1 ${OBJECTDIR}/pump.p1 ${OBJECTDIR}/display.p1 ${OBJECTDIR}/automode.p1 ${OBJECTDIR}/nozzle.p1 ${OBJECTDIR}/inputs.p1 ${OBJECTDIR}/visualizerMode.p1 ${OBJECTDIR}/configMode.p1 ${OBJECTDIR}/flush.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.p1.d ${OBJECTDIR}/_ext/145479544/ikb.p1.d ${OBJECTDIR}/pulsonic.p1.d ${OBJECTDIR}/mpap.p1.d ${OBJECTDIR}/pump.p1.d ${OBJECTDIR}/display.p1.d ${OBJECTDIR}/automode.p1.d ${OBJECTDIR}/nozzle.p1.d ${OBJECTDIR}/inputs.p1.d ${OBJECTDIR}/visualizerMode.p1.d ${OBJECTDIR}/configMode.p1.d ${OBJECTDIR}/flush.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.p1 ${OBJECTDIR}/_ext/145479544/ikb.p1 ${OBJECTDIR}/pulsonic.p1 ${OBJECTDIR}/mpap.p1 ${OBJECTDIR}/pump.p1 ${OBJECTDIR}/display.p1 ${OBJECTDIR}/nozzle.p1 ${OBJECTDIR}/inputs.p1 ${OBJECTDIR}/configMode.p1 ${OBJECTDIR}/flushMode.p1 ${OBJECTDIR}/visMode.p1 ${OBJECTDIR}/autoMode.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.p1.d ${OBJECTDIR}/_ext/145479544/ikb.p1.d ${OBJECTDIR}/pulsonic.p1.d ${OBJECTDIR}/mpap.p1.d ${OBJECTDIR}/pump.p1.d ${OBJECTDIR}/display.p1.d ${OBJECTDIR}/nozzle.p1.d ${OBJECTDIR}/inputs.p1.d ${OBJECTDIR}/configMode.p1.d ${OBJECTDIR}/flushMode.p1.d ${OBJECTDIR}/visMode.p1.d ${OBJECTDIR}/autoMode.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.p1 ${OBJECTDIR}/_ext/145479544/ikb.p1 ${OBJECTDIR}/pulsonic.p1 ${OBJECTDIR}/mpap.p1 ${OBJECTDIR}/pump.p1 ${OBJECTDIR}/display.p1 ${OBJECTDIR}/automode.p1 ${OBJECTDIR}/nozzle.p1 ${OBJECTDIR}/inputs.p1 ${OBJECTDIR}/visualizerMode.p1 ${OBJECTDIR}/configMode.p1 ${OBJECTDIR}/flush.p1
+OBJECTFILES=${OBJECTDIR}/main.p1 ${OBJECTDIR}/_ext/145479544/ikb.p1 ${OBJECTDIR}/pulsonic.p1 ${OBJECTDIR}/mpap.p1 ${OBJECTDIR}/pump.p1 ${OBJECTDIR}/display.p1 ${OBJECTDIR}/nozzle.p1 ${OBJECTDIR}/inputs.p1 ${OBJECTDIR}/configMode.p1 ${OBJECTDIR}/flushMode.p1 ${OBJECTDIR}/visMode.p1 ${OBJECTDIR}/autoMode.p1
 
 # Source Files
-SOURCEFILES=main.c ../../../../../../FIRWAR/eslibrary/ikb/ikb.c pulsonic.c mpap.c pump.c display.c automode.c nozzle.c inputs.c visualizerMode.c configMode.c flush.c
+SOURCEFILES=main.c ../../../../../../FIRWAR/eslibrary/ikb/ikb.c pulsonic.c mpap.c pump.c display.c nozzle.c inputs.c configMode.c flushMode.c visMode.c autoMode.c
 
 
 CFLAGS=
@@ -141,14 +141,6 @@ ${OBJECTDIR}/display.p1: display.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/display.d ${OBJECTDIR}/display.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/display.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/automode.p1: automode.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/automode.p1.d 
-	@${RM} ${OBJECTDIR}/automode.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=free -P -N255 -I"." -I"/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary" --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,-plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/automode.p1  automode.c 
-	@-${MV} ${OBJECTDIR}/automode.d ${OBJECTDIR}/automode.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/automode.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
 ${OBJECTDIR}/nozzle.p1: nozzle.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/nozzle.p1.d 
@@ -165,14 +157,6 @@ ${OBJECTDIR}/inputs.p1: inputs.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/inputs.d ${OBJECTDIR}/inputs.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/inputs.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/visualizerMode.p1: visualizerMode.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/visualizerMode.p1.d 
-	@${RM} ${OBJECTDIR}/visualizerMode.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=free -P -N255 -I"." -I"/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary" --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,-plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/visualizerMode.p1  visualizerMode.c 
-	@-${MV} ${OBJECTDIR}/visualizerMode.d ${OBJECTDIR}/visualizerMode.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/visualizerMode.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
 ${OBJECTDIR}/configMode.p1: configMode.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/configMode.p1.d 
@@ -181,13 +165,29 @@ ${OBJECTDIR}/configMode.p1: configMode.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/configMode.d ${OBJECTDIR}/configMode.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/configMode.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/flush.p1: flush.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/flushMode.p1: flushMode.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/flush.p1.d 
-	@${RM} ${OBJECTDIR}/flush.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=free -P -N255 -I"." -I"/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary" --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,-plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/flush.p1  flush.c 
-	@-${MV} ${OBJECTDIR}/flush.d ${OBJECTDIR}/flush.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/flush.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	@${RM} ${OBJECTDIR}/flushMode.p1.d 
+	@${RM} ${OBJECTDIR}/flushMode.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=free -P -N255 -I"." -I"/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary" --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,-plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/flushMode.p1  flushMode.c 
+	@-${MV} ${OBJECTDIR}/flushMode.d ${OBJECTDIR}/flushMode.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/flushMode.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/visMode.p1: visMode.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/visMode.p1.d 
+	@${RM} ${OBJECTDIR}/visMode.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=free -P -N255 -I"." -I"/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary" --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,-plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/visMode.p1  visMode.c 
+	@-${MV} ${OBJECTDIR}/visMode.d ${OBJECTDIR}/visMode.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/visMode.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/autoMode.p1: autoMode.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/autoMode.p1.d 
+	@${RM} ${OBJECTDIR}/autoMode.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=free -P -N255 -I"." -I"/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary" --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,-plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/autoMode.p1  autoMode.c 
+	@-${MV} ${OBJECTDIR}/autoMode.d ${OBJECTDIR}/autoMode.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/autoMode.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 else
 ${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
@@ -238,14 +238,6 @@ ${OBJECTDIR}/display.p1: display.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/display.d ${OBJECTDIR}/display.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/display.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/automode.p1: automode.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/automode.p1.d 
-	@${RM} ${OBJECTDIR}/automode.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=free -P -N255 -I"." -I"/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary" --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,-plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/automode.p1  automode.c 
-	@-${MV} ${OBJECTDIR}/automode.d ${OBJECTDIR}/automode.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/automode.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
 ${OBJECTDIR}/nozzle.p1: nozzle.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/nozzle.p1.d 
@@ -262,14 +254,6 @@ ${OBJECTDIR}/inputs.p1: inputs.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/inputs.d ${OBJECTDIR}/inputs.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/inputs.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/visualizerMode.p1: visualizerMode.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/visualizerMode.p1.d 
-	@${RM} ${OBJECTDIR}/visualizerMode.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=free -P -N255 -I"." -I"/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary" --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,-plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/visualizerMode.p1  visualizerMode.c 
-	@-${MV} ${OBJECTDIR}/visualizerMode.d ${OBJECTDIR}/visualizerMode.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/visualizerMode.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
 ${OBJECTDIR}/configMode.p1: configMode.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/configMode.p1.d 
@@ -278,13 +262,29 @@ ${OBJECTDIR}/configMode.p1: configMode.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/configMode.d ${OBJECTDIR}/configMode.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/configMode.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/flush.p1: flush.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/flushMode.p1: flushMode.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/flush.p1.d 
-	@${RM} ${OBJECTDIR}/flush.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=free -P -N255 -I"." -I"/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary" --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,-plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/flush.p1  flush.c 
-	@-${MV} ${OBJECTDIR}/flush.d ${OBJECTDIR}/flush.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/flush.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	@${RM} ${OBJECTDIR}/flushMode.p1.d 
+	@${RM} ${OBJECTDIR}/flushMode.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=free -P -N255 -I"." -I"/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary" --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,-plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/flushMode.p1  flushMode.c 
+	@-${MV} ${OBJECTDIR}/flushMode.d ${OBJECTDIR}/flushMode.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/flushMode.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/visMode.p1: visMode.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/visMode.p1.d 
+	@${RM} ${OBJECTDIR}/visMode.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=free -P -N255 -I"." -I"/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary" --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,-plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/visMode.p1  visMode.c 
+	@-${MV} ${OBJECTDIR}/visMode.d ${OBJECTDIR}/visMode.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/visMode.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/autoMode.p1: autoMode.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/autoMode.p1.d 
+	@${RM} ${OBJECTDIR}/autoMode.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=free -P -N255 -I"." -I"/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary" --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,-plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/autoMode.p1  autoMode.c 
+	@-${MV} ${OBJECTDIR}/autoMode.d ${OBJECTDIR}/autoMode.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/autoMode.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 

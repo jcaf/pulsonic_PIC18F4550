@@ -5,6 +5,7 @@
 #include "autoMode.h"
 #include "visMode.h"
 #include "ikb/ikb.h"
+#include "flushMode.h"
 
 struct _ps ps_autoMode;
 
@@ -14,7 +15,8 @@ static struct _autoMode
     int8_t sm0;
 }autoMode;
 
-static int8_t autoMode_kb(void);
+//static int8_t autoMode_kb(void);
+static codapp_t autoMode_kb(void);
 
 void autoMode_init(int8_t init)
 {
@@ -30,17 +32,18 @@ void autoMode_init(int8_t init)
     }
 }
 
-int8_t autoMode_job(void)
+codapp_t autoMode_job(void)
 {
     static uint16_t c_ms;
     static uint16_t c_min;
     
-    int8_t cod_ret = 0;
+    //int8_t cod_ret = 0;
+    codapp_t cod={0,0};
     
-    //if (smain.focus.kb == FOCUS_KB_AUTOMODE)
-    if (ps_autoMode.unlock.kb)
+    if (smain.focus.kb == FOCUS_KB_AUTOMODE)
+    //if (ps_autoMode.unlock.kb)
     {
-        cod_ret = autoMode_kb();
+        cod = autoMode_kb();
     }
     
     if (ps_autoMode.unlock.ps)
@@ -102,14 +105,16 @@ int8_t autoMode_job(void)
         }
     }
     
-    return cod_ret;
+    return cod;
 }
 /*
  * 1 = return and exit from current process
  */
-static int8_t autoMode_kb(void)
+//static int8_t 
+static codapp_t autoMode_kb(void)
 {
-    int8_t cod_ret = 0;
+    //int8_t cod_ret = 0;
+    codapp_t cod={0,0};
     
     int8_t flushKb;
     static int8_t flushKb_last;
@@ -124,6 +129,8 @@ static int8_t autoMode_kb(void)
         else
         {
             flushMode_cmd(FLUSH_CMD_STOP);
+            //
+            autoMode_init(AUTOMODE_INIT_RESTART);
         }
         flushKb_last = flushKb;
     }
@@ -134,15 +141,17 @@ static int8_t autoMode_kb(void)
     {
         ikb_key_was_read(KB_LYOUT_KEY_UP);
         //
-        visMode_init(0x00);
-        cod_ret = 1;
+        //visMode_init(0x00);
+        cod.param0 = '+';
+        cod.ret = 1;
     }
     else if (ikb_key_is_ready2read(KB_LYOUT_KEY_DOWN))
     {
         ikb_key_was_read(KB_LYOUT_KEY_DOWN);
         //
-        visMode_init(VISMODE_NUMMAX_VISTAS-1);
-        cod_ret = 1;
+        cod.param0 = '-';
+        //visMode_init(VISMODE_NUMMAX_VISTAS-1);
+        cod.ret = 1;
     }
     
     //
@@ -154,8 +163,8 @@ static int8_t autoMode_kb(void)
         ikb_key_was_read(KB_LYOUT_KEY_PLUS);
         ikb_key_was_read(KB_LYOUT_KEY_MINUS);
         //
-        cod_ret = 2;     
+        cod.ret = 2;     
     }
 
-    return cod_ret;
+    return cod;
 }
