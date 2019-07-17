@@ -6237,7 +6237,7 @@ key[k].counter1++;
 
 if (key[k].bf.state == 0)
 {
-if (key[k].counter1 <= ((300.0/20)) )
+if (key[k].counter1 <= ((500.0/20)) )
 {
 key[k].counter1 = 0;
 
@@ -6248,7 +6248,7 @@ key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 }
 }
 
-if (key[k].counter1 > ((300.0/20)) )
+if (key[k].counter1 > ((500.0/20)) )
 {
 key[k].counter1 = 0x0000;
 
@@ -6275,7 +6275,7 @@ key[k].counter1++;
 
 if (key[k].bf.state == 0)
 {
-if (key[k].counter1 <= ((300.0/20)))
+if (key[k].counter1 <= ((500.0/20)))
 {
 key[k].counter1 = 0;
 

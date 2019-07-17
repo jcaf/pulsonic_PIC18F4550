@@ -15,8 +15,6 @@ static struct _autoMode
     int8_t sm0;
 }autoMode;
 
-//static int8_t autoMode_kb(void);
-static codapp_t autoMode_kb(void);
 
 void autoMode_init(int8_t init)
 {
@@ -32,26 +30,20 @@ void autoMode_init(int8_t init)
     }
 }
 
-codapp_t autoMode_job(void)
+void autoMode_job(void)
 {
     static uint16_t c_ms;
     static uint16_t c_min;
-    
-    //int8_t cod_ret = 0;
-    codapp_t cod={0,0};
-    
-    if (smain.focus.kb == FOCUS_KB_AUTOMODE)
-    //if (ps_autoMode.unlock.kb)
-    {
-        cod = autoMode_kb();
-    }
     
     if (ps_autoMode.unlock.ps)
     {
         if (autoMode.sm0 == 0)
         {
-            mpap_setupToHomming();
-            autoMode.sm0++;
+            if (mpap_isIdle())
+            {
+                mpap_setupToHomming();
+                autoMode.sm0++;
+            }
         }
         else if (autoMode.sm0 == 1)
         {
@@ -105,66 +97,4 @@ codapp_t autoMode_job(void)
         }
     }
     
-    return cod;
-}
-/*
- * 1 = return and exit from current process
- */
-//static int8_t 
-static codapp_t autoMode_kb(void)
-{
-    //int8_t cod_ret = 0;
-    codapp_t cod={0,0};
-    
-    int8_t flushKb;
-    static int8_t flushKb_last;
-    
-    flushKb = ikb_key_is_ready2read(KB_LYOUT_KEY_ENTER_F);
-    if (flushKb_last != flushKb)
-    {
-        if (flushKb)
-        {
-            flushMode_cmd(FLUSH_CMD_RESTART);
-        }
-        else
-        {
-            flushMode_cmd(FLUSH_CMD_STOP);
-            //
-            autoMode_init(AUTOMODE_INIT_RESTART);
-        }
-        flushKb_last = flushKb;
-    }
-    
-    ////////////////
-    ////////////////
-    if (ikb_key_is_ready2read(KB_LYOUT_KEY_UP))
-    {
-        ikb_key_was_read(KB_LYOUT_KEY_UP);
-        //
-        //visMode_init(0x00);
-        cod.param0 = '+';
-        cod.ret = 1;
-    }
-    else if (ikb_key_is_ready2read(KB_LYOUT_KEY_DOWN))
-    {
-        ikb_key_was_read(KB_LYOUT_KEY_DOWN);
-        //
-        cod.param0 = '-';
-        //visMode_init(VISMODE_NUMMAX_VISTAS-1);
-        cod.ret = 1;
-    }
-    
-    //
-    if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_PLUS)==KB_AFTER_THR) &&
-        ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS) &&
-        (ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_MINUS)==KB_AFTER_THR) &&
-        ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
-    {
-        ikb_key_was_read(KB_LYOUT_KEY_PLUS);
-        ikb_key_was_read(KB_LYOUT_KEY_MINUS);
-        //
-        cod.ret = 2;     
-    }
-
-    return cod;
 }

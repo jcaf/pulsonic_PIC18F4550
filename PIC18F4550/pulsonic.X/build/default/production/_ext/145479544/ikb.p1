@@ -4746,9 +4746,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 724: {
 "724
 {
-[; ;ikb.c: 725: if (key[k].counter1 <= ((300.0/20)) )
+[; ;ikb.c: 725: if (key[k].counter1 <= ((500.0/20)) )
 "725
-[e $ ! <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .300.0 -> -> 20 `i `d 458  ]
+[e $ ! <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .500.0 -> -> 20 `i `d 458  ]
 [; ;ikb.c: 726: {
 "726
 {
@@ -4772,9 +4772,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 457 ]
 [; ;ikb.c: 733: }
 [; ;ikb.c: 734: }
-[; ;ikb.c: 736: if (key[k].counter1 > ((300.0/20)) )
+[; ;ikb.c: 736: if (key[k].counter1 > ((500.0/20)) )
 "736
-[e $ ! > -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .300.0 -> -> 20 `i `d 459  ]
+[e $ ! > -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .500.0 -> -> 20 `i `d 459  ]
 [; ;ikb.c: 737: {
 "737
 {
@@ -4836,9 +4836,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 762: {
 "762
 {
-[; ;ikb.c: 763: if (key[k].counter1 <= ((300.0/20)))
+[; ;ikb.c: 763: if (key[k].counter1 <= ((500.0/20)))
 "763
-[e $ ! <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .300.0 -> -> 20 `i `d 464  ]
+[e $ ! <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .500.0 -> -> 20 `i `d 464  ]
 [; ;ikb.c: 764: {
 "764
 {

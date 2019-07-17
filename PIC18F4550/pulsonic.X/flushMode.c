@@ -19,7 +19,7 @@ void flushMode_cmd(int8_t cmd)
 {
     if (cmd == FLUSH_CMD_RESTART)
     {
-        if (disp_owner == DISPOWNER_AUTOMODE)
+        //if (disp_owner == DISPOWNER_AUTOMODE)
         {
             disp7s_modeDisp_off();
             disp7s_qtyDisp_writeText_FLU();
@@ -32,6 +32,7 @@ void flushMode_cmd(int8_t cmd)
     {
         flushMode.sm0 = 0;
         mpap.mode = MPAP_STALL_MODE;
+        /*tal vez hay que esperar a que este en idle para iniciar*/
     }
 }
 

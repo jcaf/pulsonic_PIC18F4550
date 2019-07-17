@@ -15,8 +15,8 @@
     };
     void autoMode_init(int8_t init);
     
-    //int8_t 
-    codapp_t autoMode_job(void);
+    
+    void autoMode_job(void);
     
     
     extern struct _ps ps_autoMode;

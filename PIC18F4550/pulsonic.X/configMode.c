@@ -70,7 +70,8 @@ static int8_t configMode_kb(void)
         configMode.disp7s_accessReq = 1;
     }
     
-    if (ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS))
+    if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_PLUS)==KB_BEFORE_THR) &&
+        ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS))
     {
          if (configMode.numRegistro < NOZZLE_NUMMAX)                
          {
@@ -102,7 +103,9 @@ static int8_t configMode_kb(void)
         ikb_key_was_read(KB_LYOUT_KEY_PLUS);
         //
     }
-    if (ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
+    
+    if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_MINUS)==KB_BEFORE_THR) &&
+        ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
     {
         if (configMode.numRegistro < NOZZLE_NUMMAX)                
          {
@@ -138,10 +141,22 @@ static int8_t configMode_kb(void)
     }
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_ENTER_F))
     {
-cod_ret = 1;        
+     
         ikb_key_was_read(KB_LYOUT_KEY_ENTER_F);
         //
     }
+    
+    //+--------
+    //
+    if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_PLUS)==KB_AFTER_THR) &&
+        ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS) &&
+        (ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_MINUS)==KB_AFTER_THR) &&
+        ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
+    {
+        cod_ret = 1;
+    }
+    //---------+
+    
     return cod_ret;
 }
 static void configMode_disp(int8_t numRegistro)

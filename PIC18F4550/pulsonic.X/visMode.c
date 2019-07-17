@@ -3,43 +3,18 @@
 #include "pulsonic.h"
 #include "ikb/ikb.h"
 
-static struct _visMode
-{
-    int8_t disp7s_accessReq;//access request
-    int8_t numVista;        //number of "vista"
-}visMode;
+struct _visMode visMode = {-1, 0};
 
 static void visMode_disp(int8_t numVista);
 
-void visMode_init(int8_t numVista)
-{
-    visMode.numVista = numVista;
-    visMode.disp7s_accessReq = 1;//ingresa mostrando en numVista
-}
-/*
- * proceso
- * keyboard
- * displayer
- */
-//static int8_t visMode_kb(void);
-static codapp_t visMode_kb(void);
-
 struct _ps ps_visMode;
 
-//int8_t 
-codapp_t visMode_job(void)
+void  visMode_job(void)
 {
-    //int8_t cod_ret = 0;
-    codapp_t cod={0,0};
-
-    if (ps_visMode.unlock.ps)
+    //if (ps_visMode.unlock.ps)
     {
-        if (smain.focus.kb == FOCUS_KB_VISMODE)
-        {
-            cod = visMode_kb();
-        }
 
-        if ( visMode.disp7s_accessReq == 1)
+        if (visMode.disp7s_accessReq == 1)
         {
             if (disp_owner == DISPOWNER_VISMODE)       
             {
@@ -48,62 +23,8 @@ codapp_t visMode_job(void)
             visMode.disp7s_accessReq = 0;
         }
     }
-    
-
-    return cod;
 }
-//static int8_t 
-static codapp_t visMode_kb(void)
-{
-    //int8_t cod_ret = 0;
-    codapp_t cod={0,0};
-    
-    if (ikb_key_is_ready2read(KB_LYOUT_KEY_UP))
-    {
-        ikb_key_was_read(KB_LYOUT_KEY_UP);
-        //
-        if (++visMode.numVista >= VISMODE_NUMMAX_VISTAS)
-        {
-            visMode.numVista = 0x00;
-            cod.ret = 1;
-        }
-        else
-        {
-           visMode.disp7s_accessReq = 1;
-        }
-    }
 
-    if (ikb_key_is_ready2read(KB_LYOUT_KEY_DOWN))
-    {
-        ikb_key_was_read(KB_LYOUT_KEY_DOWN);
-        //
-        if (--visMode.numVista < 0)
-        {
-            visMode.numVista = VISMODE_NUMMAX_VISTAS-1;
-            cod.ret = 1;
-        }
-        else
-        {
-            visMode.disp7s_accessReq = 1;
-        }
-    }
-    if (ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS))
-    {
-        ikb_key_was_read(KB_LYOUT_KEY_PLUS);
-        //
-    }
-    if (ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
-    {
-        ikb_key_was_read(KB_LYOUT_KEY_MINUS);
-        //
-    }
-    if (ikb_key_is_ready2read(KB_LYOUT_KEY_ENTER_F))
-    {
-        ikb_key_was_read(KB_LYOUT_KEY_ENTER_F);
-        //
-    }
-    return cod;
-}
 static void visMode_disp(int8_t numVista)
 {
     double qty;

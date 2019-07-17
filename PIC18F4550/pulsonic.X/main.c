@@ -27,6 +27,7 @@
 #include "configMode.h"
 #include "flushMode.h"
 
+
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
 
@@ -96,8 +97,9 @@ void main(void)
 {
     int8_t c_access_kb=0;
     int8_t c_access_disp=0;
-    //int8_t codapp;
-    codapp_t cod;
+    //
+    int8_t flushKb;
+    static int8_t flushKb_last;
 
     LATA = 0x00;
     LATC = 0x00;
@@ -137,12 +139,7 @@ void main(void)
     disp7s_init();
     pulsonic_init();
     
-    unlock.kb = 1;
     
-    unlock.visMode = 0;
-
-    //
-    unlock.autoMode = 1;
     autoMode_init(AUTOMODE_INIT_RESTART);
     smain.focus.kb = FOCUS_KB_AUTOMODE;
     disp_owner = DISPOWNER_AUTOMODE;
@@ -168,8 +165,7 @@ void main(void)
             if (++c_access_kb == KB_PERIODIC_ACCESS)
             {
                 c_access_kb = 0;
-                if (unlock.kb)
-                    {ikb_job();}
+                ikb_job();
             }
             if (++c_access_disp == 3)
             {
@@ -185,64 +181,101 @@ void main(void)
         //+--------------------------
         if (funcMach == FUNCMACH_NORMAL)
         {
-            if (1)//start
+            autoMode_job();//---> solo el depende del start.. nada
+            visMode_job();
+            //
+
+            /* keyboard*/
+            flushKb = ikb_key_is_ready2read(KB_LYOUT_KEY_ENTER_F);
+            if (flushKb_last != flushKb)
             {
-                cod = autoMode_job();
-                if (cod.ret == 1)
+                if (flushKb)
                 {
-                   //ps_autoMode.unlock.kb = 0;
-                   smain.focus.kb = FOCUS_KB_VISMODE;
-                   disp_owner = DISPOWNER_VISMODE;
-                   
-                   if (cod.param0 == '+')
-                        {visMode_init(0x00);}
-                   else if (cod.param0 == '-')
-                        {visMode_init(VISMODE_NUMMAX_VISTAS-1);}
-                   
-                   //
-                   ps_visMode.unlock.ps = 1;
-                   
+                    flushMode_cmd(FLUSH_CMD_RESTART);
                 }
-                else if (cod.ret == 2)
+                else
                 {
-                    mpap.mode = MPAP_STALL_MODE;
-                    
-                    funcMach = FUNCMACH_CONFIG;
+                    flushMode_cmd(FLUSH_CMD_STOP);
                     //
-                    smain.focus.kb = FOCUS_KB_CONFIGMODE;
-                    disp_owner = DISPOWNER_CONFIGMODE;
-                    unlock.visMode = 0;
-                    unlock.autoMode = 0;
-                    configMode_init(0x0);
-                    RELAY_DISABLE();
+                    /*if disp_owner hold the current*/
+                    autoMode_init(AUTOMODE_INIT_RESTART);
                     
+                    if (disp_owner == DISPOWNER_VISMODE)       
+                        {visMode.disp7s_accessReq = 1;}
                 }
-                //---------------------
-                cod = visMode_job();
-                if (cod.ret == 1)
-                {
-                    smain.focus.kb = FOCUS_KB_AUTOMODE;
-                    disp_owner = DISPOWNER_AUTOMODE;
-                    unlock.visMode = 0;
-                    
-                    autoMode_init(AUTOMODE_INIT_CONTINUE);
-                    
-                    ps_visMode.unlock.ps = 0;
-                }
-                else if (cod.ret == 2)
-                {
-                    
-                }
-                //
-                
+                flushKb_last = flushKb;
             }
-            else
+            
+            if (ikb_key_is_ready2read(KB_LYOUT_KEY_UP))
             {
-                
+                ikb_key_was_read(KB_LYOUT_KEY_UP);
+                //
+                if (++visMode.numVista >= VISMODE_NUMMAX_VISTAS)
+                {
+                    visMode.numVista = -1;
+                    disp_owner = DISPOWNER_AUTOMODE;
+                    autoMode_init(AUTOMODE_INIT_CONTINUE);
+                }
+                else
+                {
+                    //ps_visMode.unlock.ps = 1;
+                    disp_owner = DISPOWNER_VISMODE;
+                    visMode.disp7s_accessReq = 1;
+                }
             }
+            else if (ikb_key_is_ready2read(KB_LYOUT_KEY_DOWN))
+            {
+                ikb_key_was_read(KB_LYOUT_KEY_DOWN);
+                //
+                if (visMode.numVista == -1)
+                    {visMode.numVista = VISMODE_NUMMAX_VISTAS;}
+
+                if (--visMode.numVista < 0)
+                {
+                    disp_owner = DISPOWNER_AUTOMODE;
+                    autoMode_init(AUTOMODE_INIT_CONTINUE);
+                }
+                else
+                {
+                    disp_owner = DISPOWNER_VISMODE;
+                    visMode.disp7s_accessReq = 1;
+                }
+            }
+            
+            //
+            if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_PLUS)==KB_AFTER_THR) &&
+                ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS) &&
+                (ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_MINUS)==KB_AFTER_THR) &&
+                ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
+            {
+                ikb_key_was_read(KB_LYOUT_KEY_PLUS);
+                ikb_key_was_read(KB_LYOUT_KEY_MINUS);
+                //
+                mpap.mode = MPAP_STALL_MODE;
+                funcMach = FUNCMACH_CONFIG;
+                //
+                smain.focus.kb = FOCUS_KB_CONFIGMODE;
+                disp_owner = DISPOWNER_CONFIGMODE;
+                
+                
+                configMode_init(0x0);
+                RELAY_DISABLE();
+            }
+       
         }
         else if (funcMach == FUNCMACH_CONFIG)
         {
+            if (configMode_job())
+            {
+                disp_owner = DISPOWNER_AUTOMODE;
+                smain.focus.kb = FOCUS_KB_AUTOMODE;
+                funcMach = FUNCMACH_NORMAL;
+                autoMode_init(AUTOMODE_INIT_RESTART);
+                //
+                ikb_flush();
+                //
+                RELAY_ENABLE();
+            }
             
         }
         flushMode_job();
