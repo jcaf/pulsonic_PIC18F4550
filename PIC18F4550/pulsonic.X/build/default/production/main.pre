@@ -5799,7 +5799,16 @@ int8_t disp;
 };
 extern volatile struct _smain smain;
 
-# 35
+
+
+enum _FUNMACH
+{
+FUNCMACH_NORMAL = 0,
+FUNCMACH_CONFIG,
+FUNCMACH_ERROR
+};
+extern int8_t funcMach;
+
 extern int8_t disp_owner;
 enum _DISPOWNER_MODE
 {
@@ -5925,13 +5934,14 @@ int8_t mpap_isIdle(void);
 
 void mpap_sych(void);
 
-# 15 "inputs.h"
-typedef int8_t intNumMaxErr_t;
-
-# 21
+# 12 "inputs.h"
 void startSignal_init(void);
 int8_t is_startSignal(void);
+
+void oilLevel_init(void);
 int8_t is_oilLevel(void);
+
+
 int8_t is_homeSensor(void);
 int8_t is_unblockedNozzle(int8_t nozzle);
 int8_t is_inductiveSensorRPM(void);
@@ -5987,6 +5997,12 @@ int8_t configMode_job(void);
 void flushMode_cmd(int8_t cmd);
 void flushMode_job(void);
 
+# 19 "error.h"
+typedef int8_t intNumMaxErr_t;
+
+# 26
+void error_job(void);
+
 
 # 31 "main.c"
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
@@ -5999,39 +6015,10 @@ unsigned __a: 7;
 } isr_flag = {0};
 volatile struct _smain smain;
 
-
-enum _FUNMACH
-{
-MACHSTATE_STALL = 0,
-FUNCMACH_NORMAL,
-FUNCMACH_CONFIG
-};
 int8_t funcMach;
 
 int8_t disp_owner;
 int8_t disp_owner_last = -1;
-
-union _errorDispFlag
-{
-struct _errorFlag_flags
-{
-unsigned startSignal:1;
-unsigned oilLevel:1;
-unsigned homeSensor:1;
-unsigned unblockedNozzle:1;
-unsigned inductiveSensorRPM:1;
-unsigned __a:1;
-unsigned __b:1;
-unsigned __c:1;
-
-}f;
-intNumMaxErr_t packed;
-};
-union _errorDispFlag error_requestToWriteDisp;
-union _errorDispFlag error_grantedToWriteDisp;
-
-void errorHandler_queue(void);
-void check_oilLevel(void);
 
 
 enum _LOCK_STATE
@@ -6042,13 +6029,14 @@ LOCKED
 int8_t autoMode_lock = UNLOCKED;
 int8_t checkNewStart =1;
 int8_t checkNoStart;
+int8_t autoMode_toreturn_disp7s=0;
 
 void main(void)
 {
 int8_t c_access_kb=0;
 int8_t c_access_disp=0;
 int8_t START_SIG=0;
-int8_t autoMode_toreturn_disp7s=0;
+
 
 int8_t flushKb;
 static int8_t flushKb_last;
@@ -6095,6 +6083,7 @@ ikb_init();
 disp7s_init();
 pulsonic_init();
 startSignal_init();
+oilLevel_init();
 
 disp_owner = DISPOWNER_AUTOMODE;
 disp_owner_last = -1;
@@ -6126,8 +6115,8 @@ c_access_disp = 0;
 disp7s_job();
 }
 }
+error_job();
 
-# 173
 START_SIG = is_startSignal();
 
 if (funcMach == FUNCMACH_NORMAL)
@@ -6155,7 +6144,7 @@ autoMode_cmd(JOB_STOP);
 }
 }
 
-# 215
+# 185
 if (disp_owner == DISPOWNER_AUTOMODE)
 {
 
@@ -6276,12 +6265,16 @@ autoMode_toreturn_disp7s = 1;
 do{do{LATA &= ~(1<<5);}while(0);}while(0);
 }
 }
+else if (funcMach == FUNCMACH_ERROR)
+{
+ikb_flush();
+}
 
 
 flushMode_job();
 pump_job();
-smain.f.f1ms = 0;
 
+smain.f.f1ms = 0;
 }
 }
 
@@ -6298,85 +6291,93 @@ TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
 }
 }
 
-# 377
-void check_inductiveSensorRPM(void)
+union _errorDispFlag
 {
-static int8_t sm0, sm1;
-if (sm0 == 0)
+struct _errorFlag_flags
 {
-if ( !is_inductiveSensorRPM() )
-{
-error_requestToWriteDisp.f.inductiveSensorRPM = 1;
+unsigned oilLevel:1;
+unsigned homeSensor:1;
+unsigned unblockedNozzle:1;
+unsigned inductiveSensorRPM:1;
+unsigned __a :4;
 
-funcMach = MACHSTATE_STALL;
+
+}f;
+intNumMaxErr_t packed;
+};
+
+static union _errorDispFlag error;
+static union _errorDispFlag error_grantedToWriteDisp;
+static void errorHandler_queue(void);
+static void check_oilLevel(void);
+static void check_inductiveSensorRPM(void);
+
+void error_job(void)
+{
+static intNumMaxErr_t errorPacked_last = -1;
+
+check_oilLevel();
+
+
+errorHandler_queue();
+
+if (errorPacked_last != error.packed)
+{
+errorPacked_last = error.packed;
+
+if (errorPacked_last != 0)
+{
+mpap.mode = MPAP_STALL_MODE;
+pump_stop();
+funcMach = FUNCMACH_ERROR;
 do{do{LATA |= 1<<5;}while(0);}while(0);
-sm0++;
-}
-}
-else if (sm0 == 1)
-{
-
-if ( is_inductiveSensorRPM() )
-{
-error_requestToWriteDisp.f.inductiveSensorRPM = 0;
-sm0 = 0x00;
-sm1 = 0x00;
-
-do{do{LATA &= ~(1<<5);}while(0);}while(0);
-}
-
-
-
-if (error_grantedToWriteDisp.f.inductiveSensorRPM == 1)
-{
-if (sm1 == 0)
-{
-
-sm1++;
-}
 }
 else
 {
-sm1 = 0x0;
-}
+funcMach = FUNCMACH_NORMAL;
+autoMode_lock = UNLOCKED;
+checkNewStart = 1;
+autoMode_toreturn_disp7s = 1;
+
+do{do{LATA &= ~(1<<5);}while(0);}while(0);
 }
 }
 
-void check_oilLevel(void)
+
+}
+
+
+static void check_oilLevel(void)
 {
 static int8_t sm0, sm1;
+
+int8_t oilLevel;
+
+oilLevel= is_oilLevel();
+
 if (sm0 == 0)
 {
-if ( !is_oilLevel() )
+if ( !oilLevel )
 {
-error_requestToWriteDisp.f.oilLevel = 1;
-
-funcMach = MACHSTATE_STALL;
-do{do{LATA |= 1<<5;}while(0);}while(0);
+error.f.oilLevel = 1;
 sm0++;
+sm1 = 0x00;
 }
 }
 else if (sm0 == 1)
 {
-
-if ( is_oilLevel() )
+if ( oilLevel )
 {
-error_requestToWriteDisp.f.oilLevel = 0;
+error.f.oilLevel = 0;
 sm0 = 0x00;
-sm1 = 0x00;
-
-
-do{do{LATA &= ~(1<<5);}while(0);}while(0);
 }
-
-
-
+else
+{
 if (error_grantedToWriteDisp.f.oilLevel == 1)
 {
 if (sm1 == 0)
 {
 disp7s_qtyDisp_writeText_NO_OIL();
-
 sm1++;
 }
 }
@@ -6386,8 +6387,8 @@ sm1 = 0x0;
 }
 }
 }
-
-void errorHandler_queue(void)
+}
+static void errorHandler_queue(void)
 {
 
 
@@ -6401,7 +6402,7 @@ if (sm0 == 0)
 if (++i == 8)
 {i = 0x00;}
 
-is_granted = error_requestToWriteDisp.packed & (1<<i);
+is_granted = error.packed & (1<<i);
 if (is_granted)
 {
 error_grantedToWriteDisp.packed = is_granted;
@@ -6412,7 +6413,7 @@ sm0++;
 }
 else if (sm0 == 1)
 {
-if ( error_requestToWriteDisp.packed & (1<<i) )
+if ( error.packed & (1<<i) )
 {
 if (smain.f.f1ms)
 {
@@ -6429,3 +6430,4 @@ sm0 = 0x00;
 }
 }
 }
+

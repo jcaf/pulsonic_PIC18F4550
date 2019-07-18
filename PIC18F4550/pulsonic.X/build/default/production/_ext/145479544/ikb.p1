@@ -29,8 +29,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v __delay `JF3014 ~T0 @X0 0 e ]
 [p i __delay ]
 "616 ../../../../../../FIRWAR/eslibrary/ikb/ikb.c
-[c E3392 0 1 2 3 4 5 6 7 8 9 10 11 .. ]
-[n E3392 _STAGE_ _STAGE_START_PARSING_ _STAGE_ISKEY_RELEASED_ _STAGE_ISKEY_RELEASED2_ _STAGE_ISKEY_READFROMAPP_ _STAGE_FIREATIMEEXPIRED_ _STAGE_FIREATIMEEXPIRED_2_ _STAGE_ONKEYRELEASED_ _STAGE_WHILEPRESSING_ _STAGE_REPTT_ _STAGE_REPTT_1_ _STAGE_REPTT_2_ _STAGE_END_PARSING_  ]
+[c E3397 0 1 2 3 4 5 6 7 8 9 10 11 .. ]
+[n E3397 _STAGE_ _STAGE_START_PARSING_ _STAGE_ISKEY_RELEASED_ _STAGE_ISKEY_RELEASED2_ _STAGE_ISKEY_READFROMAPP_ _STAGE_FIREATIMEEXPIRED_ _STAGE_FIREATIMEEXPIRED_2_ _STAGE_ONKEYRELEASED_ _STAGE_WHILEPRESSING_ _STAGE_REPTT_ _STAGE_REPTT_1_ _STAGE_REPTT_2_ _STAGE_END_PARSING_  ]
 [; ;xc.h: 18: extern const char __xc8_OPTIM_SPEED;
 [; ;xc.h: 20: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3675,18 +3675,25 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.h: 27: }focus;
 [; ;main.h: 28: };
 [; ;main.h: 29: extern volatile struct _smain smain;
-[; ;main.h: 35: extern int8_t disp_owner;
-[; ;main.h: 36: enum _DISPOWNER_MODE
-[; ;main.h: 37: {
-[; ;main.h: 38: DISPOWNER_AUTOMODE = 0,
-[; ;main.h: 39: DISPOWNER_VISMODE,
-[; ;main.h: 40: DISPOWNER_CONFIGMODE,
-[; ;main.h: 41: };
-[; ;main.h: 43: enum _JOB_CMD
-[; ;main.h: 44: {
-[; ;main.h: 45: JOB_RESTART = 0,
-[; ;main.h: 46: JOB_STOP
+[; ;main.h: 33: enum _FUNMACH
+[; ;main.h: 34: {
+[; ;main.h: 35: FUNCMACH_NORMAL = 0,
+[; ;main.h: 36: FUNCMACH_CONFIG,
+[; ;main.h: 37: FUNCMACH_ERROR
+[; ;main.h: 38: };
+[; ;main.h: 39: extern int8_t funcMach;
+[; ;main.h: 41: extern int8_t disp_owner;
+[; ;main.h: 42: enum _DISPOWNER_MODE
+[; ;main.h: 43: {
+[; ;main.h: 44: DISPOWNER_AUTOMODE = 0,
+[; ;main.h: 45: DISPOWNER_VISMODE,
+[; ;main.h: 46: DISPOWNER_CONFIGMODE,
 [; ;main.h: 47: };
+[; ;main.h: 49: enum _JOB_CMD
+[; ;main.h: 50: {
+[; ;main.h: 51: JOB_RESTART = 0,
+[; ;main.h: 52: JOB_STOP
+[; ;main.h: 53: };
 [; ;ikb.h: 128: void ikb_init(void);
 [; ;ikb.h: 129: void ikb_job(void);
 [; ;ikb.h: 130: void ikb_flush(void);
@@ -3732,9 +3739,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 41: int8_t ikey_is_all_hw_released(void);
 [; ;ikb.c: 42: void ikey_clear_all_flag(void);
 [; ;ikb.c: 43: int8_t ikey_is_all_process_finished(void);
-[v F3344 `(uc ~T0 @X0 1 tf ]
+[v F3349 `(uc ~T0 @X0 1 tf ]
 "196
-[v _keyRead_pin_key0 `TF3344 ~T0 @X0 1 s ]
+[v _keyRead_pin_key0 `TF3349 ~T0 @X0 1 s ]
 "197
 {
 [; ;ikb.c: 196: static inline uint8_t keyRead_pin_key0(void)
@@ -3749,9 +3756,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "199
 [e :UE 372 ]
 }
-[v F3347 `(uc ~T0 @X0 1 tf ]
+[v F3352 `(uc ~T0 @X0 1 tf ]
 "200
-[v _keyRead_pin_key1 `TF3347 ~T0 @X0 1 s ]
+[v _keyRead_pin_key1 `TF3352 ~T0 @X0 1 s ]
 "201
 {
 [; ;ikb.c: 200: static inline uint8_t keyRead_pin_key1(void)
@@ -3766,9 +3773,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "203
 [e :UE 373 ]
 }
-[v F3350 `(uc ~T0 @X0 1 tf ]
+[v F3355 `(uc ~T0 @X0 1 tf ]
 "204
-[v _keyRead_pin_key2 `TF3350 ~T0 @X0 1 s ]
+[v _keyRead_pin_key2 `TF3355 ~T0 @X0 1 s ]
 "205
 {
 [; ;ikb.c: 204: static inline uint8_t keyRead_pin_key2(void)
@@ -3783,9 +3790,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "207
 [e :UE 374 ]
 }
-[v F3353 `(uc ~T0 @X0 1 tf ]
+[v F3358 `(uc ~T0 @X0 1 tf ]
 "208
-[v _keyRead_pin_key3 `TF3353 ~T0 @X0 1 s ]
+[v _keyRead_pin_key3 `TF3358 ~T0 @X0 1 s ]
 "209
 {
 [; ;ikb.c: 208: static inline uint8_t keyRead_pin_key3(void)
@@ -3800,9 +3807,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "211
 [e :UE 375 ]
 }
-[v F3356 `(uc ~T0 @X0 1 tf ]
+[v F3361 `(uc ~T0 @X0 1 tf ]
 "212
-[v _keyRead_pin_key4 `TF3356 ~T0 @X0 1 s ]
+[v _keyRead_pin_key4 `TF3361 ~T0 @X0 1 s ]
 "213
 {
 [; ;ikb.c: 212: static inline uint8_t keyRead_pin_key4(void)
@@ -3864,23 +3871,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 391 ]
 [; ;ikb.c: 396: key[0].keyRead = keyRead_pin_key0;
-[v F3359 `*F3254 ~T0 @X0 1 t ]
+[v F3364 `*F3254 ~T0 @X0 1 t ]
 "396
 [e = . *U + &U _key * -> -> -> 0 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key0 `V*F3254 ]
 [; ;ikb.c: 397: key[1].keyRead = keyRead_pin_key1;
-[v F3360 `*F3254 ~T0 @X0 1 t ]
+[v F3365 `*F3254 ~T0 @X0 1 t ]
 "397
 [e = . *U + &U _key * -> -> -> 1 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key1 `V*F3254 ]
 [; ;ikb.c: 398: key[2].keyRead = keyRead_pin_key2;
-[v F3361 `*F3254 ~T0 @X0 1 t ]
+[v F3366 `*F3254 ~T0 @X0 1 t ]
 "398
 [e = . *U + &U _key * -> -> -> 2 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key2 `V*F3254 ]
 [; ;ikb.c: 399: key[3].keyRead = keyRead_pin_key3;
-[v F3362 `*F3254 ~T0 @X0 1 t ]
+[v F3367 `*F3254 ~T0 @X0 1 t ]
 "399
 [e = . *U + &U _key * -> -> -> 3 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key3 `V*F3254 ]
 [; ;ikb.c: 400: key[4].keyRead = keyRead_pin_key4;
-[v F3363 `*F3254 ~T0 @X0 1 t ]
+[v F3368 `*F3254 ~T0 @X0 1 t ]
 "400
 [e = . *U + &U _key * -> -> -> 4 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key4 `V*F3254 ]
 [; ;ikb.c: 403: key[0].bf.OnKeyPressed = 1;
@@ -4421,7 +4428,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ikb.c: 616: if ( key[k].sm1 == _STAGE_START_PARSING_ )
 "616
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 0 `i 427  ]
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 0 `i 427  ]
 [; ;ikb.c: 617: {
 "617
 {
@@ -4454,7 +4461,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ikb.c: 629: key[k].sm1 = _STAGE_REPTT_;
 "629
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 8 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 8 `uc ]
 "630
 }
 [; ;ikb.c: 630: }
@@ -4467,7 +4474,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ikb.c: 633: key[k].sm1 = _STAGE_ISKEY_RELEASED_;
 "633
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 1 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 1 `uc ]
 "634
 }
 [e :U 432 ]
@@ -4485,7 +4492,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ikb.c: 638: key[k].sm1 = _STAGE_ONKEYRELEASED_;
 "638
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 6 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 6 `uc ]
 "639
 }
 [; ;ikb.c: 639: }
@@ -4499,7 +4506,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ikb.c: 642: key[k].sm1 = _STAGE_WHILEPRESSING_;
 "642
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 7 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 7 `uc ]
 "643
 }
 [; ;ikb.c: 643: }
@@ -4513,7 +4520,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ikb.c: 646: key[k].sm1 = _STAGE_FIREATIMEEXPIRED_;
 "646
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 4 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 4 `uc ]
 "647
 }
 [; ;ikb.c: 647: }
@@ -4527,7 +4534,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ikb.c: 650: key[k].sm1 = _STAGE_FIREATIMEEXPIRED_2_;
 "650
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 5 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 5 `uc ]
 "651
 }
 [e :U 440 ]
@@ -4569,7 +4576,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 667: }
 [; ;ikb.c: 671: if ( (key[k].sm1 >= _STAGE_REPTT_ ) && (key[k].sm1 <= _STAGE_REPTT_2_))
 "671
-[e $ ! && >= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 8 `i <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 10 `i 442  ]
+[e $ ! && >= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 8 `i <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 10 `i 442  ]
 [; ;ikb.c: 672: {
 "672
 {
@@ -4584,7 +4591,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
 [; ;ikb.c: 676: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 "676
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 3 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 3 `uc ]
 "677
 }
 [e :U 443 ]
@@ -4595,7 +4602,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 678: }
 [; ;ikb.c: 680: if (key[k].sm1 == _STAGE_REPTT_ )
 "680
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 8 `i 444  ]
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 8 `i 444  ]
 [; ;ikb.c: 681: {
 "681
 {
@@ -4610,7 +4617,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
 [; ;ikb.c: 685: key[k].sm1 = _STAGE_REPTT_1_;
 "685
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 9 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 9 `uc ]
 "686
 }
 [e :U 445 ]
@@ -4621,7 +4628,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 687: }
 [; ;ikb.c: 688: if (key[k].sm1 == _STAGE_REPTT_1_)
 "688
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 9 `i 446  ]
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 9 `i 446  ]
 [; ;ikb.c: 689: {
 "689
 {
@@ -4636,7 +4643,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
 [; ;ikb.c: 693: key[k].sm1 = _STAGE_REPTT_2_;
 "693
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 10 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 10 `uc ]
 "694
 }
 [e :U 447 ]
@@ -4647,7 +4654,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 695: }
 [; ;ikb.c: 696: if (key[k].sm1 == _STAGE_REPTT_2_)
 "696
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 10 `i 448  ]
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 10 `i 448  ]
 [; ;ikb.c: 697: {
 "697
 {
@@ -4662,7 +4669,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
 [; ;ikb.c: 701: key[k].sm1 = _STAGE_REPTT_1_;
 "701
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 9 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 9 `uc ]
 "702
 }
 [e :U 449 ]
@@ -4673,7 +4680,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 703: }
 [; ;ikb.c: 705: if (key[k].sm1 == _STAGE_ONKEYRELEASED_ )
 "705
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 6 `i 450  ]
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 6 `i 450  ]
 [; ;ikb.c: 706: {
 "706
 {
@@ -4688,7 +4695,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
 [; ;ikb.c: 710: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 "710
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 3 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 3 `uc ]
 "711
 }
 [e :U 451 ]
@@ -4699,7 +4706,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 712: }
 [; ;ikb.c: 713: if (key[k].sm1 == _STAGE_WHILEPRESSING_ )
 "713
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 7 `i 452  ]
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 7 `i 452  ]
 [; ;ikb.c: 714: {
 "714
 {
@@ -4708,14 +4715,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
 [; ;ikb.c: 716: key[k].sm1 = _STAGE_ISKEY_RELEASED2_;
 "716
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 2 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 2 `uc ]
 "717
 }
 [e :U 452 ]
 [; ;ikb.c: 717: }
 [; ;ikb.c: 719: if (key[k].sm1 == _STAGE_FIREATIMEEXPIRED_ )
 "719
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 4 `i 453  ]
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 4 `i 453  ]
 [; ;ikb.c: 720: {
 "720
 {
@@ -4745,7 +4752,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 8 -> -> 0 `i `uc ]
 [; ;ikb.c: 732: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 "732
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 3 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 3 `uc ]
 "733
 }
 [e :U 455 ]
@@ -4777,7 +4784,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ikb.c: 745: key[k].sm1 = _STAGE_ISKEY_RELEASED_;
 "745
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 1 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 1 `uc ]
 "746
 }
 [; ;ikb.c: 746: }
@@ -4790,7 +4797,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ikb.c: 749: key[k].sm1 = _STAGE_REPTT_2_;
 "749
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 10 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 10 `uc ]
 "750
 }
 [e :U 458 ]
@@ -4805,7 +4812,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 752: }
 [; ;ikb.c: 757: if (key[k].sm1 == _STAGE_FIREATIMEEXPIRED_2_)
 "757
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 5 `i 459  ]
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 5 `i 459  ]
 [; ;ikb.c: 758: {
 "758
 {
@@ -4835,7 +4842,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 8 -> -> 0 `i `uc ]
 [; ;ikb.c: 770: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 "770
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 3 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 3 `uc ]
 "771
 }
 [e :U 461 ]
@@ -4861,7 +4868,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 8 -> -> 1 `i `uc ]
 [; ;ikb.c: 783: key[k].sm1 = _STAGE_ISKEY_RELEASED2_;
 "783
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 2 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 2 `uc ]
 "784
 }
 [e :U 462 ]
@@ -4872,7 +4879,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 785: }
 [; ;ikb.c: 788: if (key[k].sm1 == _STAGE_ISKEY_RELEASED_)
 "788
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 1 `i 463  ]
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 1 `i 463  ]
 [; ;ikb.c: 789: {
 "789
 {
@@ -4884,7 +4891,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ikb.c: 792: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 "792
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 3 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 3 `uc ]
 "793
 }
 [e :U 464 ]
@@ -4895,7 +4902,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 794: }
 [; ;ikb.c: 796: if (key[k].sm1 == _STAGE_ISKEY_RELEASED2_)
 "796
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 2 `i 465  ]
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 2 `i 465  ]
 [; ;ikb.c: 797: {
 "797
 {
@@ -4910,7 +4917,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 0 `i `uc ]
 [; ;ikb.c: 801: key[k].sm1 = _STAGE_END_PARSING_;
 "801
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 11 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 11 `uc ]
 "802
 }
 [e :U 466 ]
@@ -4921,7 +4928,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 803: }
 [; ;ikb.c: 805: if (key[k].sm1 == _STAGE_ISKEY_READFROMAPP_)
 "805
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 3 `i 467  ]
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 3 `i 467  ]
 [; ;ikb.c: 806: {
 "806
 {
@@ -4933,7 +4940,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ikb.c: 809: key[k].sm1 = _STAGE_END_PARSING_;
 "809
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 11 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 11 `uc ]
 "810
 }
 [e :U 468 ]
@@ -4944,7 +4951,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 811: }
 [; ;ikb.c: 813: if (key[k].sm1 == _STAGE_END_PARSING_)
 "813
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3392 11 `i 469  ]
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E3397 11 `i 469  ]
 [; ;ikb.c: 814: {
 "814
 {
@@ -4966,7 +4973,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ikb.c: 819: }
 [; ;ikb.c: 821: key[k].sm1 = _STAGE_START_PARSING_;
 "821
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3392 0 `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E3397 0 `uc ]
 [; ;ikb.c: 824: key[k].bf.InProcessing = 0;
 "824
 [e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 10 -> -> 0 `i `uc ]

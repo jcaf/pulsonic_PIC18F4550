@@ -17,6 +17,7 @@
       <itemPath>flushMode.h</itemPath>
       <itemPath>visMode.h</itemPath>
       <itemPath>autoMode.h</itemPath>
+      <itemPath>error.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -37,6 +38,7 @@
       <itemPath>flushMode.c</itemPath>
       <itemPath>visMode.c</itemPath>
       <itemPath>autoMode.c</itemPath>
+      <itemPath>error.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

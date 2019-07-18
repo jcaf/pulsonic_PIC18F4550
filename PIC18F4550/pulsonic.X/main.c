@@ -26,7 +26,7 @@
 #include "visMode.h"
 #include "configMode.h"
 #include "flushMode.h"
-
+#include "error.h"
 
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
@@ -37,41 +37,12 @@ volatile struct _isr_flag
     unsigned __a: 7;
 } isr_flag = {0};
 volatile struct _smain smain;
- 
 
-enum _FUNMACH
-{
-    MACHSTATE_STALL = 0,
-    FUNCMACH_NORMAL,
-    FUNCMACH_CONFIG
-};
 int8_t funcMach;
 
 int8_t disp_owner;
 int8_t disp_owner_last = -1;
-////////////////////////////////////////////////////////////////////////////////
-union _errorDispFlag
-{
-    struct _errorFlag_flags
-    {
-        unsigned startSignal:1;
-        unsigned oilLevel:1;
-        unsigned homeSensor:1;
-        unsigned unblockedNozzle:1;
-        unsigned inductiveSensorRPM:1;
-        unsigned __a:1;
-        unsigned __b:1;
-        unsigned __c:1;
-        //si es mas de 8 - > modificar NUMMAX_ERRORS.. maximo 16
-    }f;
-    intNumMaxErr_t packed;
-};
-union _errorDispFlag error_requestToWriteDisp;//senala requiere el display
-union _errorDispFlag error_grantedToWriteDisp;//aqui el tiene el permiso en la misma ubicacion
 
-void errorHandler_queue(void);
-void check_oilLevel(void);
-////////////////////////////////////////////////////////////////////////
                     
 enum _LOCK_STATE
 {
@@ -81,13 +52,14 @@ enum _LOCK_STATE
 int8_t autoMode_lock = UNLOCKED;
 int8_t checkNewStart =1;
 int8_t checkNoStart;
+int8_t autoMode_toreturn_disp7s=0;
 
 void main(void) 
 {
     int8_t c_access_kb=0;
     int8_t c_access_disp=0;
     int8_t START_SIG=0;
-    int8_t autoMode_toreturn_disp7s=0;
+    
     //
     int8_t flushKb;
     static int8_t flushKb_last;
@@ -134,6 +106,7 @@ void main(void)
     disp7s_init();
     pulsonic_init();
     startSignal_init();
+    oilLevel_init();
     //
     disp_owner = DISPOWNER_AUTOMODE;
     disp_owner_last = -1;
@@ -165,11 +138,8 @@ void main(void)
                 disp7s_job();
             }
         }
+        error_job();
         
-        //+--------------------------
-        //check_oilLevel();
-        //errorHandler_queue();
-        //+--------------------------
         START_SIG = is_startSignal();
         
         if (funcMach == FUNCMACH_NORMAL)
@@ -332,15 +302,19 @@ void main(void)
                 RELAY_ENABLE();
             }
         }
+        else if (funcMach == FUNCMACH_ERROR)
+        {
+            ikb_flush();
+        }
         
-        //////////
+        //
         flushMode_job();
         pump_job();
+        
         smain.f.f1ms = 0;
-        //ikb_flush();//->c/ps es responsable de limpiar su buffer de teclado
     }
 }
-////////////////////////////////////////////////////////////////////////////////
+
 void interrupt INTERRUPCION(void)//@1ms 
 {
     if (TMR0IF)
@@ -353,116 +327,105 @@ void interrupt INTERRUPCION(void)//@1ms
         TMR0L = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256));
     }
 }
-////////////////////////////////////////////////////////////////////////////////
-/*
-void error_man(void)
+
+union _errorDispFlag
 {
-    if (error !=last)
+    struct _errorFlag_flags
     {
-        error = last;   
+        unsigned oilLevel:1;
+        unsigned homeSensor:1;
+        unsigned unblockedNozzle:1;
+        unsigned inductiveSensorRPM:1;
+        unsigned __a :4;
+        
+        //si es mas de 8 - > modificar NUMMAX_ERRORS.. maximo 16
+    }f;
+    intNumMaxErr_t packed;
+};
+
+static union _errorDispFlag error;
+static union _errorDispFlag error_grantedToWriteDisp;//aqui el tiene el permiso en la misma ubicacion
+static void errorHandler_queue(void);
+static void check_oilLevel(void);
+static void check_inductiveSensorRPM(void);
+
+void error_job(void)
+{
+    static intNumMaxErr_t errorPacked_last = -1;
     
-        if (error =! 0)
+    check_oilLevel();
+    //check_inductiveSensorRPM();
+    //check_unblocked_nozzle();
+    errorHandler_queue();
+    
+    if (errorPacked_last != error.packed)
+    {
+        errorPacked_last = error.packed;   
+    
+        if (errorPacked_last != 0)
         {
-            //pone el sistema en modo STALL
+            mpap.mode = MPAP_STALL_MODE;
+            pump_stop();
+            funcMach = FUNCMACH_ERROR;
+            RELAY_DISABLE();
         }
         else
         {
-            //pone el sistema en modo RUNNING
+            funcMach = FUNCMACH_NORMAL;
+            autoMode_lock = UNLOCKED;
+            checkNewStart = 1;
+            autoMode_toreturn_disp7s = 1;
+            //
+            RELAY_ENABLE();
         }
     }
-    //
+    
+    
 }
 
-  */
-void check_inductiveSensorRPM(void)
-{
-	static int8_t sm0, sm1;
-	if (sm0 == 0)
-	{
-		if ( !is_inductiveSensorRPM() )
-		{
-			error_requestToWriteDisp.f.inductiveSensorRPM = 1;//request write
-            //
-            funcMach = MACHSTATE_STALL;
-            RELAY_DISABLE();
-			sm0++;
-		}	
-	}
-	else if (sm0 == 1) //2 parts: the process and the display
-	{
-		//1)the process
-        if ( is_inductiveSensorRPM() )
-		{
-            error_requestToWriteDisp.f.inductiveSensorRPM = 0;//kill signal queue
-            sm0 = 0x00;
-            sm1 = 0x00;
-            //
-            RELAY_ENABLE();
-		}
-		/*else{}*/
-		
-        //2) need to write on display
-        if (error_grantedToWriteDisp.f.inductiveSensorRPM == 1)
-        {
-            if (sm1 == 0)
-            {
-                //disp7s_qtyDisp_writeText_NO_OIL();
-                sm1++;
-            }
-        }
-        else
-        {
-            sm1 = 0x0;
-        }
-	}
-}
 ////////////////////////////////////////////////////////////////////////////////
-void check_oilLevel(void)
+static void check_oilLevel(void)
 {
 	static int8_t sm0, sm1;
+    
+    int8_t oilLevel;
+    
+    oilLevel= is_oilLevel();
+    
 	if (sm0 == 0)
 	{
-		if ( !is_oilLevel() )
+		if ( !oilLevel )
 		{
-			error_requestToWriteDisp.f.oilLevel = 1;//request write
-            //
-            funcMach = MACHSTATE_STALL;
-            RELAY_DISABLE();
+			error.f.oilLevel = 1;                                               //request write
 			sm0++;
+            sm1 = 0x00;
 		}	
 	}
-	else if (sm0 == 1) //2 parts: the process and the display
+	else if (sm0 == 1)                                                          //2 parts: the process and the display
 	{
-		//1)the process
-        if ( is_oilLevel() )
+        if ( oilLevel )                                                         //1)the process
 		{
-            error_requestToWriteDisp.f.oilLevel = 0;//kill signal queue
+            error.f.oilLevel = 0; 
             sm0 = 0x00;
-            sm1 = 0x00;
-            //
-            //ps_autoMode_start();
-            RELAY_ENABLE();
 		}
-		/*else{}*/
-		
-        //2) need to write on display
-        if (error_grantedToWriteDisp.f.oilLevel == 1)
-        {
-            if (sm1 == 0)
-            {
-                disp7s_qtyDisp_writeText_NO_OIL();
-                
-                sm1++;
-            }
-        }
         else
         {
-            sm1 = 0x0;
+            if (error_grantedToWriteDisp.f.oilLevel == 1)                           //2) need to write on display
+            {
+                if (sm1 == 0)
+                {
+                    disp7s_qtyDisp_writeText_NO_OIL();
+                    sm1++;
+                }
+            }
+            else
+            {
+                sm1 = 0x0;
+            }
         }
 	}
 }
-
-void errorHandler_queue(void)
+static void errorHandler_queue(void)
 {
     #define ERROR_QUEUE_OWNER_DISP_TIME 2000//2000*1mS
     
@@ -476,7 +439,7 @@ void errorHandler_queue(void)
         if (++i == NUMMAX_ERRORS)
             {i = 0x00;}
         //
-        is_granted = error_requestToWriteDisp.packed & (1<<i);
+        is_granted = error.packed & (1<<i);
         if (is_granted)
         {
             error_grantedToWriteDisp.packed = is_granted;//solo 1 tiene el permiso
@@ -487,7 +450,7 @@ void errorHandler_queue(void)
     }
     else if (sm0 == 1)
     {
-        if ( error_requestToWriteDisp.packed & (1<<i) )//aun se mantiene?
+        if ( error.packed & (1<<i) )//aun se mantiene?
         {
             if (smain.f.f1ms)
             {
@@ -504,3 +467,4 @@ void errorHandler_queue(void)
         }
     }
 }
+

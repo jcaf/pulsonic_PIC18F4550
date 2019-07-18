@@ -8,19 +8,14 @@
 #ifndef INPUTS_H
 #define	INPUTS_H
 
-/*NumMax can be 8 or 16 */
-#define NUMMAX_ERRORS 8//16
 
-#if NUMMAX_ERRORS == 8
-    typedef int8_t intNumMaxErr_t;
-#elif NUMMAX_ERRORS == 16
-    typedef int16_t intNumMaxErr_t
-#else
-    #error NumMax can be 8 or 16
-#endif
     void startSignal_init(void);
     int8_t is_startSignal(void);
+    
+    void oilLevel_init(void);
     int8_t is_oilLevel(void);
+
+
     int8_t is_homeSensor(void);
     int8_t is_unblockedNozzle(int8_t nozzle);
     int8_t is_inductiveSensorRPM(void);

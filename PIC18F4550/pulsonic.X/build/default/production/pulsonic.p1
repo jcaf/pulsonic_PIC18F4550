@@ -3661,18 +3661,25 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.h: 27: }focus;
 [; ;main.h: 28: };
 [; ;main.h: 29: extern volatile struct _smain smain;
-[; ;main.h: 35: extern int8_t disp_owner;
-[; ;main.h: 36: enum _DISPOWNER_MODE
-[; ;main.h: 37: {
-[; ;main.h: 38: DISPOWNER_AUTOMODE = 0,
-[; ;main.h: 39: DISPOWNER_VISMODE,
-[; ;main.h: 40: DISPOWNER_CONFIGMODE,
-[; ;main.h: 41: };
-[; ;main.h: 43: enum _JOB_CMD
-[; ;main.h: 44: {
-[; ;main.h: 45: JOB_RESTART = 0,
-[; ;main.h: 46: JOB_STOP
+[; ;main.h: 33: enum _FUNMACH
+[; ;main.h: 34: {
+[; ;main.h: 35: FUNCMACH_NORMAL = 0,
+[; ;main.h: 36: FUNCMACH_CONFIG,
+[; ;main.h: 37: FUNCMACH_ERROR
+[; ;main.h: 38: };
+[; ;main.h: 39: extern int8_t funcMach;
+[; ;main.h: 41: extern int8_t disp_owner;
+[; ;main.h: 42: enum _DISPOWNER_MODE
+[; ;main.h: 43: {
+[; ;main.h: 44: DISPOWNER_AUTOMODE = 0,
+[; ;main.h: 45: DISPOWNER_VISMODE,
+[; ;main.h: 46: DISPOWNER_CONFIGMODE,
 [; ;main.h: 47: };
+[; ;main.h: 49: enum _JOB_CMD
+[; ;main.h: 50: {
+[; ;main.h: 51: JOB_RESTART = 0,
+[; ;main.h: 52: JOB_STOP
+[; ;main.h: 53: };
 [; ;nozzle.h: 16: extern double NOZZLE_QTY_DIFF;
 [; ;nozzle.h: 18: int8_t nozzle_isEnabled(int n);
 [; ;display.h: 48: void disp7s_qtyDisp_writeFloat(float num);

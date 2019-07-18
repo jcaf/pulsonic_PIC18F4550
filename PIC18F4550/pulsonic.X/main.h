@@ -30,7 +30,13 @@
     
     #define myitoa(_integer_, _buffer_, _base_) itoa(_buffer_, _integer_, _base_)
 
-//    
+    enum _FUNMACH
+    {
+        FUNCMACH_NORMAL = 0,
+        FUNCMACH_CONFIG,
+        FUNCMACH_ERROR
+    };
+    extern int8_t funcMach;
     
     extern int8_t disp_owner;
     enum _DISPOWNER_MODE

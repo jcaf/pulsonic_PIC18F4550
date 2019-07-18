@@ -145,10 +145,12 @@ void mpap_job(void)
         cod_ret = mpap_homming();
         if (cod_ret == 1)
         {
+            mpap_off();
             mpap.mode = MPAP_STALL_MODE;
         }
         else if (cod_ret == 2)
         {
+            mpap_off();
             mpap.mode = MPAP_STALL_MODE;
             
             pulsonic.errors.flag.mpap_home_sensor = 1;

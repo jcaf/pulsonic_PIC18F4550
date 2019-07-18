@@ -147,6 +147,9 @@ static int8_t configMode_kb(void)
         (ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_MINUS)==KB_AFTER_THR) &&
         ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
     {
+         ikb_key_was_read(KB_LYOUT_KEY_PLUS);
+            ikb_key_was_read(KB_LYOUT_KEY_MINUS);
+                //
         cod_ret = 1;
     }
     //---------+

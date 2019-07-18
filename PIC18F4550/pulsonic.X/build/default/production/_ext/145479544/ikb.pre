@@ -5799,7 +5799,16 @@ int8_t disp;
 };
 extern volatile struct _smain smain;
 
-# 35
+
+
+enum _FUNMACH
+{
+FUNCMACH_NORMAL = 0,
+FUNCMACH_CONFIG,
+FUNCMACH_ERROR
+};
+extern int8_t funcMach;
+
 extern int8_t disp_owner;
 enum _DISPOWNER_MODE
 {

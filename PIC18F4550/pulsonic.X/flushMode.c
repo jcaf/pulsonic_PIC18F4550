@@ -28,6 +28,7 @@ void flushMode_cmd(int8_t cmd)
     {
         flushMode.sm0 = 0;
         mpap.mode = MPAP_STALL_MODE;
+        pump_stop();
     }
 }
 
