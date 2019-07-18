@@ -16,21 +16,14 @@ void configMode_init(int8_t numRegistro)
     configMode.numRegistro = numRegistro;
     configMode.disp7s_accessReq = 1;//ingresa mostrando en numRegistro
 }
-/*
- * proceso
- * keyboard
- * displayer
- */
+
 static int8_t configMode_kb(void);
 
 int8_t configMode_job(void)
 {
     int8_t cod_ret = 0;
     
-    if (smain.focus.kb == FOCUS_KB_CONFIGMODE)
-    {
-        cod_ret = configMode_kb();
-    }
+    cod_ret = configMode_kb();
     
     if ( configMode.disp7s_accessReq == 1)
     {
@@ -49,7 +42,7 @@ static int8_t configMode_kb(void)
     
     if (ikb_key_is_ready2read(KB_LYOUT_KEY_UP))
     {
-        ikb_key_was_read(KB_LYOUT_KEY_UP);
+        //ikb_key_was_read(KB_LYOUT_KEY_UP);
         //
         if (++configMode.numRegistro >= CONFIGMODE_NUMMAX_REGISTROS)
         {
@@ -58,10 +51,9 @@ static int8_t configMode_kb(void)
         configMode.disp7s_accessReq = 1;
         
     }
-
-    if (ikb_key_is_ready2read(KB_LYOUT_KEY_DOWN))
+    else if (ikb_key_is_ready2read(KB_LYOUT_KEY_DOWN))
     {
-        ikb_key_was_read(KB_LYOUT_KEY_DOWN);
+        //ikb_key_was_read(KB_LYOUT_KEY_DOWN);
         //
         if (--configMode.numRegistro < 0)
         {
@@ -69,6 +61,8 @@ static int8_t configMode_kb(void)
         }
         configMode.disp7s_accessReq = 1;
     }
+    ikb_key_was_read(KB_LYOUT_KEY_UP);
+    ikb_key_was_read(KB_LYOUT_KEY_DOWN);
     
     if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_PLUS)==KB_BEFORE_THR) &&
         ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS))

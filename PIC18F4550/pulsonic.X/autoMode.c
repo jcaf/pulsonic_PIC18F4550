@@ -7,26 +7,33 @@
 #include "ikb/ikb.h"
 #include "flushMode.h"
 
-struct _ps ps_autoMode;
-
 static struct _autoMode
 {
     int8_t numNozzle;   //current nozzle position
     int8_t sm0;
 }autoMode;
 
-
-void autoMode_init(int8_t init)
+void autoMode_disp7s_writeSumTotal(void)
 {
     if (disp_owner == DISPOWNER_AUTOMODE)
     {
         disp7s_modeDisp_off();
         disp7s_qtyDisp_writeFloat( pulsonic_getTotalSum_mlh() );
     }
-    if (init == AUTOMODE_INIT_RESTART)
+}
+void autoMode_cmd(int8_t cmd)
+{
+    if (cmd == JOB_RESTART)
     {
         autoMode.numNozzle = 0x0;
-        autoMode.sm0 = 0x0;
+        autoMode.sm0 = 0x1;
+        mpap.mode = MPAP_STALL_MODE;
+    }
+    else if (cmd == JOB_STOP)
+    {
+        autoMode.sm0 = 0;
+        mpap.mode = MPAP_STALL_MODE;
+        pump_stop();
     }
 }
 
@@ -34,10 +41,10 @@ void autoMode_job(void)
 {
     static uint16_t c_ms;
     static uint16_t c_min;
-    
-    if (ps_autoMode.unlock.ps)
+
+    if (autoMode.sm0 >0)
     {
-        if (autoMode.sm0 == 0)
+        if (autoMode.sm0 == 1)
         {
             if (mpap_isIdle())
             {
@@ -45,7 +52,7 @@ void autoMode_job(void)
                 autoMode.sm0++;
             }
         }
-        else if (autoMode.sm0 == 1)
+        else if (autoMode.sm0 == 2)
         {
             if (mpap_isIdle())
             {
@@ -53,7 +60,7 @@ void autoMode_job(void)
             }
         }
         /* Distribute oil */
-        else if (autoMode.sm0 == 2)
+        else if (autoMode.sm0 == 3)
         {
             if (nozzle_isEnabled(autoMode.numNozzle))
             {
@@ -64,7 +71,7 @@ void autoMode_job(void)
             if (++autoMode.numNozzle == NOZZLE_NUMMAX)
                 {autoMode.numNozzle = 0x00;}
         }
-        else if (autoMode.sm0 == 3)
+        else if (autoMode.sm0 == 4)
         {
             if (mpap_isIdle())
             {
@@ -72,14 +79,16 @@ void autoMode_job(void)
                 autoMode.sm0++;
             }
         }
-        else if (autoMode.sm0 == 4)
+        else if (autoMode.sm0 == 5)
         {
             if (pump_isIdle())
             {
                 autoMode.sm0++;
+                c_ms = 0x00;
+                c_min = 0x00;
             }
         }
-        else if (autoMode.sm0 == 5)
+        else if (autoMode.sm0 == 6)
         {
             if (smain.f.f1ms)
             {
@@ -89,12 +98,10 @@ void autoMode_job(void)
                     //if (++c_min >= 2)
                     {
                         c_min = 0x00;
-                        autoMode.sm0 = 0x2;
+                        autoMode.sm0 = 0x3;
                     }
                 }
             }
-
         }
     }
-    
 }

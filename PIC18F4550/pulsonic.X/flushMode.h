@@ -12,11 +12,6 @@
 void flushMode_cmd(int8_t cmd);
 void flushMode_job(void);
 
-enum _FLUSH_CMD
-{
-    FLUSH_CMD_RESTART = 0,
-    FLUSH_CMD_STOP
-};
 
 #ifdef	__cplusplus
 extern "C" {

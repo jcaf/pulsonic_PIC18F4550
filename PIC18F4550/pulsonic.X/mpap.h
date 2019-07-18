@@ -27,7 +27,7 @@
     
     #define MPAP_NUMSTEP_1NOZZLE 200//200 steps to move to 1 nozzle
     
-    int8_t mpap_job(void);
+    void mpap_job(void);
     void mpap_setupToHomming(void);
     void mpap_setupToTurn(int16_t numSteps_tomove);    
     void mpap_movetoNozzle(int8_t n);//0..NOZZLE_NUMMAX-1

@@ -1,9 +1,46 @@
 #include "main.h"
+//1=Not Signal(pull-up), 0=Signal present!
+//return !PinRead(PORTRxSTARTSIGNAL, PINxSTARTSIGNAL);
+static int8_t c;
+static int8_t S;
+static int8_t sVar;
+static int8_t sm0;
+
+void startSignal_init(void)
+{
+    sVar = !PinRead(PORTRxSTARTSIGNAL, PINxSTARTSIGNAL);
+    S = sVar;
+}
 
 int8_t is_startSignal(void)
 {
-    //1=Not Signal(pull-up), 0=Signal present!
-    return !PinRead(PORTRxSTARTSIGNAL, PINxSTARTSIGNAL);
+    
+    int8_t s;
+    
+    if  (sm0 == 0)
+    {
+        s = !PinRead(PORTRxSTARTSIGNAL, PINxSTARTSIGNAL);
+        if (sVar != s)
+        {
+            sVar = s;
+            sm0++;
+        }
+    }
+    else if (sm0 == 1)
+    {
+        if (smain.f.f1ms)
+        {
+            if (++c == 20)//20 ms
+            {
+                c=0x0;
+                s = !PinRead(PORTRxSTARTSIGNAL, PINxSTARTSIGNAL);
+                if (sVar == s)
+                    {S = sVar;}
+                sm0 = 0x00;
+            }
+        }
+    }
+    return S;
 }
 int8_t is_oilLevel(void)
 {

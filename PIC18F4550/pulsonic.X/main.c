@@ -38,14 +38,6 @@ volatile struct _isr_flag
 } isr_flag = {0};
 volatile struct _smain smain;
  
-struct _unlock
-{
-    unsigned kb:1;
-    unsigned autoMode:1;
-    unsigned visMode:1;
-    unsigned __a:5;
-};
-struct _unlock unlock;
 
 enum _FUNMACH
 {
@@ -55,8 +47,8 @@ enum _FUNMACH
 };
 int8_t funcMach;
 
-int8_t disp_owner = DISPOWNER_AUTOMODE;
-
+int8_t disp_owner;
+int8_t disp_owner_last = -1;
 ////////////////////////////////////////////////////////////////////////////////
 union _errorDispFlag
 {
@@ -78,25 +70,24 @@ union _errorDispFlag error_requestToWriteDisp;//senala requiere el display
 union _errorDispFlag error_grantedToWriteDisp;//aqui el tiene el permiso en la misma ubicacion
 
 void errorHandler_queue(void);
-
-void check_startSignal(void);
 void check_oilLevel(void);
 ////////////////////////////////////////////////////////////////////////
-void ps_autoMode_start(void)
+                    
+enum _LOCK_STATE
 {
-    unlock.autoMode = 1;
-    unlock.visMode = 0;
-    autoMode_init(AUTOMODE_INIT_RESTART);
-    smain.focus.kb = FOCUS_KB_AUTOMODE;
-    disp_owner = DISPOWNER_AUTOMODE;
-    funcMach = FUNCMACH_NORMAL;
-    //
-    ikb_flush();
-}
+    UNLOCKED = 0,
+    LOCKED
+};
+int8_t autoMode_lock = UNLOCKED;
+int8_t checkNewStart =1;
+int8_t checkNoStart;
+
 void main(void) 
 {
     int8_t c_access_kb=0;
     int8_t c_access_disp=0;
+    int8_t START_SIG=0;
+    int8_t autoMode_toreturn_disp7s=0;
     //
     int8_t flushKb;
     static int8_t flushKb_last;
@@ -118,7 +109,11 @@ void main(void)
     TMR0H = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256) >> 8);//TMR0H = (uint8_t)(TMR16B_OVF(2e-3, 256) >> 8);
     TMR0L = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256));//TMR0L = (uint8_t)(TMR16B_OVF(2e-3, 256));
     TMR0IE = 1;
+    
     //.....
+    RELAY_ENABLE();
+    ConfigOutputPin(CONFIGIOxRELAY, PINxRELAY);
+    
     PUMP_DISABLE();
     ConfigOutputPin(CONFIGIOxPUMP, PINxPUMP);
     
@@ -138,24 +133,21 @@ void main(void)
     ikb_init();
     disp7s_init();
     pulsonic_init();
-    
-    
-    autoMode_init(AUTOMODE_INIT_RESTART);
-    smain.focus.kb = FOCUS_KB_AUTOMODE;
+    startSignal_init();
+    //
     disp_owner = DISPOWNER_AUTOMODE;
-
+    disp_owner_last = -1;
+    autoMode_lock = UNLOCKED;
+    checkNewStart = 1;
+    checkNoStart =1;
     funcMach = FUNCMACH_NORMAL;
-    //machState = MACHSTATE_STALL;
-    
-    ps_autoMode.unlock.kb = 1;
-    ps_autoMode.unlock.disp = 1;
-    ps_autoMode.unlock.ps = 1;
-    
-    
+    //
+    mpap.mode = MPAP_STALL_MODE;
+    //
     GIE = 1;
     while(1)
     {
-        if (isr_flag.f1ms)//sync para toda la pasada
+        if (isr_flag.f1ms)
         {
             isr_flag.f1ms = 0;
             smain.f.f1ms = 1;
@@ -175,15 +167,75 @@ void main(void)
         }
         
         //+--------------------------
-        //check_startSignal();
         //check_oilLevel();
         //errorHandler_queue();
         //+--------------------------
+        START_SIG = is_startSignal();
+        
         if (funcMach == FUNCMACH_NORMAL)
         {
-            autoMode_job();//---> solo el depende del start.. nada
-            visMode_job();
-            //
+            if (autoMode_lock == UNLOCKED)
+            {
+                if (START_SIG == 1)
+                {
+                    if (checkNewStart)
+                    {
+                        checkNewStart = 0;
+                        checkNoStart =1;
+                        //
+                        autoMode_cmd(JOB_RESTART);
+                    }
+                }
+                else if (START_SIG == 0)
+                {
+                    if (checkNoStart)
+                    {
+                        checkNoStart = 0;
+                        checkNewStart = 1;
+                        //
+                        autoMode_cmd(JOB_STOP);
+                    }
+                }
+                //
+                /*
+                if (disp_owner_last != disp_owner)
+                {
+                    disp_owner_last = disp_owner;
+                    
+                    if (disp_owner_last == DISPOWNER_AUTOMODE)
+                    {
+                        if (START_SIG == 1 )
+                            autoMode_disp7s_writeSumTotal();
+                        else if (START_SIG == 0)
+                            disp7s_qtyDisp_writeText_20_3RAYAS();
+                    }
+                }
+                */
+                //esto es automatico
+                if (disp_owner == DISPOWNER_AUTOMODE)
+                {
+                    //ha habido un cambio y debe ser atendido
+                    if (START_SIG == 1 )
+                        autoMode_disp7s_writeSumTotal();
+                    else if (START_SIG == 0)
+                        disp7s_qtyDisp_writeText_20_3RAYAS();
+                }
+                
+                //bajo demanda
+                if (autoMode_toreturn_disp7s)
+                {
+                    autoMode_toreturn_disp7s = 0;
+
+                    disp_owner = DISPOWNER_AUTOMODE;
+
+                    if (START_SIG == 1 )
+                            autoMode_disp7s_writeSumTotal();
+                        else if (START_SIG == 0)
+                            disp7s_qtyDisp_writeText_20_3RAYAS();
+                }
+                //
+                autoMode_job();
+            }
 
             /* keyboard*/
             flushKb = ikb_key_is_ready2read(KB_LYOUT_KEY_ENTER_F);
@@ -191,49 +243,54 @@ void main(void)
             {
                 if (flushKb)
                 {
-                    flushMode_cmd(FLUSH_CMD_RESTART);
+                    autoMode_lock = LOCKED;
+                    flushMode_cmd(JOB_RESTART);
                 }
                 else
                 {
-                    flushMode_cmd(FLUSH_CMD_STOP);
-                    //
-                    /*if disp_owner hold the current*/
-                    autoMode_init(AUTOMODE_INIT_RESTART);
+                    flushMode_cmd(JOB_STOP);
+
+                    /* disp_owner hold the current*/
+                    
+                    autoMode_lock = UNLOCKED;
+                    checkNewStart = 1;
+                    
+                    if (disp_owner == DISPOWNER_AUTOMODE)
+                    {   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    }
                     
                     if (disp_owner == DISPOWNER_VISMODE)       
                         {visMode.disp7s_accessReq = 1;}
                 }
                 flushKb_last = flushKb;
             }
-            
+            //
             if (ikb_key_is_ready2read(KB_LYOUT_KEY_UP))
             {
-                ikb_key_was_read(KB_LYOUT_KEY_UP);
+                //ikb_key_was_read(KB_LYOUT_KEY_UP);
                 //
                 if (++visMode.numVista >= VISMODE_NUMMAX_VISTAS)
                 {
                     visMode.numVista = -1;
-                    disp_owner = DISPOWNER_AUTOMODE;
-                    autoMode_init(AUTOMODE_INIT_CONTINUE);
+                    autoMode_toreturn_disp7s = 1;
                 }
                 else
                 {
-                    //ps_visMode.unlock.ps = 1;
                     disp_owner = DISPOWNER_VISMODE;
                     visMode.disp7s_accessReq = 1;
                 }
             }
             else if (ikb_key_is_ready2read(KB_LYOUT_KEY_DOWN))
             {
-                ikb_key_was_read(KB_LYOUT_KEY_DOWN);
+                //ikb_key_was_read(KB_LYOUT_KEY_DOWN);
                 //
                 if (visMode.numVista == -1)
                     {visMode.numVista = VISMODE_NUMMAX_VISTAS;}
 
                 if (--visMode.numVista < 0)
                 {
-                    disp_owner = DISPOWNER_AUTOMODE;
-                    autoMode_init(AUTOMODE_INIT_CONTINUE);
+                    autoMode_toreturn_disp7s = 1;
                 }
                 else
                 {
@@ -241,8 +298,10 @@ void main(void)
                     visMode.disp7s_accessReq = 1;
                 }
             }
-            
+            ikb_key_was_read(KB_LYOUT_KEY_UP);
+            ikb_key_was_read(KB_LYOUT_KEY_DOWN);
             //
+            
             if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_PLUS)==KB_AFTER_THR) &&
                 ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS) &&
                 (ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_MINUS)==KB_AFTER_THR) &&
@@ -252,39 +311,31 @@ void main(void)
                 ikb_key_was_read(KB_LYOUT_KEY_MINUS);
                 //
                 mpap.mode = MPAP_STALL_MODE;
+                
                 funcMach = FUNCMACH_CONFIG;
-                //
-                smain.focus.kb = FOCUS_KB_CONFIGMODE;
                 disp_owner = DISPOWNER_CONFIGMODE;
-                
-                
                 configMode_init(0x0);
                 RELAY_DISABLE();
             }
-       
+            visMode_job();
         }
         else if (funcMach == FUNCMACH_CONFIG)
         {
             if (configMode_job())
             {
-                disp_owner = DISPOWNER_AUTOMODE;
-                smain.focus.kb = FOCUS_KB_AUTOMODE;
-                funcMach = FUNCMACH_NORMAL;
-                autoMode_init(AUTOMODE_INIT_RESTART);
                 //
-                ikb_flush();
+                funcMach = FUNCMACH_NORMAL;
+                autoMode_lock = UNLOCKED;
+                checkNewStart = 1;
+                autoMode_toreturn_disp7s = 1;
                 //
                 RELAY_ENABLE();
             }
-            
         }
-        flushMode_job();
         
         //////////
-        //////////
+        flushMode_job();
         pump_job();
-        mpap_sych();
-        //////////
         smain.f.f1ms = 0;
         //ikb_flush();//->c/ps es responsable de limpiar su buffer de teclado
     }
@@ -300,40 +351,6 @@ void interrupt INTERRUPCION(void)//@1ms
         TMR0IF = 0;
         TMR0H = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256) >> 8);
         TMR0L = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256));
-    }
-}
-////////////////////////////////////////////////////////////////////////////////
-void check_startSignal(void)
-{
-    static struct _lock_startSignal
-    {
-        unsigned startIs:1;
-        unsigned startIsnt:1;
-        unsigned __a:6;
-    }lock={0};
-	
-    if (is_startSignal())
-    {
-        if (!lock.startIs)
-        {
-            lock.startIs = 1;
-            lock.startIsnt = 0;
-            //
-            ps_autoMode_start(); 
-        }
-        
-    }
-    else
-    {
-        if (!lock.startIsnt)
-        {
-            lock.startIsnt = 1;
-            lock.startIs = 0;
-            //
-            mpap.mode = MPAP_STALL_MODE;
-            disp7s_qtyDisp_writeText_20_3RAYAS();
-            
-        }
     }
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -354,19 +371,6 @@ void error_man(void)
         }
     }
     //
-}
- * 
- * check check_startSignal
-if (existe_start)
-{
-	if (error()== cambios)
-	{
-		if (error == 0)
-		{
-			//ahora 
-			//salio de errores totalmente-->> ahora va a
-		}
-	}	
 }
 
   */
@@ -436,7 +440,7 @@ void check_oilLevel(void)
             sm0 = 0x00;
             sm1 = 0x00;
             //
-            ps_autoMode_start();
+            //ps_autoMode_start();
             RELAY_ENABLE();
 		}
 		/*else{}*/

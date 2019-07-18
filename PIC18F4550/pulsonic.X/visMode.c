@@ -7,21 +7,15 @@ struct _visMode visMode = {-1, 0};
 
 static void visMode_disp(int8_t numVista);
 
-struct _ps ps_visMode;
-
 void  visMode_job(void)
 {
-    //if (ps_visMode.unlock.ps)
+    if (visMode.disp7s_accessReq == 1)
     {
-
-        if (visMode.disp7s_accessReq == 1)
+        if (disp_owner == DISPOWNER_VISMODE)       
         {
-            if (disp_owner == DISPOWNER_VISMODE)       
-            {
-                visMode_disp(visMode.numVista);
-            }
-            visMode.disp7s_accessReq = 0;
+            visMode_disp(visMode.numVista);
         }
+        visMode.disp7s_accessReq = 0;
     }
 }
 

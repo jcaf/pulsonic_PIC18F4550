@@ -6,33 +6,28 @@
 #include "flushMode.h"
 #include "ikb/ikb.h"
 
-struct _ps ps_flushMode;
-
 static struct _flushMode
 {
     int8_t numNozzle;   //current nozzle position
     int8_t sm0;
 }flushMode;
 
-
 void flushMode_cmd(int8_t cmd)
 {
-    if (cmd == FLUSH_CMD_RESTART)
+    if (cmd == JOB_RESTART)
     {
-        //if (disp_owner == DISPOWNER_AUTOMODE)
-        {
-            disp7s_modeDisp_off();
-            disp7s_qtyDisp_writeText_FLU();
-        }
+        disp7s_modeDisp_off();
+        disp7s_qtyDisp_writeText_FLU();
         //
         flushMode.numNozzle = 0x0;
         flushMode.sm0 = 0x1;
+        
+        mpap.mode = MPAP_STALL_MODE;
     }
-    if (cmd == FLUSH_CMD_STOP)
+    if (cmd == JOB_STOP)
     {
         flushMode.sm0 = 0;
         mpap.mode = MPAP_STALL_MODE;
-        /*tal vez hay que esperar a que este en idle para iniciar*/
     }
 }
 
@@ -42,8 +37,11 @@ void flushMode_job(void)
     {
         if (flushMode.sm0 == 1)
         {
-            mpap_setupToHomming();
-            flushMode.sm0++;
+            if (mpap_isIdle())
+            {
+                mpap_setupToHomming();
+                flushMode.sm0++;
+            }
         }
         else if (flushMode.sm0 == 2)
         {

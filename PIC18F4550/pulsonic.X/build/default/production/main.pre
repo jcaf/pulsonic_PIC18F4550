@@ -5799,27 +5799,7 @@ int8_t disp;
 };
 extern volatile struct _smain smain;
 
-
-
-struct _ps
-{
-struct _unlock_flag
-{
-unsigned kb:1;
-unsigned disp:1;
-unsigned ps:1;
-unsigned __f:5;
-}unlock;
-
-};
-struct _codapp
-{
-int8_t ret;
-int8_t param0;
-
-};
-typedef struct _codapp codapp_t;
-
+# 35
 extern int8_t disp_owner;
 enum _DISPOWNER_MODE
 {
@@ -5828,12 +5808,10 @@ DISPOWNER_VISMODE,
 DISPOWNER_CONFIGMODE,
 };
 
-enum _FOCUS
+enum _JOB_CMD
 {
-FOCUS_KB_NONE,
-FOCUS_KB_AUTOMODE,
-FOCUS_KB_VISMODE,
-FOCUS_KB_CONFIGMODE
+JOB_RESTART = 0,
+JOB_STOP
 };
 
 # 16 "nozzle.h"
@@ -5856,6 +5834,7 @@ void disp7s_qtyDisp_writeText_OFF(void);
 
 void disp7s_qtyDisp_writeText_FFF(void);
 void disp7s_qtyDisp_writeText_FLU(void);
+
 
 void disp7s_qtyDisp_writeText_20_3RAYAS(void);
 void disp7s_qtyDisp_writeText_NO_OIL(void);
@@ -5937,7 +5916,7 @@ extern volatile struct _mpap mpap;
 
 
 
-int8_t mpap_job(void);
+void mpap_job(void);
 void mpap_setupToHomming(void);
 void mpap_setupToTurn(int16_t numSteps_tomove);
 void mpap_movetoNozzle(int8_t n);
@@ -5949,7 +5928,8 @@ void mpap_sych(void);
 # 15 "inputs.h"
 typedef int8_t intNumMaxErr_t;
 
-# 22
+# 21
+void startSignal_init(void);
 int8_t is_startSignal(void);
 int8_t is_oilLevel(void);
 int8_t is_homeSensor(void);
@@ -5982,18 +5962,9 @@ int8_t pump_job(void);
 int8_t pump_isIdle(void);
 
 # 11 "autoMode.h"
-enum _AUTOMODE_INIT_I
-{
-AUTOMODE_INIT_RESTART = 0,
-AUTOMODE_INIT_CONTINUE
-};
-void autoMode_init(int8_t init);
-
-
+void autoMode_disp7s_writeSumTotal(void);
+void autoMode_cmd(int8_t cmd);
 void autoMode_job(void);
-
-
-extern struct _ps ps_autoMode;
 
 # 13 "visMode.h"
 void visMode_init(int8_t numVista);
@@ -6016,12 +5987,6 @@ int8_t configMode_job(void);
 void flushMode_cmd(int8_t cmd);
 void flushMode_job(void);
 
-enum _FLUSH_CMD
-{
-FLUSH_CMD_RESTART = 0,
-FLUSH_CMD_STOP
-};
-
 
 # 31 "main.c"
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
@@ -6034,14 +5999,6 @@ unsigned __a: 7;
 } isr_flag = {0};
 volatile struct _smain smain;
 
-struct _unlock
-{
-unsigned kb:1;
-unsigned autoMode:1;
-unsigned visMode:1;
-unsigned __a:5;
-};
-struct _unlock unlock;
 
 enum _FUNMACH
 {
@@ -6051,8 +6008,8 @@ FUNCMACH_CONFIG
 };
 int8_t funcMach;
 
-int8_t disp_owner = DISPOWNER_AUTOMODE;
-
+int8_t disp_owner;
+int8_t disp_owner_last = -1;
 
 union _errorDispFlag
 {
@@ -6074,25 +6031,24 @@ union _errorDispFlag error_requestToWriteDisp;
 union _errorDispFlag error_grantedToWriteDisp;
 
 void errorHandler_queue(void);
-
-void check_startSignal(void);
 void check_oilLevel(void);
 
-void ps_autoMode_start(void)
-{
-unlock.autoMode = 1;
-unlock.visMode = 0;
-autoMode_init(AUTOMODE_INIT_RESTART);
-smain.focus.kb = FOCUS_KB_AUTOMODE;
-disp_owner = DISPOWNER_AUTOMODE;
-funcMach = FUNCMACH_NORMAL;
 
-ikb_flush();
-}
+enum _LOCK_STATE
+{
+UNLOCKED = 0,
+LOCKED
+};
+int8_t autoMode_lock = UNLOCKED;
+int8_t checkNewStart =1;
+int8_t checkNoStart;
+
 void main(void)
 {
 int8_t c_access_kb=0;
 int8_t c_access_disp=0;
+int8_t START_SIG=0;
+int8_t autoMode_toreturn_disp7s=0;
 
 int8_t flushKb;
 static int8_t flushKb_last;
@@ -6115,6 +6071,10 @@ TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ) >> 8)
 TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
 TMR0IE = 1;
 
+
+do{do{LATA &= ~(1<<5);}while(0);}while(0);
+do{TRISA &= ~(1<<5);}while(0);
+
 do{do{LATE |= 1<<0;}while(0);}while(0);
 do{TRISE &= ~(1<<0);}while(0);
 
@@ -6134,19 +6094,16 @@ do{TRISE |= 1<<2;}while(0);
 ikb_init();
 disp7s_init();
 pulsonic_init();
+startSignal_init();
 
-
-autoMode_init(AUTOMODE_INIT_RESTART);
-smain.focus.kb = FOCUS_KB_AUTOMODE;
 disp_owner = DISPOWNER_AUTOMODE;
-
+disp_owner_last = -1;
+autoMode_lock = UNLOCKED;
+checkNewStart = 1;
+checkNoStart =1;
 funcMach = FUNCMACH_NORMAL;
 
-
-ps_autoMode.unlock.kb = 1;
-ps_autoMode.unlock.disp = 1;
-ps_autoMode.unlock.ps = 1;
-
+mpap.mode = MPAP_STALL_MODE;
 
 GIE = 1;
 while(1)
@@ -6170,12 +6127,59 @@ disp7s_job();
 }
 }
 
-# 182
+# 173
+START_SIG = is_startSignal();
+
 if (funcMach == FUNCMACH_NORMAL)
 {
-autoMode_job();
-visMode_job();
+if (autoMode_lock == UNLOCKED)
+{
+if (START_SIG == 1)
+{
+if (checkNewStart)
+{
+checkNewStart = 0;
+checkNoStart =1;
 
+autoMode_cmd(JOB_RESTART);
+}
+}
+else if (START_SIG == 0)
+{
+if (checkNoStart)
+{
+checkNoStart = 0;
+checkNewStart = 1;
+
+autoMode_cmd(JOB_STOP);
+}
+}
+
+# 215
+if (disp_owner == DISPOWNER_AUTOMODE)
+{
+
+if (START_SIG == 1 )
+autoMode_disp7s_writeSumTotal();
+else if (START_SIG == 0)
+disp7s_qtyDisp_writeText_20_3RAYAS();
+}
+
+
+if (autoMode_toreturn_disp7s)
+{
+autoMode_toreturn_disp7s = 0;
+
+disp_owner = DISPOWNER_AUTOMODE;
+
+if (START_SIG == 1 )
+autoMode_disp7s_writeSumTotal();
+else if (START_SIG == 0)
+disp7s_qtyDisp_writeText_20_3RAYAS();
+}
+
+autoMode_job();
+}
 
 
 flushKb = ikb_key_is_ready2read(4);
@@ -6183,14 +6187,22 @@ if (flushKb_last != flushKb)
 {
 if (flushKb)
 {
-flushMode_cmd(FLUSH_CMD_RESTART);
+autoMode_lock = LOCKED;
+flushMode_cmd(JOB_RESTART);
 }
 else
 {
-flushMode_cmd(FLUSH_CMD_STOP);
+flushMode_cmd(JOB_STOP);
 
 
-autoMode_init(AUTOMODE_INIT_RESTART);
+
+autoMode_lock = UNLOCKED;
+checkNewStart = 1;
+
+if (disp_owner == DISPOWNER_AUTOMODE)
+{
+
+}
 
 if (disp_owner == DISPOWNER_VISMODE)
 {visMode.disp7s_accessReq = 1;}
@@ -6200,32 +6212,29 @@ flushKb_last = flushKb;
 
 if (ikb_key_is_ready2read(0))
 {
-ikb_key_was_read(0);
+
 
 if (++visMode.numVista >= (8+1))
 {
 visMode.numVista = -1;
-disp_owner = DISPOWNER_AUTOMODE;
-autoMode_init(AUTOMODE_INIT_CONTINUE);
+autoMode_toreturn_disp7s = 1;
 }
 else
 {
-
 disp_owner = DISPOWNER_VISMODE;
 visMode.disp7s_accessReq = 1;
 }
 }
 else if (ikb_key_is_ready2read(1))
 {
-ikb_key_was_read(1);
+
 
 if (visMode.numVista == -1)
 {visMode.numVista = (8+1);}
 
 if (--visMode.numVista < 0)
 {
-disp_owner = DISPOWNER_AUTOMODE;
-autoMode_init(AUTOMODE_INIT_CONTINUE);
+autoMode_toreturn_disp7s = 1;
 }
 else
 {
@@ -6233,6 +6242,8 @@ disp_owner = DISPOWNER_VISMODE;
 visMode.disp7s_accessReq = 1;
 }
 }
+ikb_key_was_read(0);
+ikb_key_was_read(1);
 
 
 if ((ikb_get_AtTimeExpired_BeforeOrAfter(2)==1) &&
@@ -6244,39 +6255,31 @@ ikb_key_was_read(2);
 ikb_key_was_read(3);
 
 mpap.mode = MPAP_STALL_MODE;
+
 funcMach = FUNCMACH_CONFIG;
-
-smain.focus.kb = FOCUS_KB_CONFIGMODE;
 disp_owner = DISPOWNER_CONFIGMODE;
-
-
 configMode_init(0x0);
 do{do{LATA |= 1<<5;}while(0);}while(0);
 }
-
+visMode_job();
 }
 else if (funcMach == FUNCMACH_CONFIG)
 {
 if (configMode_job())
 {
-disp_owner = DISPOWNER_AUTOMODE;
-smain.focus.kb = FOCUS_KB_AUTOMODE;
-funcMach = FUNCMACH_NORMAL;
-autoMode_init(AUTOMODE_INIT_RESTART);
 
-ikb_flush();
+funcMach = FUNCMACH_NORMAL;
+autoMode_lock = UNLOCKED;
+checkNewStart = 1;
+autoMode_toreturn_disp7s = 1;
 
 do{do{LATA &= ~(1<<5);}while(0);}while(0);
 }
-
 }
+
+
 flushMode_job();
-
-
-
 pump_job();
-mpap_sych();
-
 smain.f.f1ms = 0;
 
 }
@@ -6295,41 +6298,7 @@ TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
 }
 }
 
-void check_startSignal(void)
-{
-static struct _lock_startSignal
-{
-unsigned startIs:1;
-unsigned startIsnt:1;
-unsigned __a:6;
-}lock={0};
-
-if (is_startSignal())
-{
-if (!lock.startIs)
-{
-lock.startIs = 1;
-lock.startIsnt = 0;
-
-ps_autoMode_start();
-}
-
-}
-else
-{
-if (!lock.startIsnt)
-{
-lock.startIsnt = 1;
-lock.startIs = 0;
-
-mpap.mode = MPAP_STALL_MODE;
-disp7s_qtyDisp_writeText_20_3RAYAS();
-
-}
-}
-}
-
-# 373
+# 377
 void check_inductiveSensorRPM(void)
 {
 static int8_t sm0, sm1;
@@ -6396,7 +6365,7 @@ error_requestToWriteDisp.f.oilLevel = 0;
 sm0 = 0x00;
 sm1 = 0x00;
 
-ps_autoMode_start();
+
 do{do{LATA &= ~(1<<5);}while(0);}while(0);
 }
 

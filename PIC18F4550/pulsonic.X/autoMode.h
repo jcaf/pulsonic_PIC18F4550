@@ -7,19 +7,10 @@
 
 #ifndef AUTOMODE_H
 #define	AUTOMODE_H
-
-    enum _AUTOMODE_INIT_I
-    {
-        AUTOMODE_INIT_RESTART = 0,
-        AUTOMODE_INIT_CONTINUE
-    };
-    void autoMode_init(int8_t init);
-    
-    
-    void autoMode_job(void);
-    
-    
-    extern struct _ps ps_autoMode;
+   
+   void autoMode_disp7s_writeSumTotal(void);
+   void autoMode_cmd(int8_t cmd);
+   void autoMode_job(void);
     
 #ifdef	__cplusplus
 extern "C" {

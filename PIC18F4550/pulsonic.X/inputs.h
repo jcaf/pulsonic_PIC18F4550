@@ -18,7 +18,7 @@
 #else
     #error NumMax can be 8 or 16
 #endif
-
+    void startSignal_init(void);
     int8_t is_startSignal(void);
     int8_t is_oilLevel(void);
     int8_t is_homeSensor(void);

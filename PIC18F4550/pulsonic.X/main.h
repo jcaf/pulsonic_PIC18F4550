@@ -30,24 +30,7 @@
     
     #define myitoa(_integer_, _buffer_, _base_) itoa(_buffer_, _integer_, _base_)
 
-    struct _ps
-    {
-        struct _unlock_flag
-        {
-            unsigned kb:1;
-            unsigned disp:1;
-            unsigned ps:1;
-            unsigned __f:5;
-        }unlock;
-
-    };
-    struct _codapp
-    {
-        int8_t ret;
-        int8_t param0;
-        //int8_t param1;
-    };
-    typedef struct _codapp codapp_t;
+//    
     
     extern int8_t disp_owner;
     enum _DISPOWNER_MODE
@@ -57,14 +40,12 @@
         DISPOWNER_CONFIGMODE,
     };
    
-    enum _FOCUS
+    enum _JOB_CMD
     {
-        FOCUS_KB_NONE,
-        FOCUS_KB_AUTOMODE,
-        FOCUS_KB_VISMODE,
-        FOCUS_KB_CONFIGMODE
+        JOB_RESTART = 0,
+        JOB_STOP
     };
-    
+
     ////////////////////////////////////////////////////////////////////////////
     //MOTOR PAP UNIPOLAR
     #define PORTWxSTEPPER_A LATD
@@ -127,7 +108,7 @@
     #define CONFIGIOxRELAY TRISA
     #define PINxRELAY  5
 
-    #define RELAY_ENABLE() do{PinTo0(PORTWxRELAY, PINxRELAY);}while(0)
+    #define RELAY_ENABLE()  do{PinTo0(PORTWxRELAY, PINxRELAY);}while(0)
     #define RELAY_DISABLE() do{PinTo1(PORTWxRELAY, PINxRELAY);}while(0)
     
     ////////////////////////////////////////////////////////////////////////////

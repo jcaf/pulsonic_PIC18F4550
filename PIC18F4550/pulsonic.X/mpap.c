@@ -94,7 +94,7 @@ void mpap_do1step(int8_t KI)
 int8_t mpap_homming(void)
 {
 	int8_t cod_ret = 0;
-	if (mpap.numSteps_tomove!=0)
+	if (mpap.numSteps_tomove !=0 )
 	{
         mpap_do1step(mpap.KI);
 		//
@@ -106,20 +106,20 @@ int8_t mpap_homming(void)
             mpap.numSteps_current = 0x0000; 
             cod_ret = 1;
         }
-        if ( mpap.counter_steps == mpap.numSteps_tomove)
+        if ( mpap.counter_steps == mpap.numSteps_tomove)//max. num. vueltas
 		{
             mpap.numSteps_tomove = 0x0000;
-            cod_ret = 1;		
-            pulsonic.errors.flag.mpap_home_sensor = 1;
+            cod_ret = 2;		
 		}
 	}
 	return cod_ret;
 }
-/*mode ubicacion en los nozzle*/
+
+/* mode ubicacion en los nozzle */
 int8_t mpap_normal_mode(void)
 {
     int8_t cod_ret = 0;
-    if (mpap.numSteps_tomove!=0)//(mpap.flag.run)
+    if (mpap.numSteps_tomove!=0)
     {
         mpap_do1step(mpap.KI);
         //
@@ -129,93 +129,105 @@ int8_t mpap_normal_mode(void)
         
         if ( mpap.counter_steps== mpap.numSteps_tomove)//AQUI PUEDE SER COMPARAR CON < > segun el caso si es negativo o positivo la comparacion
         {
-            mpap.numSteps_tomove = 0;//mpap.flag.run = 0;	//end
+            mpap.numSteps_tomove = 0;
             cod_ret = 1;		//can be abort external...
         }
     }
     return cod_ret;
 }
+
 /*la parada debe ser sincronizada en la rutina de interrupcion*/
-int8_t mpap_job(void)
+void mpap_job(void)
 {
 	int8_t cod_ret;
-    
     if (mpap.mode == MPAP_HOMMING_MODE)
-        {cod_ret = mpap_homming();}
-    
-    else if (mpap.mode == MPAP_NORMAL_MODE)
-        {cod_ret = mpap_normal_mode();}
-    
-    else if (mpap.mode == MPAP_STALL_MODE)
     {
-        mpap.numSteps_tomove = 0x00;//mpap.flag.run = 0;
+        cod_ret = mpap_homming();
+        if (cod_ret == 1)
+        {
+            mpap.mode = MPAP_STALL_MODE;
+        }
+        else if (cod_ret == 2)
+        {
+            mpap.mode = MPAP_STALL_MODE;
+            
+            pulsonic.errors.flag.mpap_home_sensor = 1;
+        }
+    }
+    else if (mpap.mode == MPAP_NORMAL_MODE)
+    {
+        if (mpap_normal_mode())
+            mpap.mode = MPAP_STALL_MODE;
+    }
+    //
+    if (mpap.mode == MPAP_STALL_MODE)
+    {
         mpap_off();
-        //
+        mpap.numSteps_tomove = 0x00;
         mpap.mode = MPAP_IDLE_MODE;
     }
-	return cod_ret;
 }
-/* acepta ordenes desde el hilo main*/
-void mpap_sych(void)
-{
-    static int8_t sm0;
-    static int8_t c;
-    if (sm0 == 0)
-    {
-        if ((mpap.mode == MPAP_NORMAL_MODE) || (mpap.mode == MPAP_HOMMING_MODE))
-        {
-            sm0++;
-        }
-        else if (mpap.mode == MPAP_STALL_MODE)
-        {
-            sm0 = 3;
-        }
-    }
-    else if (sm0 == 1)//acabo un movimiento
-    {
-        if (mpap.numSteps_tomove == 0)//termino de mover?
-        {
-            if (mpap.mode == MPAP_HOMMING_MODE)
-            {
-                if ( pulsonic.errors.flag.mpap_home_sensor == 1)
-                {
-                    pulsonic.errors.flag.mpap_home_sensor = 0;//clear flag
-                    //marcar error de Sensor de posicion en el display
-                }
-            }
-            else if (mpap.mode == MPAP_NORMAL_MODE)
-            {
-            }
-            sm0++;
-            c = 0;
-        }
-    }
-    else if (sm0 == 2)
-    {
-        if (smain.f.f1ms)
-        {
-            if (++c == 10)
-            {
-                c = 0;
-                mpap.mode = MPAP_STALL_MODE;
-                sm0++;
-            }
-        }
-    }
-    else if (sm0 == 3)
-    {
-        if (mpap.mode == MPAP_IDLE_MODE)
-        {
-            sm0 = 0;
-        }
-    }
-}
+
+///* acepta ordenes desde el hilo main*/
+//void mpap_sych(void)
+//{
+//    static int8_t sm0;
+//    static int8_t c;
+//    if (sm0 == 0)
+//    {
+//        if ((mpap.mode == MPAP_NORMAL_MODE) || (mpap.mode == MPAP_HOMMING_MODE))
+//            sm0++;
+//        else if (mpap.mode == MPAP_STALL_MODE)
+//            sm0 = 3;
+//    }
+//    else if (sm0 == 1)//acabo un movimiento
+//    {
+//        if (mpap.numSteps_tomove == 0)//termino de mover?
+//        {
+//            if (mpap.mode == MPAP_HOMMING_MODE)
+//            {
+//                if ( pulsonic.errors.flag.mpap_home_sensor == 1)
+//                {
+//                    pulsonic.errors.flag.mpap_home_sensor = 0;//clear flag //marcar error de Sensor de posicion en el display
+//                }
+//            }
+//            else if (mpap.mode == MPAP_NORMAL_MODE)
+//            {
+//            }
+//            sm0++;
+//            c = 0;
+//        }
+//    }
+//    else if (sm0 == 2)
+//    {
+//        if (smain.f.f1ms)
+//        {
+//            if (++c == 10)
+//            {
+//                c = 0;
+//                mpap.mode = MPAP_STALL_MODE;
+//                sm0++;
+//            }
+//        }
+//    }
+//    else if (sm0 == 3)
+//    {
+//        if (mpap.mode == MPAP_IDLE_MODE)
+//        {
+//            sm0 = 0;
+//        }
+//    }
+//}
 void mpap_movetoNozzle(int8_t numNozzle)//0..NOZZLE_NUMMAX-1
 {
-	//mpap_setupToTurn( nozzle * MPAP_NUMSTEP_1NOZZLE);//se escala	
-    mpap_setupToTurn( (numNozzle*MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current);
+                                                            //mpap_setupToTurn( nozzle * MPAP_NUMSTEP_1NOZZLE);//se escala	
+    int16_t numSteps_tomove = (numNozzle*MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current;
+    if (numSteps_tomove != 0 )
+    {
+        mpap_setupToTurn(numSteps_tomove);
+        mpap.mode = MPAP_NORMAL_MODE;
+    }
     
-    mpap.mode = MPAP_NORMAL_MODE;
 }
 int8_t mpap_isIdle(void)
 {
