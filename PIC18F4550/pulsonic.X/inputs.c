@@ -1,14 +1,14 @@
 #include "main.h"
-//1=Not Signal(pull-up), 0=Signal present!
-//return !PinRead(PORTRxSTARTSIGNAL, PINxSTARTSIGNAL);
 
-#define STARTSIGNAL_DEBOUNCE_TIME 20//ms
 static struct _startSignal
 {
     int8_t S;
     int8_t sVar;
 }startSignal;
 
+#define STARTSIGNAL_DEBOUNCE_TIME 20//ms
+
+/* 1=Not Signal(pull-up), 0=Signal present! */
 void startSignal_init(void)
 {
     startSignal.sVar = !PinRead(PORTRxSTARTSIGNAL, PINxSTARTSIGNAL);
@@ -52,13 +52,13 @@ static struct _oilLevel
     int8_t level;
     int8_t levelVar;
 }oilLevel;
-
+/* 1=OIl ok (pull-up), 0=oil emplty */
 void oilLevel_init(void)
 {
     oilLevel.levelVar = PinRead(PORTRxOILLEVEL, PINxOILLEVEL);
     oilLevel.level = oilLevel.levelVar;
 }
-//1=OIl ok (pull-up), 0=oil emplty
+
 int8_t is_oilLevel(void)
 {
     static int8_t c;
@@ -90,9 +90,6 @@ int8_t is_oilLevel(void)
     }
     return oilLevel.level;
 }
-
-
-
 
 
 

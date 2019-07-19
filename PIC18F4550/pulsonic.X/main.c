@@ -6,6 +6,7 @@
  * O.S Antergos Linux
  * MPLAB X IDE v4.05
  * Microchip MPLAB XC8 C Compiler V2.05
+ * * Microchip MPLAB XC8 C Compiler V1.33 [PRO]+ Speed Option 
  * PIC18F4550 @ 48MHz
  * Project: Pulsonic (aceitera)
  * 
@@ -27,6 +28,7 @@
 #include "configMode.h"
 #include "flushMode.h"
 #include "error.h"
+#include "PIC/eeprom/eeprom.h"
 
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
@@ -54,16 +56,17 @@ int8_t checkNewStart =1;
 int8_t checkNoStart;
 int8_t autoMode_toreturn_disp7s=0;
 
+
 void main(void) 
 {
     int8_t c_access_kb=0;
     int8_t c_access_disp=0;
     int8_t START_SIG=0;
-    
-    //
     int8_t flushKb;
     static int8_t flushKb_last;
-
+///////////////////////////////////
+  
+/////////////////////////////    
     LATA = 0x00;
     LATC = 0x00;
     LATD = 0x00;
@@ -366,6 +369,7 @@ void error_job(void)
         {
             mpap.mode = MPAP_STALL_MODE;
             pump_stop();
+            flushMode_cmd(JOB_STOP);
             funcMach = FUNCMACH_ERROR;
             RELAY_DISABLE();
         }
@@ -379,8 +383,6 @@ void error_job(void)
             RELAY_ENABLE();
         }
     }
-    
-    
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -467,4 +469,3 @@ static void errorHandler_queue(void)
         }
     }
 }
-

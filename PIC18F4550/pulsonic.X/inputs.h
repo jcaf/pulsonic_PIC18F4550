@@ -8,7 +8,6 @@
 #ifndef INPUTS_H
 #define	INPUTS_H
 
-
     void startSignal_init(void);
     int8_t is_startSignal(void);
     
