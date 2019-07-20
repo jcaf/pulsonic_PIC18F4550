@@ -6,4 +6,5 @@ pulsonic.h  \
 main.h  \
 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/types.h  \
 nozzle.h  \
-display.h 
+display.h  \
+/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/PIC/eeprom/eeprom.h 
