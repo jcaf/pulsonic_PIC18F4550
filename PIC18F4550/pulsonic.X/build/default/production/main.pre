@@ -5783,6 +5783,8 @@ typedef unsigned char BOOL;
 #pragma warning disable 373
 #pragma warning disable 520
 
+
+
 struct _smain
 {
 struct _main_flag
@@ -6007,8 +6009,11 @@ void error_job(void);
 void eepromWrite(uint8_t addr, uint8_t data);
 uint8_t eepromRead(uint8_t addr);
 
-void eepromWrite_double(uint8_t reg, double data);
-double eepromRead_double(uint8_t reg);
+
+
+
+void eepromWrite_double(uint8_t *pEaddr, double data);
+double eepromRead_double(uint8_t *pEaddr);
 
 
 # 33 "main.c"
@@ -6051,14 +6056,15 @@ int8_t START_SIG=0;
 int8_t flushKb;
 static int8_t flushKb_last;
 
-uint8_t i;
-for (i=0; i<8; i++)
+uint8_t reg;
+for (reg=0; reg<8; reg++)
 {
-eepromWrite_double(i, 12.0f);
+eepromWrite_double(&(((double*)0x00)[reg]), 6.5f);
 }
 
 eepromWrite(0x00 + (8*sizeof(double)), 22);
 
+# 85
 LATA = 0x00;
 LATC = 0x00;
 LATD = 0x00;
@@ -6162,7 +6168,7 @@ autoMode_cmd(JOB_STOP);
 }
 }
 
-# 198
+# 203
 if (disp_owner == DISPOWNER_AUTOMODE)
 {
 

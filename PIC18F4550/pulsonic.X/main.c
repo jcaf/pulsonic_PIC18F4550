@@ -56,11 +56,6 @@ int8_t checkNewStart =1;
 int8_t checkNoStart;
 int8_t autoMode_toreturn_disp7s=0;
 
-volatile double fff;
-//eeprom unsigned char inputData[3];
-
-
-
 void main(void) 
 {
     int8_t c_access_kb=0;
@@ -68,18 +63,15 @@ void main(void)
     int8_t START_SIG=0;
     int8_t flushKb;
     static int8_t flushKb_last;
-
-    uint8_t i;
-    for (i=0; i<NOZZLE_NUMMAX; i++)
+    //
+    uint8_t reg;
+    for (reg=0; reg<NOZZLE_NUMMAX; reg++)
     {
-        eepromWrite_double(i, 12.0f);//max val
+        eepromWrite_double(&(((double*)EEPROM_BLOCK_ADDR)[reg]), 6.5f);//max val
     }
     //next address is for Viscosity
     eepromWrite(EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)), 22);//default viscosity
-    
-    
-    
-    
+    // 
     
     LATA = 0x00;
     LATC = 0x00;

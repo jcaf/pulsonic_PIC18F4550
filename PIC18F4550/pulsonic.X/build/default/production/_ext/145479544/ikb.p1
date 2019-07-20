@@ -3661,39 +3661,39 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p n 373 ]
 "13
 [p n 520 ]
-[; ;main.h: 15: struct _smain
-[; ;main.h: 16: {
-[; ;main.h: 17: struct _main_flag
+[; ;main.h: 17: struct _smain
 [; ;main.h: 18: {
-[; ;main.h: 19: unsigned f1ms:1;
-[; ;main.h: 20: unsigned __a:7;
-[; ;main.h: 21: }f;
-[; ;main.h: 23: struct _main_focus
-[; ;main.h: 24: {
-[; ;main.h: 25: int8_t kb;
-[; ;main.h: 26: int8_t disp;
-[; ;main.h: 27: }focus;
-[; ;main.h: 28: };
-[; ;main.h: 29: extern volatile struct _smain smain;
-[; ;main.h: 33: enum _FUNMACH
-[; ;main.h: 34: {
-[; ;main.h: 35: FUNCMACH_NORMAL = 0,
-[; ;main.h: 36: FUNCMACH_CONFIG,
-[; ;main.h: 37: FUNCMACH_ERROR
-[; ;main.h: 38: };
-[; ;main.h: 39: extern int8_t funcMach;
-[; ;main.h: 41: extern int8_t disp_owner;
-[; ;main.h: 42: enum _DISPOWNER_MODE
-[; ;main.h: 43: {
-[; ;main.h: 44: DISPOWNER_AUTOMODE = 0,
-[; ;main.h: 45: DISPOWNER_VISMODE,
-[; ;main.h: 46: DISPOWNER_CONFIGMODE,
-[; ;main.h: 47: };
-[; ;main.h: 49: enum _JOB_CMD
-[; ;main.h: 50: {
-[; ;main.h: 51: JOB_RESTART = 0,
-[; ;main.h: 52: JOB_STOP
-[; ;main.h: 53: };
+[; ;main.h: 19: struct _main_flag
+[; ;main.h: 20: {
+[; ;main.h: 21: unsigned f1ms:1;
+[; ;main.h: 22: unsigned __a:7;
+[; ;main.h: 23: }f;
+[; ;main.h: 25: struct _main_focus
+[; ;main.h: 26: {
+[; ;main.h: 27: int8_t kb;
+[; ;main.h: 28: int8_t disp;
+[; ;main.h: 29: }focus;
+[; ;main.h: 30: };
+[; ;main.h: 31: extern volatile struct _smain smain;
+[; ;main.h: 35: enum _FUNMACH
+[; ;main.h: 36: {
+[; ;main.h: 37: FUNCMACH_NORMAL = 0,
+[; ;main.h: 38: FUNCMACH_CONFIG,
+[; ;main.h: 39: FUNCMACH_ERROR
+[; ;main.h: 40: };
+[; ;main.h: 41: extern int8_t funcMach;
+[; ;main.h: 43: extern int8_t disp_owner;
+[; ;main.h: 44: enum _DISPOWNER_MODE
+[; ;main.h: 45: {
+[; ;main.h: 46: DISPOWNER_AUTOMODE = 0,
+[; ;main.h: 47: DISPOWNER_VISMODE,
+[; ;main.h: 48: DISPOWNER_CONFIGMODE,
+[; ;main.h: 49: };
+[; ;main.h: 51: enum _JOB_CMD
+[; ;main.h: 52: {
+[; ;main.h: 53: JOB_RESTART = 0,
+[; ;main.h: 54: JOB_STOP
+[; ;main.h: 55: };
 [; ;ikb.h: 128: void ikb_init(void);
 [; ;ikb.h: 129: void ikb_job(void);
 [; ;ikb.h: 130: void ikb_flush(void);

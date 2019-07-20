@@ -12,6 +12,8 @@
     #pragma warning disable 373//implicit signed to unsigned conversion
     #pragma warning disable 520//function is never called
 
+    #define EEPROM_BLOCK_ADDR 0x00
+    
     struct _smain
     {
         struct _main_flag

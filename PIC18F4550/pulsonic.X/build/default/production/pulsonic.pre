@@ -5783,6 +5783,8 @@ typedef unsigned char BOOL;
 #pragma warning disable 373
 #pragma warning disable 520
 
+
+
 struct _smain
 {
 struct _main_flag
@@ -5909,8 +5911,11 @@ double pulsonic_getTotalSum_mlh(void);
 void eepromWrite(uint8_t addr, uint8_t data);
 uint8_t eepromRead(uint8_t addr);
 
-void eepromWrite_double(uint8_t reg, double data);
-double eepromRead_double(uint8_t reg);
+
+
+
+void eepromWrite_double(uint8_t *pEaddr, double data);
+double eepromRead_double(uint8_t *pEaddr);
 
 # 4 "pulsonic.c"
 struct _pulsonic pulsonic;
@@ -5926,7 +5931,7 @@ pulsonic.dist_total_time = 60;
 
 for (i=0; i< 8; i++)
 {
-pulsonic.nozzle[i].Q_mlh = eepromRead_double(i);
+pulsonic.nozzle[i].Q_mlh = eepromRead_double(&(((double*)0x00)[i]));
 }
 pulsonic.oil.viscosity = eepromRead( 0x00 + (8*sizeof(double)) );
 
