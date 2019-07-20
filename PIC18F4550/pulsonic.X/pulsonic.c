@@ -1,5 +1,6 @@
 #include "main.h"
 #include "pulsonic.h"
+#include "myeeprom.h"
 #include "PIC/eeprom/eeprom.h"
 struct _pulsonic pulsonic;
 

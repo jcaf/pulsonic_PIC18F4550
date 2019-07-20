@@ -28,6 +28,7 @@
 #include "configMode.h"
 #include "flushMode.h"
 #include "error.h"
+#include "myeeprom.h"
 #include "PIC/eeprom/eeprom.h"
 
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
@@ -44,7 +45,6 @@ int8_t funcMach;
 
 int8_t disp_owner;
 int8_t disp_owner_last = -1;
-
                     
 enum _LOCK_STATE
 {
@@ -63,15 +63,8 @@ void main(void)
     int8_t START_SIG=0;
     int8_t flushKb;
     static int8_t flushKb_last;
-    //
-    uint8_t reg;
-    for (reg=0; reg<NOZZLE_NUMMAX; reg++)
-    {
-        eepromWrite_double(&(((double*)EEPROM_BLOCK_ADDR)[reg]), 6.5f);//max val
-    }
-    //next address is for Viscosity
-    eepromWrite(EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)), 22);//default viscosity
-    // 
+    
+    //myeeprom_init();
     
     LATA = 0x00;
     LATC = 0x00;

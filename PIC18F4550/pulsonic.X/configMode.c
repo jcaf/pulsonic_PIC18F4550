@@ -2,6 +2,8 @@
 #include "configMode.h"
 #include "pulsonic.h"
 #include "ikb/ikb.h"
+#include "myeeprom.h"
+#include "PIC/eeprom/eeprom.h"
 
 static struct _configMode
 {
@@ -150,6 +152,16 @@ static int8_t configMode_kb(void)
          ikb_key_was_read(KB_LYOUT_KEY_PLUS);
             ikb_key_was_read(KB_LYOUT_KEY_MINUS);
                 //
+        
+        /* Update EEPROM*/
+        //
+        uint8_t reg;    
+        for (reg=0; reg<NOZZLE_NUMMAX; reg++)
+        {
+            eepromWrite_double(&(((double*)EEPROM_BLOCK_ADDR)[reg]), pulsonic.nozzle[reg].Q_mlh);
+        }
+        eepromWrite(EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)), pulsonic.oil.viscosity);
+        //
         cod_ret = 1;
     }
     //---------+

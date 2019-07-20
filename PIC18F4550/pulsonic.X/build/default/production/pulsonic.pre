@@ -5783,8 +5783,6 @@ typedef unsigned char BOOL;
 #pragma warning disable 373
 #pragma warning disable 520
 
-
-
 struct _smain
 {
 struct _main_flag
@@ -5907,6 +5905,9 @@ extern const int8_t OIL_VISCOSITY[4];
 void pulsonic_init(void);
 double pulsonic_getTotalSum_mlh(void);
 
+# 12 "myeeprom.h"
+void myeeprom_init(void);
+
 # 11 "/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/PIC/eeprom/eeprom.h"
 void eepromWrite(uint8_t addr, uint8_t data);
 uint8_t eepromRead(uint8_t addr);
@@ -5917,7 +5918,7 @@ uint8_t eepromRead(uint8_t addr);
 void eepromWrite_double(uint8_t *pEaddr, double data);
 double eepromRead_double(uint8_t *pEaddr);
 
-# 4 "pulsonic.c"
+# 5 "pulsonic.c"
 struct _pulsonic pulsonic;
 
 const int8_t OIL_VISCOSITY[4]={22, 32, 46, 68};
@@ -5927,15 +5928,12 @@ void pulsonic_init(void)
 int8_t i;
 pulsonic.dist_total_time = 60;
 
-
-
 for (i=0; i< 8; i++)
 {
 pulsonic.nozzle[i].Q_mlh = eepromRead_double(&(((double*)0x00)[i]));
 }
 pulsonic.oil.viscosity = eepromRead( 0x00 + (8*sizeof(double)) );
 
-# 30
 }
 
 double pulsonic_getTotalSum_mlh(void)
