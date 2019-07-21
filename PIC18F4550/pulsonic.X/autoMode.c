@@ -5,7 +5,7 @@
 #include "autoMode.h"
 #include "visMode.h"
 #include "ikb/ikb.h"
-#include "flushMode.h"
+#include "flushAllMode.h"
 
 static struct _autoMode
 {

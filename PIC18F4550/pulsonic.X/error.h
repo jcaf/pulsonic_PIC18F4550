@@ -12,17 +12,6 @@
 extern "C" {
 #endif
 
-    /*NumMax can be 8 or 16 */
-    #define NUMMAX_ERRORS 8//16
-
-    #if NUMMAX_ERRORS == 8
-        typedef int8_t intNumMaxErr_t;
-    #elif NUMMAX_ERRORS == 16
-        typedef int16_t intNumMaxErr_t
-    #else
-        #error NumMax can be 8 or 16
-    #endif
-
     void error_job(void);
 
 

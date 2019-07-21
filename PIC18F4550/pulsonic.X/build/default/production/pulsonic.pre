@@ -5859,12 +5859,34 @@ OFF,
 RAYA
 };
 
-# 14 "pulsonic.h"
+# 19 "pulsonic.h"
+typedef int8_t intNumMaxErr_t;
+
+# 25
+union _errorFlag
+{
+struct _errorFlag_flags
+{
+unsigned oilLevel:1;
+unsigned homeSensor:1;
+unsigned unblockedNozzle:1;
+unsigned inductiveSensorRPM:1;
+unsigned __a :4;
+
+
+}f;
+intNumMaxErr_t packed;
+};
+
 struct _pulsonic
 {
+union _errorFlag error;
+
 uint16_t Kticks_0p1ml;
 uint16_t dist_total_time;
 uint16_t dist_access_time;
+
+float sum_all_mlh;
 
 struct _pulsonic_nozzle
 {
@@ -5879,28 +5901,23 @@ int8_t i;
 int8_t viscosity;
 }oil;
 
-float sum_all_mlh;
-
-union _pulsonic_errors
-{
-struct _pulsonic_flags
-{
-unsigned mpap_home_sensor:1;
-unsigned __a:7;
-}flag;
-uint8_t e;
-}errors;
-
 struct _pulsonic_display
 {
 uint8_t qty[3];
 uint8_t mode[2];
 }disp7s;
+
+struct _pulsonic_flags
+{
+unsigned homed:1;
+unsigned __a:7;
+}flags;
+
 };
-extern struct _pulsonic pulsonic;
+
+extern volatile struct _pulsonic pulsonic;
 
 extern const int8_t OIL_VISCOSITY[4];
-
 
 void pulsonic_init(void);
 double pulsonic_getTotalSum_mlh(void);
@@ -5918,8 +5935,8 @@ uint8_t eepromRead(uint8_t addr);
 void eepromWrite_double(uint8_t *pEaddr, double data);
 double eepromRead_double(uint8_t *pEaddr);
 
-# 5 "pulsonic.c"
-struct _pulsonic pulsonic;
+# 6 "pulsonic.c"
+volatile struct _pulsonic pulsonic;
 
 const int8_t OIL_VISCOSITY[4]={22, 32, 46, 68};
 
@@ -5933,7 +5950,6 @@ for (i=0; i< 8; i++)
 pulsonic.nozzle[i].Q_mlh = eepromRead_double(&(((double*)0x00)[i]));
 }
 pulsonic.oil.viscosity = eepromRead( 0x00 + (8*sizeof(double)) );
-
 }
 
 double pulsonic_getTotalSum_mlh(void)

@@ -2,7 +2,8 @@
 #include "pulsonic.h"
 #include "myeeprom.h"
 #include "PIC/eeprom/eeprom.h"
-struct _pulsonic pulsonic;
+
+volatile struct _pulsonic pulsonic;
 
 const int8_t OIL_VISCOSITY[OIL_VISCOSITY_NUMMAX]={22, 32, 46, 68};
 
@@ -16,7 +17,6 @@ void pulsonic_init(void)
         pulsonic.nozzle[i].Q_mlh = eepromRead_double(&(((double*)EEPROM_BLOCK_ADDR)[i]));
     }
     pulsonic.oil.viscosity = eepromRead( EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)) );
-    
 }
 
 double pulsonic_getTotalSum_mlh(void)

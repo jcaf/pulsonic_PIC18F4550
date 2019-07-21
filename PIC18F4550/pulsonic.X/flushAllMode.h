@@ -5,12 +5,12 @@
  * Created on July 16, 2019, 3:46 PM
  */
 
-#ifndef FLUSH_H
-#define	FLUSH_H
+#ifndef FLUSHALLMODE_H
+#define	FLUSHALLMODE_H
 
 
-void flushMode_cmd(int8_t cmd);
-void flushMode_job(void);
+void flushAllMode_cmd(int8_t cmd);
+void flushAllMode_job(void);
 
 
 #ifdef	__cplusplus
@@ -20,5 +20,5 @@ extern "C" {
 }
 #endif
 
-#endif	/* FLUSH_H */
+#endif	/* FLUSHALLMODE_H */
 

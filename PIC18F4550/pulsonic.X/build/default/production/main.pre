@@ -5859,12 +5859,34 @@ OFF,
 RAYA
 };
 
-# 14 "pulsonic.h"
+# 19 "pulsonic.h"
+typedef int8_t intNumMaxErr_t;
+
+# 25
+union _errorFlag
+{
+struct _errorFlag_flags
+{
+unsigned oilLevel:1;
+unsigned homeSensor:1;
+unsigned unblockedNozzle:1;
+unsigned inductiveSensorRPM:1;
+unsigned __a :4;
+
+
+}f;
+intNumMaxErr_t packed;
+};
+
 struct _pulsonic
 {
+union _errorFlag error;
+
 uint16_t Kticks_0p1ml;
 uint16_t dist_total_time;
 uint16_t dist_access_time;
+
+float sum_all_mlh;
 
 struct _pulsonic_nozzle
 {
@@ -5879,28 +5901,23 @@ int8_t i;
 int8_t viscosity;
 }oil;
 
-float sum_all_mlh;
-
-union _pulsonic_errors
-{
-struct _pulsonic_flags
-{
-unsigned mpap_home_sensor:1;
-unsigned __a:7;
-}flag;
-uint8_t e;
-}errors;
-
 struct _pulsonic_display
 {
 uint8_t qty[3];
 uint8_t mode[2];
 }disp7s;
+
+struct _pulsonic_flags
+{
+unsigned homed:1;
+unsigned __a:7;
+}flags;
+
 };
-extern struct _pulsonic pulsonic;
+
+extern volatile struct _pulsonic pulsonic;
 
 extern const int8_t OIL_VISCOSITY[4];
-
 
 void pulsonic_init(void);
 double pulsonic_getTotalSum_mlh(void);
@@ -5993,14 +6010,11 @@ extern struct _ps ps_visMode;
 void configMode_init(int8_t numRegistro);
 int8_t configMode_job(void);
 
-# 12 "flushMode.h"
-void flushMode_cmd(int8_t cmd);
-void flushMode_job(void);
+# 12 "flushAllMode.h"
+void flushAllMode_cmd(int8_t cmd);
+void flushAllMode_job(void);
 
-# 19 "error.h"
-typedef int8_t intNumMaxErr_t;
-
-# 26
+# 15 "error.h"
 void error_job(void);
 
 # 12 "myeeprom.h"
@@ -6189,11 +6203,11 @@ if (flushKb_last != flushKb)
 if (flushKb)
 {
 autoMode_lock = LOCKED;
-flushMode_cmd(JOB_RESTART);
+flushAllMode_cmd(JOB_RESTART);
 }
 else
 {
-flushMode_cmd(JOB_STOP);
+flushAllMode_cmd(JOB_STOP);
 
 
 
@@ -6283,7 +6297,7 @@ ikb_flush();
 }
 
 
-flushMode_job();
+flushAllMode_job();
 pump_job();
 
 smain.f.f1ms = 0;
@@ -6303,23 +6317,8 @@ TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
 }
 }
 
-union _errorDispFlag
-{
-struct _errorFlag_flags
-{
-unsigned oilLevel:1;
-unsigned homeSensor:1;
-unsigned unblockedNozzle:1;
-unsigned inductiveSensorRPM:1;
-unsigned __a :4;
 
-
-}f;
-intNumMaxErr_t packed;
-};
-
-static union _errorDispFlag error;
-static union _errorDispFlag error_grantedToWriteDisp;
+static union _errorFlag error_grantedToWriteDisp;
 static void errorHandler_queue(void);
 static void check_oilLevel(void);
 static void check_inductiveSensorRPM(void);
@@ -6333,15 +6332,15 @@ check_oilLevel();
 
 errorHandler_queue();
 
-if (errorPacked_last != error.packed)
+if (errorPacked_last != pulsonic.error.packed)
 {
-errorPacked_last = error.packed;
+errorPacked_last = pulsonic.error.packed;
 
 if (errorPacked_last != 0)
 {
 mpap.mode = MPAP_STALL_MODE;
 pump_stop();
-flushMode_cmd(JOB_STOP);
+flushAllMode_cmd(JOB_STOP);
 funcMach = FUNCMACH_ERROR;
 do{do{LATA |= 1<<5;}while(0);}while(0);
 }
@@ -6351,6 +6350,7 @@ funcMach = FUNCMACH_NORMAL;
 autoMode_lock = UNLOCKED;
 checkNewStart = 1;
 autoMode_toreturn_disp7s = 1;
+pulsonic.flags.homed = 0;
 
 do{do{LATA &= ~(1<<5);}while(0);}while(0);
 }
@@ -6370,7 +6370,7 @@ if (sm0 == 0)
 {
 if ( !oilLevel )
 {
-error.f.oilLevel = 1;
+pulsonic.error.f.oilLevel = 1;
 sm0++;
 sm1 = 0x00;
 }
@@ -6379,7 +6379,7 @@ else if (sm0 == 1)
 {
 if ( oilLevel )
 {
-error.f.oilLevel = 0;
+pulsonic.error.f.oilLevel = 0;
 sm0 = 0x00;
 }
 else
@@ -6413,7 +6413,7 @@ if (sm0 == 0)
 if (++i == 8)
 {i = 0x00;}
 
-is_granted = error.packed & (1<<i);
+is_granted = pulsonic.error.packed & (1<<i);
 if (is_granted)
 {
 error_grantedToWriteDisp.packed = is_granted;
@@ -6424,7 +6424,7 @@ sm0++;
 }
 else if (sm0 == 1)
 {
-if ( error.packed & (1<<i) )
+if ( pulsonic.error.packed & (1<<i) )
 {
 if (smain.f.f1ms)
 {

@@ -145,6 +145,7 @@ void mpap_job(void)
         cod_ret = mpap_homming();
         if (cod_ret == 1)
         {
+            pulsonic.flags.homed = 1;
             mpap_off();
             mpap.mode = MPAP_STALL_MODE;
         }
@@ -153,7 +154,7 @@ void mpap_job(void)
             mpap_off();
             mpap.mode = MPAP_STALL_MODE;
             
-            pulsonic.errors.flag.mpap_home_sensor = 1;
+            //pulsonic.error.f.homeSensor = 1;
         }
     }
     else if (mpap.mode == MPAP_NORMAL_MODE)

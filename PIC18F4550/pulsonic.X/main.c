@@ -26,7 +26,7 @@
 #include "autoMode.h"
 #include "visMode.h"
 #include "configMode.h"
-#include "flushMode.h"
+#include "flushAllMode.h"
 #include "error.h"
 #include "myeeprom.h"
 #include "PIC/eeprom/eeprom.h"
@@ -216,11 +216,11 @@ void main(void)
                 if (flushKb)
                 {
                     autoMode_lock = LOCKED;
-                    flushMode_cmd(JOB_RESTART);
+                    flushAllMode_cmd(JOB_RESTART);
                 }
                 else
                 {
-                    flushMode_cmd(JOB_STOP);
+                    flushAllMode_cmd(JOB_STOP);
 
                     /* disp_owner hold the current*/
                     
@@ -310,7 +310,7 @@ void main(void)
         }
         
         //
-        flushMode_job();
+        flushAllMode_job();
         pump_job();
         
         smain.f.f1ms = 0;
@@ -330,23 +330,8 @@ void interrupt INTERRUPCION(void)//@1ms
     }
 }
 
-union _errorDispFlag
-{
-    struct _errorFlag_flags
-    {
-        unsigned oilLevel:1;
-        unsigned homeSensor:1;
-        unsigned unblockedNozzle:1;
-        unsigned inductiveSensorRPM:1;
-        unsigned __a :4;
-        
-        //si es mas de 8 - > modificar NUMMAX_ERRORS.. maximo 16
-    }f;
-    intNumMaxErr_t packed;
-};
 
-static union _errorDispFlag error;
-static union _errorDispFlag error_grantedToWriteDisp;//aqui el tiene el permiso en la misma ubicacion
+static union _errorFlag error_grantedToWriteDisp;//aqui el tiene el permiso en la misma ubicacion
 static void errorHandler_queue(void);
 static void check_oilLevel(void);
 static void check_inductiveSensorRPM(void);
@@ -360,15 +345,15 @@ void error_job(void)
     //check_unblocked_nozzle();
     errorHandler_queue();
     
-    if (errorPacked_last != error.packed)
+    if (errorPacked_last != pulsonic.error.packed)
     {
-        errorPacked_last = error.packed;   
+        errorPacked_last = pulsonic.error.packed;   
     
         if (errorPacked_last != 0)
         {
             mpap.mode = MPAP_STALL_MODE;
             pump_stop();
-            flushMode_cmd(JOB_STOP);
+            flushAllMode_cmd(JOB_STOP);
             funcMach = FUNCMACH_ERROR;
             RELAY_DISABLE();
         }
@@ -378,6 +363,7 @@ void error_job(void)
             autoMode_lock = UNLOCKED;
             checkNewStart = 1;
             autoMode_toreturn_disp7s = 1;
+            pulsonic.flags.homed = 0;
             //
             RELAY_ENABLE();
         }
@@ -397,7 +383,7 @@ static void check_oilLevel(void)
 	{
 		if ( !oilLevel )
 		{
-			error.f.oilLevel = 1;                                               //request write
+			pulsonic.error.f.oilLevel = 1;                                               //request write
 			sm0++;
             sm1 = 0x00;
 		}	
@@ -406,7 +392,7 @@ static void check_oilLevel(void)
 	{
         if ( oilLevel )                                                         //1)the process
 		{
-            error.f.oilLevel = 0; 
+            pulsonic.error.f.oilLevel = 0; 
             sm0 = 0x00;
 		}
         else
@@ -440,7 +426,7 @@ static void errorHandler_queue(void)
         if (++i == NUMMAX_ERRORS)
             {i = 0x00;}
         //
-        is_granted = error.packed & (1<<i);
+        is_granted = pulsonic.error.packed & (1<<i);
         if (is_granted)
         {
             error_grantedToWriteDisp.packed = is_granted;//solo 1 tiene el permiso
@@ -451,7 +437,7 @@ static void errorHandler_queue(void)
     }
     else if (sm0 == 1)
     {
-        if ( error.packed & (1<<i) )//aun se mantiene?
+        if ( pulsonic.error.packed & (1<<i) )//aun se mantiene?
         {
             if (smain.f.f1ms)
             {

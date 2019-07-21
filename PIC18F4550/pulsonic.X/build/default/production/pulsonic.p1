@@ -1,22 +1,25 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"20 pulsonic.h
-[s S370 `f 1 `ui 1 `c 1 ]
-[n S370 _pulsonic_nozzle Q_mlh total_ticks_mlh nticks_slicetime ]
-"27
-[s S371 `c 1 `c 1 ]
-[n S371 _pulsonic_oil i viscosity ]
-"37
-[s S373 :1 `uc 1 :7 `uc 1 ]
-[n S373 _pulsonic_flags mpap_home_sensor __a ]
-"35
-[u S372 `S373 1 `uc 1 ]
-[n S372 _pulsonic_errors flag e ]
-"45
+"27 pulsonic.h
+[s S370 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
+[n S370 _errorFlag_flags oilLevel homeSensor unblockedNozzle inductiveSensorRPM __a ]
+"25
+[u S369 `S370 1 `c 1 ]
+[n S369 _errorFlag f packed ]
+"50
+[s S372 `f 1 `ui 1 `c 1 ]
+[n S372 _pulsonic_nozzle Q_mlh total_ticks_mlh nticks_slicetime ]
+"57
+[s S373 `c 1 `c 1 ]
+[n S373 _pulsonic_oil i viscosity ]
+"63
 [s S374 `uc -> 3 `i `uc -> 2 `i ]
 [n S374 _pulsonic_display qty mode ]
-"14
-[s S369 `ui 1 `ui 1 `ui 1 `S370 -> 8 `i `S371 1 `f 1 `S372 1 `S374 1 ]
-[n S369 _pulsonic Kticks_0p1ml dist_total_time dist_access_time nozzle oil sum_all_mlh errors disp7s ]
+"69
+[s S375 :1 `uc 1 :7 `uc 1 ]
+[n S375 _pulsonic_flags homed __a ]
+"40
+[s S371 `S369 1 `ui 1 `ui 1 `ui 1 `f 1 `S372 -> 8 `i `S373 1 `S374 1 `S375 1 ]
+[n S371 _pulsonic error Kticks_0p1ml dist_total_time dist_access_time sum_all_mlh nozzle oil disp7s flags ]
 "18 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/PIC/eeprom/eeprom.h
 [v _eepromRead_double `(d ~T0 @X0 0 ef1`*uc ]
 "12
@@ -3706,51 +3709,61 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;display.h: 74: OFF,
 [; ;display.h: 75: RAYA
 [; ;display.h: 76: };
-[; ;pulsonic.h: 14: struct _pulsonic
-[; ;pulsonic.h: 15: {
-[; ;pulsonic.h: 16: uint16_t Kticks_0p1ml;
-[; ;pulsonic.h: 17: uint16_t dist_total_time;
-[; ;pulsonic.h: 18: uint16_t dist_access_time;
-[; ;pulsonic.h: 20: struct _pulsonic_nozzle
-[; ;pulsonic.h: 21: {
-[; ;pulsonic.h: 22: float Q_mlh;
-[; ;pulsonic.h: 23: uint16_t total_ticks_mlh;
-[; ;pulsonic.h: 24: int8_t nticks_slicetime;
-[; ;pulsonic.h: 25: }nozzle[8];
-[; ;pulsonic.h: 27: struct _pulsonic_oil
+[; ;pulsonic.h: 19: typedef int8_t intNumMaxErr_t;
+[; ;pulsonic.h: 25: union _errorFlag
+[; ;pulsonic.h: 26: {
+[; ;pulsonic.h: 27: struct _errorFlag_flags
 [; ;pulsonic.h: 28: {
-[; ;pulsonic.h: 29: int8_t i;
-[; ;pulsonic.h: 30: int8_t viscosity;
-[; ;pulsonic.h: 31: }oil;
-[; ;pulsonic.h: 33: float sum_all_mlh;
-[; ;pulsonic.h: 35: union _pulsonic_errors
-[; ;pulsonic.h: 36: {
-[; ;pulsonic.h: 37: struct _pulsonic_flags
-[; ;pulsonic.h: 38: {
-[; ;pulsonic.h: 39: unsigned mpap_home_sensor:1;
-[; ;pulsonic.h: 40: unsigned __a:7;
-[; ;pulsonic.h: 41: }flag;
-[; ;pulsonic.h: 42: uint8_t e;
-[; ;pulsonic.h: 43: }errors;
-[; ;pulsonic.h: 45: struct _pulsonic_display
-[; ;pulsonic.h: 46: {
-[; ;pulsonic.h: 47: uint8_t qty[3];
-[; ;pulsonic.h: 48: uint8_t mode[2];
-[; ;pulsonic.h: 49: }disp7s;
-[; ;pulsonic.h: 50: };
-[; ;pulsonic.h: 51: extern struct _pulsonic pulsonic;
-[; ;pulsonic.h: 53: extern const int8_t OIL_VISCOSITY[4];
-[; ;pulsonic.h: 56: void pulsonic_init(void);
-[; ;pulsonic.h: 57: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 29: unsigned oilLevel:1;
+[; ;pulsonic.h: 30: unsigned homeSensor:1;
+[; ;pulsonic.h: 31: unsigned unblockedNozzle:1;
+[; ;pulsonic.h: 32: unsigned inductiveSensorRPM:1;
+[; ;pulsonic.h: 33: unsigned __a :4;
+[; ;pulsonic.h: 36: }f;
+[; ;pulsonic.h: 37: intNumMaxErr_t packed;
+[; ;pulsonic.h: 38: };
+[; ;pulsonic.h: 40: struct _pulsonic
+[; ;pulsonic.h: 41: {
+[; ;pulsonic.h: 42: union _errorFlag error;
+[; ;pulsonic.h: 44: uint16_t Kticks_0p1ml;
+[; ;pulsonic.h: 45: uint16_t dist_total_time;
+[; ;pulsonic.h: 46: uint16_t dist_access_time;
+[; ;pulsonic.h: 48: float sum_all_mlh;
+[; ;pulsonic.h: 50: struct _pulsonic_nozzle
+[; ;pulsonic.h: 51: {
+[; ;pulsonic.h: 52: float Q_mlh;
+[; ;pulsonic.h: 53: uint16_t total_ticks_mlh;
+[; ;pulsonic.h: 54: int8_t nticks_slicetime;
+[; ;pulsonic.h: 55: }nozzle[8];
+[; ;pulsonic.h: 57: struct _pulsonic_oil
+[; ;pulsonic.h: 58: {
+[; ;pulsonic.h: 59: int8_t i;
+[; ;pulsonic.h: 60: int8_t viscosity;
+[; ;pulsonic.h: 61: }oil;
+[; ;pulsonic.h: 63: struct _pulsonic_display
+[; ;pulsonic.h: 64: {
+[; ;pulsonic.h: 65: uint8_t qty[3];
+[; ;pulsonic.h: 66: uint8_t mode[2];
+[; ;pulsonic.h: 67: }disp7s;
+[; ;pulsonic.h: 69: struct _pulsonic_flags
+[; ;pulsonic.h: 70: {
+[; ;pulsonic.h: 71: unsigned homed:1;
+[; ;pulsonic.h: 72: unsigned __a:7;
+[; ;pulsonic.h: 73: }flags;
+[; ;pulsonic.h: 75: };
+[; ;pulsonic.h: 77: extern volatile struct _pulsonic pulsonic;
+[; ;pulsonic.h: 79: extern const int8_t OIL_VISCOSITY[4];
+[; ;pulsonic.h: 81: void pulsonic_init(void);
+[; ;pulsonic.h: 82: double pulsonic_getTotalSum_mlh(void);
 [; ;myeeprom.h: 12: void myeeprom_init(void);
 [; ;eeprom.h: 11: void eepromWrite(uint8_t addr, uint8_t data);
 [; ;eeprom.h: 12: uint8_t eepromRead(uint8_t addr);
 [; ;eeprom.h: 17: void eepromWrite_double(uint8_t *pEaddr, double data);
 [; ;eeprom.h: 18: double eepromRead_double(uint8_t *pEaddr);
-"5 pulsonic.c
-[v _pulsonic `S369 ~T0 @X0 1 e ]
-[; ;pulsonic.c: 5: struct _pulsonic pulsonic;
-"7
+"6 pulsonic.c
+[v _pulsonic `VS371 ~T0 @X0 1 e ]
+[; ;pulsonic.c: 6: volatile struct _pulsonic pulsonic;
+"8
 [v _OIL_VISCOSITY `Cc ~T0 @X0 -> 4 `i e ]
 [i _OIL_VISCOSITY
 :U ..
@@ -3760,49 +3773,49 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 68 `i `c
 ..
 ]
-[; ;pulsonic.c: 7: const int8_t OIL_VISCOSITY[4]={22, 32, 46, 68};
-"9
-[v _pulsonic_init `(v ~T0 @X0 1 ef ]
+[; ;pulsonic.c: 8: const int8_t OIL_VISCOSITY[4]={22, 32, 46, 68};
 "10
+[v _pulsonic_init `(v ~T0 @X0 1 ef ]
+"11
 {
-[; ;pulsonic.c: 9: void pulsonic_init(void)
-[; ;pulsonic.c: 10: {
+[; ;pulsonic.c: 10: void pulsonic_init(void)
+[; ;pulsonic.c: 11: {
 [e :U _pulsonic_init ]
 [f ]
-"11
-[v _i `c ~T0 @X0 1 a ]
-[; ;pulsonic.c: 11: int8_t i;
-[; ;pulsonic.c: 12: pulsonic.dist_total_time = 60;
 "12
-[e = . _pulsonic 1 -> -> 60 `i `ui ]
-[; ;pulsonic.c: 14: for (i=0; i< 8; i++)
-"14
+[v _i `c ~T0 @X0 1 a ]
+[; ;pulsonic.c: 12: int8_t i;
+[; ;pulsonic.c: 13: pulsonic.dist_total_time = 60;
+"13
+[e = . _pulsonic 2 -> -> 60 `i `ui ]
+[; ;pulsonic.c: 15: for (i=0; i< 8; i++)
+"15
 {
 [e = _i -> -> 0 `i `c ]
-[e $ < -> _i `i -> 8 `i 376  ]
-[e $U 377  ]
-"15
-[e :U 376 ]
-[; ;pulsonic.c: 15: {
-{
-[; ;pulsonic.c: 16: pulsonic.nozzle[i].Q_mlh = eepromRead_double(&(((double*)0x00)[i]));
+[e $ < -> _i `i -> 8 `i 377  ]
+[e $U 378  ]
 "16
-[e = . *U + &U . _pulsonic 3 * -> -> _i `uc `ux -> -> # *U &U . _pulsonic 3 `ui `ux 0 -> ( _eepromRead_double (1 -> &U *U + -> -> 0 `i `*d * -> _i `x -> -> # *U -> -> 0 `i `*d `i `x `*uc `f ]
-"17
-}
-"14
-[e ++ _i -> -> 1 `i `c ]
-[e $ < -> _i `i -> 8 `i 376  ]
 [e :U 377 ]
+[; ;pulsonic.c: 16: {
+{
+[; ;pulsonic.c: 17: pulsonic.nozzle[i].Q_mlh = eepromRead_double(&(((double*)0x00)[i]));
 "17
-}
-[; ;pulsonic.c: 17: }
-[; ;pulsonic.c: 18: pulsonic.oil.viscosity = eepromRead( 0x00 + (8*sizeof(double)) );
+[e = . *U + &U . _pulsonic 5 * -> -> _i `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 -> ( _eepromRead_double (1 -> &U *U + -> -> 0 `i `*d * -> _i `x -> -> # *U -> -> 0 `i `*d `i `x `*uc `f ]
 "18
-[e = . . _pulsonic 4 1 -> ( _eepromRead (1 -> + -> -> 0 `i `ui * -> -> 8 `i `ui -> # `d `ui `uc `c ]
+}
+"15
+[e ++ _i -> -> 1 `i `c ]
+[e $ < -> _i `i -> 8 `i 377  ]
+[e :U 378 ]
+"18
+}
+[; ;pulsonic.c: 18: }
+[; ;pulsonic.c: 19: pulsonic.oil.viscosity = eepromRead( 0x00 + (8*sizeof(double)) );
+"19
+[e = . . _pulsonic 6 1 -> ( _eepromRead (1 -> + -> -> 0 `i `ui * -> -> 8 `i `ui -> # `d `ui `uc `c ]
 [; ;pulsonic.c: 20: }
 "20
-[e :UE 375 ]
+[e :UE 376 ]
 }
 "22
 [v _pulsonic_getTotalSum_mlh `(d ~T0 @X0 1 ef ]
@@ -3823,29 +3836,29 @@ Version 3.2 HI-TECH Software Intermediate Code
 "27
 {
 [e = _i -> 0 `i ]
-[e $ < _i -> 8 `i 380  ]
-[e $U 381  ]
+[e $ < _i -> 8 `i 381  ]
+[e $U 382  ]
 "28
-[e :U 380 ]
+[e :U 381 ]
 [; ;pulsonic.c: 28: {
 {
 [; ;pulsonic.c: 29: acc += pulsonic.nozzle[i].Q_mlh;
 "29
-[e =+ _acc -> . *U + &U . _pulsonic 3 * -> -> _i `ui `ux -> -> # *U &U . _pulsonic 3 `ui `ux 0 `d ]
+[e =+ _acc -> . *U + &U . _pulsonic 5 * -> -> _i `ui `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 `d ]
 "30
 }
 "27
 [e ++ _i -> 1 `i ]
-[e $ < _i -> 8 `i 380  ]
-[e :U 381 ]
+[e $ < _i -> 8 `i 381  ]
+[e :U 382 ]
 "30
 }
 [; ;pulsonic.c: 30: }
 [; ;pulsonic.c: 31: return acc;
 "31
 [e ) _acc ]
-[e $UE 379  ]
+[e $UE 380  ]
 [; ;pulsonic.c: 32: }
 "32
-[e :UE 379 ]
+[e :UE 380 ]
 }
