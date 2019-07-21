@@ -14,11 +14,12 @@
       <itemPath>nozzle.h</itemPath>
       <itemPath>pump.h</itemPath>
       <itemPath>configMode.h</itemPath>
-      <itemPath>flushMode.h</itemPath>
       <itemPath>visMode.h</itemPath>
       <itemPath>autoMode.h</itemPath>
       <itemPath>error.h</itemPath>
       <itemPath>../../../../../../FIRWAR/eslibrary/PIC/eeprom/eeprom.h</itemPath>
+      <itemPath>flushAllMode.h</itemPath>
+      <itemPath>flushAtNozzle.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -36,11 +37,12 @@
       <itemPath>nozzle.c</itemPath>
       <itemPath>inputs.c</itemPath>
       <itemPath>configMode.c</itemPath>
-      <itemPath>flushMode.c</itemPath>
       <itemPath>visMode.c</itemPath>
       <itemPath>autoMode.c</itemPath>
       <itemPath>error.c</itemPath>
       <itemPath>../../../../../../FIRWAR/eslibrary/PIC/eeprom/eeprom.c</itemPath>
+      <itemPath>flushAllMode.c</itemPath>
+      <itemPath>flushAtNozzle.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -61,7 +63,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit2PlatformTool</platformTool>
         <languageToolchain>XC8</languageToolchain>
-        <languageToolchainVersion>2.05</languageToolchainVersion>
+        <languageToolchainVersion>1.33</languageToolchainVersion>
         <platform>2</platform>
       </toolsSet>
       <compileType>
@@ -94,7 +96,7 @@
         <property key="disable-optimizations" value="false"/>
         <property key="extra-include-directories"
                   value=".;/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary"/>
-        <property key="favor-optimization-for" value="+speed,-space"/>
+        <property key="favor-optimization-for" value="-speed,+space"/>
         <property key="identifier-length" value="255"/>
         <property key="local-generation" value="false"/>
         <property key="operation-mode" value="pro"/>
@@ -107,7 +109,7 @@
         <property key="optimization-invariant-value" value="16"/>
         <property key="optimization-level" value="9"/>
         <property key="optimization-set" value="default"/>
-        <property key="optimization-speed" value="true"/>
+        <property key="optimization-speed" value="false"/>
         <property key="optimization-stable-enable" value="false"/>
         <property key="preprocess-assembler" value="true"/>
         <property key="undefine-macros" value=""/>

@@ -1,7 +1,8 @@
 #include "main.h"
 #include "pump.h"
 
-#define PUMP_TICK_TIME 50//in ms
+#define PUMP_TICK_TIME_ON   25//in ms
+#define PUMP_TICK_TIME_OFF  75//in ms
 
 static struct _pump pump;
 
@@ -22,23 +23,23 @@ void pump_stop(void)
 int8_t pump_job(void)
 {
     int8_t cod_ret = 0;
-    static int8_t c;
+    static uint16_t c;
     
     if (pump.ticks > 0)
     {
         if (pump.sm0 == 0)
         {
             PUMP_ENABLE();
-            c = 0x0;
+            c = 0x0000;
             pump.sm0++;
         }
         else if (pump.sm0 == 1)
         {
             if (smain.f.f1ms)
             {
-                if (++c == PUMP_TICK_TIME)
+                if (++c == PUMP_TICK_TIME_ON)
                 {
-                    c=0x00;
+                    c=0x0000;
                     pump.sm0++;
                     PUMP_DISABLE();
                 }
@@ -48,9 +49,9 @@ int8_t pump_job(void)
         {
             if (smain.f.f1ms)
             {
-                if (++c == PUMP_TICK_TIME)
+                if (++c == PUMP_TICK_TIME_OFF)
                 {
-                    c=0x00;
+                    c=0x0000;
                     pump.sm0 = 0x00;
                     //
                     if (--pump.ticks == 0)

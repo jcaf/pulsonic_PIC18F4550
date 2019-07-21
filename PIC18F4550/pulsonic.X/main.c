@@ -30,6 +30,7 @@
 #include "error.h"
 #include "myeeprom.h"
 #include "PIC/eeprom/eeprom.h"
+#include "flushAtNozzle.h"
 
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
@@ -288,6 +289,10 @@ void main(void)
                 disp_owner = DISPOWNER_CONFIGMODE;
                 configMode_init(0x0);
                 RELAY_DISABLE();
+                //
+                key[4].bf.OnKeyPressed = 1;
+                key[4].bf.whilePressing = 0;
+                //
             }
             visMode_job();
         }
@@ -303,6 +308,7 @@ void main(void)
                 //
                 RELAY_ENABLE();
             }
+            flushAtNozzle_job();
         }
         else if (funcMach == FUNCMACH_ERROR)
         {
@@ -334,7 +340,6 @@ void interrupt INTERRUPCION(void)//@1ms
 static union _errorFlag error_grantedToWriteDisp;//aqui el tiene el permiso en la misma ubicacion
 static void errorHandler_queue(void);
 static void check_oilLevel(void);
-static void check_inductiveSensorRPM(void);
 
 void error_job(void)
 {

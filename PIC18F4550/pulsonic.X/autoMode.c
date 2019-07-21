@@ -27,14 +27,13 @@ void autoMode_cmd(int8_t cmd)
     {
         autoMode.numNozzle = 0x0;
         autoMode.sm0 = 0x1;
-        mpap.mode = MPAP_STALL_MODE;
     }
     else if (cmd == JOB_STOP)
     {
         autoMode.sm0 = 0;
-        mpap.mode = MPAP_STALL_MODE;
-        pump_stop();
     }
+    pump_stop();
+    mpap.mode = MPAP_STALL_MODE;
 }
 
 void autoMode_job(void)
@@ -75,7 +74,7 @@ void autoMode_job(void)
         {
             if (mpap_isIdle())
             {
-                pump_setTick(1);
+                pump_setTick(3);
                 autoMode.sm0++;
             }
         }

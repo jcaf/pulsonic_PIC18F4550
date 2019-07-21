@@ -109,6 +109,7 @@ int8_t mpap_homming(void)
         if ( mpap.counter_steps == mpap.numSteps_tomove)//max. num. vueltas
 		{
             mpap.numSteps_tomove = 0x0000;
+            mpap.numSteps_current = 0x0000; 
             cod_ret = 2;		
 		}
 	}
@@ -153,7 +154,6 @@ void mpap_job(void)
         {
             mpap_off();
             mpap.mode = MPAP_STALL_MODE;
-            
             //pulsonic.error.f.homeSensor = 1;
         }
     }

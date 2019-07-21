@@ -22,6 +22,7 @@ void flushAllMode_cmd(int8_t cmd)
         flushAllMode.numNozzle = 0x0;
         flushAllMode.sm0 = 0x1;
         
+        pump_stop();
         mpap.mode = MPAP_STALL_MODE;
     }
     if (cmd == JOB_STOP)
