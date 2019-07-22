@@ -5686,43 +5686,7 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 11 "../../../../../../FIRWAR/eslibrary/ikb/ikb.h"
-struct _key
-{
-PTRFX_retUINT8_T keyRead;
-PTRFX_retVOID keyDo;
-uint8_t sm0;
-uint8_t counter0;
-uint8_t sm1;
-uint16_t counter1;
-uint8_t num_group_x;
-struct _bf
-{
-unsigned state:1;
-
-unsigned OnKeyPressed:1;
-unsigned Reptt:1;
-unsigned OnKeyReleased:1;
-unsigned whilePressing:1;
-unsigned AtTimeExpired:1;
-unsigned AtTimeExpired2:1;
-
-
-unsigned ReadyToRead:1;
-unsigned AtTimeExpired_BeforeOrAfter:1;
-unsigned OwnerOfGroup:1;
-unsigned InProcessing:1;
-} bf;
-struct _repp
-{
-uint16_t breakTime;
-uint16_t period;
-} repp;
-};
-
-extern volatile struct _key key[5];
-
-# 165
+# 127 "../../../../../../FIRWAR/eslibrary/ikb/ikb.h"
 void ikb_init(void);
 void ikb_job(void);
 void ikb_flush(void);
@@ -5734,8 +5698,61 @@ void ikb_set_ready2read(uint8_t k);
 void ikb_key_was_read(uint8_t k);
 void ikb_execfunct(uint8_t k);
 
-# 38 "../../../../../../FIRWAR/eslibrary/ikb/ikb.c"
-volatile struct _key key[5];
+# 143
+struct _key_prop
+{
+union _key_prop_uFlag
+{
+struct _key_prop_uFlag_f
+{
+unsigned onKeyPressed:1;
+unsigned reptt:1;
+unsigned onKeyReleased:1;
+unsigned whilePressing:1;
+unsigned atTimeExpired:1;
+unsigned atTimeExpired2:1;
+unsigned __a:2;
+}f;
+
+uint8_t packed;
+}uFlag;
+
+struct _repttTh
+{
+uint16_t breakTime;
+uint16_t period;
+}repttTh;
+
+uint8_t numGroup;
+};
+void ikb_setKeyProp(uint8_t i, struct _key_prop prop);
+extern const struct _key_prop propEmpty;
+
+# 5 "../../../../../../FIRWAR/eslibrary/ikb/ikb.c"
+struct _key
+{
+PTRFX_retUINT8_T keyRead;
+PTRFX_retVOID keyDo;
+uint8_t sm0;
+uint8_t counter0;
+uint8_t sm1;
+uint16_t counter1;
+
+struct _key_prop prop;
+
+struct _key_statusFlag
+{
+unsigned state:1;
+unsigned ReadyToRead:1;
+unsigned AtTimeExpired_BeforeOrAfter:1;
+unsigned OwnerOfGroup:1;
+unsigned InProcessing:1;
+unsigned __a:3;
+}statusFlag;
+};
+
+volatile static struct _key key[5];
+const struct _key_prop propEmpty = {0};
 
 void ikey_scan(void);
 void ikey_parsing(void);
@@ -5743,7 +5760,7 @@ int8_t ikey_is_all_hw_released(void);
 void ikey_clear_all_flag(void);
 int8_t ikey_is_all_process_finished(void);
 
-# 197
+# 187
 static inline uint8_t keyRead_pin_key0(void)
 {
 return ((PORTC & (1<<4))>>4);
@@ -5767,11 +5784,15 @@ return ((PORTD & (1<<4))>>4);
 
 
 
+void ikb_setKeyProp(uint8_t i, struct _key_prop prop)
+{
+key[i].prop = prop;
+}
 void ikb_init(void)
 {
-int8_t i;
+uint8_t i;
 
-# 392
+# 248
 do{TRISC |= 1<<4;}while(0);
 do{TRISC |= 1<<5;}while(0);
 do{TRISC |= 1<<6;}while(0);
@@ -5784,64 +5805,12 @@ key[3].keyRead = keyRead_pin_key3;
 key[4].keyRead = keyRead_pin_key4;
 
 
-key[0].bf.OnKeyPressed = 1;
-key[0].bf.OnKeyReleased = 0;
-key[0].bf.AtTimeExpired = 0;
-key[0].bf.AtTimeExpired2 = 0;
-key[0].bf.whilePressing = 0;
-key[0].num_group_x = 1;
-key[0].bf.Reptt = 1;
-key[0].repp.breakTime= (uint16_t)500.0/20;
-key[0].repp.period = (uint16_t)300.0/20;
 
-
-key[1].bf.OnKeyPressed = 1;
-key[1].bf.OnKeyReleased = 0;
-key[1].bf.AtTimeExpired = 0;
-key[1].bf.AtTimeExpired2 = 0;
-key[1].bf.whilePressing = 0;
-key[1].num_group_x = 1;
-key[1].bf.Reptt = 1;
-key[1].repp.breakTime= (uint16_t)500.0/20;
-key[1].repp.period = (uint16_t)300.0/20;
-
-
-key[2].bf.OnKeyPressed = 0;
-key[2].bf.OnKeyReleased = 0;
-key[2].bf.AtTimeExpired = 0;
-key[2].bf.AtTimeExpired2 = 1;
-key[2].bf.whilePressing = 0;
-key[2].num_group_x = 0;
-key[2].bf.Reptt = 0;
-key[2].repp.breakTime= (uint16_t)300.0/20;
-key[2].repp.period = (uint16_t)800.0/20;
-
-
-key[3].bf.OnKeyPressed = 0;
-key[3].bf.OnKeyReleased = 0;
-key[3].bf.AtTimeExpired = 0;
-key[3].bf.AtTimeExpired2 = 1;
-key[3].bf.whilePressing = 0;
-key[3].num_group_x = 0;
-key[3].bf.Reptt = 0;
-key[3].repp.breakTime= (uint16_t)300.0/20;
-key[3].repp.period = (uint16_t)800.0/20;
-
-
-
-key[4].bf.OnKeyPressed = 0;
-key[4].bf.OnKeyReleased = 0;
-key[4].bf.AtTimeExpired = 0;
-key[4].bf.AtTimeExpired2 = 0;
-key[4].bf.whilePressing = 1;
-key[4].num_group_x = 0;
-key[4].bf.Reptt = 0;
-key[4].repp.breakTime= (uint16_t)300.0/20;
-key[4].repp.period = (uint16_t)800.0/20;
-
-
-
-
+struct _key_prop prop = {0};
+prop = propEmpty;
+prop.uFlag.f.onKeyPressed = 1;
+for (i=0; i< 5; i++)
+{ikb_setKeyProp(i, prop);}
 }
 
 void ikb_job(void)
@@ -5855,26 +5824,26 @@ ikey_clear_all_flag();
 }
 uint8_t ikb_get_AtTimeExpired_BeforeOrAfter(uint8_t k)
 {
-return key[k].bf.AtTimeExpired_BeforeOrAfter;
+return key[k].statusFlag.AtTimeExpired_BeforeOrAfter;
 }
 uint8_t ikb_key_is_ready2read(uint8_t k)
 {
-return key[k].bf.ReadyToRead;
+return key[k].statusFlag.ReadyToRead;
 }
 void ikb_set_ready2read(uint8_t k)
 {
-key[k].bf.ReadyToRead = 1;
+key[k].statusFlag.ReadyToRead = 1;
 }
 void ikb_key_was_read(uint8_t k)
 {
-key[k].bf.ReadyToRead = 0;
+key[k].statusFlag.ReadyToRead = 0;
 }
 void ikb_execfunct(uint8_t k)
 {
 key[k].keyDo();
 }
 
-# 501
+# 305
 void ikey_scan(void)
 {
 int8_t k = 5-1;
@@ -5901,7 +5870,7 @@ key[k].sm0--;
 }
 else
 {
-key[k].bf.state = 1;
+key[k].statusFlag.state = 1;
 key[k].sm0++;
 }
 }
@@ -5923,7 +5892,7 @@ key[k].sm0--;
 }
 else
 {
-key[k].bf.state = 0;
+key[k].statusFlag.state = 0;
 key[k].sm0 = 0x00;
 }
 }
@@ -5932,18 +5901,18 @@ key[k].sm0 = 0x00;
 }while (--k >= 0);
 }
 
-# 564
+# 368
 uint8_t group_x[5];
 
 static uint8_t ikey_is_accessible(uint8_t k)
 {
-if (key[k].num_group_x > 0)
+if (key[k].prop.numGroup > 0)
 {
 
-if (group_x[key[k].num_group_x] == 1)
+if (group_x[key[k].prop.numGroup] == 1)
 {
 
-if ( !key[k].bf.OwnerOfGroup)
+if ( !key[k].statusFlag.OwnerOfGroup)
 {
 return 0;
 }
@@ -5952,7 +5921,7 @@ return 0;
 return 1;
 }
 
-# 588
+# 392
 enum _STAGE_
 {
 _STAGE_START_PARSING_=0,
@@ -5981,14 +5950,14 @@ if ( key[k].sm1 == _STAGE_START_PARSING_ )
 {
 if ( ikey_is_accessible(k) )
 {
-if (key[k].bf.state == 1)
+if (key[k].statusFlag.state == 1)
 {
 
-if (key[k].bf.OnKeyPressed)
+if (key[k].prop.uFlag.f.onKeyPressed)
 {
-key[k].bf.ReadyToRead = 1;
+key[k].statusFlag.ReadyToRead = 1;
 
-if (key[k].bf.Reptt)
+if (key[k].prop.uFlag.f.reptt)
 {
 key[k].sm1 = _STAGE_REPTT_;
 }
@@ -5997,33 +5966,33 @@ else
 key[k].sm1 = _STAGE_ISKEY_RELEASED_;
 }
 }
-else if ( key[k].bf.OnKeyReleased)
+else if ( key[k].prop.uFlag.f.onKeyReleased)
 {
 key[k].sm1 = _STAGE_ONKEYRELEASED_;
 }
-else if ( key[k].bf.whilePressing)
+else if ( key[k].prop.uFlag.f.whilePressing)
 {
 key[k].sm1 = _STAGE_WHILEPRESSING_;
 }
-else if (key[k].bf.AtTimeExpired)
+else if (key[k].prop.uFlag.f.atTimeExpired)
 {
 key[k].sm1 = _STAGE_FIREATIMEEXPIRED_;
 }
-else if (key[k].bf.AtTimeExpired2)
+else if (key[k].prop.uFlag.f.atTimeExpired2)
 {
 key[k].sm1 = _STAGE_FIREATIMEEXPIRED_2_;
 }
 
 
-key[k].bf.InProcessing = 1;
+key[k].statusFlag.InProcessing = 1;
 
 
 
 
-if (key[k].num_group_x > 0)
+if (key[k].prop.numGroup > 0)
 {
-group_x[ key[k].num_group_x ] = 1;
-key[k].bf.OwnerOfGroup = 1;
+group_x[ key[k].prop.numGroup ] = 1;
+key[k].statusFlag.OwnerOfGroup = 1;
 }
 
 }
@@ -6034,7 +6003,7 @@ key[k].bf.OwnerOfGroup = 1;
 
 if ( (key[k].sm1 >= _STAGE_REPTT_ ) && (key[k].sm1 <= _STAGE_REPTT_2_))
 {
-if (key[k].bf.state == 0)
+if (key[k].statusFlag.state == 0)
 {
 key[k].counter1 = 0;
 key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
@@ -6043,7 +6012,7 @@ key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 
 if (key[k].sm1 == _STAGE_REPTT_ )
 {
-if ( ++key[k].counter1 >= key[k].repp.breakTime)
+if ( ++key[k].counter1 >= key[k].prop.repttTh.breakTime)
 {
 key[k].counter1 =0;
 key[k].sm1 = _STAGE_REPTT_1_;
@@ -6051,15 +6020,15 @@ key[k].sm1 = _STAGE_REPTT_1_;
 }
 if (key[k].sm1 == _STAGE_REPTT_1_)
 {
-if (key[k].bf.ReadyToRead == 0)
+if (key[k].statusFlag.ReadyToRead == 0)
 {
-key[k].bf.ReadyToRead = 1;
+key[k].statusFlag.ReadyToRead = 1;
 key[k].sm1 = _STAGE_REPTT_2_;
 }
 }
 if (key[k].sm1 == _STAGE_REPTT_2_)
 {
-if ( ++key[k].counter1 >= key[k].repp.period)
+if ( ++key[k].counter1 >= key[k].prop.repttTh.period)
 {
 key[k].counter1 = 0;
 key[k].sm1 = _STAGE_REPTT_1_;
@@ -6068,15 +6037,15 @@ key[k].sm1 = _STAGE_REPTT_1_;
 
 if (key[k].sm1 == _STAGE_ONKEYRELEASED_ )
 {
-if (key[k].bf.state == 0)
+if (key[k].statusFlag.state == 0)
 {
-key[k].bf.ReadyToRead = 1;
+key[k].statusFlag.ReadyToRead = 1;
 key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 }
 }
 if (key[k].sm1 == _STAGE_WHILEPRESSING_ )
 {
-key[k].bf.ReadyToRead = 1;
+key[k].statusFlag.ReadyToRead = 1;
 key[k].sm1 = _STAGE_ISKEY_RELEASED2_;
 }
 
@@ -6084,14 +6053,14 @@ if (key[k].sm1 == _STAGE_FIREATIMEEXPIRED_ )
 {
 key[k].counter1++;
 
-if (key[k].bf.state == 0)
+if (key[k].statusFlag.state == 0)
 {
 if (key[k].counter1 <= ((500.0/20)) )
 {
 key[k].counter1 = 0;
 
-key[k].bf.ReadyToRead = 1;
-key[k].bf.AtTimeExpired_BeforeOrAfter = 0;
+key[k].statusFlag.ReadyToRead = 1;
+key[k].statusFlag.AtTimeExpired_BeforeOrAfter = 0;
 
 key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 }
@@ -6101,10 +6070,10 @@ if (key[k].counter1 > ((500.0/20)) )
 {
 key[k].counter1 = 0x0000;
 
-key[k].bf.ReadyToRead = 1;
-key[k].bf.AtTimeExpired_BeforeOrAfter = 1;
+key[k].statusFlag.ReadyToRead = 1;
+key[k].statusFlag.AtTimeExpired_BeforeOrAfter = 1;
 
-if (!key[k].bf.Reptt)
+if (!key[k].prop.uFlag.f.reptt)
 {
 key[k].sm1 = _STAGE_ISKEY_RELEASED_;
 }
@@ -6122,14 +6091,14 @@ if (key[k].sm1 == _STAGE_FIREATIMEEXPIRED_2_)
 {
 key[k].counter1++;
 
-if (key[k].bf.state == 0)
+if (key[k].statusFlag.state == 0)
 {
 if (key[k].counter1 <= ((500.0/20)))
 {
 key[k].counter1 = 0;
 
-key[k].bf.ReadyToRead = 1;
-key[k].bf.AtTimeExpired_BeforeOrAfter = 0;
+key[k].statusFlag.ReadyToRead = 1;
+key[k].statusFlag.AtTimeExpired_BeforeOrAfter = 0;
 
 key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 }
@@ -6140,8 +6109,8 @@ if (key[k].counter1 >= ((2000.0/20)))
 {
 key[k].counter1 = 0x0000;
 
-key[k].bf.ReadyToRead = 1;
-key[k].bf.AtTimeExpired_BeforeOrAfter = 1;
+key[k].statusFlag.ReadyToRead = 1;
+key[k].statusFlag.AtTimeExpired_BeforeOrAfter = 1;
 
 
 key[k].sm1 = _STAGE_ISKEY_RELEASED2_;
@@ -6151,7 +6120,7 @@ key[k].sm1 = _STAGE_ISKEY_RELEASED2_;
 
 if (key[k].sm1 == _STAGE_ISKEY_RELEASED_)
 {
-if (key[k].bf.state == 0)
+if (key[k].statusFlag.state == 0)
 {
 key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 }
@@ -6159,16 +6128,16 @@ key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 
 if (key[k].sm1 == _STAGE_ISKEY_RELEASED2_)
 {
-if (key[k].bf.state == 0)
+if (key[k].statusFlag.state == 0)
 {
-key[k].bf.ReadyToRead = 0;
+key[k].statusFlag.ReadyToRead = 0;
 key[k].sm1 = _STAGE_END_PARSING_;
 }
 }
 
 if (key[k].sm1 == _STAGE_ISKEY_READFROMAPP_)
 {
-if (key[k].bf.ReadyToRead == 0)
+if (key[k].statusFlag.ReadyToRead == 0)
 {
 key[k].sm1 = _STAGE_END_PARSING_;
 }
@@ -6176,16 +6145,16 @@ key[k].sm1 = _STAGE_END_PARSING_;
 
 if (key[k].sm1 == _STAGE_END_PARSING_)
 {
-if (key[k].num_group_x > 0)
+if (key[k].prop.numGroup > 0)
 {
-group_x[key[k].num_group_x] = 0;
-key[k].bf.OwnerOfGroup = 0;
+group_x[key[k].prop.numGroup] = 0;
+key[k].statusFlag.OwnerOfGroup = 0;
 }
 
 key[k].sm1 = _STAGE_START_PARSING_;
 
 
-key[k].bf.InProcessing = 0;
+key[k].statusFlag.InProcessing = 0;
 
 }
 }
@@ -6195,7 +6164,7 @@ int8_t ikey_is_all_hw_released(void)
 uint8_t i;
 for (i=0; i<5; i++)
 {
-if (key[i].bf.state == 1)
+if (key[i].statusFlag.state == 1)
 {
 return 0;
 }
@@ -6209,7 +6178,7 @@ uint8_t i;
 for (i=0; i<5; i++)
 {
 
-key[i].bf.ReadyToRead = 0;
+key[i].statusFlag.ReadyToRead = 0;
 }
 }
 
@@ -6218,7 +6187,7 @@ int8_t ikey_is_all_process_finished(void)
 uint8_t i;
 for (i=0; i<5; i++)
 {
-if (key[i].bf.InProcessing == 1)
+if (key[i].statusFlag.InProcessing == 1)
 {
 return 0;
 }

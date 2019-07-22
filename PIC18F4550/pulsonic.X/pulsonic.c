@@ -16,7 +16,9 @@ void pulsonic_init(void)
     {
         pulsonic.nozzle[i].Q_mlh = eepromRead_double(&(((double*)EEPROM_BLOCK_ADDR)[i]));
     }
-    pulsonic.oil.viscosity = eepromRead( EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)) );
+    //next address is for index-of-OIL_VISCOSITY[]
+    pulsonic.oil.i = eepromRead( EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)) );
+    pulsonic.oil.viscosity = OIL_VISCOSITY[pulsonic.oil.i];
 }
 
 double pulsonic_getTotalSum_mlh(void)

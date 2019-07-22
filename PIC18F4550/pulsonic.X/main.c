@@ -15,6 +15,7 @@
  *      en main.h: 
  * #define myitoa(_integer_, _buffer_, _base_) itoa(_buffer_, _integer_, _base_) 
  * 
+ * 2) Picki2: Program with PRESERVE EEPROM
  */
 #include "main.h"
 #include "pulsonic.h"
@@ -57,6 +58,29 @@ int8_t checkNewStart =1;
 int8_t checkNoStart;
 int8_t autoMode_toreturn_disp7s=0;
 
+void mykb_layout0(void)
+{
+    struct _key_prop prop = {0};
+    
+    prop = propEmpty;
+    prop.uFlag.f.onKeyPressed = 1;
+    prop.uFlag.f.reptt = 1;
+    prop.numGroup = 1;
+    prop.repttTh.breakTime = (uint16_t)500.0/KB_PERIODIC_ACCESS;
+    prop.repttTh.period = (uint16_t)300.0/KB_PERIODIC_ACCESS;
+    ikb_setKeyProp(0, prop);
+    ikb_setKeyProp(1, prop);
+    //
+    prop = propEmpty;
+    prop.uFlag.f.atTimeExpired2 = 1;
+    ikb_setKeyProp(2, prop);
+    ikb_setKeyProp(3, prop);
+    //
+    prop = propEmpty;
+    prop.uFlag.f.whilePressing = 1;
+    ikb_setKeyProp(4, prop);
+}
+
 void main(void) 
 {
     int8_t c_access_kb=0;
@@ -64,6 +88,7 @@ void main(void)
     int8_t START_SIG=0;
     int8_t flushKb;
     static int8_t flushKb_last;
+    struct _key_prop prop = {0};
     
     //myeeprom_init();
     
@@ -106,6 +131,8 @@ void main(void)
     ConfigInputPin(CONFIGIOxSTARTSIGNAL, PINxSTARTSIGNAL);//ext. pullup
     
     ikb_init();
+    mykb_layout0();
+    //
     disp7s_init();
     pulsonic_init();
     startSignal_init();
@@ -290,9 +317,10 @@ void main(void)
                 configMode_init(0x0);
                 RELAY_DISABLE();
                 //
-                key[4].bf.OnKeyPressed = 1;
-                key[4].bf.whilePressing = 0;
-                //
+                /*change layout for FLush/Enter key*/
+                prop = propEmpty;
+                prop.uFlag.f.onKeyPressed = 1;
+                ikb_setKeyProp(4, prop);
             }
             visMode_job();
         }
@@ -325,10 +353,16 @@ void main(void)
 
 void interrupt INTERRUPCION(void)//@1ms 
 {
+    static int8_t c;
     if (TMR0IF)
     {
         isr_flag.f1ms = 1;
-        mpap_job();
+        if (++c == 1)
+        {
+            c=0;
+            mpap_job();
+        }
+        
         //
         TMR0IF = 0;
         TMR0H = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256) >> 8);

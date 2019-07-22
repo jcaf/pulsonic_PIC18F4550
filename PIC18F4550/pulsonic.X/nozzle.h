@@ -7,7 +7,6 @@
 
 #ifndef NOZZLE_H
 #define	NOZZLE_H
-    
 
     #define NOZZLE_NUMMAX 8//18
 
@@ -21,10 +20,6 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
-
-
-
 #ifdef	__cplusplus
 }
 #endif

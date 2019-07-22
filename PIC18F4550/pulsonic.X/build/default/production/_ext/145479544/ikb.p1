@@ -1,15 +1,24 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F4674 `(uc ~T0 @X0 0 tf ]
 [v F4680 `(v ~T0 @X0 0 tf ]
-"20 ../../../../../../FIRWAR/eslibrary/ikb/ikb.h
-[s S565 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S565 _bf state OnKeyPressed Reptt OnKeyReleased whilePressing AtTimeExpired AtTimeExpired2 ReadyToRead AtTimeExpired_BeforeOrAfter OwnerOfGroup InProcessing ]
-"37
-[s S566 `ui 1 `ui 1 ]
-[n S566 _repp breakTime period ]
-"11
-[s S564 `*F4674 1 `*F4680 1 `uc 1 `uc 1 `uc 1 `ui 1 `uc 1 `S565 1 `S566 1 ]
-[n S564 _key keyRead keyDo sm0 counter0 sm1 counter1 num_group_x bf repp ]
+"147 ../../../../../../FIRWAR/eslibrary/ikb/ikb.h
+[s S566 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 ]
+[n S566 _key_prop_uFlag_f onKeyPressed reptt onKeyReleased whilePressing atTimeExpired atTimeExpired2 __a ]
+"145
+[u S565 `S566 1 `uc 1 ]
+[n S565 _key_prop_uFlag f packed ]
+"161
+[s S567 `ui 1 `ui 1 ]
+[n S567 _repttTh breakTime period ]
+"143
+[s S564 `S565 1 `S567 1 `uc 1 ]
+[n S564 _key_prop uFlag repttTh numGroup ]
+"16 ../../../../../../FIRWAR/eslibrary/ikb/ikb.c
+[s S569 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 ]
+[n S569 _key_statusFlag state ReadyToRead AtTimeExpired_BeforeOrAfter OwnerOfGroup InProcessing __a ]
+"5
+[s S568 `*F4674 1 `*F4680 1 `uc 1 `uc 1 `uc 1 `ui 1 `S564 1 `S569 1 ]
+[n S568 _key keyRead keyDo sm0 counter0 sm1 counter1 prop statusFlag ]
 "2834 /opt/microchip/xc8/v1.33/include/pic18f4550.h
 [v _PORTC `Vuc ~T0 @X0 0 e@3970 ]
 "2987
@@ -18,19 +27,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TRISC `Vuc ~T0 @X0 0 e@3988 ]
 "4563
 [v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
-"40 ../../../../../../FIRWAR/eslibrary/ikb/ikb.c
+"30 ../../../../../../FIRWAR/eslibrary/ikb/ikb.c
 [v _ikey_scan `(v ~T0 @X0 0 ef ]
-"41
+"31
 [v _ikey_parsing `(v ~T0 @X0 0 ef ]
-"43
+"33
 [v _ikey_clear_all_flag `(v ~T0 @X0 0 ef ]
 [v F4428 `(v ~T0 @X0 1 tf1`ul ]
 "147 /opt/microchip/xc8/v1.33/include/pic18.h
 [v __delay `JF4428 ~T0 @X0 0 e ]
 [p i __delay ]
-"612 ../../../../../../FIRWAR/eslibrary/ikb/ikb.c
-[c E4889 0 1 2 3 4 5 6 7 8 9 10 11 .. ]
-[n E4889 _STAGE_ _STAGE_START_PARSING_ _STAGE_ISKEY_RELEASED_ _STAGE_ISKEY_RELEASED2_ _STAGE_ISKEY_READFROMAPP_ _STAGE_FIREATIMEEXPIRED_ _STAGE_FIREATIMEEXPIRED_2_ _STAGE_ONKEYRELEASED_ _STAGE_WHILEPRESSING_ _STAGE_REPTT_ _STAGE_REPTT_1_ _STAGE_REPTT_2_ _STAGE_END_PARSING_  ]
+"416 ../../../../../../FIRWAR/eslibrary/ikb/ikb.c
+[c E4896 0 1 2 3 4 5 6 7 8 9 10 11 .. ]
+[n E4896 _STAGE_ _STAGE_START_PARSING_ _STAGE_ISKEY_RELEASED_ _STAGE_ISKEY_RELEASED2_ _STAGE_ISKEY_READFROMAPP_ _STAGE_FIREATIMEEXPIRED_ _STAGE_FIREATIMEEXPIRED_2_ _STAGE_ONKEYRELEASED_ _STAGE_WHILEPRESSING_ _STAGE_REPTT_ _STAGE_REPTT_1_ _STAGE_REPTT_2_ _STAGE_END_PARSING_  ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f4550.h: 47: extern volatile unsigned char SPPDATA @ 0xF62;
@@ -4360,1445 +4369,1405 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;string.h: 64: extern char * strichr(const char *, int);
 [; ;string.h: 65: extern char * strrchr(const char *, int);
 [; ;string.h: 66: extern char * strrichr(const char *, int);
-[; ;ikb.h: 11: struct _key
-[; ;ikb.h: 12: {
-[; ;ikb.h: 13: PTRFX_retUINT8_T keyRead;
-[; ;ikb.h: 14: PTRFX_retVOID keyDo;
-[; ;ikb.h: 15: uint8_t sm0;
-[; ;ikb.h: 16: uint8_t counter0;
-[; ;ikb.h: 17: uint8_t sm1;
-[; ;ikb.h: 18: uint16_t counter1;
-[; ;ikb.h: 19: uint8_t num_group_x;
-[; ;ikb.h: 20: struct _bf
-[; ;ikb.h: 21: {
-[; ;ikb.h: 22: unsigned state:1;
-[; ;ikb.h: 24: unsigned OnKeyPressed:1;
-[; ;ikb.h: 25: unsigned Reptt:1;
-[; ;ikb.h: 26: unsigned OnKeyReleased:1;
-[; ;ikb.h: 27: unsigned whilePressing:1;
-[; ;ikb.h: 28: unsigned AtTimeExpired:1;
-[; ;ikb.h: 29: unsigned AtTimeExpired2:1;
-[; ;ikb.h: 32: unsigned ReadyToRead:1;
-[; ;ikb.h: 33: unsigned AtTimeExpired_BeforeOrAfter:1;
-[; ;ikb.h: 34: unsigned OwnerOfGroup:1;
-[; ;ikb.h: 35: unsigned InProcessing:1;
-[; ;ikb.h: 36: } bf;
-[; ;ikb.h: 37: struct _repp
-[; ;ikb.h: 38: {
-[; ;ikb.h: 39: uint16_t breakTime;
-[; ;ikb.h: 40: uint16_t period;
-[; ;ikb.h: 41: } repp;
-[; ;ikb.h: 42: };
-[; ;ikb.h: 44: extern volatile struct _key key[5];
-[; ;ikb.h: 165: void ikb_init(void);
-[; ;ikb.h: 166: void ikb_job(void);
-[; ;ikb.h: 167: void ikb_flush(void);
-[; ;ikb.h: 169: uint8_t ikb_get_AtTimeExpired_BeforeOrAfter(uint8_t k);
-[; ;ikb.h: 171: uint8_t ikb_key_is_ready2read(uint8_t k);
-[; ;ikb.h: 172: void ikb_set_ready2read(uint8_t k);
-[; ;ikb.h: 173: void ikb_key_was_read(uint8_t k);
-[; ;ikb.h: 174: void ikb_execfunct(uint8_t k);
-"38 ../../../../../../FIRWAR/eslibrary/ikb/ikb.c
-[v _key `VS564 ~T0 @X0 -> 5 `i e ]
-[; ;ikb.c: 38: volatile struct _key key[5];
-[; ;ikb.c: 40: void ikey_scan(void);
-[; ;ikb.c: 41: void ikey_parsing(void);
-[; ;ikb.c: 42: int8_t ikey_is_all_hw_released(void);
-[; ;ikb.c: 43: void ikey_clear_all_flag(void);
-[; ;ikb.c: 44: int8_t ikey_is_all_process_finished(void);
-[v F4841 `(uc ~T0 @X0 1 tf ]
-"197
-[v _keyRead_pin_key0 `TF4841 ~T0 @X0 1 s ]
-"198
+[; ;ikb.h: 127: void ikb_init(void);
+[; ;ikb.h: 128: void ikb_job(void);
+[; ;ikb.h: 129: void ikb_flush(void);
+[; ;ikb.h: 131: uint8_t ikb_get_AtTimeExpired_BeforeOrAfter(uint8_t k);
+[; ;ikb.h: 133: uint8_t ikb_key_is_ready2read(uint8_t k);
+[; ;ikb.h: 134: void ikb_set_ready2read(uint8_t k);
+[; ;ikb.h: 135: void ikb_key_was_read(uint8_t k);
+[; ;ikb.h: 136: void ikb_execfunct(uint8_t k);
+[; ;ikb.h: 143: struct _key_prop
+[; ;ikb.h: 144: {
+[; ;ikb.h: 145: union _key_prop_uFlag
+[; ;ikb.h: 146: {
+[; ;ikb.h: 147: struct _key_prop_uFlag_f
+[; ;ikb.h: 148: {
+[; ;ikb.h: 149: unsigned onKeyPressed:1;
+[; ;ikb.h: 150: unsigned reptt:1;
+[; ;ikb.h: 151: unsigned onKeyReleased:1;
+[; ;ikb.h: 152: unsigned whilePressing:1;
+[; ;ikb.h: 153: unsigned atTimeExpired:1;
+[; ;ikb.h: 154: unsigned atTimeExpired2:1;
+[; ;ikb.h: 155: unsigned __a:2;
+[; ;ikb.h: 156: }f;
+[; ;ikb.h: 158: uint8_t packed;
+[; ;ikb.h: 159: }uFlag;
+[; ;ikb.h: 161: struct _repttTh
+[; ;ikb.h: 162: {
+[; ;ikb.h: 163: uint16_t breakTime;
+[; ;ikb.h: 164: uint16_t period;
+[; ;ikb.h: 165: }repttTh;
+[; ;ikb.h: 167: uint8_t numGroup;
+[; ;ikb.h: 168: };
+[; ;ikb.h: 169: void ikb_setKeyProp(uint8_t i, struct _key_prop prop);
+[; ;ikb.h: 170: extern const struct _key_prop propEmpty;
+[; ;ikb.c: 5: struct _key
+[; ;ikb.c: 6: {
+[; ;ikb.c: 7: PTRFX_retUINT8_T keyRead;
+[; ;ikb.c: 8: PTRFX_retVOID keyDo;
+[; ;ikb.c: 9: uint8_t sm0;
+[; ;ikb.c: 10: uint8_t counter0;
+[; ;ikb.c: 11: uint8_t sm1;
+[; ;ikb.c: 12: uint16_t counter1;
+[; ;ikb.c: 14: struct _key_prop prop;
+[; ;ikb.c: 16: struct _key_statusFlag
+[; ;ikb.c: 17: {
+[; ;ikb.c: 18: unsigned state:1;
+[; ;ikb.c: 19: unsigned ReadyToRead:1;
+[; ;ikb.c: 20: unsigned AtTimeExpired_BeforeOrAfter:1;
+[; ;ikb.c: 21: unsigned OwnerOfGroup:1;
+[; ;ikb.c: 22: unsigned InProcessing:1;
+[; ;ikb.c: 23: unsigned __a:3;
+[; ;ikb.c: 24: }statusFlag;
+[; ;ikb.c: 25: };
+"27 ../../../../../../FIRWAR/eslibrary/ikb/ikb.c
+[v _key `VS568 ~T0 @X0 -> 5 `i s ]
+[; ;ikb.c: 27: volatile static struct _key key[5];
+"28
+[v _propEmpty `CS564 ~T0 @X0 1 e ]
+[i _propEmpty
+:U ..
+:U ..
+:U ..
+:U ..
+:U ..
+:U ..
+-> -> 0 `i `uc
+..
+..
+..
+..
+..
+..
+]
+[; ;ikb.c: 28: const struct _key_prop propEmpty = {0};
+[; ;ikb.c: 30: void ikey_scan(void);
+[; ;ikb.c: 31: void ikey_parsing(void);
+[; ;ikb.c: 32: int8_t ikey_is_all_hw_released(void);
+[; ;ikb.c: 33: void ikey_clear_all_flag(void);
+[; ;ikb.c: 34: int8_t ikey_is_all_process_finished(void);
+[v F4854 `(uc ~T0 @X0 1 tf ]
+"187
+[v _keyRead_pin_key0 `TF4854 ~T0 @X0 1 s ]
+"188
 {
-[; ;ikb.c: 197: static inline uint8_t keyRead_pin_key0(void)
-[; ;ikb.c: 198: {
+[; ;ikb.c: 187: static inline uint8_t keyRead_pin_key0(void)
+[; ;ikb.c: 188: {
 [e :U _keyRead_pin_key0 ]
 [f ]
-[; ;ikb.c: 199: return ((PORTC & (1<<4))>>4);
-"199
+[; ;ikb.c: 189: return ((PORTC & (1<<4))>>4);
+"189
 [e ) -> >> & -> _PORTC `i << -> 1 `i -> 4 `i -> 4 `i `uc ]
-[e $UE 567  ]
-[; ;ikb.c: 200: }
-"200
-[e :UE 567 ]
-}
-[v F4844 `(uc ~T0 @X0 1 tf ]
-"201
-[v _keyRead_pin_key1 `TF4844 ~T0 @X0 1 s ]
-"202
-{
-[; ;ikb.c: 201: static inline uint8_t keyRead_pin_key1(void)
-[; ;ikb.c: 202: {
-[e :U _keyRead_pin_key1 ]
-[f ]
-[; ;ikb.c: 203: return ((PORTC & (1<<5))>>5);
-"203
-[e ) -> >> & -> _PORTC `i << -> 1 `i -> 5 `i -> 5 `i `uc ]
-[e $UE 568  ]
-[; ;ikb.c: 204: }
-"204
-[e :UE 568 ]
-}
-[v F4847 `(uc ~T0 @X0 1 tf ]
-"205
-[v _keyRead_pin_key2 `TF4847 ~T0 @X0 1 s ]
-"206
-{
-[; ;ikb.c: 205: static inline uint8_t keyRead_pin_key2(void)
-[; ;ikb.c: 206: {
-[e :U _keyRead_pin_key2 ]
-[f ]
-[; ;ikb.c: 207: return ((PORTC & (1<<6))>>6);
-"207
-[e ) -> >> & -> _PORTC `i << -> 1 `i -> 6 `i -> 6 `i `uc ]
-[e $UE 569  ]
-[; ;ikb.c: 208: }
-"208
-[e :UE 569 ]
-}
-[v F4850 `(uc ~T0 @X0 1 tf ]
-"209
-[v _keyRead_pin_key3 `TF4850 ~T0 @X0 1 s ]
-"210
-{
-[; ;ikb.c: 209: static inline uint8_t keyRead_pin_key3(void)
-[; ;ikb.c: 210: {
-[e :U _keyRead_pin_key3 ]
-[f ]
-[; ;ikb.c: 211: return ((PORTC & (1<<7))>>7);
-"211
-[e ) -> >> & -> _PORTC `i << -> 1 `i -> 7 `i -> 7 `i `uc ]
 [e $UE 570  ]
-[; ;ikb.c: 212: }
-"212
+[; ;ikb.c: 190: }
+"190
 [e :UE 570 ]
 }
-[v F4853 `(uc ~T0 @X0 1 tf ]
-"213
-[v _keyRead_pin_key4 `TF4853 ~T0 @X0 1 s ]
-"214
+[v F4857 `(uc ~T0 @X0 1 tf ]
+"191
+[v _keyRead_pin_key1 `TF4857 ~T0 @X0 1 s ]
+"192
 {
-[; ;ikb.c: 213: static inline uint8_t keyRead_pin_key4(void)
-[; ;ikb.c: 214: {
-[e :U _keyRead_pin_key4 ]
+[; ;ikb.c: 191: static inline uint8_t keyRead_pin_key1(void)
+[; ;ikb.c: 192: {
+[e :U _keyRead_pin_key1 ]
 [f ]
-[; ;ikb.c: 215: return ((PORTD & (1<<4))>>4);
-"215
-[e ) -> >> & -> _PORTD `i << -> 1 `i -> 4 `i -> 4 `i `uc ]
+[; ;ikb.c: 193: return ((PORTC & (1<<5))>>5);
+"193
+[e ) -> >> & -> _PORTC `i << -> 1 `i -> 5 `i -> 5 `i `uc ]
 [e $UE 571  ]
-[; ;ikb.c: 216: }
-"216
+[; ;ikb.c: 194: }
+"194
 [e :UE 571 ]
 }
-"220
-[v _ikb_init `(v ~T0 @X0 1 ef ]
-"221
+[v F4860 `(uc ~T0 @X0 1 tf ]
+"195
+[v _keyRead_pin_key2 `TF4860 ~T0 @X0 1 s ]
+"196
 {
-[; ;ikb.c: 220: void ikb_init(void)
-[; ;ikb.c: 221: {
+[; ;ikb.c: 195: static inline uint8_t keyRead_pin_key2(void)
+[; ;ikb.c: 196: {
+[e :U _keyRead_pin_key2 ]
+[f ]
+[; ;ikb.c: 197: return ((PORTC & (1<<6))>>6);
+"197
+[e ) -> >> & -> _PORTC `i << -> 1 `i -> 6 `i -> 6 `i `uc ]
+[e $UE 572  ]
+[; ;ikb.c: 198: }
+"198
+[e :UE 572 ]
+}
+[v F4863 `(uc ~T0 @X0 1 tf ]
+"199
+[v _keyRead_pin_key3 `TF4863 ~T0 @X0 1 s ]
+"200
+{
+[; ;ikb.c: 199: static inline uint8_t keyRead_pin_key3(void)
+[; ;ikb.c: 200: {
+[e :U _keyRead_pin_key3 ]
+[f ]
+[; ;ikb.c: 201: return ((PORTC & (1<<7))>>7);
+"201
+[e ) -> >> & -> _PORTC `i << -> 1 `i -> 7 `i -> 7 `i `uc ]
+[e $UE 573  ]
+[; ;ikb.c: 202: }
+"202
+[e :UE 573 ]
+}
+[v F4866 `(uc ~T0 @X0 1 tf ]
+"203
+[v _keyRead_pin_key4 `TF4866 ~T0 @X0 1 s ]
+"204
+{
+[; ;ikb.c: 203: static inline uint8_t keyRead_pin_key4(void)
+[; ;ikb.c: 204: {
+[e :U _keyRead_pin_key4 ]
+[f ]
+[; ;ikb.c: 205: return ((PORTD & (1<<4))>>4);
+"205
+[e ) -> >> & -> _PORTD `i << -> 1 `i -> 4 `i -> 4 `i `uc ]
+[e $UE 574  ]
+[; ;ikb.c: 206: }
+"206
+[e :UE 574 ]
+}
+"210
+[v _ikb_setKeyProp `(v ~T0 @X0 1 ef2`uc`S564 ]
+"211
+{
+[; ;ikb.c: 210: void ikb_setKeyProp(uint8_t i, struct _key_prop prop)
+[; ;ikb.c: 211: {
+[e :U _ikb_setKeyProp ]
+"210
+[v _i `uc ~T0 @X0 1 r1 ]
+[v _prop `S564 ~T0 @X0 1 r2 ]
+"211
+[f ]
+[; ;ikb.c: 212: key[i].prop = prop;
+"212
+[e = . *U + &U _key * -> _i `ux -> -> # *U &U _key `ui `ux 6 _prop ]
+[; ;ikb.c: 213: }
+"213
+[e :UE 575 ]
+}
+"214
+[v _ikb_init `(v ~T0 @X0 1 ef ]
+"215
+{
+[; ;ikb.c: 214: void ikb_init(void)
+[; ;ikb.c: 215: {
 [e :U _ikb_init ]
 [f ]
-"222
-[v _i `c ~T0 @X0 1 a ]
-[; ;ikb.c: 222: int8_t i;
-[; ;ikb.c: 392: do{TRISC |= 1<<4;}while(0);
-"392
-[e :U 575 ]
+"216
+[v _i `uc ~T0 @X0 1 a ]
+[; ;ikb.c: 216: uint8_t i;
+[; ;ikb.c: 248: do{TRISC |= 1<<4;}while(0);
+"248
+[e :U 579 ]
 {
 [e =| _TRISC -> << -> 1 `i -> 4 `i `uc ]
 }
-[e :U 574 ]
-[; ;ikb.c: 393: do{TRISC |= 1<<5;}while(0);
-"393
 [e :U 578 ]
+[; ;ikb.c: 249: do{TRISC |= 1<<5;}while(0);
+"249
+[e :U 582 ]
 {
 [e =| _TRISC -> << -> 1 `i -> 5 `i `uc ]
 }
-[e :U 577 ]
-[; ;ikb.c: 394: do{TRISC |= 1<<6;}while(0);
-"394
 [e :U 581 ]
+[; ;ikb.c: 250: do{TRISC |= 1<<6;}while(0);
+"250
+[e :U 585 ]
 {
 [e =| _TRISC -> << -> 1 `i -> 6 `i `uc ]
 }
-[e :U 580 ]
-[; ;ikb.c: 395: do{TRISC |= 1<<7;}while(0);
-"395
 [e :U 584 ]
+[; ;ikb.c: 251: do{TRISC |= 1<<7;}while(0);
+"251
+[e :U 588 ]
 {
 [e =| _TRISC -> << -> 1 `i -> 7 `i `uc ]
 }
-[e :U 583 ]
-[; ;ikb.c: 396: do{TRISD |= 1<<4;}while(0);
-"396
 [e :U 587 ]
+[; ;ikb.c: 252: do{TRISD |= 1<<4;}while(0);
+"252
+[e :U 591 ]
 {
 [e =| _TRISD -> << -> 1 `i -> 4 `i `uc ]
 }
-[e :U 586 ]
-[; ;ikb.c: 397: key[0].keyRead = keyRead_pin_key0;
-[v F4856 `*F4674 ~T0 @X0 1 t ]
-"397
+[e :U 590 ]
+[; ;ikb.c: 253: key[0].keyRead = keyRead_pin_key0;
+[v F4871 `*F4674 ~T0 @X0 1 t ]
+"253
 [e = . *U + &U _key * -> -> -> 0 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key0 `V*F4674 ]
-[; ;ikb.c: 398: key[1].keyRead = keyRead_pin_key1;
-[v F4857 `*F4674 ~T0 @X0 1 t ]
-"398
+[; ;ikb.c: 254: key[1].keyRead = keyRead_pin_key1;
+[v F4872 `*F4674 ~T0 @X0 1 t ]
+"254
 [e = . *U + &U _key * -> -> -> 1 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key1 `V*F4674 ]
-[; ;ikb.c: 399: key[2].keyRead = keyRead_pin_key2;
-[v F4858 `*F4674 ~T0 @X0 1 t ]
-"399
+[; ;ikb.c: 255: key[2].keyRead = keyRead_pin_key2;
+[v F4873 `*F4674 ~T0 @X0 1 t ]
+"255
 [e = . *U + &U _key * -> -> -> 2 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key2 `V*F4674 ]
-[; ;ikb.c: 400: key[3].keyRead = keyRead_pin_key3;
-[v F4859 `*F4674 ~T0 @X0 1 t ]
-"400
+[; ;ikb.c: 256: key[3].keyRead = keyRead_pin_key3;
+[v F4874 `*F4674 ~T0 @X0 1 t ]
+"256
 [e = . *U + &U _key * -> -> -> 3 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key3 `V*F4674 ]
-[; ;ikb.c: 401: key[4].keyRead = keyRead_pin_key4;
-[v F4860 `*F4674 ~T0 @X0 1 t ]
-"401
+[; ;ikb.c: 257: key[4].keyRead = keyRead_pin_key4;
+[v F4875 `*F4674 ~T0 @X0 1 t ]
+"257
 [e = . *U + &U _key * -> -> -> 4 `i `ui `ux -> -> # *U &U _key `ui `ux 0 -> &U _keyRead_pin_key4 `V*F4674 ]
-[; ;ikb.c: 404: key[0].bf.OnKeyPressed = 1;
-"404
-[e = . . *U + &U _key * -> -> -> 0 `i `ui `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 1 `i `uc ]
-[; ;ikb.c: 405: key[0].bf.OnKeyReleased = 0;
-"405
-[e = . . *U + &U _key * -> -> -> 0 `i `ui `ux -> -> # *U &U _key `ui `ux 7 3 -> -> 0 `i `uc ]
-[; ;ikb.c: 406: key[0].bf.AtTimeExpired = 0;
-"406
-[e = . . *U + &U _key * -> -> -> 0 `i `ui `ux -> -> # *U &U _key `ui `ux 7 5 -> -> 0 `i `uc ]
-[; ;ikb.c: 407: key[0].bf.AtTimeExpired2 = 0;
-"407
-[e = . . *U + &U _key * -> -> -> 0 `i `ui `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 0 `i `uc ]
-[; ;ikb.c: 408: key[0].bf.whilePressing = 0;
-"408
-[e = . . *U + &U _key * -> -> -> 0 `i `ui `ux -> -> # *U &U _key `ui `ux 7 4 -> -> 0 `i `uc ]
-[; ;ikb.c: 409: key[0].num_group_x = 1;
-"409
-[e = . *U + &U _key * -> -> -> 0 `i `ui `ux -> -> # *U &U _key `ui `ux 6 -> -> 1 `i `uc ]
-[; ;ikb.c: 410: key[0].bf.Reptt = 1;
-"410
-[e = . . *U + &U _key * -> -> -> 0 `i `ui `ux -> -> # *U &U _key `ui `ux 7 2 -> -> 1 `i `uc ]
-[; ;ikb.c: 411: key[0].repp.breakTime= (uint16_t)500.0/20;
-"411
-[e = . . *U + &U _key * -> -> -> 0 `i `ui `ux -> -> # *U &U _key `ui `ux 8 0 / -> .500.0 `ui -> -> 20 `i `ui ]
-[; ;ikb.c: 412: key[0].repp.period = (uint16_t)300.0/20;
-"412
-[e = . . *U + &U _key * -> -> -> 0 `i `ui `ux -> -> # *U &U _key `ui `ux 8 1 / -> .300.0 `ui -> -> 20 `i `ui ]
-[; ;ikb.c: 415: key[1].bf.OnKeyPressed = 1;
-"415
-[e = . . *U + &U _key * -> -> -> 1 `i `ui `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 1 `i `uc ]
-[; ;ikb.c: 416: key[1].bf.OnKeyReleased = 0;
-"416
-[e = . . *U + &U _key * -> -> -> 1 `i `ui `ux -> -> # *U &U _key `ui `ux 7 3 -> -> 0 `i `uc ]
-[; ;ikb.c: 417: key[1].bf.AtTimeExpired = 0;
-"417
-[e = . . *U + &U _key * -> -> -> 1 `i `ui `ux -> -> # *U &U _key `ui `ux 7 5 -> -> 0 `i `uc ]
-[; ;ikb.c: 418: key[1].bf.AtTimeExpired2 = 0;
-"418
-[e = . . *U + &U _key * -> -> -> 1 `i `ui `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 0 `i `uc ]
-[; ;ikb.c: 419: key[1].bf.whilePressing = 0;
-"419
-[e = . . *U + &U _key * -> -> -> 1 `i `ui `ux -> -> # *U &U _key `ui `ux 7 4 -> -> 0 `i `uc ]
-[; ;ikb.c: 420: key[1].num_group_x = 1;
-"420
-[e = . *U + &U _key * -> -> -> 1 `i `ui `ux -> -> # *U &U _key `ui `ux 6 -> -> 1 `i `uc ]
-[; ;ikb.c: 421: key[1].bf.Reptt = 1;
-"421
-[e = . . *U + &U _key * -> -> -> 1 `i `ui `ux -> -> # *U &U _key `ui `ux 7 2 -> -> 1 `i `uc ]
-[; ;ikb.c: 422: key[1].repp.breakTime= (uint16_t)500.0/20;
-"422
-[e = . . *U + &U _key * -> -> -> 1 `i `ui `ux -> -> # *U &U _key `ui `ux 8 0 / -> .500.0 `ui -> -> 20 `i `ui ]
-[; ;ikb.c: 423: key[1].repp.period = (uint16_t)300.0/20;
-"423
-[e = . . *U + &U _key * -> -> -> 1 `i `ui `ux -> -> # *U &U _key `ui `ux 8 1 / -> .300.0 `ui -> -> 20 `i `ui ]
-[; ;ikb.c: 426: key[2].bf.OnKeyPressed = 0;
-"426
-[e = . . *U + &U _key * -> -> -> 2 `i `ui `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 0 `i `uc ]
-[; ;ikb.c: 427: key[2].bf.OnKeyReleased = 0;
-"427
-[e = . . *U + &U _key * -> -> -> 2 `i `ui `ux -> -> # *U &U _key `ui `ux 7 3 -> -> 0 `i `uc ]
-[; ;ikb.c: 428: key[2].bf.AtTimeExpired = 0;
-"428
-[e = . . *U + &U _key * -> -> -> 2 `i `ui `ux -> -> # *U &U _key `ui `ux 7 5 -> -> 0 `i `uc ]
-[; ;ikb.c: 429: key[2].bf.AtTimeExpired2 = 1;
-"429
-[e = . . *U + &U _key * -> -> -> 2 `i `ui `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 1 `i `uc ]
-[; ;ikb.c: 430: key[2].bf.whilePressing = 0;
-"430
-[e = . . *U + &U _key * -> -> -> 2 `i `ui `ux -> -> # *U &U _key `ui `ux 7 4 -> -> 0 `i `uc ]
-[; ;ikb.c: 431: key[2].num_group_x = 0;
-"431
-[e = . *U + &U _key * -> -> -> 2 `i `ui `ux -> -> # *U &U _key `ui `ux 6 -> -> 0 `i `uc ]
-[; ;ikb.c: 432: key[2].bf.Reptt = 0;
-"432
-[e = . . *U + &U _key * -> -> -> 2 `i `ui `ux -> -> # *U &U _key `ui `ux 7 2 -> -> 0 `i `uc ]
-[; ;ikb.c: 433: key[2].repp.breakTime= (uint16_t)300.0/20;
-"433
-[e = . . *U + &U _key * -> -> -> 2 `i `ui `ux -> -> # *U &U _key `ui `ux 8 0 / -> .300.0 `ui -> -> 20 `i `ui ]
-[; ;ikb.c: 434: key[2].repp.period = (uint16_t)800.0/20;
-"434
-[e = . . *U + &U _key * -> -> -> 2 `i `ui `ux -> -> # *U &U _key `ui `ux 8 1 / -> .800.0 `ui -> -> 20 `i `ui ]
-[; ;ikb.c: 437: key[3].bf.OnKeyPressed = 0;
-"437
-[e = . . *U + &U _key * -> -> -> 3 `i `ui `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 0 `i `uc ]
-[; ;ikb.c: 438: key[3].bf.OnKeyReleased = 0;
-"438
-[e = . . *U + &U _key * -> -> -> 3 `i `ui `ux -> -> # *U &U _key `ui `ux 7 3 -> -> 0 `i `uc ]
-[; ;ikb.c: 439: key[3].bf.AtTimeExpired = 0;
-"439
-[e = . . *U + &U _key * -> -> -> 3 `i `ui `ux -> -> # *U &U _key `ui `ux 7 5 -> -> 0 `i `uc ]
-[; ;ikb.c: 440: key[3].bf.AtTimeExpired2 = 1;
-"440
-[e = . . *U + &U _key * -> -> -> 3 `i `ui `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 1 `i `uc ]
-[; ;ikb.c: 441: key[3].bf.whilePressing = 0;
-"441
-[e = . . *U + &U _key * -> -> -> 3 `i `ui `ux -> -> # *U &U _key `ui `ux 7 4 -> -> 0 `i `uc ]
-[; ;ikb.c: 442: key[3].num_group_x = 0;
-"442
-[e = . *U + &U _key * -> -> -> 3 `i `ui `ux -> -> # *U &U _key `ui `ux 6 -> -> 0 `i `uc ]
-[; ;ikb.c: 443: key[3].bf.Reptt = 0;
-"443
-[e = . . *U + &U _key * -> -> -> 3 `i `ui `ux -> -> # *U &U _key `ui `ux 7 2 -> -> 0 `i `uc ]
-[; ;ikb.c: 444: key[3].repp.breakTime= (uint16_t)300.0/20;
-"444
-[e = . . *U + &U _key * -> -> -> 3 `i `ui `ux -> -> # *U &U _key `ui `ux 8 0 / -> .300.0 `ui -> -> 20 `i `ui ]
-[; ;ikb.c: 445: key[3].repp.period = (uint16_t)800.0/20;
-"445
-[e = . . *U + &U _key * -> -> -> 3 `i `ui `ux -> -> # *U &U _key `ui `ux 8 1 / -> .800.0 `ui -> -> 20 `i `ui ]
-[; ;ikb.c: 449: key[4].bf.OnKeyPressed = 0;
-"449
-[e = . . *U + &U _key * -> -> -> 4 `i `ui `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 0 `i `uc ]
-[; ;ikb.c: 450: key[4].bf.OnKeyReleased = 0;
-"450
-[e = . . *U + &U _key * -> -> -> 4 `i `ui `ux -> -> # *U &U _key `ui `ux 7 3 -> -> 0 `i `uc ]
-[; ;ikb.c: 451: key[4].bf.AtTimeExpired = 0;
-"451
-[e = . . *U + &U _key * -> -> -> 4 `i `ui `ux -> -> # *U &U _key `ui `ux 7 5 -> -> 0 `i `uc ]
-[; ;ikb.c: 452: key[4].bf.AtTimeExpired2 = 0;
-"452
-[e = . . *U + &U _key * -> -> -> 4 `i `ui `ux -> -> # *U &U _key `ui `ux 7 6 -> -> 0 `i `uc ]
-[; ;ikb.c: 453: key[4].bf.whilePressing = 1;
-"453
-[e = . . *U + &U _key * -> -> -> 4 `i `ui `ux -> -> # *U &U _key `ui `ux 7 4 -> -> 1 `i `uc ]
-[; ;ikb.c: 454: key[4].num_group_x = 0;
-"454
-[e = . *U + &U _key * -> -> -> 4 `i `ui `ux -> -> # *U &U _key `ui `ux 6 -> -> 0 `i `uc ]
-[; ;ikb.c: 455: key[4].bf.Reptt = 0;
-"455
-[e = . . *U + &U _key * -> -> -> 4 `i `ui `ux -> -> # *U &U _key `ui `ux 7 2 -> -> 0 `i `uc ]
-[; ;ikb.c: 456: key[4].repp.breakTime= (uint16_t)300.0/20;
-"456
-[e = . . *U + &U _key * -> -> -> 4 `i `ui `ux -> -> # *U &U _key `ui `ux 8 0 / -> .300.0 `ui -> -> 20 `i `ui ]
-[; ;ikb.c: 457: key[4].repp.period = (uint16_t)800.0/20;
-"457
-[e = . . *U + &U _key * -> -> -> 4 `i `ui `ux -> -> # *U &U _key `ui `ux 8 1 / -> .800.0 `ui -> -> 20 `i `ui ]
-[; ;ikb.c: 462: }
-"462
-[e :UE 572 ]
-}
-"464
-[v _ikb_job `(v ~T0 @X0 1 ef ]
-"465
+"261
+[v _prop `S564 ~T0 @X0 1 a ]
+[v F4877 `S564 ~T0 @X0 1 s ]
+[i F4877
+:U ..
+:U ..
+:U ..
+:U ..
+:U ..
+:U ..
+-> -> 0 `i `uc
+..
+..
+..
+..
+..
+..
+]
+[; ;ikb.c: 261: struct _key_prop prop = {0};
+[e = _prop F4877 ]
+[; ;ikb.c: 262: prop = propEmpty;
+"262
+[e = _prop _propEmpty ]
+[; ;ikb.c: 263: prop.uFlag.f.onKeyPressed = 1;
+"263
+[e = . . . _prop 0 0 0 -> -> 1 `i `uc ]
+[; ;ikb.c: 264: for (i=0; i< 5; i++)
+"264
 {
-[; ;ikb.c: 464: void ikb_job(void)
-[; ;ikb.c: 465: {
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 5 `i 592  ]
+[e $U 593  ]
+"265
+[e :U 592 ]
+[; ;ikb.c: 265: {ikb_setKeyProp(i, prop);}
+{
+[e ( _ikb_setKeyProp (2 , _i _prop ]
+}
+"264
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 5 `i 592  ]
+[e :U 593 ]
+"265
+}
+[; ;ikb.c: 266: }
+"266
+[e :UE 576 ]
+}
+"268
+[v _ikb_job `(v ~T0 @X0 1 ef ]
+"269
+{
+[; ;ikb.c: 268: void ikb_job(void)
+[; ;ikb.c: 269: {
 [e :U _ikb_job ]
 [f ]
-[; ;ikb.c: 466: ikey_scan();
-"466
+[; ;ikb.c: 270: ikey_scan();
+"270
 [e ( _ikey_scan ..  ]
-[; ;ikb.c: 467: ikey_parsing();
-"467
+[; ;ikb.c: 271: ikey_parsing();
+"271
 [e ( _ikey_parsing ..  ]
-[; ;ikb.c: 468: }
-"468
-[e :UE 588 ]
+[; ;ikb.c: 272: }
+"272
+[e :UE 595 ]
 }
-"469
+"273
 [v _ikb_flush `(v ~T0 @X0 1 ef ]
-"470
+"274
 {
-[; ;ikb.c: 469: void ikb_flush(void)
-[; ;ikb.c: 470: {
+[; ;ikb.c: 273: void ikb_flush(void)
+[; ;ikb.c: 274: {
 [e :U _ikb_flush ]
 [f ]
-[; ;ikb.c: 471: ikey_clear_all_flag();
-"471
+[; ;ikb.c: 275: ikey_clear_all_flag();
+"275
 [e ( _ikey_clear_all_flag ..  ]
-[; ;ikb.c: 472: }
-"472
-[e :UE 589 ]
+[; ;ikb.c: 276: }
+"276
+[e :UE 596 ]
 }
-"473
+"277
 [v _ikb_get_AtTimeExpired_BeforeOrAfter `(uc ~T0 @X0 1 ef1`uc ]
-"474
+"278
 {
-[; ;ikb.c: 473: uint8_t ikb_get_AtTimeExpired_BeforeOrAfter(uint8_t k)
-[; ;ikb.c: 474: {
+[; ;ikb.c: 277: uint8_t ikb_get_AtTimeExpired_BeforeOrAfter(uint8_t k)
+[; ;ikb.c: 278: {
 [e :U _ikb_get_AtTimeExpired_BeforeOrAfter ]
-"473
+"277
 [v _k `uc ~T0 @X0 1 r1 ]
-"474
+"278
 [f ]
-[; ;ikb.c: 475: return key[k].bf.AtTimeExpired_BeforeOrAfter;
-"475
-[e ) . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 8 ]
-[e $UE 590  ]
-[; ;ikb.c: 476: }
-"476
-[e :UE 590 ]
+[; ;ikb.c: 279: return key[k].statusFlag.AtTimeExpired_BeforeOrAfter;
+"279
+[e ) . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 2 ]
+[e $UE 597  ]
+[; ;ikb.c: 280: }
+"280
+[e :UE 597 ]
 }
-"477
+"281
 [v _ikb_key_is_ready2read `(uc ~T0 @X0 1 ef1`uc ]
-"478
+"282
 {
-[; ;ikb.c: 477: uint8_t ikb_key_is_ready2read(uint8_t k)
-[; ;ikb.c: 478: {
+[; ;ikb.c: 281: uint8_t ikb_key_is_ready2read(uint8_t k)
+[; ;ikb.c: 282: {
 [e :U _ikb_key_is_ready2read ]
-"477
+"281
 [v _k `uc ~T0 @X0 1 r1 ]
-"478
+"282
 [f ]
-[; ;ikb.c: 479: return key[k].bf.ReadyToRead;
-"479
-[e ) . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 ]
-[e $UE 591  ]
-[; ;ikb.c: 480: }
-"480
-[e :UE 591 ]
+[; ;ikb.c: 283: return key[k].statusFlag.ReadyToRead;
+"283
+[e ) . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 ]
+[e $UE 598  ]
+[; ;ikb.c: 284: }
+"284
+[e :UE 598 ]
 }
-"481
+"285
 [v _ikb_set_ready2read `(v ~T0 @X0 1 ef1`uc ]
-"482
+"286
 {
-[; ;ikb.c: 481: void ikb_set_ready2read(uint8_t k)
-[; ;ikb.c: 482: {
+[; ;ikb.c: 285: void ikb_set_ready2read(uint8_t k)
+[; ;ikb.c: 286: {
 [e :U _ikb_set_ready2read ]
-"481
+"285
 [v _k `uc ~T0 @X0 1 r1 ]
-"482
+"286
 [f ]
-[; ;ikb.c: 483: key[k].bf.ReadyToRead = 1;
-"483
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
-[; ;ikb.c: 484: }
-"484
-[e :UE 592 ]
+[; ;ikb.c: 287: key[k].statusFlag.ReadyToRead = 1;
+"287
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 1 `i `uc ]
+[; ;ikb.c: 288: }
+"288
+[e :UE 599 ]
 }
-"485
+"289
 [v _ikb_key_was_read `(v ~T0 @X0 1 ef1`uc ]
-"486
+"290
 {
-[; ;ikb.c: 485: void ikb_key_was_read(uint8_t k)
-[; ;ikb.c: 486: {
+[; ;ikb.c: 289: void ikb_key_was_read(uint8_t k)
+[; ;ikb.c: 290: {
 [e :U _ikb_key_was_read ]
-"485
+"289
 [v _k `uc ~T0 @X0 1 r1 ]
-"486
+"290
 [f ]
-[; ;ikb.c: 487: key[k].bf.ReadyToRead = 0;
-"487
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 0 `i `uc ]
-[; ;ikb.c: 488: }
-"488
-[e :UE 593 ]
+[; ;ikb.c: 291: key[k].statusFlag.ReadyToRead = 0;
+"291
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 0 `i `uc ]
+[; ;ikb.c: 292: }
+"292
+[e :UE 600 ]
 }
-"489
+"293
 [v _ikb_execfunct `(v ~T0 @X0 1 ef1`uc ]
-"490
+"294
 {
-[; ;ikb.c: 489: void ikb_execfunct(uint8_t k)
-[; ;ikb.c: 490: {
+[; ;ikb.c: 293: void ikb_execfunct(uint8_t k)
+[; ;ikb.c: 294: {
 [e :U _ikb_execfunct ]
-"489
+"293
 [v _k `uc ~T0 @X0 1 r1 ]
-"490
+"294
 [f ]
-[; ;ikb.c: 491: key[k].keyDo();
-"491
+[; ;ikb.c: 295: key[k].keyDo();
+"295
 [e ( *U . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 1 ..  ]
-[; ;ikb.c: 492: }
-"492
-[e :UE 594 ]
+[; ;ikb.c: 296: }
+"296
+[e :UE 601 ]
 }
-"501
+"305
 [v _ikey_scan `(v ~T0 @X0 1 ef ]
-"502
+"306
 {
-[; ;ikb.c: 501: void ikey_scan(void)
-[; ;ikb.c: 502: {
+[; ;ikb.c: 305: void ikey_scan(void)
+[; ;ikb.c: 306: {
 [e :U _ikey_scan ]
 [f ]
-"503
+"307
 [v _k `c ~T0 @X0 1 a ]
-[; ;ikb.c: 503: int8_t k = 5-1;
+[; ;ikb.c: 307: int8_t k = 5-1;
 [e = _k -> - -> 5 `i -> 1 `i `c ]
-[; ;ikb.c: 504: do
-"504
-[e :U 598 ]
-[; ;ikb.c: 505: {
-"505
+[; ;ikb.c: 308: do
+"308
+[e :U 605 ]
+[; ;ikb.c: 309: {
+"309
 {
-[; ;ikb.c: 506: _delay((unsigned long)((5)*(48000000UL/4000000.0)));
-"506
+[; ;ikb.c: 310: _delay((unsigned long)((5)*(48000000UL/4000000.0)));
+"310
 [e ( __delay (1 -> * -> -> 5 `i `d / -> -> 48000000 `ul `d .4000000.0 `ul ]
-[; ;ikb.c: 508: if (key[k].sm0 == 0)
-"508
-[e $ ! == -> . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 `i -> 0 `i 599  ]
-[; ;ikb.c: 509: {
-"509
+[; ;ikb.c: 312: if (key[k].sm0 == 0)
+"312
+[e $ ! == -> . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 `i -> 0 `i 606  ]
+[; ;ikb.c: 313: {
+"313
 {
-[; ;ikb.c: 510: if (key[k].keyRead() == 0)
-"510
-[e $ ! == -> ( *U . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 0 ..  `i -> 0 `i 600  ]
-[; ;ikb.c: 511: {
-"511
+[; ;ikb.c: 314: if (key[k].keyRead() == 0)
+"314
+[e $ ! == -> ( *U . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 0 ..  `i -> 0 `i 607  ]
+[; ;ikb.c: 315: {
+"315
 {
-[; ;ikb.c: 512: key[k].sm0++;
-"512
+[; ;ikb.c: 316: key[k].sm0++;
+"316
 [e ++ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
-"513
+"317
 }
-[e :U 600 ]
-"514
+[e :U 607 ]
+"318
 }
-[; ;ikb.c: 513: }
-[; ;ikb.c: 514: }
-[e $U 601  ]
-"515
-[e :U 599 ]
-[; ;ikb.c: 515: else if (key[k].sm0 == 1)
-[e $ ! == -> . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 `i -> 1 `i 602  ]
-[; ;ikb.c: 516: {
-"516
+[; ;ikb.c: 317: }
+[; ;ikb.c: 318: }
+[e $U 608  ]
+"319
+[e :U 606 ]
+[; ;ikb.c: 319: else if (key[k].sm0 == 1)
+[e $ ! == -> . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 `i -> 1 `i 609  ]
+[; ;ikb.c: 320: {
+"320
 {
-[; ;ikb.c: 517: if (++key[k].counter0 == 1)
-"517
-[e $ ! == -> =+ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 3 -> -> 1 `i `uc `i -> 1 `i 603  ]
-[; ;ikb.c: 518: {
-"518
+[; ;ikb.c: 321: if (++key[k].counter0 == 1)
+"321
+[e $ ! == -> =+ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 3 -> -> 1 `i `uc `i -> 1 `i 610  ]
+[; ;ikb.c: 322: {
+"322
 {
-[; ;ikb.c: 519: key[k].counter0 = 0x00;
-"519
+[; ;ikb.c: 323: key[k].counter0 = 0x00;
+"323
 [e = . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 3 -> -> 0 `i `uc ]
-[; ;ikb.c: 521: if (key[k].keyRead() != 0)
-"521
-[e $ ! != -> ( *U . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 0 ..  `i -> 0 `i 604  ]
-[; ;ikb.c: 522: {
-"522
+[; ;ikb.c: 325: if (key[k].keyRead() != 0)
+"325
+[e $ ! != -> ( *U . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 0 ..  `i -> 0 `i 611  ]
+[; ;ikb.c: 326: {
+"326
 {
-[; ;ikb.c: 523: key[k].sm0--;
-"523
+[; ;ikb.c: 327: key[k].sm0--;
+"327
 [e -- . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
-"524
+"328
 }
-[; ;ikb.c: 524: }
-[e $U 605  ]
-"525
+[; ;ikb.c: 328: }
+[e $U 612  ]
+"329
+[e :U 611 ]
+[; ;ikb.c: 329: else
+[; ;ikb.c: 330: {
+"330
+{
+[; ;ikb.c: 331: key[k].statusFlag.state = 1;
+"331
+[e = . . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 7 0 -> -> 1 `i `uc ]
+[; ;ikb.c: 332: key[k].sm0++;
+"332
+[e ++ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
+"333
+}
+[e :U 612 ]
+"334
+}
+[e :U 610 ]
+"335
+}
+[; ;ikb.c: 333: }
+[; ;ikb.c: 334: }
+[; ;ikb.c: 335: }
+[e $U 613  ]
+"336
+[e :U 609 ]
+[; ;ikb.c: 336: else if (key[k].sm0 == 2)
+[e $ ! == -> . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 `i -> 2 `i 614  ]
+[; ;ikb.c: 337: {
+"337
+{
+[; ;ikb.c: 338: if (key[k].keyRead() == 1)
+"338
+[e $ ! == -> ( *U . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 0 ..  `i -> 1 `i 615  ]
+[; ;ikb.c: 339: key[k].sm0++;
+"339
+[e ++ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
+[e :U 615 ]
+"340
+}
+[; ;ikb.c: 340: }
+[e $U 616  ]
+"341
+[e :U 614 ]
+[; ;ikb.c: 341: else if (key[k].sm0 == 3)
+[e $ ! == -> . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 `i -> 3 `i 617  ]
+[; ;ikb.c: 342: {
+"342
+{
+[; ;ikb.c: 343: if (++key[k].counter0 == 1)
+"343
+[e $ ! == -> =+ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 3 -> -> 1 `i `uc `i -> 1 `i 618  ]
+[; ;ikb.c: 344: {
+"344
+{
+[; ;ikb.c: 345: key[k].counter0 = 0x00;
+"345
+[e = . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 3 -> -> 0 `i `uc ]
+[; ;ikb.c: 347: if (key[k].keyRead() != 1)
+"347
+[e $ ! != -> ( *U . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 0 ..  `i -> 1 `i 619  ]
+[; ;ikb.c: 348: {
+"348
+{
+[; ;ikb.c: 349: key[k].sm0--;
+"349
+[e -- . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
+"350
+}
+[; ;ikb.c: 350: }
+[e $U 620  ]
+"351
+[e :U 619 ]
+[; ;ikb.c: 351: else
+[; ;ikb.c: 352: {
+"352
+{
+[; ;ikb.c: 353: key[k].statusFlag.state = 0;
+"353
+[e = . . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 7 0 -> -> 0 `i `uc ]
+[; ;ikb.c: 354: key[k].sm0 = 0x00;
+"354
+[e = . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 0 `i `uc ]
+"355
+}
+[e :U 620 ]
+"356
+}
+[e :U 618 ]
+"357
+}
+[e :U 617 ]
+"359
+[e :U 616 ]
+[e :U 613 ]
+[e :U 608 ]
+}
+[; ;ikb.c: 355: }
+[; ;ikb.c: 356: }
+[; ;ikb.c: 357: }
+[; ;ikb.c: 359: }while (--k >= 0);
+[e $ >= -> =- _k -> -> 1 `i `c `i -> 0 `i 605  ]
 [e :U 604 ]
-[; ;ikb.c: 525: else
+[; ;ikb.c: 360: }
+"360
+[e :UE 602 ]
+}
+"368
+[v _group_x `uc ~T0 @X0 -> 5 `i e ]
+[; ;ikb.c: 368: uint8_t group_x[5];
+"370
+[v _ikey_is_accessible `(uc ~T0 @X0 1 sf1`uc ]
+"371
+{
+[; ;ikb.c: 370: static uint8_t ikey_is_accessible(uint8_t k)
+[; ;ikb.c: 371: {
+[e :U _ikey_is_accessible ]
+"370
+[v _k `uc ~T0 @X0 1 r1 ]
+"371
+[f ]
+[; ;ikb.c: 372: if (key[k].prop.numGroup > 0)
+"372
+[e $ ! > -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 2 `i -> 0 `i 622  ]
+[; ;ikb.c: 373: {
+"373
+{
+[; ;ikb.c: 375: if (group_x[key[k].prop.numGroup] == 1)
+"375
+[e $ ! == -> *U + &U _group_x * -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 2 `ux -> -> # *U &U _group_x `ui `ux `i -> 1 `i 623  ]
+[; ;ikb.c: 376: {
+"376
+{
+[; ;ikb.c: 378: if ( !key[k].statusFlag.OwnerOfGroup)
+"378
+[e $ ! ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 3 `i -> -> -> 0 `i `Vuc `i 624  ]
+[; ;ikb.c: 379: {
+"379
+{
+[; ;ikb.c: 380: return 0;
+"380
+[e ) -> -> 0 `i `uc ]
+[e $UE 621  ]
+"381
+}
+[e :U 624 ]
+"382
+}
+[e :U 623 ]
+"383
+}
+[e :U 622 ]
+[; ;ikb.c: 381: }
+[; ;ikb.c: 382: }
+[; ;ikb.c: 383: }
+[; ;ikb.c: 384: return 1;
+"384
+[e ) -> -> 1 `i `uc ]
+[e $UE 621  ]
+[; ;ikb.c: 385: }
+"385
+[e :UE 621 ]
+}
+[; ;ikb.c: 392: enum _STAGE_
+[; ;ikb.c: 393: {
+[; ;ikb.c: 394: _STAGE_START_PARSING_=0,
+[; ;ikb.c: 395: _STAGE_ISKEY_RELEASED_,
+[; ;ikb.c: 396: _STAGE_ISKEY_RELEASED2_,
+[; ;ikb.c: 397: _STAGE_ISKEY_READFROMAPP_,
+[; ;ikb.c: 398: _STAGE_FIREATIMEEXPIRED_,
+[; ;ikb.c: 399: _STAGE_FIREATIMEEXPIRED_2_,
+[; ;ikb.c: 400: _STAGE_ONKEYRELEASED_,
+[; ;ikb.c: 401: _STAGE_WHILEPRESSING_,
+[; ;ikb.c: 403: _STAGE_REPTT_,
+[; ;ikb.c: 404: _STAGE_REPTT_1_,
+[; ;ikb.c: 405: _STAGE_REPTT_2_,
+[; ;ikb.c: 407: _STAGE_END_PARSING_,
+[; ;ikb.c: 408: };
+"410
+[v _ikey_parsing `(v ~T0 @X0 1 ef ]
+"411
+{
+[; ;ikb.c: 410: void ikey_parsing(void)
+[; ;ikb.c: 411: {
+[e :U _ikey_parsing ]
+[f ]
+"412
+[v _k `uc ~T0 @X0 1 a ]
+[; ;ikb.c: 412: uint8_t k;
+[; ;ikb.c: 414: for (k=0; k < 5; k++)
+"414
+{
+[e = _k -> -> 0 `i `uc ]
+[e $ < -> _k `i -> 5 `i 626  ]
+[e $U 627  ]
+"415
+[e :U 626 ]
+[; ;ikb.c: 415: {
+{
+[; ;ikb.c: 416: if ( key[k].sm1 == _STAGE_START_PARSING_ )
+"416
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 0 `i 629  ]
+[; ;ikb.c: 417: {
+"417
+{
+[; ;ikb.c: 418: if ( ikey_is_accessible(k) )
+"418
+[e $ ! != -> ( _ikey_is_accessible (1 _k `i -> -> -> 0 `i `uc `i 630  ]
+[; ;ikb.c: 419: {
+"419
+{
+[; ;ikb.c: 420: if (key[k].statusFlag.state == 1)
+"420
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 1 `i 631  ]
+[; ;ikb.c: 421: {
+"421
+{
+[; ;ikb.c: 423: if (key[k].prop.uFlag.f.onKeyPressed)
+"423
+[e $ ! != -> . . . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 0 0 0 `i -> -> -> 0 `i `Vuc `i 632  ]
+[; ;ikb.c: 424: {
+"424
+{
+[; ;ikb.c: 425: key[k].statusFlag.ReadyToRead = 1;
+"425
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 1 `i `uc ]
+[; ;ikb.c: 427: if (key[k].prop.uFlag.f.reptt)
+"427
+[e $ ! != -> . . . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 0 0 1 `i -> -> -> 0 `i `Vuc `i 633  ]
+[; ;ikb.c: 428: {
+"428
+{
+[; ;ikb.c: 429: key[k].sm1 = _STAGE_REPTT_;
+"429
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 8 `uc ]
+"430
+}
+[; ;ikb.c: 430: }
+[e $U 634  ]
+"431
+[e :U 633 ]
+[; ;ikb.c: 431: else
+[; ;ikb.c: 432: {
+"432
+{
+[; ;ikb.c: 433: key[k].sm1 = _STAGE_ISKEY_RELEASED_;
+"433
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 1 `uc ]
+"434
+}
+[e :U 634 ]
+"435
+}
+[; ;ikb.c: 434: }
+[; ;ikb.c: 435: }
+[e $U 635  ]
+"436
+[e :U 632 ]
+[; ;ikb.c: 436: else if ( key[k].prop.uFlag.f.onKeyReleased)
+[e $ ! != -> . . . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 0 0 2 `i -> -> -> 0 `i `Vuc `i 636  ]
+[; ;ikb.c: 437: {
+"437
+{
+[; ;ikb.c: 438: key[k].sm1 = _STAGE_ONKEYRELEASED_;
+"438
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 6 `uc ]
+"439
+}
+[; ;ikb.c: 439: }
+[e $U 637  ]
+"440
+[e :U 636 ]
+[; ;ikb.c: 440: else if ( key[k].prop.uFlag.f.whilePressing)
+[e $ ! != -> . . . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 0 0 3 `i -> -> -> 0 `i `Vuc `i 638  ]
+[; ;ikb.c: 441: {
+"441
+{
+[; ;ikb.c: 442: key[k].sm1 = _STAGE_WHILEPRESSING_;
+"442
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 7 `uc ]
+"443
+}
+[; ;ikb.c: 443: }
+[e $U 639  ]
+"444
+[e :U 638 ]
+[; ;ikb.c: 444: else if (key[k].prop.uFlag.f.atTimeExpired)
+[e $ ! != -> . . . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 0 0 4 `i -> -> -> 0 `i `Vuc `i 640  ]
+[; ;ikb.c: 445: {
+"445
+{
+[; ;ikb.c: 446: key[k].sm1 = _STAGE_FIREATIMEEXPIRED_;
+"446
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 4 `uc ]
+"447
+}
+[; ;ikb.c: 447: }
+[e $U 641  ]
+"448
+[e :U 640 ]
+[; ;ikb.c: 448: else if (key[k].prop.uFlag.f.atTimeExpired2)
+[e $ ! != -> . . . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 0 0 5 `i -> -> -> 0 `i `Vuc `i 642  ]
+[; ;ikb.c: 449: {
+"449
+{
+[; ;ikb.c: 450: key[k].sm1 = _STAGE_FIREATIMEEXPIRED_2_;
+"450
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 5 `uc ]
+"451
+}
+[e :U 642 ]
+"454
+[e :U 641 ]
+[e :U 639 ]
+[e :U 637 ]
+[e :U 635 ]
+[; ;ikb.c: 451: }
+[; ;ikb.c: 454: key[k].statusFlag.InProcessing = 1;
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 4 -> -> 1 `i `uc ]
+[; ;ikb.c: 459: if (key[k].prop.numGroup > 0)
+"459
+[e $ ! > -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 2 `i -> 0 `i 643  ]
+[; ;ikb.c: 460: {
+"460
+{
+[; ;ikb.c: 461: group_x[ key[k].prop.numGroup ] = 1;
+"461
+[e = *U + &U _group_x * -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 2 `ux -> -> # *U &U _group_x `ui `ux -> -> 1 `i `uc ]
+[; ;ikb.c: 462: key[k].statusFlag.OwnerOfGroup = 1;
+"462
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 3 -> -> 1 `i `uc ]
+"463
+}
+[e :U 643 ]
+"465
+}
+[e :U 631 ]
+"466
+}
+[e :U 630 ]
+"467
+}
+[e :U 629 ]
+[; ;ikb.c: 463: }
+[; ;ikb.c: 465: }
+[; ;ikb.c: 466: }
+[; ;ikb.c: 467: }
+[; ;ikb.c: 471: if ( (key[k].sm1 >= _STAGE_REPTT_ ) && (key[k].sm1 <= _STAGE_REPTT_2_))
+"471
+[e $ ! && >= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 8 `i <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 10 `i 644  ]
+[; ;ikb.c: 472: {
+"472
+{
+[; ;ikb.c: 473: if (key[k].statusFlag.state == 0)
+"473
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 645  ]
+[; ;ikb.c: 474: {
+"474
+{
+[; ;ikb.c: 475: key[k].counter1 = 0;
+"475
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 476: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
+"476
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 3 `uc ]
+"477
+}
+[e :U 645 ]
+"478
+}
+[e :U 644 ]
+[; ;ikb.c: 477: }
+[; ;ikb.c: 478: }
+[; ;ikb.c: 480: if (key[k].sm1 == _STAGE_REPTT_ )
+"480
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 8 `i 646  ]
+[; ;ikb.c: 481: {
+"481
+{
+[; ;ikb.c: 482: if ( ++key[k].counter1 >= key[k].prop.repttTh.breakTime)
+"482
+[e $ ! >= =+ . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 1 `i `ui . . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 1 0 647  ]
+[; ;ikb.c: 483: {
+"483
+{
+[; ;ikb.c: 484: key[k].counter1 =0;
+"484
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 485: key[k].sm1 = _STAGE_REPTT_1_;
+"485
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 9 `uc ]
+"486
+}
+[e :U 647 ]
+"487
+}
+[e :U 646 ]
+[; ;ikb.c: 486: }
+[; ;ikb.c: 487: }
+[; ;ikb.c: 488: if (key[k].sm1 == _STAGE_REPTT_1_)
+"488
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 9 `i 648  ]
+[; ;ikb.c: 489: {
+"489
+{
+[; ;ikb.c: 490: if (key[k].statusFlag.ReadyToRead == 0)
+"490
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 `i -> 0 `i 649  ]
+[; ;ikb.c: 491: {
+"491
+{
+[; ;ikb.c: 492: key[k].statusFlag.ReadyToRead = 1;
+"492
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 1 `i `uc ]
+[; ;ikb.c: 493: key[k].sm1 = _STAGE_REPTT_2_;
+"493
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 10 `uc ]
+"494
+}
+[e :U 649 ]
+"495
+}
+[e :U 648 ]
+[; ;ikb.c: 494: }
+[; ;ikb.c: 495: }
+[; ;ikb.c: 496: if (key[k].sm1 == _STAGE_REPTT_2_)
+"496
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 10 `i 650  ]
+[; ;ikb.c: 497: {
+"497
+{
+[; ;ikb.c: 498: if ( ++key[k].counter1 >= key[k].prop.repttTh.period)
+"498
+[e $ ! >= =+ . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 1 `i `ui . . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 1 1 651  ]
+[; ;ikb.c: 499: {
+"499
+{
+[; ;ikb.c: 500: key[k].counter1 = 0;
+"500
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 501: key[k].sm1 = _STAGE_REPTT_1_;
+"501
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 9 `uc ]
+"502
+}
+[e :U 651 ]
+"503
+}
+[e :U 650 ]
+[; ;ikb.c: 502: }
+[; ;ikb.c: 503: }
+[; ;ikb.c: 505: if (key[k].sm1 == _STAGE_ONKEYRELEASED_ )
+"505
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 6 `i 652  ]
+[; ;ikb.c: 506: {
+"506
+{
+[; ;ikb.c: 507: if (key[k].statusFlag.state == 0)
+"507
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 653  ]
+[; ;ikb.c: 508: {
+"508
+{
+[; ;ikb.c: 509: key[k].statusFlag.ReadyToRead = 1;
+"509
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 1 `i `uc ]
+[; ;ikb.c: 510: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
+"510
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 3 `uc ]
+"511
+}
+[e :U 653 ]
+"512
+}
+[e :U 652 ]
+[; ;ikb.c: 511: }
+[; ;ikb.c: 512: }
+[; ;ikb.c: 513: if (key[k].sm1 == _STAGE_WHILEPRESSING_ )
+"513
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 7 `i 654  ]
+[; ;ikb.c: 514: {
+"514
+{
+[; ;ikb.c: 515: key[k].statusFlag.ReadyToRead = 1;
+"515
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 1 `i `uc ]
+[; ;ikb.c: 516: key[k].sm1 = _STAGE_ISKEY_RELEASED2_;
+"516
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 2 `uc ]
+"517
+}
+[e :U 654 ]
+[; ;ikb.c: 517: }
+[; ;ikb.c: 519: if (key[k].sm1 == _STAGE_FIREATIMEEXPIRED_ )
+"519
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 4 `i 655  ]
+[; ;ikb.c: 520: {
+"520
+{
+[; ;ikb.c: 521: key[k].counter1++;
+"521
+[e ++ . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 1 `i `ui ]
+[; ;ikb.c: 523: if (key[k].statusFlag.state == 0)
+"523
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 656  ]
+[; ;ikb.c: 524: {
+"524
+{
+[; ;ikb.c: 525: if (key[k].counter1 <= ((500.0/20)) )
+"525
+[e $ ! <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .500.0 -> -> 20 `i `d 657  ]
 [; ;ikb.c: 526: {
 "526
 {
-[; ;ikb.c: 527: key[k].bf.state = 1;
+[; ;ikb.c: 527: key[k].counter1 = 0;
 "527
-[e = . . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 7 0 -> -> 1 `i `uc ]
-[; ;ikb.c: 528: key[k].sm0++;
-"528
-[e ++ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 529: key[k].statusFlag.ReadyToRead = 1;
 "529
-}
-[e :U 605 ]
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 1 `i `uc ]
+[; ;ikb.c: 530: key[k].statusFlag.AtTimeExpired_BeforeOrAfter = 0;
 "530
-}
-[e :U 603 ]
-"531
-}
-[; ;ikb.c: 529: }
-[; ;ikb.c: 530: }
-[; ;ikb.c: 531: }
-[e $U 606  ]
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 2 -> -> 0 `i `uc ]
+[; ;ikb.c: 532: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
 "532
-[e :U 602 ]
-[; ;ikb.c: 532: else if (key[k].sm0 == 2)
-[e $ ! == -> . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 `i -> 2 `i 607  ]
-[; ;ikb.c: 533: {
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 3 `uc ]
 "533
-{
-[; ;ikb.c: 534: if (key[k].keyRead() == 1)
-"534
-[e $ ! == -> ( *U . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 0 ..  `i -> 1 `i 608  ]
-[; ;ikb.c: 535: key[k].sm0++;
-"535
-[e ++ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
-[e :U 608 ]
-"536
 }
-[; ;ikb.c: 536: }
-[e $U 609  ]
+[e :U 657 ]
+"534
+}
+[e :U 656 ]
+[; ;ikb.c: 533: }
+[; ;ikb.c: 534: }
+[; ;ikb.c: 536: if (key[k].counter1 > ((500.0/20)) )
+"536
+[e $ ! > -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .500.0 -> -> 20 `i `d 658  ]
+[; ;ikb.c: 537: {
 "537
-[e :U 607 ]
-[; ;ikb.c: 537: else if (key[k].sm0 == 3)
-[e $ ! == -> . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 `i -> 3 `i 610  ]
-[; ;ikb.c: 538: {
+{
+[; ;ikb.c: 538: key[k].counter1 = 0x0000;
 "538
-{
-[; ;ikb.c: 539: if (++key[k].counter0 == 1)
-"539
-[e $ ! == -> =+ . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 3 -> -> 1 `i `uc `i -> 1 `i 611  ]
-[; ;ikb.c: 540: {
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 540: key[k].statusFlag.ReadyToRead = 1;
 "540
-{
-[; ;ikb.c: 541: key[k].counter0 = 0x00;
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 1 `i `uc ]
+[; ;ikb.c: 541: key[k].statusFlag.AtTimeExpired_BeforeOrAfter = 1;
 "541
-[e = . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 3 -> -> 0 `i `uc ]
-[; ;ikb.c: 543: if (key[k].keyRead() != 1)
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 2 -> -> 1 `i `uc ]
+[; ;ikb.c: 543: if (!key[k].prop.uFlag.f.reptt)
 "543
-[e $ ! != -> ( *U . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 0 ..  `i -> 1 `i 612  ]
+[e $ ! ! != -> . . . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 0 0 1 `i -> -> -> 0 `i `Vuc `i 659  ]
 [; ;ikb.c: 544: {
 "544
 {
-[; ;ikb.c: 545: key[k].sm0--;
+[; ;ikb.c: 545: key[k].sm1 = _STAGE_ISKEY_RELEASED_;
 "545
-[e -- . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 1 `i `uc ]
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 1 `uc ]
 "546
 }
 [; ;ikb.c: 546: }
-[e $U 613  ]
+[e $U 660  ]
 "547
-[e :U 612 ]
+[e :U 659 ]
 [; ;ikb.c: 547: else
 [; ;ikb.c: 548: {
 "548
 {
-[; ;ikb.c: 549: key[k].bf.state = 0;
+[; ;ikb.c: 549: key[k].sm1 = _STAGE_REPTT_2_;
 "549
-[e = . . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 7 0 -> -> 0 `i `uc ]
-[; ;ikb.c: 550: key[k].sm0 = 0x00;
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 10 `uc ]
 "550
-[e = . *U + &U _key * -> -> _k `uc `ux -> -> # *U &U _key `ui `ux 2 -> -> 0 `i `uc ]
-"551
-}
-[e :U 613 ]
-"552
-}
-[e :U 611 ]
-"553
-}
-[e :U 610 ]
-"555
-[e :U 609 ]
-[e :U 606 ]
-[e :U 601 ]
-}
-[; ;ikb.c: 551: }
-[; ;ikb.c: 552: }
-[; ;ikb.c: 553: }
-[; ;ikb.c: 555: }while (--k >= 0);
-[e $ >= -> =- _k -> -> 1 `i `c `i -> 0 `i 598  ]
-[e :U 597 ]
-[; ;ikb.c: 556: }
-"556
-[e :UE 595 ]
-}
-"564
-[v _group_x `uc ~T0 @X0 -> 5 `i e ]
-[; ;ikb.c: 564: uint8_t group_x[5];
-"566
-[v _ikey_is_accessible `(uc ~T0 @X0 1 sf1`uc ]
-"567
-{
-[; ;ikb.c: 566: static uint8_t ikey_is_accessible(uint8_t k)
-[; ;ikb.c: 567: {
-[e :U _ikey_is_accessible ]
-"566
-[v _k `uc ~T0 @X0 1 r1 ]
-"567
-[f ]
-[; ;ikb.c: 568: if (key[k].num_group_x > 0)
-"568
-[e $ ! > -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 `i -> 0 `i 615  ]
-[; ;ikb.c: 569: {
-"569
-{
-[; ;ikb.c: 571: if (group_x[key[k].num_group_x] == 1)
-"571
-[e $ ! == -> *U + &U _group_x * -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 `ux -> -> # *U &U _group_x `ui `ux `i -> 1 `i 616  ]
-[; ;ikb.c: 572: {
-"572
-{
-[; ;ikb.c: 574: if ( !key[k].bf.OwnerOfGroup)
-"574
-[e $ ! ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 9 `i -> -> -> 0 `i `Vuc `i 617  ]
-[; ;ikb.c: 575: {
-"575
-{
-[; ;ikb.c: 576: return 0;
-"576
-[e ) -> -> 0 `i `uc ]
-[e $UE 614  ]
-"577
-}
-[e :U 617 ]
-"578
-}
-[e :U 616 ]
-"579
-}
-[e :U 615 ]
-[; ;ikb.c: 577: }
-[; ;ikb.c: 578: }
-[; ;ikb.c: 579: }
-[; ;ikb.c: 580: return 1;
-"580
-[e ) -> -> 1 `i `uc ]
-[e $UE 614  ]
-[; ;ikb.c: 581: }
-"581
-[e :UE 614 ]
-}
-[; ;ikb.c: 588: enum _STAGE_
-[; ;ikb.c: 589: {
-[; ;ikb.c: 590: _STAGE_START_PARSING_=0,
-[; ;ikb.c: 591: _STAGE_ISKEY_RELEASED_,
-[; ;ikb.c: 592: _STAGE_ISKEY_RELEASED2_,
-[; ;ikb.c: 593: _STAGE_ISKEY_READFROMAPP_,
-[; ;ikb.c: 594: _STAGE_FIREATIMEEXPIRED_,
-[; ;ikb.c: 595: _STAGE_FIREATIMEEXPIRED_2_,
-[; ;ikb.c: 596: _STAGE_ONKEYRELEASED_,
-[; ;ikb.c: 597: _STAGE_WHILEPRESSING_,
-[; ;ikb.c: 599: _STAGE_REPTT_,
-[; ;ikb.c: 600: _STAGE_REPTT_1_,
-[; ;ikb.c: 601: _STAGE_REPTT_2_,
-[; ;ikb.c: 603: _STAGE_END_PARSING_,
-[; ;ikb.c: 604: };
-"606
-[v _ikey_parsing `(v ~T0 @X0 1 ef ]
-"607
-{
-[; ;ikb.c: 606: void ikey_parsing(void)
-[; ;ikb.c: 607: {
-[e :U _ikey_parsing ]
-[f ]
-"608
-[v _k `uc ~T0 @X0 1 a ]
-[; ;ikb.c: 608: uint8_t k;
-[; ;ikb.c: 610: for (k=0; k < 5; k++)
-"610
-{
-[e = _k -> -> 0 `i `uc ]
-[e $ < -> _k `i -> 5 `i 619  ]
-[e $U 620  ]
-"611
-[e :U 619 ]
-[; ;ikb.c: 611: {
-{
-[; ;ikb.c: 612: if ( key[k].sm1 == _STAGE_START_PARSING_ )
-"612
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 0 `i 622  ]
-[; ;ikb.c: 613: {
-"613
-{
-[; ;ikb.c: 614: if ( ikey_is_accessible(k) )
-"614
-[e $ ! != -> ( _ikey_is_accessible (1 _k `i -> -> -> 0 `i `uc `i 623  ]
-[; ;ikb.c: 615: {
-"615
-{
-[; ;ikb.c: 616: if (key[k].bf.state == 1)
-"616
-[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 1 `i 624  ]
-[; ;ikb.c: 617: {
-"617
-{
-[; ;ikb.c: 619: if (key[k].bf.OnKeyPressed)
-"619
-[e $ ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 `i -> -> -> 0 `i `Vuc `i 625  ]
-[; ;ikb.c: 620: {
-"620
-{
-[; ;ikb.c: 621: key[k].bf.ReadyToRead = 1;
-"621
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
-[; ;ikb.c: 623: if (key[k].bf.Reptt)
-"623
-[e $ ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 2 `i -> -> -> 0 `i `Vuc `i 626  ]
-[; ;ikb.c: 624: {
-"624
-{
-[; ;ikb.c: 625: key[k].sm1 = _STAGE_REPTT_;
-"625
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 8 `uc ]
-"626
-}
-[; ;ikb.c: 626: }
-[e $U 627  ]
-"627
-[e :U 626 ]
-[; ;ikb.c: 627: else
-[; ;ikb.c: 628: {
-"628
-{
-[; ;ikb.c: 629: key[k].sm1 = _STAGE_ISKEY_RELEASED_;
-"629
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 1 `uc ]
-"630
-}
-[e :U 627 ]
-"631
-}
-[; ;ikb.c: 630: }
-[; ;ikb.c: 631: }
-[e $U 628  ]
-"632
-[e :U 625 ]
-[; ;ikb.c: 632: else if ( key[k].bf.OnKeyReleased)
-[e $ ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 3 `i -> -> -> 0 `i `Vuc `i 629  ]
-[; ;ikb.c: 633: {
-"633
-{
-[; ;ikb.c: 634: key[k].sm1 = _STAGE_ONKEYRELEASED_;
-"634
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 6 `uc ]
-"635
-}
-[; ;ikb.c: 635: }
-[e $U 630  ]
-"636
-[e :U 629 ]
-[; ;ikb.c: 636: else if ( key[k].bf.whilePressing)
-[e $ ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 4 `i -> -> -> 0 `i `Vuc `i 631  ]
-[; ;ikb.c: 637: {
-"637
-{
-[; ;ikb.c: 638: key[k].sm1 = _STAGE_WHILEPRESSING_;
-"638
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 7 `uc ]
-"639
-}
-[; ;ikb.c: 639: }
-[e $U 632  ]
-"640
-[e :U 631 ]
-[; ;ikb.c: 640: else if (key[k].bf.AtTimeExpired)
-[e $ ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 5 `i -> -> -> 0 `i `Vuc `i 633  ]
-[; ;ikb.c: 641: {
-"641
-{
-[; ;ikb.c: 642: key[k].sm1 = _STAGE_FIREATIMEEXPIRED_;
-"642
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 4 `uc ]
-"643
-}
-[; ;ikb.c: 643: }
-[e $U 634  ]
-"644
-[e :U 633 ]
-[; ;ikb.c: 644: else if (key[k].bf.AtTimeExpired2)
-[e $ ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 6 `i -> -> -> 0 `i `Vuc `i 635  ]
-[; ;ikb.c: 645: {
-"645
-{
-[; ;ikb.c: 646: key[k].sm1 = _STAGE_FIREATIMEEXPIRED_2_;
-"646
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 5 `uc ]
-"647
-}
-[e :U 635 ]
-"650
-[e :U 634 ]
-[e :U 632 ]
-[e :U 630 ]
-[e :U 628 ]
-[; ;ikb.c: 647: }
-[; ;ikb.c: 650: key[k].bf.InProcessing = 1;
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 10 -> -> 1 `i `uc ]
-[; ;ikb.c: 655: if (key[k].num_group_x > 0)
-"655
-[e $ ! > -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 `i -> 0 `i 636  ]
-[; ;ikb.c: 656: {
-"656
-{
-[; ;ikb.c: 657: group_x[ key[k].num_group_x ] = 1;
-"657
-[e = *U + &U _group_x * -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 `ux -> -> # *U &U _group_x `ui `ux -> -> 1 `i `uc ]
-[; ;ikb.c: 658: key[k].bf.OwnerOfGroup = 1;
-"658
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 9 -> -> 1 `i `uc ]
-"659
-}
-[e :U 636 ]
-"661
-}
-[e :U 624 ]
-"662
-}
-[e :U 623 ]
-"663
-}
-[e :U 622 ]
-[; ;ikb.c: 659: }
-[; ;ikb.c: 661: }
-[; ;ikb.c: 662: }
-[; ;ikb.c: 663: }
-[; ;ikb.c: 667: if ( (key[k].sm1 >= _STAGE_REPTT_ ) && (key[k].sm1 <= _STAGE_REPTT_2_))
-"667
-[e $ ! && >= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 8 `i <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 10 `i 637  ]
-[; ;ikb.c: 668: {
-"668
-{
-[; ;ikb.c: 669: if (key[k].bf.state == 0)
-"669
-[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 638  ]
-[; ;ikb.c: 670: {
-"670
-{
-[; ;ikb.c: 671: key[k].counter1 = 0;
-"671
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
-[; ;ikb.c: 672: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
-"672
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 3 `uc ]
-"673
-}
-[e :U 638 ]
-"674
-}
-[e :U 637 ]
-[; ;ikb.c: 673: }
-[; ;ikb.c: 674: }
-[; ;ikb.c: 676: if (key[k].sm1 == _STAGE_REPTT_ )
-"676
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 8 `i 639  ]
-[; ;ikb.c: 677: {
-"677
-{
-[; ;ikb.c: 678: if ( ++key[k].counter1 >= key[k].repp.breakTime)
-"678
-[e $ ! >= =+ . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 1 `i `ui . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 8 0 640  ]
-[; ;ikb.c: 679: {
-"679
-{
-[; ;ikb.c: 680: key[k].counter1 =0;
-"680
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
-[; ;ikb.c: 681: key[k].sm1 = _STAGE_REPTT_1_;
-"681
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 9 `uc ]
-"682
-}
-[e :U 640 ]
-"683
-}
-[e :U 639 ]
-[; ;ikb.c: 682: }
-[; ;ikb.c: 683: }
-[; ;ikb.c: 684: if (key[k].sm1 == _STAGE_REPTT_1_)
-"684
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 9 `i 641  ]
-[; ;ikb.c: 685: {
-"685
-{
-[; ;ikb.c: 686: if (key[k].bf.ReadyToRead == 0)
-"686
-[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 `i -> 0 `i 642  ]
-[; ;ikb.c: 687: {
-"687
-{
-[; ;ikb.c: 688: key[k].bf.ReadyToRead = 1;
-"688
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
-[; ;ikb.c: 689: key[k].sm1 = _STAGE_REPTT_2_;
-"689
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 10 `uc ]
-"690
-}
-[e :U 642 ]
-"691
-}
-[e :U 641 ]
-[; ;ikb.c: 690: }
-[; ;ikb.c: 691: }
-[; ;ikb.c: 692: if (key[k].sm1 == _STAGE_REPTT_2_)
-"692
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 10 `i 643  ]
-[; ;ikb.c: 693: {
-"693
-{
-[; ;ikb.c: 694: if ( ++key[k].counter1 >= key[k].repp.period)
-"694
-[e $ ! >= =+ . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 1 `i `ui . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 8 1 644  ]
-[; ;ikb.c: 695: {
-"695
-{
-[; ;ikb.c: 696: key[k].counter1 = 0;
-"696
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
-[; ;ikb.c: 697: key[k].sm1 = _STAGE_REPTT_1_;
-"697
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 9 `uc ]
-"698
-}
-[e :U 644 ]
-"699
-}
-[e :U 643 ]
-[; ;ikb.c: 698: }
-[; ;ikb.c: 699: }
-[; ;ikb.c: 701: if (key[k].sm1 == _STAGE_ONKEYRELEASED_ )
-"701
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 6 `i 645  ]
-[; ;ikb.c: 702: {
-"702
-{
-[; ;ikb.c: 703: if (key[k].bf.state == 0)
-"703
-[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 646  ]
-[; ;ikb.c: 704: {
-"704
-{
-[; ;ikb.c: 705: key[k].bf.ReadyToRead = 1;
-"705
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
-[; ;ikb.c: 706: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
-"706
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 3 `uc ]
-"707
-}
-[e :U 646 ]
-"708
-}
-[e :U 645 ]
-[; ;ikb.c: 707: }
-[; ;ikb.c: 708: }
-[; ;ikb.c: 709: if (key[k].sm1 == _STAGE_WHILEPRESSING_ )
-"709
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 7 `i 647  ]
-[; ;ikb.c: 710: {
-"710
-{
-[; ;ikb.c: 711: key[k].bf.ReadyToRead = 1;
-"711
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
-[; ;ikb.c: 712: key[k].sm1 = _STAGE_ISKEY_RELEASED2_;
-"712
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 2 `uc ]
-"713
-}
-[e :U 647 ]
-[; ;ikb.c: 713: }
-[; ;ikb.c: 715: if (key[k].sm1 == _STAGE_FIREATIMEEXPIRED_ )
-"715
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 4 `i 648  ]
-[; ;ikb.c: 716: {
-"716
-{
-[; ;ikb.c: 717: key[k].counter1++;
-"717
-[e ++ . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 1 `i `ui ]
-[; ;ikb.c: 719: if (key[k].bf.state == 0)
-"719
-[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 649  ]
-[; ;ikb.c: 720: {
-"720
-{
-[; ;ikb.c: 721: if (key[k].counter1 <= ((500.0/20)) )
-"721
-[e $ ! <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .500.0 -> -> 20 `i `d 650  ]
-[; ;ikb.c: 722: {
-"722
-{
-[; ;ikb.c: 723: key[k].counter1 = 0;
-"723
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
-[; ;ikb.c: 725: key[k].bf.ReadyToRead = 1;
-"725
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
-[; ;ikb.c: 726: key[k].bf.AtTimeExpired_BeforeOrAfter = 0;
-"726
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 8 -> -> 0 `i `uc ]
-[; ;ikb.c: 728: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
-"728
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 3 `uc ]
-"729
-}
-[e :U 650 ]
-"730
-}
-[e :U 649 ]
-[; ;ikb.c: 729: }
-[; ;ikb.c: 730: }
-[; ;ikb.c: 732: if (key[k].counter1 > ((500.0/20)) )
-"732
-[e $ ! > -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .500.0 -> -> 20 `i `d 651  ]
-[; ;ikb.c: 733: {
-"733
-{
-[; ;ikb.c: 734: key[k].counter1 = 0x0000;
-"734
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
-[; ;ikb.c: 736: key[k].bf.ReadyToRead = 1;
-"736
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
-[; ;ikb.c: 737: key[k].bf.AtTimeExpired_BeforeOrAfter = 1;
-"737
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 8 -> -> 1 `i `uc ]
-[; ;ikb.c: 739: if (!key[k].bf.Reptt)
-"739
-[e $ ! ! != -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 2 `i -> -> -> 0 `i `Vuc `i 652  ]
-[; ;ikb.c: 740: {
-"740
-{
-[; ;ikb.c: 741: key[k].sm1 = _STAGE_ISKEY_RELEASED_;
-"741
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 1 `uc ]
-"742
-}
-[; ;ikb.c: 742: }
-[e $U 653  ]
-"743
-[e :U 652 ]
-[; ;ikb.c: 743: else
-[; ;ikb.c: 744: {
-"744
-{
-[; ;ikb.c: 745: key[k].sm1 = _STAGE_REPTT_2_;
-"745
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 10 `uc ]
-"746
-}
-[e :U 653 ]
-"747
-}
-[e :U 651 ]
-"748
-}
-[e :U 648 ]
-[; ;ikb.c: 746: }
-[; ;ikb.c: 747: }
-[; ;ikb.c: 748: }
-[; ;ikb.c: 753: if (key[k].sm1 == _STAGE_FIREATIMEEXPIRED_2_)
-"753
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 5 `i 654  ]
-[; ;ikb.c: 754: {
-"754
-{
-[; ;ikb.c: 755: key[k].counter1++;
-"755
-[e ++ . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 1 `i `ui ]
-[; ;ikb.c: 757: if (key[k].bf.state == 0)
-"757
-[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 655  ]
-[; ;ikb.c: 758: {
-"758
-{
-[; ;ikb.c: 759: if (key[k].counter1 <= ((500.0/20)))
-"759
-[e $ ! <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .500.0 -> -> 20 `i `d 656  ]
-[; ;ikb.c: 760: {
-"760
-{
-[; ;ikb.c: 761: key[k].counter1 = 0;
-"761
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
-[; ;ikb.c: 763: key[k].bf.ReadyToRead = 1;
-"763
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
-[; ;ikb.c: 764: key[k].bf.AtTimeExpired_BeforeOrAfter = 0;
-"764
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 8 -> -> 0 `i `uc ]
-[; ;ikb.c: 766: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
-"766
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 3 `uc ]
-"767
-}
-[e :U 656 ]
-"768
-}
-[e :U 655 ]
-[; ;ikb.c: 767: }
-[; ;ikb.c: 768: }
-[; ;ikb.c: 771: if (key[k].counter1 >= ((2000.0/20)))
-"771
-[e $ ! >= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .2000.0 -> -> 20 `i `d 657  ]
-[; ;ikb.c: 772: {
-"772
-{
-[; ;ikb.c: 773: key[k].counter1 = 0x0000;
-"773
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
-[; ;ikb.c: 775: key[k].bf.ReadyToRead = 1;
-"775
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 1 `i `uc ]
-[; ;ikb.c: 776: key[k].bf.AtTimeExpired_BeforeOrAfter = 1;
-"776
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 8 -> -> 1 `i `uc ]
-[; ;ikb.c: 779: key[k].sm1 = _STAGE_ISKEY_RELEASED2_;
-"779
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 2 `uc ]
-"780
-}
-[e :U 657 ]
-"781
-}
-[e :U 654 ]
-[; ;ikb.c: 780: }
-[; ;ikb.c: 781: }
-[; ;ikb.c: 784: if (key[k].sm1 == _STAGE_ISKEY_RELEASED_)
-"784
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 1 `i 658  ]
-[; ;ikb.c: 785: {
-"785
-{
-[; ;ikb.c: 786: if (key[k].bf.state == 0)
-"786
-[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 659  ]
-[; ;ikb.c: 787: {
-"787
-{
-[; ;ikb.c: 788: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
-"788
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 3 `uc ]
-"789
-}
-[e :U 659 ]
-"790
-}
-[e :U 658 ]
-[; ;ikb.c: 789: }
-[; ;ikb.c: 790: }
-[; ;ikb.c: 792: if (key[k].sm1 == _STAGE_ISKEY_RELEASED2_)
-"792
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 2 `i 660  ]
-[; ;ikb.c: 793: {
-"793
-{
-[; ;ikb.c: 794: if (key[k].bf.state == 0)
-"794
-[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 661  ]
-[; ;ikb.c: 795: {
-"795
-{
-[; ;ikb.c: 796: key[k].bf.ReadyToRead = 0;
-"796
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 0 `i `uc ]
-[; ;ikb.c: 797: key[k].sm1 = _STAGE_END_PARSING_;
-"797
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 11 `uc ]
-"798
-}
-[e :U 661 ]
-"799
 }
 [e :U 660 ]
-[; ;ikb.c: 798: }
-[; ;ikb.c: 799: }
-[; ;ikb.c: 801: if (key[k].sm1 == _STAGE_ISKEY_READFROMAPP_)
-"801
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 3 `i 662  ]
-[; ;ikb.c: 802: {
-"802
+"551
+}
+[e :U 658 ]
+"552
+}
+[e :U 655 ]
+[; ;ikb.c: 550: }
+[; ;ikb.c: 551: }
+[; ;ikb.c: 552: }
+[; ;ikb.c: 557: if (key[k].sm1 == _STAGE_FIREATIMEEXPIRED_2_)
+"557
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 5 `i 661  ]
+[; ;ikb.c: 558: {
+"558
 {
-[; ;ikb.c: 803: if (key[k].bf.ReadyToRead == 0)
-"803
-[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 7 `i -> 0 `i 663  ]
-[; ;ikb.c: 804: {
-"804
+[; ;ikb.c: 559: key[k].counter1++;
+"559
+[e ++ . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 1 `i `ui ]
+[; ;ikb.c: 561: if (key[k].statusFlag.state == 0)
+"561
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 662  ]
+[; ;ikb.c: 562: {
+"562
 {
-[; ;ikb.c: 805: key[k].sm1 = _STAGE_END_PARSING_;
-"805
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 11 `uc ]
-"806
+[; ;ikb.c: 563: if (key[k].counter1 <= ((500.0/20)))
+"563
+[e $ ! <= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .500.0 -> -> 20 `i `d 663  ]
+[; ;ikb.c: 564: {
+"564
+{
+[; ;ikb.c: 565: key[k].counter1 = 0;
+"565
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 567: key[k].statusFlag.ReadyToRead = 1;
+"567
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 1 `i `uc ]
+[; ;ikb.c: 568: key[k].statusFlag.AtTimeExpired_BeforeOrAfter = 0;
+"568
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 2 -> -> 0 `i `uc ]
+[; ;ikb.c: 570: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
+"570
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 3 `uc ]
+"571
 }
 [e :U 663 ]
-"807
+"572
 }
 [e :U 662 ]
-[; ;ikb.c: 806: }
-[; ;ikb.c: 807: }
-[; ;ikb.c: 809: if (key[k].sm1 == _STAGE_END_PARSING_)
-"809
-[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4889 11 `i 664  ]
-[; ;ikb.c: 810: {
-"810
+[; ;ikb.c: 571: }
+[; ;ikb.c: 572: }
+[; ;ikb.c: 575: if (key[k].counter1 >= ((2000.0/20)))
+"575
+[e $ ! >= -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 `d / .2000.0 -> -> 20 `i `d 664  ]
+[; ;ikb.c: 576: {
+"576
 {
-[; ;ikb.c: 811: if (key[k].num_group_x > 0)
-"811
-[e $ ! > -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 `i -> 0 `i 665  ]
-[; ;ikb.c: 812: {
-"812
-{
-[; ;ikb.c: 813: group_x[key[k].num_group_x] = 0;
-"813
-[e = *U + &U _group_x * -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 `ux -> -> # *U &U _group_x `ui `ux -> -> 0 `i `uc ]
-[; ;ikb.c: 814: key[k].bf.OwnerOfGroup = 0;
-"814
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 9 -> -> 0 `i `uc ]
-"815
-}
-[e :U 665 ]
-[; ;ikb.c: 815: }
-[; ;ikb.c: 817: key[k].sm1 = _STAGE_START_PARSING_;
-"817
-[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4889 0 `uc ]
-[; ;ikb.c: 820: key[k].bf.InProcessing = 0;
-"820
-[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 10 -> -> 0 `i `uc ]
-"822
+[; ;ikb.c: 577: key[k].counter1 = 0x0000;
+"577
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 5 -> -> 0 `i `ui ]
+[; ;ikb.c: 579: key[k].statusFlag.ReadyToRead = 1;
+"579
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 1 `i `uc ]
+[; ;ikb.c: 580: key[k].statusFlag.AtTimeExpired_BeforeOrAfter = 1;
+"580
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 2 -> -> 1 `i `uc ]
+[; ;ikb.c: 583: key[k].sm1 = _STAGE_ISKEY_RELEASED2_;
+"583
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 2 `uc ]
+"584
 }
 [e :U 664 ]
-"823
+"585
 }
-"610
-[e ++ _k -> -> 1 `i `uc ]
-[e $ < -> _k `i -> 5 `i 619  ]
-[e :U 620 ]
-"823
-}
-[; ;ikb.c: 822: }
-[; ;ikb.c: 823: }
-[; ;ikb.c: 824: }
-"824
-[e :UE 618 ]
-}
-"825
-[v _ikey_is_all_hw_released `(c ~T0 @X0 1 ef ]
-"826
+[e :U 661 ]
+[; ;ikb.c: 584: }
+[; ;ikb.c: 585: }
+[; ;ikb.c: 588: if (key[k].sm1 == _STAGE_ISKEY_RELEASED_)
+"588
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 1 `i 665  ]
+[; ;ikb.c: 589: {
+"589
 {
-[; ;ikb.c: 825: int8_t ikey_is_all_hw_released(void)
-[; ;ikb.c: 826: {
-[e :U _ikey_is_all_hw_released ]
-[f ]
-"827
-[v _i `uc ~T0 @X0 1 a ]
-[; ;ikb.c: 827: uint8_t i;
-[; ;ikb.c: 828: for (i=0; i<5; i++)
-"828
+[; ;ikb.c: 590: if (key[k].statusFlag.state == 0)
+"590
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 666  ]
+[; ;ikb.c: 591: {
+"591
 {
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 5 `i 667  ]
-[e $U 668  ]
-"829
+[; ;ikb.c: 592: key[k].sm1 = _STAGE_ISKEY_READFROMAPP_;
+"592
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 3 `uc ]
+"593
+}
+[e :U 666 ]
+"594
+}
+[e :U 665 ]
+[; ;ikb.c: 593: }
+[; ;ikb.c: 594: }
+[; ;ikb.c: 596: if (key[k].sm1 == _STAGE_ISKEY_RELEASED2_)
+"596
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 2 `i 667  ]
+[; ;ikb.c: 597: {
+"597
+{
+[; ;ikb.c: 598: if (key[k].statusFlag.state == 0)
+"598
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 0 `i 668  ]
+[; ;ikb.c: 599: {
+"599
+{
+[; ;ikb.c: 600: key[k].statusFlag.ReadyToRead = 0;
+"600
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 0 `i `uc ]
+[; ;ikb.c: 601: key[k].sm1 = _STAGE_END_PARSING_;
+"601
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 11 `uc ]
+"602
+}
+[e :U 668 ]
+"603
+}
 [e :U 667 ]
-[; ;ikb.c: 829: {
+[; ;ikb.c: 602: }
+[; ;ikb.c: 603: }
+[; ;ikb.c: 605: if (key[k].sm1 == _STAGE_ISKEY_READFROMAPP_)
+"605
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 3 `i 669  ]
+[; ;ikb.c: 606: {
+"606
 {
-[; ;ikb.c: 830: if (key[i].bf.state == 1)
-"830
-[e $ ! == -> . . *U + &U _key * -> _i `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 1 `i 670  ]
-[; ;ikb.c: 831: {
-"831
+[; ;ikb.c: 607: if (key[k].statusFlag.ReadyToRead == 0)
+"607
+[e $ ! == -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 1 `i -> 0 `i 670  ]
+[; ;ikb.c: 608: {
+"608
 {
-[; ;ikb.c: 832: return 0;
-"832
-[e ) -> -> 0 `i `c ]
-[e $UE 666  ]
-"833
+[; ;ikb.c: 609: key[k].sm1 = _STAGE_END_PARSING_;
+"609
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 11 `uc ]
+"610
 }
 [e :U 670 ]
-"834
+"611
 }
-"828
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 5 `i 667  ]
-[e :U 668 ]
-"834
-}
-[; ;ikb.c: 833: }
-[; ;ikb.c: 834: }
-[; ;ikb.c: 835: return 1;
-"835
-[e ) -> -> 1 `i `c ]
-[e $UE 666  ]
-[; ;ikb.c: 836: }
-"836
-[e :UE 666 ]
-}
-"838
-[v _ikey_clear_all_flag `(v ~T0 @X0 1 ef ]
-"839
+[e :U 669 ]
+[; ;ikb.c: 610: }
+[; ;ikb.c: 611: }
+[; ;ikb.c: 613: if (key[k].sm1 == _STAGE_END_PARSING_)
+"613
+[e $ ! == -> . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 `i -> . `E4896 11 `i 671  ]
+[; ;ikb.c: 614: {
+"614
 {
-[; ;ikb.c: 838: void ikey_clear_all_flag(void)
-[; ;ikb.c: 839: {
+[; ;ikb.c: 615: if (key[k].prop.numGroup > 0)
+"615
+[e $ ! > -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 2 `i -> 0 `i 672  ]
+[; ;ikb.c: 616: {
+"616
+{
+[; ;ikb.c: 617: group_x[key[k].prop.numGroup] = 0;
+"617
+[e = *U + &U _group_x * -> . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 6 2 `ux -> -> # *U &U _group_x `ui `ux -> -> 0 `i `uc ]
+[; ;ikb.c: 618: key[k].statusFlag.OwnerOfGroup = 0;
+"618
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 3 -> -> 0 `i `uc ]
+"619
+}
+[e :U 672 ]
+[; ;ikb.c: 619: }
+[; ;ikb.c: 621: key[k].sm1 = _STAGE_START_PARSING_;
+"621
+[e = . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 4 -> . `E4896 0 `uc ]
+[; ;ikb.c: 624: key[k].statusFlag.InProcessing = 0;
+"624
+[e = . . *U + &U _key * -> _k `ux -> -> # *U &U _key `ui `ux 7 4 -> -> 0 `i `uc ]
+"626
+}
+[e :U 671 ]
+"627
+}
+"414
+[e ++ _k -> -> 1 `i `uc ]
+[e $ < -> _k `i -> 5 `i 626  ]
+[e :U 627 ]
+"627
+}
+[; ;ikb.c: 626: }
+[; ;ikb.c: 627: }
+[; ;ikb.c: 628: }
+"628
+[e :UE 625 ]
+}
+"629
+[v _ikey_is_all_hw_released `(c ~T0 @X0 1 ef ]
+"630
+{
+[; ;ikb.c: 629: int8_t ikey_is_all_hw_released(void)
+[; ;ikb.c: 630: {
+[e :U _ikey_is_all_hw_released ]
+[f ]
+"631
+[v _i `uc ~T0 @X0 1 a ]
+[; ;ikb.c: 631: uint8_t i;
+[; ;ikb.c: 632: for (i=0; i<5; i++)
+"632
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 5 `i 674  ]
+[e $U 675  ]
+"633
+[e :U 674 ]
+[; ;ikb.c: 633: {
+{
+[; ;ikb.c: 634: if (key[i].statusFlag.state == 1)
+"634
+[e $ ! == -> . . *U + &U _key * -> _i `ux -> -> # *U &U _key `ui `ux 7 0 `i -> 1 `i 677  ]
+[; ;ikb.c: 635: {
+"635
+{
+[; ;ikb.c: 636: return 0;
+"636
+[e ) -> -> 0 `i `c ]
+[e $UE 673  ]
+"637
+}
+[e :U 677 ]
+"638
+}
+"632
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 5 `i 674  ]
+[e :U 675 ]
+"638
+}
+[; ;ikb.c: 637: }
+[; ;ikb.c: 638: }
+[; ;ikb.c: 639: return 1;
+"639
+[e ) -> -> 1 `i `c ]
+[e $UE 673  ]
+[; ;ikb.c: 640: }
+"640
+[e :UE 673 ]
+}
+"642
+[v _ikey_clear_all_flag `(v ~T0 @X0 1 ef ]
+"643
+{
+[; ;ikb.c: 642: void ikey_clear_all_flag(void)
+[; ;ikb.c: 643: {
 [e :U _ikey_clear_all_flag ]
 [f ]
-"840
+"644
 [v _i `uc ~T0 @X0 1 a ]
-[; ;ikb.c: 840: uint8_t i;
-[; ;ikb.c: 841: for (i=0; i<5; i++)
-"841
+[; ;ikb.c: 644: uint8_t i;
+[; ;ikb.c: 645: for (i=0; i<5; i++)
+"645
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 5 `i 672  ]
-[e $U 673  ]
-"842
-[e :U 672 ]
-[; ;ikb.c: 842: {
+[e $ < -> _i `i -> 5 `i 679  ]
+[e $U 680  ]
+"646
+[e :U 679 ]
+[; ;ikb.c: 646: {
 {
-[; ;ikb.c: 844: key[i].bf.ReadyToRead = 0;
-"844
-[e = . . *U + &U _key * -> _i `ux -> -> # *U &U _key `ui `ux 7 7 -> -> 0 `i `uc ]
-"845
+[; ;ikb.c: 648: key[i].statusFlag.ReadyToRead = 0;
+"648
+[e = . . *U + &U _key * -> _i `ux -> -> # *U &U _key `ui `ux 7 1 -> -> 0 `i `uc ]
+"649
 }
-"841
+"645
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 5 `i 672  ]
-[e :U 673 ]
-"845
+[e $ < -> _i `i -> 5 `i 679  ]
+[e :U 680 ]
+"649
 }
-[; ;ikb.c: 845: }
-[; ;ikb.c: 846: }
-"846
-[e :UE 671 ]
+[; ;ikb.c: 649: }
+[; ;ikb.c: 650: }
+"650
+[e :UE 678 ]
 }
-"848
+"652
 [v _ikey_is_all_process_finished `(c ~T0 @X0 1 ef ]
-"849
+"653
 {
-[; ;ikb.c: 848: int8_t ikey_is_all_process_finished(void)
-[; ;ikb.c: 849: {
+[; ;ikb.c: 652: int8_t ikey_is_all_process_finished(void)
+[; ;ikb.c: 653: {
 [e :U _ikey_is_all_process_finished ]
 [f ]
-"850
+"654
 [v _i `uc ~T0 @X0 1 a ]
-[; ;ikb.c: 850: uint8_t i;
-[; ;ikb.c: 851: for (i=0; i<5; i++)
-"851
+[; ;ikb.c: 654: uint8_t i;
+[; ;ikb.c: 655: for (i=0; i<5; i++)
+"655
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 5 `i 676  ]
-[e $U 677  ]
-"852
-[e :U 676 ]
-[; ;ikb.c: 852: {
+[e $ < -> _i `i -> 5 `i 683  ]
+[e $U 684  ]
+"656
+[e :U 683 ]
+[; ;ikb.c: 656: {
 {
-[; ;ikb.c: 853: if (key[i].bf.InProcessing == 1)
-"853
-[e $ ! == -> . . *U + &U _key * -> _i `ux -> -> # *U &U _key `ui `ux 7 10 `i -> 1 `i 679  ]
-[; ;ikb.c: 854: {
-"854
+[; ;ikb.c: 657: if (key[i].statusFlag.InProcessing == 1)
+"657
+[e $ ! == -> . . *U + &U _key * -> _i `ux -> -> # *U &U _key `ui `ux 7 4 `i -> 1 `i 686  ]
+[; ;ikb.c: 658: {
+"658
 {
-[; ;ikb.c: 855: return 0;
-"855
+[; ;ikb.c: 659: return 0;
+"659
 [e ) -> -> 0 `i `c ]
-[e $UE 675  ]
-"856
+[e $UE 682  ]
+"660
 }
-[e :U 679 ]
-"857
+[e :U 686 ]
+"661
 }
-"851
+"655
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 5 `i 676  ]
-[e :U 677 ]
-"857
+[e $ < -> _i `i -> 5 `i 683  ]
+[e :U 684 ]
+"661
 }
-[; ;ikb.c: 856: }
-[; ;ikb.c: 857: }
-[; ;ikb.c: 858: return 1;
-"858
+[; ;ikb.c: 660: }
+[; ;ikb.c: 661: }
+[; ;ikb.c: 662: return 1;
+"662
 [e ) -> -> 1 `i `c ]
-[e $UE 675  ]
-[; ;ikb.c: 859: }
-"859
-[e :UE 675 ]
+[e $UE 682  ]
+[; ;ikb.c: 663: }
+"663
+[e :UE 682 ]
 }

@@ -5642,7 +5642,7 @@ JOB_RESTART = 0,
 JOB_STOP
 };
 
-# 17 "nozzle.h"
+# 16 "nozzle.h"
 extern double NOZZLE_QTY_DIFF;
 
 int8_t nozzle_isEnabled(int n);
@@ -5748,9 +5748,6 @@ void myeeprom_init(void);
 void eepromWrite(uint8_t addr, uint8_t data);
 uint8_t eepromRead(uint8_t addr);
 
-
-
-
 void eepromWrite_double(uint8_t *pEaddr, double data);
 double eepromRead_double(uint8_t *pEaddr);
 
@@ -5768,7 +5765,9 @@ for (i=0; i< 8; i++)
 {
 pulsonic.nozzle[i].Q_mlh = eepromRead_double(&(((double*)0x00)[i]));
 }
-pulsonic.oil.viscosity = eepromRead( 0x00 + (8*sizeof(double)) );
+
+pulsonic.oil.i = eepromRead( 0x00 + (8*sizeof(double)) );
+pulsonic.oil.viscosity = OIL_VISCOSITY[pulsonic.oil.i];
 }
 
 double pulsonic_getTotalSum_mlh(void)

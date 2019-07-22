@@ -5642,7 +5642,7 @@ JOB_RESTART = 0,
 JOB_STOP
 };
 
-# 17 "nozzle.h"
+# 16 "nozzle.h"
 extern double NOZZLE_QTY_DIFF;
 
 int8_t nozzle_isEnabled(int n);
@@ -5782,43 +5782,7 @@ int8_t is_homeSensor(void);
 int8_t is_unblockedNozzle(int8_t nozzle);
 int8_t is_inductiveSensorRPM(void);
 
-# 11 "/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h"
-struct _key
-{
-PTRFX_retUINT8_T keyRead;
-PTRFX_retVOID keyDo;
-uint8_t sm0;
-uint8_t counter0;
-uint8_t sm1;
-uint16_t counter1;
-uint8_t num_group_x;
-struct _bf
-{
-unsigned state:1;
-
-unsigned OnKeyPressed:1;
-unsigned Reptt:1;
-unsigned OnKeyReleased:1;
-unsigned whilePressing:1;
-unsigned AtTimeExpired:1;
-unsigned AtTimeExpired2:1;
-
-
-unsigned ReadyToRead:1;
-unsigned AtTimeExpired_BeforeOrAfter:1;
-unsigned OwnerOfGroup:1;
-unsigned InProcessing:1;
-} bf;
-struct _repp
-{
-uint16_t breakTime;
-uint16_t period;
-} repp;
-};
-
-extern volatile struct _key key[5];
-
-# 165
+# 127 "/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h"
 void ikb_init(void);
 void ikb_job(void);
 void ikb_flush(void);
@@ -5829,6 +5793,36 @@ uint8_t ikb_key_is_ready2read(uint8_t k);
 void ikb_set_ready2read(uint8_t k);
 void ikb_key_was_read(uint8_t k);
 void ikb_execfunct(uint8_t k);
+
+# 143
+struct _key_prop
+{
+union _key_prop_uFlag
+{
+struct _key_prop_uFlag_f
+{
+unsigned onKeyPressed:1;
+unsigned reptt:1;
+unsigned onKeyReleased:1;
+unsigned whilePressing:1;
+unsigned atTimeExpired:1;
+unsigned atTimeExpired2:1;
+unsigned __a:2;
+}f;
+
+uint8_t packed;
+}uFlag;
+
+struct _repttTh
+{
+uint16_t breakTime;
+uint16_t period;
+}repttTh;
+
+uint8_t numGroup;
+};
+void ikb_setKeyProp(uint8_t i, struct _key_prop prop);
+extern const struct _key_prop propEmpty;
 
 # 11 "pump.h"
 struct _pump
@@ -5879,9 +5873,6 @@ void myeeprom_init(void);
 void eepromWrite(uint8_t addr, uint8_t data);
 uint8_t eepromRead(uint8_t addr);
 
-
-
-
 void eepromWrite_double(uint8_t *pEaddr, double data);
 double eepromRead_double(uint8_t *pEaddr);
 
@@ -5917,6 +5908,29 @@ int8_t checkNewStart =1;
 int8_t checkNoStart;
 int8_t autoMode_toreturn_disp7s=0;
 
+void mykb_layout0(void)
+{
+struct _key_prop prop = {0};
+
+prop = propEmpty;
+prop.uFlag.f.onKeyPressed = 1;
+prop.uFlag.f.reptt = 1;
+prop.numGroup = 1;
+prop.repttTh.breakTime = (uint16_t)500.0/20;
+prop.repttTh.period = (uint16_t)300.0/20;
+ikb_setKeyProp(0, prop);
+ikb_setKeyProp(1, prop);
+
+prop = propEmpty;
+prop.uFlag.f.atTimeExpired2 = 1;
+ikb_setKeyProp(2, prop);
+ikb_setKeyProp(3, prop);
+
+prop = propEmpty;
+prop.uFlag.f.whilePressing = 1;
+ikb_setKeyProp(4, prop);
+}
+
 void main(void)
 {
 int8_t c_access_kb=0;
@@ -5924,6 +5938,7 @@ int8_t c_access_disp=0;
 int8_t START_SIG=0;
 int8_t flushKb;
 static int8_t flushKb_last;
+struct _key_prop prop = {0};
 
 
 
@@ -5966,6 +5981,8 @@ do{TRISC |= 1<<0;}while(0);
 do{TRISE |= 1<<2;}while(0);
 
 ikb_init();
+mykb_layout0();
+
 disp7s_init();
 pulsonic_init();
 startSignal_init();
@@ -6030,7 +6047,7 @@ autoMode_cmd(JOB_STOP);
 }
 }
 
-# 188
+# 214
 if (disp_owner == DISPOWNER_AUTOMODE)
 {
 
@@ -6136,9 +6153,10 @@ disp_owner = DISPOWNER_CONFIGMODE;
 configMode_init(0x0);
 do{do{LATA |= 1<<5;}while(0);}while(0);
 
-key[4].bf.OnKeyPressed = 1;
-key[4].bf.whilePressing = 0;
 
+prop = propEmpty;
+prop.uFlag.f.onKeyPressed = 1;
+ikb_setKeyProp(4, prop);
 }
 visMode_job();
 }
@@ -6171,10 +6189,16 @@ smain.f.f1ms = 0;
 
 void interrupt INTERRUPCION(void)
 {
+static int8_t c;
 if (TMR0IF)
 {
 isr_flag.f1ms = 1;
+if (++c == 1)
+{
+c=0;
 mpap_job();
+}
+
 
 TMR0IF = 0;
 TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ) >> 8);

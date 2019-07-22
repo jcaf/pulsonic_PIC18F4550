@@ -42,6 +42,7 @@ static int8_t configMode_kb(void)
 {
     int8_t cod_ret = 0;
     static int8_t flushAtNozzle_active;
+    struct _key_prop prop = {0};
     
     if (!flushAtNozzle_active)
     {
@@ -184,14 +185,16 @@ static int8_t configMode_kb(void)
         {
             eepromWrite_double(&(((double*)EEPROM_BLOCK_ADDR)[reg]), pulsonic.nozzle[reg].Q_mlh);
         }
-        eepromWrite(EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)), pulsonic.oil.viscosity);
+        //next address is for index-of-OIL_VISCOSITY[]
+        eepromWrite(EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)), pulsonic.oil.i);
         //
         flushAtNozzle_active = 0;
         flushAtNozzle_cmd(JOB_STOP);
-        //
-        key[4].bf.OnKeyPressed = 0;
-        key[4].bf.whilePressing = 1;
-        //
+        
+        /*change layout for FLush/Enter key*/
+        prop = propEmpty;
+        prop.uFlag.f.whilePressing = 1;
+        ikb_setKeyProp(4, prop);
         
         cod_ret = 1;//exit 
     }
