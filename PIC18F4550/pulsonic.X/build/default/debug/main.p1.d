@@ -1,0 +1,21 @@
+ build/default/debug/main.d  \
+ build/default/debug/main.p1:  \
+ main.c  \
+inputs.h  \
+mpap.h  \
+pulsonic.h  \
+/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/system.h  \
+main.h  \
+myeeprom.h  \
+autoMode.h  \
+flushAllMode.h  \
+/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h  \
+/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/types.h  \
+pump.h  \
+flushAtNozzle.h  \
+nozzle.h  \
+visMode.h  \
+configMode.h  \
+display.h  \
+error.h  \
+/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/PIC/eeprom/eeprom.h 

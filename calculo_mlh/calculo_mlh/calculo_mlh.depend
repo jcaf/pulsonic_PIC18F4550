@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1563919107 source:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/calculo_mlh/calculo_mlh/main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+

@@ -16,7 +16,9 @@ void flushAtNozzle_setNozzle(int8_t nozzle)
 {
     flushAtNozzle.numNozzle = nozzle;
 }
- 
+
+volatile uint16_t counterTicks=0;
+
 void flushAtNozzle_cmd(int8_t cmd)
 {
     if (cmd == JOB_RESTART)
@@ -25,6 +27,7 @@ void flushAtNozzle_cmd(int8_t cmd)
         disp7s_qtyDisp_writeText_FLU();
         //
         flushAtNozzle.sm0 = 0x1;
+counterTicks = 0;
     }
     if (cmd == JOB_STOP)
     {
@@ -72,8 +75,10 @@ void flushAtNozzle_job(void)
         {
             if (mpap_isIdle())
             {
-                pump_setTick(2);
+                pump_setTick(1);
                 flushAtNozzle.sm0++;
+                //
+                counterTicks++;
             }
         }
         else if (flushAtNozzle.sm0 == 5)

@@ -148,9 +148,9 @@ static int8_t configMode_kb(void)
         //
     }
     
-    if (ikb_key_is_ready2read(KB_LYOUT_KEY_ENTER_F))
+    if (ikb_key_is_ready2read(KB_LYOUT_KEY_FLUSHENTER))
     {
-        ikb_key_was_read(KB_LYOUT_KEY_ENTER_F);
+        ikb_key_was_read(KB_LYOUT_KEY_FLUSHENTER);
         
         if (configMode.numRegistro < NOZZLE_NUMMAX)
         {
@@ -194,7 +194,7 @@ static int8_t configMode_kb(void)
         /*change layout for FLush/Enter key*/
         prop = propEmpty;
         prop.uFlag.f.whilePressing = 1;
-        ikb_setKeyProp(4, prop);
+        ikb_setKeyProp(KB_LYOUT_KEY_FLUSHENTER, prop);
         
         cod_ret = 1;//exit 
     }

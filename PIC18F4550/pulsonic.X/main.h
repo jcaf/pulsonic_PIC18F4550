@@ -122,7 +122,7 @@
     #define KB_LYOUT_KEY_DOWN    1
     #define KB_LYOUT_KEY_PLUS    2
     #define KB_LYOUT_KEY_MINUS   3
-    #define KB_LYOUT_KEY_ENTER_F 4//Enter/Flush
+    #define KB_LYOUT_KEY_FLUSHENTER 4
 
 #ifdef	__cplusplus
     extern "C" {

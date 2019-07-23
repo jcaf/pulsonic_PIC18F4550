@@ -91,8 +91,6 @@ int8_t is_oilLevel(void)
     return oilLevel.level;
 }
 
-
-
 int8_t is_homeSensor(void)
 {
     return PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME);

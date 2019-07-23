@@ -15,7 +15,7 @@
  *      en main.h: 
  * #define myitoa(_integer_, _buffer_, _base_) itoa(_buffer_, _integer_, _base_) 
  * 
- * 2) Picki2: Program with PRESERVE EEPROM
+ * 2) Pickit2: Program with preserve device EEPROM
  */
 #include "main.h"
 #include "pulsonic.h"
@@ -36,27 +36,30 @@
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF"
 
-volatile struct _isr_flag
+volatile static struct _isr_flag
 {
     unsigned f1ms: 1;
     unsigned __a: 7;
 } isr_flag = {0};
+
 volatile struct _smain smain;
 
-int8_t funcMach;
-
-int8_t disp_owner;
-int8_t disp_owner_last = -1;
-                    
 enum _LOCK_STATE
 {
     UNLOCKED = 0,
     LOCKED
 };
-int8_t autoMode_lock = UNLOCKED;
-int8_t checkNewStart =1;
-int8_t checkNoStart;
-int8_t autoMode_toreturn_disp7s=0;
+
+static struct _psFlag
+{
+    unsigned checkNewStart:1;
+    unsigned checkNoStart:1;
+    unsigned autoMode_lock:1;
+    unsigned autoMode_toreturn_disp7s:1;
+    unsigned __a:4;
+}psFlag;
+int8_t funcMach;
+int8_t disp_owner;
 
 void mykb_layout0(void)
 {
@@ -68,29 +71,30 @@ void mykb_layout0(void)
     prop.numGroup = 1;
     prop.repttTh.breakTime = (uint16_t)500.0/KB_PERIODIC_ACCESS;
     prop.repttTh.period = (uint16_t)300.0/KB_PERIODIC_ACCESS;
-    ikb_setKeyProp(0, prop);
-    ikb_setKeyProp(1, prop);
+    ikb_setKeyProp(KB_LYOUT_KEY_UP, prop);
+    ikb_setKeyProp(KB_LYOUT_KEY_DOWN, prop);
     //
     prop = propEmpty;
     prop.uFlag.f.atTimeExpired2 = 1;
-    ikb_setKeyProp(2, prop);
-    ikb_setKeyProp(3, prop);
+    ikb_setKeyProp(KB_LYOUT_KEY_PLUS, prop);
+    ikb_setKeyProp(KB_LYOUT_KEY_MINUS, prop);
     //
     prop = propEmpty;
     prop.uFlag.f.whilePressing = 1;
-    ikb_setKeyProp(4, prop);
+    ikb_setKeyProp(KB_LYOUT_KEY_FLUSHENTER, prop);
 }
 
 void main(void) 
 {
     int8_t c_access_kb=0;
     int8_t c_access_disp=0;
-    int8_t START_SIG=0;
+    int8_t startSig=0;
+    int8_t startSig_last=0;
     int8_t flushKb;
     static int8_t flushKb_last;
     struct _key_prop prop = {0};
     
-    //myeeprom_init();
+    //myeeprom_init();/*once with pickit2 preserve device EEPROM disabled*/
     
     LATA = 0x00;
     LATC = 0x00;
@@ -138,14 +142,15 @@ void main(void)
     startSignal_init();
     oilLevel_init();
     //
+    psFlag.autoMode_lock = UNLOCKED;
+    psFlag.checkNewStart = 1;
+    psFlag.checkNoStart = 1;
     disp_owner = DISPOWNER_AUTOMODE;
-    disp_owner_last = -1;
-    autoMode_lock = UNLOCKED;
-    checkNewStart = 1;
-    checkNoStart =1;
     funcMach = FUNCMACH_NORMAL;
-    //
-    mpap.mode = MPAP_STALL_MODE;
+    autoMode_cmd(JOB_STOP);
+    
+    startSig = is_startSignal();
+    startSig_last = startSig; 
     //
     GIE = 1;
     while(1)
@@ -170,80 +175,72 @@ void main(void)
         }
         error_job();
         
-        START_SIG = is_startSignal();
-        
+        startSig = is_startSignal();
+
         if (funcMach == FUNCMACH_NORMAL)
         {
-            if (autoMode_lock == UNLOCKED)
+            if (psFlag.autoMode_lock == UNLOCKED)
             {
-                if (START_SIG == 1)
+                if (startSig)
                 {
-                    if (checkNewStart)
+                    if (psFlag.checkNewStart)
                     {
-                        checkNewStart = 0;
-                        checkNoStart =1;
+                        psFlag.checkNewStart = 0;
+                        psFlag.checkNoStart =1;
                         //
                         autoMode_cmd(JOB_RESTART);
                     }
                 }
-                else if (START_SIG == 0)
+                else
                 {
-                    if (checkNoStart)
+                    if (psFlag.checkNoStart)
                     {
-                        checkNoStart = 0;
-                        checkNewStart = 1;
+                        psFlag.checkNoStart = 0;
+                        psFlag.checkNewStart = 1;
                         //
                         autoMode_cmd(JOB_STOP);
                     }
                 }
-                //
-                /*
-                if (disp_owner_last != disp_owner)
-                {
-                    disp_owner_last = disp_owner;
-                    
-                    if (disp_owner_last == DISPOWNER_AUTOMODE)
-                    {
-                        if (START_SIG == 1 )
-                            autoMode_disp7s_writeSumTotal();
-                        else if (START_SIG == 0)
-                            disp7s_qtyDisp_writeText_20_3RAYAS();
-                    }
-                }
-                */
-                //esto es automatico
+                
+                /*Display: 2 cases     */
+                /*1st case: in auto mode without change disp_owner = DISPOWNER_AUTOMODE*/
                 if (disp_owner == DISPOWNER_AUTOMODE)
                 {
-                    //ha habido un cambio y debe ser atendido
-                    if (START_SIG == 1 )
-                        autoMode_disp7s_writeSumTotal();
-                    else if (START_SIG == 0)
-                        disp7s_qtyDisp_writeText_20_3RAYAS();
+                    if (startSig_last != startSig)
+                    {
+                        startSig_last = startSig;
+                        if (startSig)
+                            {autoMode_disp7s_writeSumTotal();}
+                        else
+                            {disp7s_qtyDisp_writeText_20_3RAYAS();}
+                    }
                 }
                 
-                //bajo demanda
-                if (autoMode_toreturn_disp7s)
+                /*2nd case: on demand, from other process*/
+                if (psFlag.autoMode_toreturn_disp7s)
                 {
-                    autoMode_toreturn_disp7s = 0;
+                    psFlag.autoMode_toreturn_disp7s = 0;
 
                     disp_owner = DISPOWNER_AUTOMODE;
 
-                    if (START_SIG == 1 )
-                            autoMode_disp7s_writeSumTotal();
-                        else if (START_SIG == 0)
-                            disp7s_qtyDisp_writeText_20_3RAYAS();
+                    if (startSig)
+                        {autoMode_disp7s_writeSumTotal();}
+                    else
+                        {disp7s_qtyDisp_writeText_20_3RAYAS();}
+                
+                    startSig_last = startSig;
                 }
                 //
                 autoMode_job();
             }
 
             /* keyboard*/
-            flushKb = ikb_key_is_ready2read(KB_LYOUT_KEY_ENTER_F);
+            flushKb = ikb_key_is_ready2read(KB_LYOUT_KEY_FLUSHENTER);
             if (flushKb_last != flushKb)
             {
                 if (flushKb)
                 {
-                    autoMode_lock = LOCKED;
+                    psFlag.autoMode_lock = LOCKED;
                     flushAllMode_cmd(JOB_RESTART);
                 }
                 else
@@ -252,13 +249,11 @@ void main(void)
 
                     /* disp_owner hold the current*/
                     
-                    autoMode_lock = UNLOCKED;
-                    checkNewStart = 1;
+                    psFlag.autoMode_lock = UNLOCKED;
+                    psFlag.checkNewStart = 1;
                     
                     if (disp_owner == DISPOWNER_AUTOMODE)
-                    {   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    }
+                        {psFlag.autoMode_toreturn_disp7s = 1;}
                     
                     if (disp_owner == DISPOWNER_VISMODE)       
                         {visMode.disp7s_accessReq = 1;}
@@ -273,7 +268,7 @@ void main(void)
                 if (++visMode.numVista >= VISMODE_NUMMAX_VISTAS)
                 {
                     visMode.numVista = -1;
-                    autoMode_toreturn_disp7s = 1;
+                    psFlag.autoMode_toreturn_disp7s = 1;
                 }
                 else
                 {
@@ -290,7 +285,7 @@ void main(void)
 
                 if (--visMode.numVista < 0)
                 {
-                    autoMode_toreturn_disp7s = 1;
+                    psFlag.autoMode_toreturn_disp7s = 1;
                 }
                 else
                 {
@@ -320,9 +315,10 @@ void main(void)
                 /*change layout for FLush/Enter key*/
                 prop = propEmpty;
                 prop.uFlag.f.onKeyPressed = 1;
-                ikb_setKeyProp(4, prop);
+                ikb_setKeyProp(KB_LYOUT_KEY_FLUSHENTER, prop);
             }
             visMode_job();
+            flushAllMode_job();
         }
         else if (funcMach == FUNCMACH_CONFIG)
         {
@@ -330,9 +326,9 @@ void main(void)
             {
                 //
                 funcMach = FUNCMACH_NORMAL;
-                autoMode_lock = UNLOCKED;
-                checkNewStart = 1;
-                autoMode_toreturn_disp7s = 1;
+                psFlag.autoMode_lock = UNLOCKED;
+                psFlag.checkNewStart = 1;
+                psFlag.autoMode_toreturn_disp7s = 1;
                 //
                 RELAY_ENABLE();
             }
@@ -342,11 +338,8 @@ void main(void)
         {
             ikb_flush();
         }
-        
         //
-        flushAllMode_job();
         pump_job();
-        
         smain.f.f1ms = 0;
     }
 }
@@ -371,7 +364,7 @@ void interrupt INTERRUPCION(void)//@1ms
 }
 
 
-static union _errorFlag error_grantedToWriteDisp;//aqui el tiene el permiso en la misma ubicacion
+static union _errorFlag error_grantedToWriteDisp;//Always in the same bit position like error
 static void errorHandler_queue(void);
 static void check_oilLevel(void);
 
@@ -399,9 +392,9 @@ void error_job(void)
         else
         {
             funcMach = FUNCMACH_NORMAL;
-            autoMode_lock = UNLOCKED;
-            checkNewStart = 1;
-            autoMode_toreturn_disp7s = 1;
+            psFlag.autoMode_lock = UNLOCKED;
+            psFlag.checkNewStart = 1;
+            psFlag.autoMode_toreturn_disp7s = 1;
             pulsonic.flags.homed = 0;
             //
             RELAY_ENABLE();
@@ -422,21 +415,21 @@ static void check_oilLevel(void)
 	{
 		if ( !oilLevel )
 		{
-			pulsonic.error.f.oilLevel = 1;                                               //request write
+			pulsonic.error.f.oilLevel = 1;/*request write*/
 			sm0++;
             sm1 = 0x00;
 		}	
 	}
-	else if (sm0 == 1)                                                          //2 parts: the process and the display
+    else if (sm0 == 1)/*2 parts: the process and the display*/
 	{
-        if ( oilLevel )                                                         //1)the process
+        if ( oilLevel )/*1)the process*/
 		{
             pulsonic.error.f.oilLevel = 0; 
             sm0 = 0x00;
 		}
         else
         {
-            if (error_grantedToWriteDisp.f.oilLevel == 1)                           //2) need to write on display
+            if (error_grantedToWriteDisp.f.oilLevel == 1)/*2) need to write on display*/
             {
                 if (sm1 == 0)
                 {
@@ -468,7 +461,7 @@ static void errorHandler_queue(void)
         is_granted = pulsonic.error.packed & (1<<i);
         if (is_granted)
         {
-            error_grantedToWriteDisp.packed = is_granted;//solo 1 tiene el permiso
+            error_grantedToWriteDisp.packed = is_granted;//Permission was granted
             c = 0x0;
             sm0++;
         }
@@ -476,7 +469,7 @@ static void errorHandler_queue(void)
     }
     else if (sm0 == 1)
     {
-        if ( pulsonic.error.packed & (1<<i) )//aun se mantiene?
+        if ( pulsonic.error.packed & (1<<i) )//this error persist?
         {
             if (smain.f.f1ms)
             {

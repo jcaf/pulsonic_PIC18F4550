@@ -45,11 +45,11 @@
         uint16_t dist_total_time;//=60min
         uint16_t dist_access_time;//en 60 min, cada cuanto tiempo se accede(en min)
 
-        float sum_all_mlh;                    //sum_all_mlh
+        double sum_all_mlh;                    //sum_all_mlh
         
         struct _pulsonic_nozzle
         {
-            float Q_mlh;                //quantity ml/h
+            double Q_mlh;                //quantity ml/h
             uint16_t total_ticks_mlh;   //total ticks pe "X" mlh
             int8_t nticks_slicetime;    //total ticks in slicetime
         }nozzle[NOZZLE_NUMMAX];
