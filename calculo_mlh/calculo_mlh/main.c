@@ -94,7 +94,7 @@ int main()
     pulsonic.dist_access_time = 2;//c/2min
     pulsonic.timeslice = pulsonic.dist_total_time/pulsonic.dist_access_time;//30
     //
-    pulsonic.nozzle[0].Q_mlh = 0.3;//ml
+    pulsonic.nozzle[0].Q_mlh = 12;//ml
     nticks_xh = pulsonic.nozzle[0].Q_mlh / pulsonic.ml_x1tick;
     pulsonic.nozzle[0].nticks_xtimeslice = nticks_xh / pulsonic.timeslice;
 
@@ -136,59 +136,59 @@ int main()
             printf("==INCIO========== # time slice = %i (min=%.2f) ===============\n\n", i+1, (i+1)*pulsonic.dist_access_time);
             nticks_entregados = 0;
 
-            if (1)//(accT < nticks_xh)
+            acc = acc + pulsonic.nozzle[0].nticks_xtimeslice;// + e;
+            printf("acc = %f\n", acc);
+
+            accT = accT + pulsonic.nozzle[0].nticks_xtimeslice;// + e;
+
+            if (acc >= pulsonic.nozzle[0].kmax_ticks_xtimeslice)//if (acc >= 1.0)
             {
-                acc = acc + pulsonic.nozzle[0].nticks_xtimeslice;// + e;
+
+                for (c=0; c< (uint16_t)pulsonic.nozzle[0].kmax_ticks_xtimeslice; c++)
+                {
+                    counterTicks++;
+                }
+                nticks_entregados = c;
+
+                printf("counterTicks = %i \n", counterTicks);
                 printf("acc = %f\n", acc);
 
-                accT = accT + pulsonic.nozzle[0].nticks_xtimeslice;// + e;
+                e = acc - pulsonic.nozzle[0].kmax_ticks_xtimeslice;//e = acc - 1.0;
+                printf("error = %f\n", e);
 
-                if (acc >= pulsonic.nozzle[0].kmax_ticks_xtimeslice)//if (acc >= 1.0)
+                if ( e>=1)
                 {
+                    printf("error fue e>=1= %f\n", e);
+                    e = e - 1;
 
-                    for (c=0; c< (uint16_t)pulsonic.nozzle[0].kmax_ticks_xtimeslice; c++)
-                    {
-                        counterTicks++;
-                    }
-                    nticks_entregados = c;
-
+                    counterTicks++;
+                    printf("counterTicks (1 tick mas)= %i \n", counterTicks);
+                    //
+                    nticks_entregados++;
+                }
+                acc = e;
+                printf("el nuevo error -> acc = %f\n", acc);
+            }
+            //
+            if (i== ((int)pulsonic.timeslice)-1)
+            {
+                if (e>0)
+                {
+                    counterTicks++;
                     printf("counterTicks = %i \n", counterTicks);
-                    printf("acc = %f\n", acc);
-
-                    e = acc - pulsonic.nozzle[0].kmax_ticks_xtimeslice;//e = acc - 1.0;
-                    printf("error = %f\n", e);
-
-                    if ( e>=1)
-                    {
-                        printf("error fue e>=1= %f\n", e);
-                        e = e - 1;
-
-                        counterTicks++;
-                        printf("counterTicks (1 tick mas)= %i \n", counterTicks);
-                        //
-                        nticks_entregados++;
-                    }
-                    acc = e;
-                    printf("el nuevo error -> acc = %f\n", acc);
+                    nticks_entregados++;
                 }
             }
+
             printf("\n # TOTAL DE TICKS ENTREGADOS EN ESTE TIMESLICE = %i \n", nticks_entregados);
             printf("Acumulador de ticks AaccT = %f\n", accT);
             printf("==FIN==============================================================\n\n");
-    }
-    nticks_entregados = 0;
-    if (e>0)
-    {
-        counterTicks++;
-        printf("counterTicks = %i \n", counterTicks);
 
-        nticks_entregados++;
-        printf("\n # TOTAL DE TICKS ENTREGADOS EN ESTE TIMESLICE (ACIONAL A LA ULTIMA ENTREGA)= %i \n", nticks_entregados);
-        printf("==FIN==============================================================\n\n");
     }
 
     printf("RESUMEN DE DATOS DE SALIDA:\n\n", pulsonic.dist_total_time);
     //
+    printf("nticks_xh = %f ticks de bombeo/h \n", nticks_xh);
     printf("Total ticks entregados en %.2f min = %i ticks \n", pulsonic.dist_total_time,counterTicks);
     printf("ml/h Deseados: pulsonic.nozzle[0].Q_mlh = %f ml/h\n", pulsonic.nozzle[0].Q_mlh);
     printf("ml/h Entregados: pulsonic.nozzle[0].Q_mlh = %f ml/h\n", counterTicks * pulsonic.ml_x1tick);
