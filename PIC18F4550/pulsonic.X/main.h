@@ -54,30 +54,55 @@
 
     ////////////////////////////////////////////////////////////////////////////
     //MOTOR PAP UNIPOLAR
+
     #define PORTWxSTEPPER_A LATD
     #define PORTRxSTEPPER_A PORTD
     #define CONFIGIOxSTEPPER_A TRISD
-    #define PINxSTEPPER_A  0
+    #define PINxSTEPPER_A  2
     //
     #define PORTWxSTEPPER_B LATD
     #define PORTRxSTEPPER_B PORTD
     #define CONFIGIOxSTEPPER_B TRISD
-    #define PINxSTEPPER_B  1
+    #define PINxSTEPPER_B  0
     //
     #define PORTWxSTEPPER_C LATD
     #define PORTRxSTEPPER_C PORTD
     #define CONFIGIOxSTEPPER_C TRISD
-    #define PINxSTEPPER_C  2
+    #define PINxSTEPPER_C  3
     //
     #define PORTWxSTEPPER_D LATD
     #define PORTRxSTEPPER_D PORTD
     #define CONFIGIOxSTEPPER_D TRISD
-    #define PINxSTEPPER_D  3
+    #define PINxSTEPPER_D  1
 
+
+//    #define PORTWxSTEPPER_A LATD
+//    #define PORTRxSTEPPER_A PORTD
+//    #define CONFIGIOxSTEPPER_A TRISD
+//    #define PINxSTEPPER_A  0
+//    //
+//    #define PORTWxSTEPPER_B LATD
+//    #define PORTRxSTEPPER_B PORTD
+//    #define CONFIGIOxSTEPPER_B TRISD
+//    #define PINxSTEPPER_B  1
+//    //
+//    #define PORTWxSTEPPER_C LATD
+//    #define PORTRxSTEPPER_C PORTD
+//    #define CONFIGIOxSTEPPER_C TRISD
+//    #define PINxSTEPPER_C  2
+//    //
+//    #define PORTWxSTEPPER_D LATD
+//    #define PORTRxSTEPPER_D PORTD
+//    #define CONFIGIOxSTEPPER_D TRISD
+//    #define PINxSTEPPER_D  3
+
+    
+    //Enable
     #define PORTWxSTEPPER_ENABLE LATC
     #define PORTRxSTEPPER_ENABLE PORTC
     #define CONFIGIOxSTEPPER_ENABLE TRISC
     #define PINxSTEPPER_ENABLE  1
+
 
     //enable is inverted by hardware
     #define STEPPER_ENABLE() do{PinTo0(PORTWxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);}while(0)

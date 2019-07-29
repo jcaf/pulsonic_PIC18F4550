@@ -5705,11 +5705,11 @@ uint16_t Kticks_0p1ml;
 uint16_t dist_total_time;
 uint16_t dist_access_time;
 
-float sum_all_mlh;
+double sum_all_mlh;
 
 struct _pulsonic_nozzle
 {
-float Q_mlh;
+double Q_mlh;
 uint16_t total_ticks_mlh;
 int8_t nticks_slicetime;
 }nozzle[8];
@@ -5769,6 +5769,11 @@ int8_t mpap_isIdle(void);
 
 
 void mpap_sych(void);
+
+void autoModexxx_job(void);
+
+# 72
+void l6506d_job(void);
 
 # 11 "pump.h"
 struct _pump

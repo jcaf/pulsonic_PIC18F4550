@@ -74,7 +74,7 @@ void autoMode_job(void)
         {
             if (mpap_isIdle())
             {
-                pump_setTick(3);
+                pump_setTick(0);
                 autoMode.sm0++;
             }
         }
@@ -91,7 +91,7 @@ void autoMode_job(void)
         {
             if (smain.f.f1ms)
             {
-                if (++c_ms >= 2000)
+                if (++c_ms >= 0000)
                 {
                     c_ms = 0x0000;
                     //if (++c_min >= 2)
@@ -100,6 +100,48 @@ void autoMode_job(void)
                         autoMode.sm0 = 0x3;
                     }
                 }
+            }
+        }
+    }
+}
+/*
+ 
+ * 10% 0x19
+ 5% x0C
+ */
+
+void autoModexxx_job(void)
+{
+    int i;
+    static uint16_t c_ms;
+    static uint16_t c_min;
+
+    if (autoMode.sm0 >0)
+    {
+        if (autoMode.sm0 == 1)
+        {
+            if (mpap_isIdle())
+            {
+                
+                for (i=0; i<300; i++)
+                {__delay_ms(10);}
+                
+                mpap_movetoNozzle(1);
+                autoMode.sm0++;
+            }
+        }
+        else if (autoMode.sm0 == 2)
+        {
+            if (mpap_isIdle())
+            {
+                
+                for (i=0; i<300; i++)
+                {__delay_ms(10);}
+                
+                
+                mpap_movetoNozzle(0);
+                
+                autoMode.sm0 =1;
             }
         }
     }

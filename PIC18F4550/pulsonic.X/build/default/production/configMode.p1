@@ -36,7 +36,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [u S564 `S565 1 `c 1 ]
 [n S564 _errorFlag f packed ]
 "50
-[s S567 `f 1 `ui 1 `c 1 ]
+[s S567 `d 1 `ui 1 `c 1 ]
 [n S567 _pulsonic_nozzle Q_mlh total_ticks_mlh nticks_slicetime ]
 "57
 [s S568 `c 1 `c 1 ]
@@ -48,7 +48,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [s S570 :1 `uc 1 :7 `uc 1 ]
 [n S570 _pulsonic_flags homed __a ]
 "40
-[s S566 `S564 1 `ui 1 `ui 1 `ui 1 `f 1 `S567 -> 8 `i `S568 1 `S569 1 `S570 1 ]
+[s S566 `S564 1 `ui 1 `ui 1 `ui 1 `d 1 `S567 -> 8 `i `S568 1 `S569 1 `S570 1 ]
 [n S566 _pulsonic error Kticks_0p1ml dist_total_time dist_access_time sum_all_mlh nozzle oil disp7s flags ]
 "77
 [v _pulsonic `VS566 ~T0 @X0 0 e ]
@@ -4422,10 +4422,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 44: uint16_t Kticks_0p1ml;
 [; ;pulsonic.h: 45: uint16_t dist_total_time;
 [; ;pulsonic.h: 46: uint16_t dist_access_time;
-[; ;pulsonic.h: 48: float sum_all_mlh;
+[; ;pulsonic.h: 48: double sum_all_mlh;
 [; ;pulsonic.h: 50: struct _pulsonic_nozzle
 [; ;pulsonic.h: 51: {
-[; ;pulsonic.h: 52: float Q_mlh;
+[; ;pulsonic.h: 52: double Q_mlh;
 [; ;pulsonic.h: 53: uint16_t total_ticks_mlh;
 [; ;pulsonic.h: 54: int8_t nticks_slicetime;
 [; ;pulsonic.h: 55: }nozzle[8];
@@ -4695,13 +4695,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 82: if (pulsonic.nozzle[configMode.numRegistro].Q_mlh == 0)
 "82
-[e $ ! == . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 -> -> 0 `i `f 590  ]
+[e $ ! == . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 -> -> 0 `i `d 590  ]
 [; ;configMode.c: 83: {
 "83
 {
 [; ;configMode.c: 84: pulsonic.nozzle[configMode.numRegistro].Q_mlh = 0.3;
 "84
-[e = . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 -> .0.3 `f ]
+[e = . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 .0.3 ]
 "85
 }
 [; ;configMode.c: 85: }
@@ -4714,20 +4714,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 88: pulsonic.nozzle[configMode.numRegistro].Q_mlh += NOZZLE_QTY_DIFF;
 "88
-[e =+ . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 -> _NOZZLE_QTY_DIFF `f ]
+[e =+ . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 _NOZZLE_QTY_DIFF ]
 "89
 }
 [e :U 591 ]
 [; ;configMode.c: 89: }
 [; ;configMode.c: 91: if ( pulsonic.nozzle[configMode.numRegistro].Q_mlh >= 12.0)
 "91
-[e $ ! >= -> . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 `d .12.0 592  ]
+[e $ ! >= . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 .12.0 592  ]
 [; ;configMode.c: 92: {
 "92
 {
 [; ;configMode.c: 93: pulsonic.nozzle[configMode.numRegistro].Q_mlh = 12.0;
 "93
-[e = . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 -> .12.0 `f ]
+[e = . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 .12.0 ]
 "94
 }
 [e :U 592 ]
@@ -4797,7 +4797,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 119: pulsonic.nozzle[configMode.numRegistro].Q_mlh -= NOZZLE_QTY_DIFF;
 "119
-[e =- . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 -> _NOZZLE_QTY_DIFF `f ]
+[e =- . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 _NOZZLE_QTY_DIFF ]
 [; ;configMode.c: 121: if (configMode.numRegistro == 0)
 "121
 [e $ ! == -> . _configMode 1 `i -> 0 `i 598  ]
@@ -4806,13 +4806,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 123: if ( pulsonic.nozzle[configMode.numRegistro].Q_mlh < 0.3)
 "123
-[e $ ! < -> . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 `d .0.3 599  ]
+[e $ ! < . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 .0.3 599  ]
 [; ;configMode.c: 124: {
 "124
 {
 [; ;configMode.c: 125: pulsonic.nozzle[configMode.numRegistro].Q_mlh = 0.3;
 "125
-[e = . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 -> .0.3 `f ]
+[e = . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 .0.3 ]
 "126
 }
 [e :U 599 ]
@@ -4829,13 +4829,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 130: if ( pulsonic.nozzle[configMode.numRegistro].Q_mlh < 0.3)
 "130
-[e $ ! < -> . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 `d .0.3 601  ]
+[e $ ! < . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 .0.3 601  ]
 [; ;configMode.c: 131: {
 "131
 {
 [; ;configMode.c: 132: pulsonic.nozzle[configMode.numRegistro].Q_mlh = 0;
 "132
-[e = . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 -> -> 0 `i `f ]
+[e = . *U + &U . _pulsonic 5 * -> -> . _configMode 1 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 -> -> 0 `i `d ]
 "133
 }
 [e :U 601 ]
@@ -4973,7 +4973,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 186: eepromWrite_double(&(((double*)0x00)[reg]), pulsonic.nozzle[reg].Q_mlh);
 "186
-[e ( _eepromWrite_double (2 , -> &U *U + -> -> 0 `i `*d * -> _reg `ux -> -> # *U -> -> 0 `i `*d `ui `ux `*uc -> . *U + &U . _pulsonic 5 * -> _reg `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 `d ]
+[e ( _eepromWrite_double (2 , -> &U *U + -> -> 0 `i `*d * -> _reg `ux -> -> # *U -> -> 0 `i `*d `ui `ux `*uc . *U + &U . _pulsonic 5 * -> _reg `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 ]
 "187
 }
 "184
@@ -5041,7 +5041,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _disp7s_modeDisp_writeInt (1 + -> _numRegistro `i -> 1 `i ]
 [; ;configMode.c: 212: qty = pulsonic.nozzle[numRegistro].Q_mlh;
 "212
-[e = _qty -> . *U + &U . _pulsonic 5 * -> -> _numRegistro `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 `d ]
+[e = _qty . *U + &U . _pulsonic 5 * -> -> _numRegistro `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 ]
 [; ;configMode.c: 213: if (qty == 0)
 "213
 [e $ ! == _qty -> -> 0 `i `d 614  ]

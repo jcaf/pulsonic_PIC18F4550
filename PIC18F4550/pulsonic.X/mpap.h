@@ -36,6 +36,7 @@
     #define MPAP_DELAY_BY_STEPS 1.0E-3 //ms
     void mpap_sych(void);
 
+void autoModexxx_job(void);
 //x tests
 //void mpap_test(void);
 //void mpap_1(void);
@@ -68,7 +69,7 @@
 //        LATD = 0B00001001;
 //        __delay_ms(1);    
     
-
+void l6506d_job(void);
 #ifdef	__cplusplus
 extern "C" {
 #endif

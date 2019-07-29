@@ -4,35 +4,44 @@
 
 static void _mpap_step1(void)
 {
-    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
-    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
-    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
-    PinTo1(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    //LATD = 0x08;//LATD = 0x0C;
+    /*UNIPOLAR 1 winding*/
+//    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
+//    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
+//    PinTo1(PORTWxSTEPPER_C, PINxSTEPPER_C);
+//    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
+    LATD= 1<<3;
+
 }
 static void _mpap_step2(void)
 {
-    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
-    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
-    PinTo1(PORTWxSTEPPER_C, PINxSTEPPER_C);
-    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    //LATD = 0x04;//LATD = 0x06;
+    /*UNIPOLAR 1 winding*/
+//    PinTo1(PORTWxSTEPPER_A, PINxSTEPPER_A);
+//    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
+//    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
+//    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
+    LATD= 1<<2;
+   
+    
 }
 static void _mpap_step3(void)
 {
-    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
-    PinTo1(PORTWxSTEPPER_B, PINxSTEPPER_B);
-    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
-    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    //LATD = 0x02;//LATD = 0x03;
+    /*UNIPOLAR 1 winding*/
+//    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
+//    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
+//    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
+//    PinTo1(PORTWxSTEPPER_D, PINxSTEPPER_D);
+    LATD= 1<<1;
+    
 }
 static void _mpap_step4(void)
 {
-    PinTo1(PORTWxSTEPPER_A, PINxSTEPPER_A);
-    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
-    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
-    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    //LATD = 0x01;//LATD = 0x09;
+    /*UNIPOLAR 1 winding*/
+//    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
+//    PinTo1(PORTWxSTEPPER_B, PINxSTEPPER_B);
+//    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
+//    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
+    LATD= 1<<0;
+ 
 }
 
 PTRFX_retVOID mpap_step[4] = 
@@ -42,6 +51,7 @@ PTRFX_retVOID mpap_step[4] =
 
 static void _mpap_off(void)
 {
+    return;
     PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
     PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
     PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
@@ -165,7 +175,7 @@ void mpap_job(void)
     //
     if (mpap.mode == MPAP_STALL_MODE)
     {
-        mpap_off();
+        //mpap_off();
         mpap.numSteps_tomove = 0x00;
         mpap.mode = MPAP_IDLE_MODE;
     }
@@ -238,3 +248,20 @@ int8_t mpap_isIdle(void)
         {return 1;}
     return 0;
 }
+//++++++++++++++
+/*
+ * PTRFX_retVOID mpap_step[4] = 
+{    
+    _mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
+};
+
+ */
+void l6506d_job(void)
+{
+    mpap_step[0]();
+    
+    while (1){;}
+    
+}
+
+

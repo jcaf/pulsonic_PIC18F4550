@@ -52,6 +52,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S561 _smain f focus ]
 "29
 [v _smain `VS561 ~T0 @X0 0 e ]
+[v F4428 `(v ~T0 @X0 1 tf1`ul ]
+"147 /opt/microchip/xc8/v1.33/include/pic18.h
+[v __delay `JF4428 ~T0 @X0 0 e ]
+[p i __delay ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f4550.h: 47: extern volatile unsigned char SPPDATA @ 0xF62;
@@ -4391,10 +4395,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 44: uint16_t Kticks_0p1ml;
 [; ;pulsonic.h: 45: uint16_t dist_total_time;
 [; ;pulsonic.h: 46: uint16_t dist_access_time;
-[; ;pulsonic.h: 48: float sum_all_mlh;
+[; ;pulsonic.h: 48: double sum_all_mlh;
 [; ;pulsonic.h: 50: struct _pulsonic_nozzle
 [; ;pulsonic.h: 51: {
-[; ;pulsonic.h: 52: float Q_mlh;
+[; ;pulsonic.h: 52: double Q_mlh;
 [; ;pulsonic.h: 53: uint16_t total_ticks_mlh;
 [; ;pulsonic.h: 54: int8_t nticks_slicetime;
 [; ;pulsonic.h: 55: }nozzle[8];
@@ -4440,6 +4444,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 33: void mpap_movetoNozzle(int8_t n);
 [; ;mpap.h: 34: int8_t mpap_isIdle(void);
 [; ;mpap.h: 37: void mpap_sych(void);
+[; ;mpap.h: 39: void autoModexxx_job(void);
+[; ;mpap.h: 72: void l6506d_job(void);
 [; ;pump.h: 11: struct _pump
 [; ;pump.h: 12: {
 [; ;pump.h: 13: uint16_t ticks;
@@ -4595,9 +4601,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _autoMode_job ]
 [f ]
 "41
-[v F4892 `ui ~T0 @X0 1 s c_ms ]
+[v F4896 `ui ~T0 @X0 1 s c_ms ]
 "42
-[v F4893 `ui ~T0 @X0 1 s c_min ]
+[v F4897 `ui ~T0 @X0 1 s c_min ]
 [; ;autoMode.c: 41: static uint16_t c_ms;
 [; ;autoMode.c: 42: static uint16_t c_min;
 [; ;autoMode.c: 44: if (autoMode.sm0 >0)
@@ -4705,9 +4711,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;autoMode.c: 76: {
 "76
 {
-[; ;autoMode.c: 77: pump_setTick(3);
+[; ;autoMode.c: 77: pump_setTick(0);
 "77
-[e ( _pump_setTick (1 -> -> 3 `i `ui ]
+[e ( _pump_setTick (1 -> -> 0 `i `ui ]
 [; ;autoMode.c: 78: autoMode.sm0++;
 "78
 [e ++ . _autoMode 1 -> -> 1 `i `c ]
@@ -4737,10 +4743,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ++ . _autoMode 1 -> -> 1 `i `c ]
 [; ;autoMode.c: 86: c_ms = 0x00;
 "86
-[e = F4892 -> -> 0 `i `ui ]
+[e = F4896 -> -> 0 `i `ui ]
 [; ;autoMode.c: 87: c_min = 0x00;
 "87
-[e = F4893 -> -> 0 `i `ui ]
+[e = F4897 -> -> 0 `i `ui ]
 "88
 }
 [e :U 602 ]
@@ -4762,21 +4768,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;autoMode.c: 93: {
 "93
 {
-[; ;autoMode.c: 94: if (++c_ms >= 2000)
+[; ;autoMode.c: 94: if (++c_ms >= 0000)
 "94
-[e $ ! >= =+ F4892 -> -> 1 `i `ui -> -> 2000 `i `ui 606  ]
+[e $ ! >= =+ F4896 -> -> 1 `i `ui -> -> 0 `i `ui 606  ]
 [; ;autoMode.c: 95: {
 "95
 {
 [; ;autoMode.c: 96: c_ms = 0x0000;
 "96
-[e = F4892 -> -> 0 `i `ui ]
+[e = F4896 -> -> 0 `i `ui ]
 [; ;autoMode.c: 98: {
 "98
 {
 [; ;autoMode.c: 99: c_min = 0x00;
 "99
-[e = F4893 -> -> 0 `i `ui ]
+[e = F4897 -> -> 0 `i `ui ]
 [; ;autoMode.c: 100: autoMode.sm0 = 0x3;
 "100
 [e = . _autoMode 1 -> -> 3 `i `c ]
@@ -4807,4 +4813,125 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;autoMode.c: 106: }
 "106
 [e :UE 586 ]
+}
+"113
+[v _autoModexxx_job `(v ~T0 @X0 1 ef ]
+"114
+{
+[; ;autoMode.c: 113: void autoModexxx_job(void)
+[; ;autoMode.c: 114: {
+[e :U _autoModexxx_job ]
+[f ]
+"115
+[v _i `i ~T0 @X0 1 a ]
+"116
+[v F4900 `ui ~T0 @X0 1 s c_ms ]
+"117
+[v F4901 `ui ~T0 @X0 1 s c_min ]
+[; ;autoMode.c: 115: int i;
+[; ;autoMode.c: 116: static uint16_t c_ms;
+[; ;autoMode.c: 117: static uint16_t c_min;
+[; ;autoMode.c: 119: if (autoMode.sm0 >0)
+"119
+[e $ ! > -> . _autoMode 1 `i -> 0 `i 608  ]
+[; ;autoMode.c: 120: {
+"120
+{
+[; ;autoMode.c: 121: if (autoMode.sm0 == 1)
+"121
+[e $ ! == -> . _autoMode 1 `i -> 1 `i 609  ]
+[; ;autoMode.c: 122: {
+"122
+{
+[; ;autoMode.c: 123: if (mpap_isIdle())
+"123
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 610  ]
+[; ;autoMode.c: 124: {
+"124
+{
+[; ;autoMode.c: 126: for (i=0; i<300; i++)
+"126
+{
+[e = _i -> 0 `i ]
+[e $ < _i -> 300 `i 611  ]
+[e $U 612  ]
+"127
+[e :U 611 ]
+[; ;autoMode.c: 127: {_delay((unsigned long)((10)*(48000000UL/4000.0)));}
+{
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
+}
+"126
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 300 `i 611  ]
+[e :U 612 ]
+"127
+}
+[; ;autoMode.c: 129: mpap_movetoNozzle(1);
+"129
+[e ( _mpap_movetoNozzle (1 -> -> 1 `i `c ]
+[; ;autoMode.c: 130: autoMode.sm0++;
+"130
+[e ++ . _autoMode 1 -> -> 1 `i `c ]
+"131
+}
+[e :U 610 ]
+"132
+}
+[; ;autoMode.c: 131: }
+[; ;autoMode.c: 132: }
+[e $U 614  ]
+"133
+[e :U 609 ]
+[; ;autoMode.c: 133: else if (autoMode.sm0 == 2)
+[e $ ! == -> . _autoMode 1 `i -> 2 `i 615  ]
+[; ;autoMode.c: 134: {
+"134
+{
+[; ;autoMode.c: 135: if (mpap_isIdle())
+"135
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 616  ]
+[; ;autoMode.c: 136: {
+"136
+{
+[; ;autoMode.c: 138: for (i=0; i<300; i++)
+"138
+{
+[e = _i -> 0 `i ]
+[e $ < _i -> 300 `i 617  ]
+[e $U 618  ]
+"139
+[e :U 617 ]
+[; ;autoMode.c: 139: {_delay((unsigned long)((10)*(48000000UL/4000.0)));}
+{
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 48000000 `ul `d .4000.0 `ul ]
+}
+"138
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 300 `i 617  ]
+[e :U 618 ]
+"139
+}
+[; ;autoMode.c: 142: mpap_movetoNozzle(0);
+"142
+[e ( _mpap_movetoNozzle (1 -> -> 0 `i `c ]
+[; ;autoMode.c: 144: autoMode.sm0 =1;
+"144
+[e = . _autoMode 1 -> -> 1 `i `c ]
+"145
+}
+[e :U 616 ]
+"146
+}
+[e :U 615 ]
+"147
+[e :U 614 ]
+}
+[e :U 608 ]
+[; ;autoMode.c: 145: }
+[; ;autoMode.c: 146: }
+[; ;autoMode.c: 147: }
+[; ;autoMode.c: 148: }
+"148
+[e :UE 607 ]
 }

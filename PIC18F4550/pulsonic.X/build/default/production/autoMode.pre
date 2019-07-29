@@ -5705,11 +5705,11 @@ uint16_t Kticks_0p1ml;
 uint16_t dist_total_time;
 uint16_t dist_access_time;
 
-float sum_all_mlh;
+double sum_all_mlh;
 
 struct _pulsonic_nozzle
 {
-float Q_mlh;
+double Q_mlh;
 uint16_t total_ticks_mlh;
 int8_t nticks_slicetime;
 }nozzle[8];
@@ -5769,6 +5769,11 @@ int8_t mpap_isIdle(void);
 
 
 void mpap_sych(void);
+
+void autoModexxx_job(void);
+
+# 72
+void l6506d_job(void);
 
 # 11 "pump.h"
 struct _pump
@@ -5915,7 +5920,7 @@ else if (autoMode.sm0 == 4)
 {
 if (mpap_isIdle())
 {
-pump_setTick(3);
+pump_setTick(0);
 autoMode.sm0++;
 }
 }
@@ -5932,7 +5937,7 @@ else if (autoMode.sm0 == 6)
 {
 if (smain.f.f1ms)
 {
-if (++c_ms >= 2000)
+if (++c_ms >= 0000)
 {
 c_ms = 0x0000;
 
@@ -5941,6 +5946,44 @@ c_min = 0x00;
 autoMode.sm0 = 0x3;
 }
 }
+}
+}
+}
+}
+
+# 113
+void autoModexxx_job(void)
+{
+int i;
+static uint16_t c_ms;
+static uint16_t c_min;
+
+if (autoMode.sm0 >0)
+{
+if (autoMode.sm0 == 1)
+{
+if (mpap_isIdle())
+{
+
+for (i=0; i<300; i++)
+{_delay((unsigned long)((10)*(48000000UL/4000.0)));}
+
+mpap_movetoNozzle(1);
+autoMode.sm0++;
+}
+}
+else if (autoMode.sm0 == 2)
+{
+if (mpap_isIdle())
+{
+
+for (i=0; i<300; i++)
+{_delay((unsigned long)((10)*(48000000UL/4000.0)));}
+
+
+mpap_movetoNozzle(0);
+
+autoMode.sm0 =1;
 }
 }
 }

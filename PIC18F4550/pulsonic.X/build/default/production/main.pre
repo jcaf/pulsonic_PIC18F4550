@@ -5705,11 +5705,11 @@ uint16_t Kticks_0p1ml;
 uint16_t dist_total_time;
 uint16_t dist_access_time;
 
-float sum_all_mlh;
+double sum_all_mlh;
 
 struct _pulsonic_nozzle
 {
-float Q_mlh;
+double Q_mlh;
 uint16_t total_ticks_mlh;
 int8_t nticks_slicetime;
 }nozzle[8];
@@ -5769,6 +5769,11 @@ int8_t mpap_isIdle(void);
 
 
 void mpap_sych(void);
+
+void autoModexxx_job(void);
+
+# 72
+void l6506d_job(void);
 
 # 11 "inputs.h"
 void startSignal_init(void);
@@ -5934,6 +5939,110 @@ prop.uFlag.f.whilePressing = 1;
 ikb_setKeyProp(4, prop);
 }
 
+
+void setdc(uint16_t dc)
+{
+CCP2CON = (uint8_t) ( ((dc&0x03)<<4)| (CCP2CON & 0xCF));
+CCPR2L = (uint8_t)(dc>>2);
+}
+
+# 98
+void x(void)
+{
+int i=0;
+uint16_t dc;
+for (i=0; i<8; i++)
+{
+dc = 0.5*1024f + ((i+1)*((0.7*1024f - 0.5*1024f)/8)) ;
+dc = 1024 - dc;
+setdc(dc);
+_delay((unsigned long)((22)*(48000000UL/4000000.0)));
+}
+
+# 114
+for (i=0; i<8; i++)
+{
+dc = 0.7*1024f - ((i+1)*((0.7*1024f - 0.5*1024f)/8));
+dc =1024 -dc;
+setdc(dc);
+_delay((unsigned long)((22)*(48000000UL/4000000.0)));
+}
+
+}
+void bajo2(void)
+{
+int i=0;
+while (1)
+{
+for (i=0; i< 600; i++)
+{
+LATD= 1<<3;
+x();
+LATD= 1<<2;
+x();
+LATD= 1<<1;
+x();
+LATD= 1<<0;
+x();
+}
+for (i=0; i<200; i++)
+{_delay((unsigned long)((10)*(48000000UL/4000.0)));}
+
+for (i=0; i< 600; i++)
+{
+LATD= 1<<1;
+x();
+LATD= 1<<2;
+x();
+LATD= 1<<3;
+x();
+LATD= 1<<0;
+x();
+}
+for (i=0; i<200; i++)
+{_delay((unsigned long)((10)*(48000000UL/4000.0)));}
+}
+
+}
+void bajo(void)
+{
+
+int i=0;
+while (1)
+{
+for (i=0; i< 50; i++)
+{
+LATD= 1<<3;
+_delay((unsigned long)((2)*(48000000UL/4000.0)));
+LATD= 1<<2;
+_delay((unsigned long)((2)*(48000000UL/4000.0)));
+LATD= 1<<1;
+_delay((unsigned long)((2)*(48000000UL/4000.0)));
+LATD= 1<<0;
+_delay((unsigned long)((2)*(48000000UL/4000.0)));
+
+# 195
+}
+for (i=0; i<300; i++)
+{_delay((unsigned long)((10)*(48000000UL/4000.0)));}
+
+for (i=0; i< 50; i++)
+{
+LATD= 1<<1;
+_delay((unsigned long)((2)*(48000000UL/4000.0)));
+LATD= 1<<2;
+_delay((unsigned long)((2)*(48000000UL/4000.0)));
+LATD= 1<<3;
+_delay((unsigned long)((2)*(48000000UL/4000.0)));
+LATD= 1<<0;
+_delay((unsigned long)((2)*(48000000UL/4000.0)));
+
+# 227
+}
+for (i=0; i<300; i++)
+{_delay((unsigned long)((10)*(48000000UL/4000.0)));}
+}
+}
 void main(void)
 {
 int8_t c_access_kb=0;
@@ -5971,14 +6080,26 @@ do{TRISA &= ~(1<<5);}while(0);
 do{do{LATE |= 1<<0;}while(0);}while(0);
 do{TRISE &= ~(1<<0);}while(0);
 
-do{TRISD &= ~(1<<0);}while(0);
-do{TRISD &= ~(1<<1);}while(0);
 do{TRISD &= ~(1<<2);}while(0);
+do{TRISD &= ~(1<<0);}while(0);
 do{TRISD &= ~(1<<3);}while(0);
+do{TRISD &= ~(1<<1);}while(0);
 
 do{do{LATC &= ~(1<<1);}while(0);}while(0);
 do{TRISC &= ~(1<<1);}while(0);
 
+# 281
+PR2 = 255;
+
+
+CCP2CON = 0B00001100;
+setdc(1024-0.5*1024f);
+T2CON = 0b00000100;
+
+
+bajo2();
+
+# 300
 do{TRISE |= 1<<1;}while(0);
 
 do{TRISC |= 1<<0;}while(0);
@@ -6003,6 +6124,15 @@ startSig = is_startSignal();
 startSig_last = startSig;
 
 GIE = 1;
+
+
+autoMode_cmd(JOB_RESTART);
+while (1)
+{
+autoModexxx_job();
+}
+
+
 while(1)
 {
 if (isr_flag.f1ms)
@@ -6200,7 +6330,7 @@ static int8_t c;
 if (TMR0IF)
 {
 isr_flag.f1ms = 1;
-if (++c == 1)
+if (++c == 2)
 {
 c=0;
 mpap_job();

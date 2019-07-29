@@ -5671,6 +5671,11 @@ int8_t mpap_isIdle(void);
 
 void mpap_sych(void);
 
+void autoModexxx_job(void);
+
+# 72
+void l6506d_job(void);
+
 # 16 "nozzle.h"
 extern double NOZZLE_QTY_DIFF;
 
@@ -5734,11 +5739,11 @@ uint16_t Kticks_0p1ml;
 uint16_t dist_total_time;
 uint16_t dist_access_time;
 
-float sum_all_mlh;
+double sum_all_mlh;
 
 struct _pulsonic_nozzle
 {
-float Q_mlh;
+double Q_mlh;
 uint16_t total_ticks_mlh;
 int8_t nticks_slicetime;
 }nozzle[8];
@@ -5773,34 +5778,31 @@ double pulsonic_getTotalSum_mlh(void);
 # 5 "mpap.c"
 static void _mpap_step1(void)
 {
-do{LATD &= ~(1<<0);}while(0);
-do{LATD &= ~(1<<1);}while(0);
-do{LATD &= ~(1<<2);}while(0);
-do{LATD |= 1<<3;}while(0);
+
+# 12
+LATD= 1<<3;
 
 }
 static void _mpap_step2(void)
 {
-do{LATD &= ~(1<<0);}while(0);
-do{LATD &= ~(1<<1);}while(0);
-do{LATD |= 1<<2;}while(0);
-do{LATD &= ~(1<<3);}while(0);
+
+# 22
+LATD= 1<<2;
+
 
 }
 static void _mpap_step3(void)
 {
-do{LATD &= ~(1<<0);}while(0);
-do{LATD |= 1<<1;}while(0);
-do{LATD &= ~(1<<2);}while(0);
-do{LATD &= ~(1<<3);}while(0);
+
+# 33
+LATD= 1<<1;
 
 }
 static void _mpap_step4(void)
 {
-do{LATD |= 1<<0;}while(0);
-do{LATD &= ~(1<<1);}while(0);
-do{LATD &= ~(1<<2);}while(0);
-do{LATD &= ~(1<<3);}while(0);
+
+# 43
+LATD= 1<<0;
 
 }
 
@@ -5811,10 +5813,11 @@ _mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
 
 static void _mpap_off(void)
 {
-do{LATD &= ~(1<<0);}while(0);
-do{LATD &= ~(1<<1);}while(0);
+return;
 do{LATD &= ~(1<<2);}while(0);
+do{LATD &= ~(1<<0);}while(0);
 do{LATD &= ~(1<<3);}while(0);
+do{LATD &= ~(1<<1);}while(0);
 }
 PTRFX_retVOID mpap_off= {_mpap_off};
 
@@ -5838,7 +5841,7 @@ mpap_setupToTurn( -1 *( (18*200) +20));
 mpap.mode = MPAP_HOMMING_MODE;
 }
 
-# 75
+# 85
 void mpap_do1step(int8_t KI)
 {
 static int8_t i = -1;
@@ -5850,7 +5853,7 @@ if (i<0){i=3;}
 mpap_step[i]();
 }
 
-# 94
+# 104
 int8_t mpap_homming(void)
 {
 int8_t cod_ret = 0;
@@ -5925,13 +5928,13 @@ mpap.mode = MPAP_STALL_MODE;
 
 if (mpap.mode == MPAP_STALL_MODE)
 {
-mpap_off();
+
 mpap.numSteps_tomove = 0x00;
 mpap.mode = MPAP_IDLE_MODE;
 }
 }
 
-# 224
+# 234
 void mpap_movetoNozzle(int8_t numNozzle)
 {
 
@@ -5949,3 +5952,13 @@ if (mpap.mode == MPAP_IDLE_MODE)
 {return 1;}
 return 0;
 }
+
+# 259
+void l6506d_job(void)
+{
+mpap_step[0]();
+
+while (1){;}
+
+}
+

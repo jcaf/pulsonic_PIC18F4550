@@ -24,7 +24,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [u S564 `S565 1 `c 1 ]
 [n S564 _errorFlag f packed ]
 "50
-[s S567 `f 1 `ui 1 `c 1 ]
+[s S567 `d 1 `ui 1 `c 1 ]
 [n S567 _pulsonic_nozzle Q_mlh total_ticks_mlh nticks_slicetime ]
 "57
 [s S568 `c 1 `c 1 ]
@@ -36,7 +36,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [s S570 :1 `uc 1 :7 `uc 1 ]
 [n S570 _pulsonic_flags homed __a ]
 "40
-[s S566 `S564 1 `ui 1 `ui 1 `ui 1 `f 1 `S567 -> 8 `i `S568 1 `S569 1 `S570 1 ]
+[s S566 `S564 1 `ui 1 `ui 1 `ui 1 `d 1 `S567 -> 8 `i `S568 1 `S569 1 `S570 1 ]
 [n S566 _pulsonic error Kticks_0p1ml dist_total_time dist_access_time sum_all_mlh nozzle oil disp7s flags ]
 "77
 [v _pulsonic `VS566 ~T0 @X0 0 e ]
@@ -4391,10 +4391,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 44: uint16_t Kticks_0p1ml;
 [; ;pulsonic.h: 45: uint16_t dist_total_time;
 [; ;pulsonic.h: 46: uint16_t dist_access_time;
-[; ;pulsonic.h: 48: float sum_all_mlh;
+[; ;pulsonic.h: 48: double sum_all_mlh;
 [; ;pulsonic.h: 50: struct _pulsonic_nozzle
 [; ;pulsonic.h: 51: {
-[; ;pulsonic.h: 52: float Q_mlh;
+[; ;pulsonic.h: 52: double Q_mlh;
 [; ;pulsonic.h: 53: uint16_t total_ticks_mlh;
 [; ;pulsonic.h: 54: int8_t nticks_slicetime;
 [; ;pulsonic.h: 55: }nozzle[8];
@@ -4440,6 +4440,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 33: void mpap_movetoNozzle(int8_t n);
 [; ;mpap.h: 34: int8_t mpap_isIdle(void);
 [; ;mpap.h: 37: void mpap_sych(void);
+[; ;mpap.h: 39: void autoModexxx_job(void);
+[; ;mpap.h: 72: void l6506d_job(void);
 [; ;pump.h: 11: struct _pump
 [; ;pump.h: 12: {
 [; ;pump.h: 13: uint16_t ticks;
@@ -4515,11 +4517,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 578 ]
 }
 "20
-[v _counterTicks `ui ~T0 @X0 1 e ]
+[v _counterTicks `Vui ~T0 @X0 1 e ]
 [i _counterTicks
 -> -> 0 `i `ui
 ]
-[; ;flushAtNozzle.c: 20: uint16_t counterTicks=0;
+[; ;flushAtNozzle.c: 20: volatile uint16_t counterTicks=0;
 "22
 [v _flushAtNozzle_cmd `(v ~T0 @X0 1 ef1`c ]
 "23

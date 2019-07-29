@@ -6,7 +6,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [u S565 `S566 1 `c 1 ]
 [n S565 _errorFlag f packed ]
 "50
-[s S568 `f 1 `ui 1 `c 1 ]
+[s S568 `d 1 `ui 1 `c 1 ]
 [n S568 _pulsonic_nozzle Q_mlh total_ticks_mlh nticks_slicetime ]
 "57
 [s S569 `c 1 `c 1 ]
@@ -18,7 +18,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [s S571 :1 `uc 1 :7 `uc 1 ]
 [n S571 _pulsonic_flags homed __a ]
 "40
-[s S567 `S565 1 `ui 1 `ui 1 `ui 1 `f 1 `S568 -> 8 `i `S569 1 `S570 1 `S571 1 ]
+[s S567 `S565 1 `ui 1 `ui 1 `ui 1 `d 1 `S568 -> 8 `i `S569 1 `S570 1 `S571 1 ]
 [n S567 _pulsonic error Kticks_0p1ml dist_total_time dist_access_time sum_all_mlh nozzle oil disp7s flags ]
 "77
 [v _pulsonic `VS567 ~T0 @X0 0 e ]
@@ -4347,6 +4347,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 33: void mpap_movetoNozzle(int8_t n);
 [; ;mpap.h: 34: int8_t mpap_isIdle(void);
 [; ;mpap.h: 37: void mpap_sych(void);
+[; ;mpap.h: 39: void autoModexxx_job(void);
+[; ;mpap.h: 72: void l6506d_job(void);
 [; ;nozzle.h: 16: extern double NOZZLE_QTY_DIFF;
 [; ;nozzle.h: 18: int8_t nozzle_isEnabled(int n);
 [; ;display.h: 48: void disp7s_qtyDisp_writeFloat(float num);
@@ -4388,10 +4390,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 44: uint16_t Kticks_0p1ml;
 [; ;pulsonic.h: 45: uint16_t dist_total_time;
 [; ;pulsonic.h: 46: uint16_t dist_access_time;
-[; ;pulsonic.h: 48: float sum_all_mlh;
+[; ;pulsonic.h: 48: double sum_all_mlh;
 [; ;pulsonic.h: 50: struct _pulsonic_nozzle
 [; ;pulsonic.h: 51: {
-[; ;pulsonic.h: 52: float Q_mlh;
+[; ;pulsonic.h: 52: double Q_mlh;
 [; ;pulsonic.h: 53: uint16_t total_ticks_mlh;
 [; ;pulsonic.h: 54: int8_t nticks_slicetime;
 [; ;pulsonic.h: 55: }nozzle[8];
@@ -4434,7 +4436,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;nozzle.c: 9: if (pulsonic.nozzle[n].Q_mlh > 0.0)
 "9
-[e $ ! > -> . *U + &U . _pulsonic 5 * -> -> _n `ui `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 `d .0.0 573  ]
+[e $ ! > . *U + &U . _pulsonic 5 * -> -> _n `ui `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 .0.0 573  ]
 [; ;nozzle.c: 10: return 1;
 "10
 [e ) -> -> 1 `i `c ]

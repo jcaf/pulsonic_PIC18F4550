@@ -84,6 +84,151 @@ void mykb_layout0(void)
     ikb_setKeyProp(KB_LYOUT_KEY_FLUSHENTER, prop);
 }
 
+
+void setdc(uint16_t dc)
+    {
+        CCP2CON = (uint8_t)  ( ((dc&0x03)<<4)| (CCP2CON & 0xCF));
+        CCPR2L = (uint8_t)(dc>>2);
+    }
+
+#define MICROSTEP_N 8
+#define DC_MIN 0.5*1024f
+#define DC_MAX 0.7*1024f
+#define MICROSTEP (DC_MAX - DC_MIN)/MICROSTEP_N
+void x(void)
+{
+    int i=0;
+    uint16_t dc;
+    for (i=0; i<MICROSTEP_N; i++)
+    {
+        dc =  DC_MIN + ((i+1)*(MICROSTEP)) ;
+        dc = 1024 - dc;//complemente
+        setdc(dc);
+        __delay_us(22);
+    }
+    //200us
+    //__delay_us(600);
+    //__delay_ms(1);
+
+    
+    for (i=0; i<MICROSTEP_N; i++)
+    {
+        dc = DC_MAX - ((i+1)*(MICROSTEP));
+        dc =1024 -dc;
+        setdc(dc);
+        __delay_us(22);
+    }
+
+}
+void bajo2(void)
+{
+    int i=0;
+    while (1)
+    {
+        for (i=0; i< 600; i++)
+        {
+            LATD= 1<<3;
+            x();
+            LATD= 1<<2;
+            x();
+            LATD= 1<<1;
+            x();
+            LATD= 1<<0;
+            x();
+        }
+        for (i=0; i<200; i++)
+            {__delay_ms(10);}
+
+        for (i=0; i< 600; i++)
+        {
+            LATD= 1<<1;
+            x();
+            LATD= 1<<2;
+            x();
+            LATD= 1<<3;
+            x();
+            LATD= 1<<0;
+            x();
+        }
+        for (i=0; i<200; i++)
+            {__delay_ms(10);}
+  }
+
+}
+void bajo(void)
+{
+    #define d 2
+    int i=0;
+    while (1)
+    {
+        for (i=0; i< 50; i++)
+        {
+            LATD= 1<<3;
+            __delay_ms(d);
+            LATD= 1<<2;
+            __delay_ms(d);
+            LATD= 1<<1;
+            __delay_ms(d);
+            LATD= 1<<0;
+            __delay_ms(d);
+
+
+
+//            LATD= (1<<1) | (1<<2);
+//            __delay_ms(d);
+//            LATD= (1<<1) ;
+//            __delay_ms(d);
+//            LATD= (1<<1) | (1<<0);
+//            __delay_ms(d);
+//            LATD= (1<<0);
+//            __delay_ms(d);
+//            LATD= (1<<3) | (1<<0);
+//            __delay_ms(d);
+//            LATD= (1<<3);
+//            __delay_ms(d);
+//            LATD= (1<<3) | (1<<2);
+//            __delay_ms(d);
+//            LATD= (1<<2);
+//            __delay_ms(d);
+            
+            
+        }
+        for (i=0; i<300; i++)
+            {__delay_ms(10);}
+
+        for (i=0; i< 50; i++)
+        {
+            LATD= 1<<1;
+            __delay_ms(d);
+            LATD= 1<<2;
+            __delay_ms(d);
+            LATD= 1<<3;
+            __delay_ms(d);
+            LATD= 1<<0;
+            __delay_ms(d);
+            
+            
+            
+//            LATD= (1<<3) | (1<<2);
+//            __delay_ms(d);
+//            LATD= (1<<3);
+//            __delay_ms(d);
+//            LATD= (1<<3) | (1<<0);
+//            __delay_ms(d);
+//            LATD= (1<<0);
+//            __delay_ms(d);
+//            LATD= (1<<1) | (1<<0);
+//            __delay_ms(d);
+//            LATD= (1<<1) ;
+//            __delay_ms(d);
+//            LATD= (1<<1) | (1<<2);
+//            __delay_ms(d);
+//            LATD= (1<<2);
+        }
+        for (i=0; i<300; i++)
+            {__delay_ms(10);}
+  }
+}
 void main(void) 
 {
     int8_t c_access_kb=0;
@@ -128,6 +273,29 @@ void main(void)
     
     STEPPER_ENABLE();
     ConfigOutputPin(CONFIGIOxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);
+//+++++--------
+    
+    
+    
+    
+    PR2 = 255;
+    //CCPR2L = 0x80;
+    //CCPR2L = 0xB3;//20%
+    CCP2CON = 0B00001100;//PWM
+    setdc(1024-DC_MIN);
+    T2CON = 0b00000100;
+    
+    //bajo();
+    bajo2();
+    //while (1);
+    /*
+     T2CKPS1:T2CKPS0: Timer2 Clock Prescale Select bits
+00 = Prescaler is 1
+01 = Prescaler is 4
+1x = Prescaler is 16
+     */
+    //l6506d_job();
+//--------+++++
     //
     ConfigInputPin(CONFIGIOxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME);
 
@@ -153,6 +321,15 @@ void main(void)
     startSig_last = startSig; 
     //
     GIE = 1;
+    
+//++++++++++
+    autoMode_cmd(JOB_RESTART);    
+    while (1)
+    {
+        autoModexxx_job();
+    }
+    
+    
     while(1)
     {
         if (isr_flag.f1ms)
@@ -350,7 +527,7 @@ void interrupt INTERRUPCION(void)//@1ms
     if (TMR0IF)
     {
         isr_flag.f1ms = 1;
-        if (++c == 1)
+        if (++c == 2)
         {
             c=0;
             mpap_job();

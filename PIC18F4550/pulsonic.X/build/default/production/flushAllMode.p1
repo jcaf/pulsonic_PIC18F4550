@@ -4370,10 +4370,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 44: uint16_t Kticks_0p1ml;
 [; ;pulsonic.h: 45: uint16_t dist_total_time;
 [; ;pulsonic.h: 46: uint16_t dist_access_time;
-[; ;pulsonic.h: 48: float sum_all_mlh;
+[; ;pulsonic.h: 48: double sum_all_mlh;
 [; ;pulsonic.h: 50: struct _pulsonic_nozzle
 [; ;pulsonic.h: 51: {
-[; ;pulsonic.h: 52: float Q_mlh;
+[; ;pulsonic.h: 52: double Q_mlh;
 [; ;pulsonic.h: 53: uint16_t total_ticks_mlh;
 [; ;pulsonic.h: 54: int8_t nticks_slicetime;
 [; ;pulsonic.h: 55: }nozzle[8];
@@ -4419,6 +4419,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 33: void mpap_movetoNozzle(int8_t n);
 [; ;mpap.h: 34: int8_t mpap_isIdle(void);
 [; ;mpap.h: 37: void mpap_sych(void);
+[; ;mpap.h: 39: void autoModexxx_job(void);
+[; ;mpap.h: 72: void l6506d_job(void);
 [; ;pump.h: 11: struct _pump
 [; ;pump.h: 12: {
 [; ;pump.h: 13: uint16_t ticks;
