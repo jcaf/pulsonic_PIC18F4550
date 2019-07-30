@@ -91,64 +91,148 @@ void setdc(uint16_t dc)
         CCPR2L = (uint8_t)(dc>>2);
     }
 
-#define MICROSTEP_N 8
-#define DC_MIN 0.5*1024f
-#define DC_MAX 0.7*1024f
+//#define PR2_VAL 255
+#define PR2_VAL 149
+#define DC_TOP (PR2_VAL<<2)
+
+#define MICROSTEP_N 4
+//#define DC_MIN 0.5*1024f
+//#define DC_MAX 0.7*1024f
+#define DC_MIN (0.5*DC_TOP)
+#define DC_MAX (0.7*DC_TOP)
 #define MICROSTEP (DC_MAX - DC_MIN)/MICROSTEP_N
 void x(void)
 {
     int i=0;
     uint16_t dc;
+    
     for (i=0; i<MICROSTEP_N; i++)
     {
         dc =  DC_MIN + ((i+1)*(MICROSTEP)) ;
-        dc = 1024 - dc;//complemente
+        dc = DC_TOP - dc;//complemente
         setdc(dc);
-        __delay_us(22);
+        __delay_us(50);
     }
-    //200us
-    //__delay_us(600);
-    //__delay_ms(1);
-
+    __delay_us(20);
     
     for (i=0; i<MICROSTEP_N; i++)
     {
         dc = DC_MAX - ((i+1)*(MICROSTEP));
-        dc =1024 -dc;
+        dc = DC_TOP -dc;
         setdc(dc);
-        __delay_us(22);
+        __delay_us(50);
     }
-
 }
+//WAVE
+#define STEP_WAVE_1A (1<<1)//RD1
+#define STEP_WAVE_2A (1<<2)//RD2
+#define STEP_WAVE_1B (1<<3)//RD3
+#define STEP_WAVE_2B (1<<0)//RD0
+//FULL
+#define STEP_FULL_A (STEP_WAVE_1A | STEP_WAVE_2B)
+#define STEP_FULL_B (STEP_WAVE_1A | STEP_WAVE_2A)
+#define STEP_FULL_C (STEP_WAVE_1B | STEP_WAVE_2A)
+#define STEP_FULL_D (STEP_WAVE_1B | STEP_WAVE_2B)
+
+#define STEP_HALF_1 STEP_WAVE_1A
+#define STEP_HALF_2 STEP_FULL_A
+#define STEP_HALF_3 STEP_WAVE_2A
+#define STEP_HALF_4 STEP_FULL_B
+#define STEP_HALF_5 STEP_WAVE_1B
+#define STEP_HALF_6 STEP_FULL_C
+#define STEP_HALF_7 STEP_WAVE_2B
+#define STEP_HALF_8 STEP_FULL_D
+
+#define STEP_HALF_1 STEP_WAVE_1A
+#define STEP_HALF_2 STEP_FULL_A //(STEP_WAVE_1A | STEP_WAVE_2B)
+#define STEP_HALF_3 STEP_WAVE_2A
+#define STEP_HALF_4 STEP_FULL_B //(STEP_WAVE_2A | STEP_WAVE_1A)
+#define STEP_HALF_5 STEP_WAVE_1B
+#define STEP_HALF_6 STEP_FULL_C //(STEP_WAVE_1B | STEP_WAVE_2A)
+#define STEP_HALF_7 STEP_WAVE_2B
+#define STEP_HALF_8 STEP_FULL_D //(STEP_WAVE_2B | STEP_WAVE_1B)
+
 void bajo2(void)
 {
     int i=0;
     while (1)
     {
-        for (i=0; i< 600; i++)
+        for (i=0; i< 50; i++)
         {
-            LATD= 1<<3;
+            LATD = STEP_WAVE_1A;
             x();
-            LATD= 1<<2;
+            LATD = STEP_WAVE_2A;
             x();
-            LATD= 1<<1;
+            LATD = STEP_WAVE_1B;
             x();
-            LATD= 1<<0;
+            LATD = STEP_WAVE_2B;
             x();
+            
+//            LATD = STEP_FULL_A;
+//            x();
+//            LATD = STEP_FULL_B;
+//            x();
+//            LATD = STEP_FULL_C;
+//            x();
+//            LATD = STEP_FULL_D;
+//            x();
+            
+//            LATD = STEP_HALF_1;
+//            x();
+//            LATD = STEP_HALF_2;
+//            x();
+//            LATD = STEP_HALF_3;
+//            x();
+//            LATD = STEP_HALF_4;
+//            x();
+//            LATD = STEP_HALF_5;
+//            x();
+//            LATD = STEP_HALF_6;
+//            x();
+//            LATD = STEP_HALF_7;
+//            x();
+//            LATD = STEP_HALF_8;
+//            x();
         }
         for (i=0; i<200; i++)
             {__delay_ms(10);}
 
-        for (i=0; i< 600; i++)
+        for (i=0; i< 50; i++)
         {
-            LATD= 1<<1;
+            LATD = STEP_WAVE_1B;
             x();
-            LATD= 1<<2;
+            LATD = STEP_WAVE_2A;
             x();
-            LATD= 1<<3;
+            LATD = STEP_WAVE_1A;
             x();
-            LATD= 1<<0;
+            LATD = STEP_WAVE_2B;
             x();
+            
+//            LATD = STEP_FULL_C;
+//            x();
+//            LATD = STEP_FULL_B;
+//            x();
+//            LATD = STEP_FULL_A;
+//            x();
+//            LATD = STEP_FULL_D;
+//            x();
+//            LATD = STEP_HALF_7;
+//            x();
+//            LATD = STEP_HALF_6;
+//            x();
+//            LATD = STEP_HALF_5;
+//            x();
+//            LATD = STEP_HALF_4;
+//            x();
+//            LATD = STEP_HALF_3;
+//            x();
+//            LATD = STEP_HALF_2;
+//            x();
+//            LATD = STEP_HALF_1;
+//            x();
+//            LATD = STEP_HALF_8;
+//            x();
+            
         }
         for (i=0; i<200; i++)
             {__delay_ms(10);}
@@ -276,15 +360,13 @@ void main(void)
 //+++++--------
     
     
-    
-    
-    PR2 = 255;
-    //CCPR2L = 0x80;
-    //CCPR2L = 0xB3;//20%
+    PR2 = PR2_VAL;//255;
     CCP2CON = 0B00001100;//PWM
-    setdc(1024-DC_MIN);
-    T2CON = 0b00000100;
+    setdc(DC_TOP-DC_MIN);
+    //setdc(DC_TOP/2);
     
+    T2CON = 0b00000101;
+ //while (1)   ;
     //bajo();
     bajo2();
     //while (1);
