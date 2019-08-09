@@ -32,43 +32,45 @@
     void mpap_setupToTurn(int16_t numSteps_tomove);    
     void mpap_movetoNozzle(int8_t n);//0..NOZZLE_NUMMAX-1
     int8_t mpap_isIdle(void);
+    void mpap_do1step(int8_t KI);
     
-    #define MPAP_DELAY_BY_STEPS 1.0E-3 //ms
-    void mpap_sych(void);
+    //WAVE
+#define STEP_WAVE_1A (1<<1)//RD1
+#define STEP_WAVE_2A (1<<2)//RD2
+#define STEP_WAVE_1B (1<<3)//RD3
+#define STEP_WAVE_2B (1<<0)//RD0
+//FULL
+#define STEP_FULL_A (STEP_WAVE_1A | STEP_WAVE_2B)
+#define STEP_FULL_B (STEP_WAVE_1A | STEP_WAVE_2A)
+#define STEP_FULL_C (STEP_WAVE_1B | STEP_WAVE_2A)
+#define STEP_FULL_D (STEP_WAVE_1B | STEP_WAVE_2B)
 
+#define STEP_HALF_1 STEP_WAVE_1A
+#define STEP_HALF_2 STEP_FULL_A
+#define STEP_HALF_3 STEP_WAVE_2A
+#define STEP_HALF_4 STEP_FULL_B
+#define STEP_HALF_5 STEP_WAVE_1B
+#define STEP_HALF_6 STEP_FULL_C
+#define STEP_HALF_7 STEP_WAVE_2B
+#define STEP_HALF_8 STEP_FULL_D
+
+#define STEP_HALF_1 STEP_WAVE_1A
+#define STEP_HALF_2 STEP_FULL_A //(STEP_WAVE_1A | STEP_WAVE_2B)
+#define STEP_HALF_3 STEP_WAVE_2A
+#define STEP_HALF_4 STEP_FULL_B //(STEP_WAVE_2A | STEP_WAVE_1A)
+#define STEP_HALF_5 STEP_WAVE_1B
+#define STEP_HALF_6 STEP_FULL_C //(STEP_WAVE_1B | STEP_WAVE_2A)
+#define STEP_HALF_7 STEP_WAVE_2B
+#define STEP_HALF_8 STEP_FULL_D //(STEP_WAVE_2B | STEP_WAVE_1B)
+
+    //#define MPAP_DELAY_BY_STEPS 1.0E-3 //ms
+    //void mpap_sych(void);
+    
 void autoModexxx_job(void);
 //x tests
 //void mpap_test(void);
 //void mpap_1(void);
 
-/////////////////UNIPOLAR /////////////////////////////////////
-//Secuencia Full unipolar 
-//        LATD = 0B00001100;
-//        __delay_ms(1);
-//        LATD = 0B00000110;
-//        __delay_ms(1);
-//        LATD = 0B00000011;
-//        __delay_ms(1);
-//        LATD = 0B00001001;
-//        __delay_ms(1);
-//MICROPASO MITAD
-//        LATD = 0B00001000;
-//        __delay_ms(1);
-//        LATD = 0B00001100;
-//        __delay_ms(1);
-//        LATD = 0B00000100;
-//        __delay_ms(1);
-//        LATD = 0B00000110;
-//        __delay_ms(1);
-//        LATD = 0B00000010;
-//        __delay_ms(1);
-//        LATD = 0B00000011;
-//        __delay_ms(1);
-//        LATD = 0B00000001;
-//        __delay_ms(1);
-//        LATD = 0B00001001;
-//        __delay_ms(1);    
-    
 void l6506d_job(void);
 #ifdef	__cplusplus
 extern "C" {

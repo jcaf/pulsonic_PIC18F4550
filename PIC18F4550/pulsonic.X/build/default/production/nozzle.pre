@@ -5667,13 +5667,14 @@ void mpap_setupToHomming(void);
 void mpap_setupToTurn(int16_t numSteps_tomove);
 void mpap_movetoNozzle(int8_t n);
 int8_t mpap_isIdle(void);
+void mpap_do1step(int8_t KI);
 
-
-void mpap_sych(void);
-
+# 69
 void autoModexxx_job(void);
 
-# 72
+
+
+
 void l6506d_job(void);
 
 # 16 "nozzle.h"

@@ -9,8 +9,7 @@ static void _mpap_step1(void)
 //    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
 //    PinTo1(PORTWxSTEPPER_C, PINxSTEPPER_C);
 //    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    LATD= 1<<3;
-
+    LATD = STEP_WAVE_2B;
 }
 static void _mpap_step2(void)
 {
@@ -19,9 +18,7 @@ static void _mpap_step2(void)
 //    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
 //    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
 //    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    LATD= 1<<2;
-   
-    
+    LATD = STEP_WAVE_1B;
 }
 static void _mpap_step3(void)
 {
@@ -30,8 +27,7 @@ static void _mpap_step3(void)
 //    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
 //    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
 //    PinTo1(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    LATD= 1<<1;
-    
+    LATD = STEP_WAVE_2A;   
 }
 static void _mpap_step4(void)
 {
@@ -40,8 +36,7 @@ static void _mpap_step4(void)
 //    PinTo1(PORTWxSTEPPER_B, PINxSTEPPER_B);
 //    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
 //    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
-    LATD= 1<<0;
- 
+    LATD = STEP_WAVE_1A;
 }
 
 PTRFX_retVOID mpap_step[4] = 
@@ -49,15 +44,15 @@ PTRFX_retVOID mpap_step[4] =
     _mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
 };
 
-static void _mpap_off(void)
-{
-    return;
-    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
-    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
-    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
-    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
-}
-PTRFX_retVOID mpap_off= {_mpap_off};
+//static void _mpap_off(void)
+//{
+//    PinTo0(PORTWxSTEPPER_A, PINxSTEPPER_A);
+//    PinTo0(PORTWxSTEPPER_B, PINxSTEPPER_B);
+//    PinTo0(PORTWxSTEPPER_C, PINxSTEPPER_C);
+//    PinTo0(PORTWxSTEPPER_D, PINxSTEPPER_D);
+//}
+//PTRFX_retVOID mpap_off= {_mpap_off};
+
 
 volatile struct _mpap mpap;
 
@@ -157,12 +152,10 @@ void mpap_job(void)
         if (cod_ret == 1)
         {
             pulsonic.flags.homed = 1;
-            mpap_off();
             mpap.mode = MPAP_STALL_MODE;
         }
         else if (cod_ret == 2)
         {
-            mpap_off();
             mpap.mode = MPAP_STALL_MODE;
             //pulsonic.error.f.homeSensor = 1;
         }
@@ -175,62 +168,11 @@ void mpap_job(void)
     //
     if (mpap.mode == MPAP_STALL_MODE)
     {
-        //mpap_off();
         mpap.numSteps_tomove = 0x00;
         mpap.mode = MPAP_IDLE_MODE;
     }
 }
 
-///* acepta ordenes desde el hilo main*/
-//void mpap_sych(void)
-//{
-//    static int8_t sm0;
-//    static int8_t c;
-//    if (sm0 == 0)
-//    {
-//        if ((mpap.mode == MPAP_NORMAL_MODE) || (mpap.mode == MPAP_HOMMING_MODE))
-//            sm0++;
-//        else if (mpap.mode == MPAP_STALL_MODE)
-//            sm0 = 3;
-//    }
-//    else if (sm0 == 1)//acabo un movimiento
-//    {
-//        if (mpap.numSteps_tomove == 0)//termino de mover?
-//        {
-//            if (mpap.mode == MPAP_HOMMING_MODE)
-//            {
-//                if ( pulsonic.errors.flag.mpap_home_sensor == 1)
-//                {
-//                    pulsonic.errors.flag.mpap_home_sensor = 0;//clear flag //marcar error de Sensor de posicion en el display
-//                }
-//            }
-//            else if (mpap.mode == MPAP_NORMAL_MODE)
-//            {
-//            }
-//            sm0++;
-//            c = 0;
-//        }
-//    }
-//    else if (sm0 == 2)
-//    {
-//        if (smain.f.f1ms)
-//        {
-//            if (++c == 10)
-//            {
-//                c = 0;
-//                mpap.mode = MPAP_STALL_MODE;
-//                sm0++;
-//            }
-//        }
-//    }
-//    else if (sm0 == 3)
-//    {
-//        if (mpap.mode == MPAP_IDLE_MODE)
-//        {
-//            sm0 = 0;
-//        }
-//    }
-//}
 void mpap_movetoNozzle(int8_t numNozzle)//0..NOZZLE_NUMMAX-1
 {
                                                             //mpap_setupToTurn( nozzle * MPAP_NUMSTEP_1NOZZLE);//se escala	
@@ -248,20 +190,3 @@ int8_t mpap_isIdle(void)
         {return 1;}
     return 0;
 }
-//++++++++++++++
-/*
- * PTRFX_retVOID mpap_step[4] = 
-{    
-    _mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
-};
-
- */
-void l6506d_job(void)
-{
-    mpap_step[0]();
-    
-    while (1){;}
-    
-}
-
-

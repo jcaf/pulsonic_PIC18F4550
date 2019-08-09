@@ -4346,9 +4346,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 32: void mpap_setupToTurn(int16_t numSteps_tomove);
 [; ;mpap.h: 33: void mpap_movetoNozzle(int8_t n);
 [; ;mpap.h: 34: int8_t mpap_isIdle(void);
-[; ;mpap.h: 37: void mpap_sych(void);
-[; ;mpap.h: 39: void autoModexxx_job(void);
-[; ;mpap.h: 72: void l6506d_job(void);
+[; ;mpap.h: 35: void mpap_do1step(int8_t KI);
+[; ;mpap.h: 69: void autoModexxx_job(void);
+[; ;mpap.h: 74: void l6506d_job(void);
 [; ;nozzle.h: 16: extern double NOZZLE_QTY_DIFF;
 [; ;nozzle.h: 18: int8_t nozzle_isEnabled(int n);
 [; ;display.h: 48: void disp7s_qtyDisp_writeFloat(float num);

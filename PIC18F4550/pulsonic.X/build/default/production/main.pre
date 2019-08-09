@@ -5766,13 +5766,14 @@ void mpap_setupToHomming(void);
 void mpap_setupToTurn(int16_t numSteps_tomove);
 void mpap_movetoNozzle(int8_t n);
 int8_t mpap_isIdle(void);
+void mpap_do1step(int8_t KI);
 
-
-void mpap_sych(void);
-
+# 69
 void autoModexxx_job(void);
 
-# 72
+
+
+
 void l6506d_job(void);
 
 # 11 "inputs.h"
@@ -5946,7 +5947,7 @@ CCP2CON = (uint8_t) ( ((dc&0x03)<<4)| (CCP2CON & 0xCF));
 CCPR2L = (uint8_t)(dc>>2);
 }
 
-# 104
+# 105
 void x(void)
 {
 int i=0;
@@ -5959,7 +5960,7 @@ dc = (149<<2) - dc;
 setdc(dc);
 _delay((unsigned long)((50)*(48000000UL/4000000.0)));
 }
-_delay((unsigned long)((20)*(48000000UL/4000000.0)));
+_delay((unsigned long)((50)*(48000000UL/4000000.0)));
 
 for (i=0; i<4; i++)
 {
@@ -5970,13 +5971,13 @@ _delay((unsigned long)((50)*(48000000UL/4000000.0)));
 }
 }
 
-# 155
 void bajo2(void)
 {
 int i=0;
+int y;
 while (1)
 {
-for (i=0; i< 50; i++)
+for (i=0; i< 50*18; i++)
 {
 LATD = (1<<1);
 x();
@@ -5987,12 +5988,18 @@ x();
 LATD = (1<<0);
 x();
 
-# 196
+if (i%50 == 0)
+{
+for(y=0;y<200;y++)
+_delay((unsigned long)((10)*(48000000UL/4000.0)));
+}
+
+# 176
 }
 for (i=0; i<200; i++)
 {_delay((unsigned long)((10)*(48000000UL/4000.0)));}
 
-for (i=0; i< 50; i++)
+for (i=0; i< 50*18; i++)
 {
 LATD = (1<<3);
 x();
@@ -6003,52 +6010,21 @@ x();
 LATD = (1<<0);
 x();
 
-# 236
+if (i%50 == 0)
+{
+for(y=0;y<200;y++)
+_delay((unsigned long)((10)*(48000000UL/4000.0)));
+}
+
+# 221
 }
 for (i=0; i<200; i++)
 {_delay((unsigned long)((10)*(48000000UL/4000.0)));}
 }
 
 }
-void bajo(void)
-{
 
-int i=0;
-while (1)
-{
-for (i=0; i< 50; i++)
-{
-LATD= 1<<3;
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
-LATD= 1<<2;
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
-LATD= 1<<1;
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
-LATD= 1<<0;
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
 
-# 279
-}
-for (i=0; i<300; i++)
-{_delay((unsigned long)((10)*(48000000UL/4000.0)));}
-
-for (i=0; i< 50; i++)
-{
-LATD= 1<<1;
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
-LATD= 1<<2;
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
-LATD= 1<<3;
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
-LATD= 1<<0;
-_delay((unsigned long)((2)*(48000000UL/4000.0)));
-
-# 311
-}
-for (i=0; i<300; i++)
-{_delay((unsigned long)((10)*(48000000UL/4000.0)));}
-}
-}
 void main(void)
 {
 int8_t c_access_kb=0;
@@ -6073,12 +6049,11 @@ CMCON=0xCF;
 
 UCON = 0;
 UCFG = 1<<3;
-T0CON = 0B10000111;
 
-TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ) >> 8);
-TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
+T0CON = 0B10000100;
+TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (32*4)) ) >> 8);
+TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (32*4)) ));
 TMR0IE = 1;
-
 
 do{do{LATA &= ~(1<<5);}while(0);}while(0);
 do{TRISA &= ~(1<<5);}while(0);
@@ -6091,22 +6066,19 @@ do{TRISD &= ~(1<<0);}while(0);
 do{TRISD &= ~(1<<3);}while(0);
 do{TRISD &= ~(1<<1);}while(0);
 
-do{do{LATC &= ~(1<<1);}while(0);}while(0);
-do{TRISC &= ~(1<<1);}while(0);
-
-
 
 PR2 = 149;
-CCP2CON = 0B00001100;
 setdc((149<<2)-(0.5*(149<<2)));
-
-
+do{do{TRISC &= ~(1<<1);}while(0);}while(0);
 T2CON = 0b00000101;
 
 
-bajo2();
 
-# 382
+
+CCP2CON = 0B00001100;
+
+
+
 do{TRISE |= 1<<1;}while(0);
 
 do{TRISC |= 1<<0;}while(0);
@@ -6130,14 +6102,11 @@ autoMode_cmd(JOB_STOP);
 startSig = is_startSignal();
 startSig_last = startSig;
 
+TMR2IE = 1;
+PEIE = 1;
 GIE = 1;
 
 
-autoMode_cmd(JOB_RESTART);
-while (1)
-{
-autoModexxx_job();
-}
 
 
 while(1)
@@ -6331,23 +6300,96 @@ smain.f.f1ms = 0;
 }
 }
 
+
+const uint16_t ustep_lockup[4+1]=
+{ (149<<2) -((0.5*(149<<2))+(((0.7*(149<<2)) - (0.5*(149<<2)))/4*0)),
+(149<<2) -((0.5*(149<<2))+(((0.7*(149<<2)) - (0.5*(149<<2)))/4*1)),
+(149<<2) -((0.5*(149<<2))+(((0.7*(149<<2)) - (0.5*(149<<2)))/4*2)),
+(149<<2) -((0.5*(149<<2))+(((0.7*(149<<2)) - (0.5*(149<<2)))/4*3)),
+(149<<2) -((0.5*(149<<2))+(((0.7*(149<<2)) - (0.5*(149<<2)))/4*4)),
+};
+
+# 516
 void interrupt INTERRUPCION(void)
 {
+static uint8_t ustep_sm0;
+static int8_t ustep_c = 1;
+
 static int8_t c;
+static int8_t en;
+
 if (TMR0IF)
 {
 isr_flag.f1ms = 1;
+TMR0IF = 0;
+TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (32*4)) ) >> 8);
+TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1e-3 *48000000UL / (32*4)) ));
+}
+
+if (TMR2IF)
+{
+if (ustep_sm0 == 0)
+{
+mpap_job();
+
+if (mpap.mode > MPAP_STALL_MODE)
+{
+ustep_sm0++;
+}
+}
+if (ustep_sm0 == 1)
+{
+if (!en)
+{
+setdc(ustep_lockup[ustep_c]);
+if (++ustep_c == (4+1) )
+{
+ustep_c = 0x00;
+ustep_sm0++;
+}
+en =1;
+}
 if (++c == 2)
 {
-c=0;
-mpap_job();
+c = 0;
+en = 0;
+}
 }
 
+else if (ustep_sm0 == 2)
+{
+if (++ustep_c == 10)
+{
+ustep_c = 0x3;
+ustep_sm0++;
 
-TMR0IF = 0;
-TMR0H = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ) >> 8);
-TMR0L = (uint8_t)((uint16_t)((1UL<<16) - ( 1.0E-3 *48000000UL / (256*4)) ));
+en = 0;
+c = 0;
 }
+}
+else if (ustep_sm0 == 3)
+{
+if (!en)
+{
+setdc( ustep_lockup[ustep_c] );
+
+if (--ustep_c < 0)
+{
+ustep_c = 1;
+ustep_sm0 = 0x0;
+}
+en = 1;
+}
+if (++c == 2)
+{
+c = 0;
+en = 0;
+}
+}
+
+TMR2IF = 0;
+}
+
 }
 
 

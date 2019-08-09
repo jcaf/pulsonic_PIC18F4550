@@ -105,8 +105,11 @@
 
 
     //enable is inverted by hardware
-    #define STEPPER_ENABLE() do{PinTo0(PORTWxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);}while(0)
-    #define STEPPER_DISABLE() do{PinTo1(PORTWxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);}while(0)
+    //#define STEPPER_ENABLE() do{PinTo0(PORTWxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);}while(0)
+    //#define STEPPER_DISABLE() do{PinTo1(PORTWxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);}while(0)
+    #define STEPPER_ENABLE() do{ConfigOutputPin(CONFIGIOxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);}while(0)
+    #define STEPPER_DISABLE() do{ConfigInputPin(CONFIGIOxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);}while(0)
+    
     //
     ////////////////////////////////////////////////////////////////////////////
     //OIL-PUMP MOTOR

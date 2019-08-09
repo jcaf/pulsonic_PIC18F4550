@@ -5667,13 +5667,14 @@ void mpap_setupToHomming(void);
 void mpap_setupToTurn(int16_t numSteps_tomove);
 void mpap_movetoNozzle(int8_t n);
 int8_t mpap_isIdle(void);
+void mpap_do1step(int8_t KI);
 
-
-void mpap_sych(void);
-
+# 69
 void autoModexxx_job(void);
 
-# 72
+
+
+
 void l6506d_job(void);
 
 # 16 "nozzle.h"
@@ -5780,30 +5781,25 @@ static void _mpap_step1(void)
 {
 
 # 12
-LATD= 1<<3;
-
+LATD = (1<<0);
 }
 static void _mpap_step2(void)
 {
 
-# 22
-LATD= 1<<2;
-
-
+# 21
+LATD = (1<<3);
 }
 static void _mpap_step3(void)
 {
 
-# 33
-LATD= 1<<1;
-
+# 30
+LATD = (1<<2);
 }
 static void _mpap_step4(void)
 {
 
-# 43
-LATD= 1<<0;
-
+# 39
+LATD = (1<<1);
 }
 
 PTRFX_retVOID mpap_step[4] =
@@ -5811,16 +5807,7 @@ PTRFX_retVOID mpap_step[4] =
 _mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
 };
 
-static void _mpap_off(void)
-{
-return;
-do{LATD &= ~(1<<2);}while(0);
-do{LATD &= ~(1<<0);}while(0);
-do{LATD &= ~(1<<3);}while(0);
-do{LATD &= ~(1<<1);}while(0);
-}
-PTRFX_retVOID mpap_off= {_mpap_off};
-
+# 57
 volatile struct _mpap mpap;
 
 
@@ -5841,7 +5828,7 @@ mpap_setupToTurn( -1 *( (18*200) +20));
 mpap.mode = MPAP_HOMMING_MODE;
 }
 
-# 85
+# 80
 void mpap_do1step(int8_t KI)
 {
 static int8_t i = -1;
@@ -5853,7 +5840,7 @@ if (i<0){i=3;}
 mpap_step[i]();
 }
 
-# 104
+# 99
 int8_t mpap_homming(void)
 {
 int8_t cod_ret = 0;
@@ -5910,12 +5897,10 @@ cod_ret = mpap_homming();
 if (cod_ret == 1)
 {
 pulsonic.flags.homed = 1;
-mpap_off();
 mpap.mode = MPAP_STALL_MODE;
 }
 else if (cod_ret == 2)
 {
-mpap_off();
 mpap.mode = MPAP_STALL_MODE;
 
 }
@@ -5928,13 +5913,11 @@ mpap.mode = MPAP_STALL_MODE;
 
 if (mpap.mode == MPAP_STALL_MODE)
 {
-
 mpap.numSteps_tomove = 0x00;
 mpap.mode = MPAP_IDLE_MODE;
 }
 }
 
-# 234
 void mpap_movetoNozzle(int8_t numNozzle)
 {
 
@@ -5952,13 +5935,3 @@ if (mpap.mode == MPAP_IDLE_MODE)
 {return 1;}
 return 0;
 }
-
-# 259
-void l6506d_job(void)
-{
-mpap_step[0]();
-
-while (1){;}
-
-}
-

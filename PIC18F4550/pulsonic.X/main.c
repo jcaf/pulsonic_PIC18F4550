@@ -86,10 +86,10 @@ void mykb_layout0(void)
 
 
 void setdc(uint16_t dc)
-    {
-        CCP2CON = (uint8_t)  ( ((dc&0x03)<<4)| (CCP2CON & 0xCF));
-        CCPR2L = (uint8_t)(dc>>2);
-    }
+{
+    CCP2CON = (uint8_t)  ( ((dc&0x03)<<4)| (CCP2CON & 0xCF));
+    CCPR2L = (uint8_t)(dc>>2);
+}
 
 //#define PR2_VAL 255
 #define PR2_VAL 149
@@ -101,6 +101,7 @@ void setdc(uint16_t dc)
 #define DC_MIN (0.5*DC_TOP)
 #define DC_MAX (0.7*DC_TOP)
 #define MICROSTEP (DC_MAX - DC_MIN)/MICROSTEP_N
+
 void x(void)
 {
     int i=0;
@@ -109,11 +110,11 @@ void x(void)
     for (i=0; i<MICROSTEP_N; i++)
     {
         dc =  DC_MIN + ((i+1)*(MICROSTEP)) ;
-        dc = DC_TOP - dc;//complemente
+        dc = DC_TOP - dc;   //complemento
         setdc(dc);
         __delay_us(50);
     }
-    __delay_us(20);
+    __delay_us(50);
     
     for (i=0; i<MICROSTEP_N; i++)
     {
@@ -123,41 +124,14 @@ void x(void)
         __delay_us(50);
     }
 }
-//WAVE
-#define STEP_WAVE_1A (1<<1)//RD1
-#define STEP_WAVE_2A (1<<2)//RD2
-#define STEP_WAVE_1B (1<<3)//RD3
-#define STEP_WAVE_2B (1<<0)//RD0
-//FULL
-#define STEP_FULL_A (STEP_WAVE_1A | STEP_WAVE_2B)
-#define STEP_FULL_B (STEP_WAVE_1A | STEP_WAVE_2A)
-#define STEP_FULL_C (STEP_WAVE_1B | STEP_WAVE_2A)
-#define STEP_FULL_D (STEP_WAVE_1B | STEP_WAVE_2B)
-
-#define STEP_HALF_1 STEP_WAVE_1A
-#define STEP_HALF_2 STEP_FULL_A
-#define STEP_HALF_3 STEP_WAVE_2A
-#define STEP_HALF_4 STEP_FULL_B
-#define STEP_HALF_5 STEP_WAVE_1B
-#define STEP_HALF_6 STEP_FULL_C
-#define STEP_HALF_7 STEP_WAVE_2B
-#define STEP_HALF_8 STEP_FULL_D
-
-#define STEP_HALF_1 STEP_WAVE_1A
-#define STEP_HALF_2 STEP_FULL_A //(STEP_WAVE_1A | STEP_WAVE_2B)
-#define STEP_HALF_3 STEP_WAVE_2A
-#define STEP_HALF_4 STEP_FULL_B //(STEP_WAVE_2A | STEP_WAVE_1A)
-#define STEP_HALF_5 STEP_WAVE_1B
-#define STEP_HALF_6 STEP_FULL_C //(STEP_WAVE_1B | STEP_WAVE_2A)
-#define STEP_HALF_7 STEP_WAVE_2B
-#define STEP_HALF_8 STEP_FULL_D //(STEP_WAVE_2B | STEP_WAVE_1B)
 
 void bajo2(void)
 {
     int i=0;
+    int y;
     while (1)
     {
-        for (i=0; i< 50; i++)
+        for (i=0; i< 50*18; i++)
         {
             LATD = STEP_WAVE_1A;
             x();
@@ -167,6 +141,12 @@ void bajo2(void)
             x();
             LATD = STEP_WAVE_2B;
             x();
+            
+            if (i%50 == 0)
+            {
+                for(y=0;y<200;y++)
+                __delay_ms(10);
+            }
             
 //            LATD = STEP_FULL_A;
 //            x();
@@ -197,7 +177,7 @@ void bajo2(void)
         for (i=0; i<200; i++)
             {__delay_ms(10);}
 
-        for (i=0; i< 50; i++)
+        for (i=0; i< 50*18; i++)
         {
             LATD = STEP_WAVE_1B;
             x();
@@ -208,6 +188,11 @@ void bajo2(void)
             LATD = STEP_WAVE_2B;
             x();
             
+            if (i%50 == 0)
+            {
+                for(y=0;y<200;y++)
+                __delay_ms(10);
+            }
 //            LATD = STEP_FULL_C;
 //            x();
 //            LATD = STEP_FULL_B;
@@ -239,80 +224,8 @@ void bajo2(void)
   }
 
 }
-void bajo(void)
-{
-    #define d 2
-    int i=0;
-    while (1)
-    {
-        for (i=0; i< 50; i++)
-        {
-            LATD= 1<<3;
-            __delay_ms(d);
-            LATD= 1<<2;
-            __delay_ms(d);
-            LATD= 1<<1;
-            __delay_ms(d);
-            LATD= 1<<0;
-            __delay_ms(d);
 
 
-
-//            LATD= (1<<1) | (1<<2);
-//            __delay_ms(d);
-//            LATD= (1<<1) ;
-//            __delay_ms(d);
-//            LATD= (1<<1) | (1<<0);
-//            __delay_ms(d);
-//            LATD= (1<<0);
-//            __delay_ms(d);
-//            LATD= (1<<3) | (1<<0);
-//            __delay_ms(d);
-//            LATD= (1<<3);
-//            __delay_ms(d);
-//            LATD= (1<<3) | (1<<2);
-//            __delay_ms(d);
-//            LATD= (1<<2);
-//            __delay_ms(d);
-            
-            
-        }
-        for (i=0; i<300; i++)
-            {__delay_ms(10);}
-
-        for (i=0; i< 50; i++)
-        {
-            LATD= 1<<1;
-            __delay_ms(d);
-            LATD= 1<<2;
-            __delay_ms(d);
-            LATD= 1<<3;
-            __delay_ms(d);
-            LATD= 1<<0;
-            __delay_ms(d);
-            
-            
-            
-//            LATD= (1<<3) | (1<<2);
-//            __delay_ms(d);
-//            LATD= (1<<3);
-//            __delay_ms(d);
-//            LATD= (1<<3) | (1<<0);
-//            __delay_ms(d);
-//            LATD= (1<<0);
-//            __delay_ms(d);
-//            LATD= (1<<1) | (1<<0);
-//            __delay_ms(d);
-//            LATD= (1<<1) ;
-//            __delay_ms(d);
-//            LATD= (1<<1) | (1<<2);
-//            __delay_ms(d);
-//            LATD= (1<<2);
-        }
-        for (i=0; i<300; i++)
-            {__delay_ms(10);}
-  }
-}
 void main(void) 
 {
     int8_t c_access_kb=0;
@@ -337,12 +250,11 @@ void main(void)
                     //RC4/RC5 config as digital inputs
     UCON = 0;       //USBEN Disable
     UCFG = 1<<3;    //UTRDIS Digital input enable RC4/RC5
-    T0CON = 0B10000111; //16BITS
-    
-    TMR0H = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256) >> 8);//TMR0H = (uint8_t)(TMR16B_OVF(2e-3, 256) >> 8);
-    TMR0L = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256));//TMR0L = (uint8_t)(TMR16B_OVF(2e-3, 256));
+    //
+    T0CON = 0B10000100; //16BITS
+    TMR0H = (uint8_t)(TMR16B_OVF(1e-3, 32) >> 8);
+    TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 32));
     TMR0IE = 1;
-    
     //.....
     RELAY_ENABLE();
     ConfigOutputPin(CONFIGIOxRELAY, PINxRELAY);
@@ -355,29 +267,18 @@ void main(void)
     ConfigOutputPin(CONFIGIOxSTEPPER_C, PINxSTEPPER_C);
     ConfigOutputPin(CONFIGIOxSTEPPER_D, PINxSTEPPER_D);
     
-    STEPPER_ENABLE();
-    ConfigOutputPin(CONFIGIOxSTEPPER_ENABLE, PINxSTEPPER_ENABLE);
-//+++++--------
-    
-    
+    //+++++--------
     PR2 = PR2_VAL;//255;
-    CCP2CON = 0B00001100;//PWM
     setdc(DC_TOP-DC_MIN);
-    //setdc(DC_TOP/2);
-    
+    STEPPER_ENABLE();//output pin
     T2CON = 0b00000101;
- //while (1)   ;
-    //bajo();
-    bajo2();
-    //while (1);
-    /*
-     T2CKPS1:T2CKPS0: Timer2 Clock Prescale Select bits
-00 = Prescaler is 1
-01 = Prescaler is 4
-1x = Prescaler is 16
-     */
-    //l6506d_job();
-//--------+++++
+    //T2CKPS1:T2CKPS0: Timer2 Clock Prescale Select bits
+    //00 = Prescaler is 1
+    //01 = Prescaler is 4
+    //1x = Prescaler is 16
+    CCP2CON = 0B00001100;//PWM
+    //bajo2();
+
     //
     ConfigInputPin(CONFIGIOxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME);
 
@@ -402,16 +303,13 @@ void main(void)
     startSig = is_startSignal();
     startSig_last = startSig; 
     //
+    TMR2IE = 1;
+    PEIE = 1;
     GIE = 1;
-    
-//++++++++++
-    autoMode_cmd(JOB_RESTART);    
-    while (1)
-    {
-        autoModexxx_job();
-    }
-    
-    
+
+//mpap.mode = MPAP_HOMMING_MODE;
+//while(1);
+
     while(1)
     {
         if (isr_flag.f1ms)
@@ -603,23 +501,98 @@ void main(void)
     }
 }
 
-void interrupt INTERRUPCION(void)//@1ms 
+/*DC_TOP - (x) is for complement to inverted Enable chip */
+const uint16_t ustep_lockup[MICROSTEP_N+1]=
+{   DC_TOP -(DC_MIN+(MICROSTEP*0)), //MIN
+    DC_TOP -(DC_MIN+(MICROSTEP*1)), 
+    DC_TOP -(DC_MIN+(MICROSTEP*2)), 
+    DC_TOP -(DC_MIN+(MICROSTEP*3)), 
+    DC_TOP -(DC_MIN+(MICROSTEP*4)), //MAX
+};
+/*
+octave:34> (65536) - (1e-3*48e6/(32*4)) 
+ans =  65161
+ */
+void interrupt INTERRUPCION(void)
 {
+    static uint8_t ustep_sm0;
+    static int8_t ustep_c = 1;
+    
     static int8_t c;
+    static int8_t en;
+    
     if (TMR0IF)
     {
         isr_flag.f1ms = 1;
-        if (++c == 2)
+        TMR0IF = 0;
+        TMR0H = (uint8_t)(TMR16B_OVF(1e-3, 32) >> 8);
+        TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 32));
+    }
+    
+    if (TMR2IF)
+    {
+        if (ustep_sm0 == 0)
         {
-            c=0;
             mpap_job();
+            //mpap_do1step(+1);
+            if (mpap.mode > MPAP_STALL_MODE)
+            {
+                ustep_sm0++;
+            }
+        }
+        if (ustep_sm0 == 1)
+        {
+            if (!en)
+            {
+                setdc(ustep_lockup[ustep_c]);
+                if (++ustep_c == (MICROSTEP_N+1) )
+                {
+                    ustep_c = 0x00;
+                    ustep_sm0++;
+                }
+                en =1;
+            }
+            if (++c == 2)
+            {
+                c = 0;
+                en = 0;
+            }
         }
         
-        //
-        TMR0IF = 0;
-        TMR0H = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256) >> 8);
-        TMR0L = (uint8_t)(TMR16B_OVF(MPAP_DELAY_BY_STEPS, 256));
+        else if (ustep_sm0 == 2)
+        {
+            if (++ustep_c == 10)
+            {
+                ustep_c = 0x3;
+                ustep_sm0++;
+                //
+                en = 0;
+                c = 0;
+            }
+        }
+        else if (ustep_sm0 == 3)
+        {
+            if (!en)
+            {
+                setdc( ustep_lockup[ustep_c] );
+
+                if (--ustep_c < 0)
+                {
+                    ustep_c = 1;
+                    ustep_sm0 = 0x0;
+                }
+                en = 1;
+            }
+            if (++c == 2)
+            {
+                c = 0;
+                en = 0;
+            }
+        }
+        
+        TMR2IF = 0;
     }
+    
 }
 
 
