@@ -5736,17 +5736,26 @@ struct _pulsonic
 {
 union _errorFlag error;
 
-uint16_t Kticks_0p1ml;
-uint16_t dist_total_time;
-uint16_t dist_access_time;
+double ml_x1tick;
+double dist_total_time;
+double dist_access_time;
+double timeslice;
 
-double sum_all_mlh;
+
 
 struct _pulsonic_nozzle
 {
 double Q_mlh;
-uint16_t total_ticks_mlh;
-int8_t nticks_slicetime;
+double nticks_xtimeslice;
+double kmax_ticks_xtimeslice;
+
+double accError;
+
+
+
+int counterTicks_xTotalTime;
+uint16_t nticks_delivered_inThisTimeSlice;
+
 }nozzle[8];
 
 struct _pulsonic_oil
@@ -5754,6 +5763,11 @@ struct _pulsonic_oil
 int8_t i;
 int8_t viscosity;
 }oil;
+
+double sum_all_mlh;
+int8_t numNozzleAvailable;
+uint32_t kTimeBetweenNozzleAvailable;
+uint32_t countTimeBetweenNozzleAvailable;
 
 struct _pulsonic_display
 {
@@ -5775,6 +5789,7 @@ extern const int8_t OIL_VISCOSITY[4];
 
 void pulsonic_init(void);
 double pulsonic_getTotalSum_mlh(void);
+int8_t pulsonic_getNumNozzleAvailable(void);
 
 # 5 "nozzle.c"
 double NOZZLE_QTY_DIFF = 0.1;

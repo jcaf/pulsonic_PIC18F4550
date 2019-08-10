@@ -16,22 +16,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 "25
 [u S565 `S566 1 `c 1 ]
 [n S565 _errorFlag f packed ]
-"50
-[s S568 `d 1 `ui 1 `c 1 ]
-[n S568 _pulsonic_nozzle Q_mlh total_ticks_mlh nticks_slicetime ]
-"57
+"51
+[s S568 `d 1 `d 1 `d 1 `d 1 `i 1 `ui 1 ]
+[n S568 _pulsonic_nozzle Q_mlh nticks_xtimeslice kmax_ticks_xtimeslice accError counterTicks_xTotalTime nticks_delivered_inThisTimeSlice ]
+"66
 [s S569 `c 1 `c 1 ]
 [n S569 _pulsonic_oil i viscosity ]
-"63
+"77
 [s S570 `uc -> 3 `i `uc -> 2 `i ]
 [n S570 _pulsonic_display qty mode ]
-"69
+"83
 [s S571 :1 `uc 1 :7 `uc 1 ]
 [n S571 _pulsonic_flags homed __a ]
 "40
-[s S567 `S565 1 `ui 1 `ui 1 `ui 1 `d 1 `S568 -> 8 `i `S569 1 `S570 1 `S571 1 ]
-[n S567 _pulsonic error Kticks_0p1ml dist_total_time dist_access_time sum_all_mlh nozzle oil disp7s flags ]
-"77
+[s S567 `S565 1 `d 1 `d 1 `d 1 `d 1 `S568 -> 8 `i `S569 1 `d 1 `c 1 `ul 1 `ul 1 `S570 1 `S571 1 ]
+[n S567 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable disp7s flags ]
+"91
 [v _pulsonic `VS567 ~T0 @X0 0 e ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
@@ -4393,36 +4393,44 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 40: struct _pulsonic
 [; ;pulsonic.h: 41: {
 [; ;pulsonic.h: 42: union _errorFlag error;
-[; ;pulsonic.h: 44: uint16_t Kticks_0p1ml;
-[; ;pulsonic.h: 45: uint16_t dist_total_time;
-[; ;pulsonic.h: 46: uint16_t dist_access_time;
-[; ;pulsonic.h: 48: double sum_all_mlh;
-[; ;pulsonic.h: 50: struct _pulsonic_nozzle
-[; ;pulsonic.h: 51: {
-[; ;pulsonic.h: 52: double Q_mlh;
-[; ;pulsonic.h: 53: uint16_t total_ticks_mlh;
-[; ;pulsonic.h: 54: int8_t nticks_slicetime;
-[; ;pulsonic.h: 55: }nozzle[8];
-[; ;pulsonic.h: 57: struct _pulsonic_oil
-[; ;pulsonic.h: 58: {
-[; ;pulsonic.h: 59: int8_t i;
-[; ;pulsonic.h: 60: int8_t viscosity;
-[; ;pulsonic.h: 61: }oil;
-[; ;pulsonic.h: 63: struct _pulsonic_display
-[; ;pulsonic.h: 64: {
-[; ;pulsonic.h: 65: uint8_t qty[3];
-[; ;pulsonic.h: 66: uint8_t mode[2];
-[; ;pulsonic.h: 67: }disp7s;
-[; ;pulsonic.h: 69: struct _pulsonic_flags
-[; ;pulsonic.h: 70: {
-[; ;pulsonic.h: 71: unsigned homed:1;
-[; ;pulsonic.h: 72: unsigned __a:7;
-[; ;pulsonic.h: 73: }flags;
-[; ;pulsonic.h: 75: };
-[; ;pulsonic.h: 77: extern volatile struct _pulsonic pulsonic;
-[; ;pulsonic.h: 79: extern const int8_t OIL_VISCOSITY[4];
-[; ;pulsonic.h: 81: void pulsonic_init(void);
-[; ;pulsonic.h: 82: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 44: double ml_x1tick;
+[; ;pulsonic.h: 45: double dist_total_time;
+[; ;pulsonic.h: 46: double dist_access_time;
+[; ;pulsonic.h: 47: double timeslice;
+[; ;pulsonic.h: 51: struct _pulsonic_nozzle
+[; ;pulsonic.h: 52: {
+[; ;pulsonic.h: 53: double Q_mlh;
+[; ;pulsonic.h: 54: double nticks_xtimeslice;
+[; ;pulsonic.h: 55: double kmax_ticks_xtimeslice;
+[; ;pulsonic.h: 57: double accError;
+[; ;pulsonic.h: 61: int counterTicks_xTotalTime;
+[; ;pulsonic.h: 62: uint16_t nticks_delivered_inThisTimeSlice;
+[; ;pulsonic.h: 64: }nozzle[8];
+[; ;pulsonic.h: 66: struct _pulsonic_oil
+[; ;pulsonic.h: 67: {
+[; ;pulsonic.h: 68: int8_t i;
+[; ;pulsonic.h: 69: int8_t viscosity;
+[; ;pulsonic.h: 70: }oil;
+[; ;pulsonic.h: 72: double sum_all_mlh;
+[; ;pulsonic.h: 73: int8_t numNozzleAvailable;
+[; ;pulsonic.h: 74: uint32_t kTimeBetweenNozzleAvailable;
+[; ;pulsonic.h: 75: uint32_t countTimeBetweenNozzleAvailable;
+[; ;pulsonic.h: 77: struct _pulsonic_display
+[; ;pulsonic.h: 78: {
+[; ;pulsonic.h: 79: uint8_t qty[3];
+[; ;pulsonic.h: 80: uint8_t mode[2];
+[; ;pulsonic.h: 81: }disp7s;
+[; ;pulsonic.h: 83: struct _pulsonic_flags
+[; ;pulsonic.h: 84: {
+[; ;pulsonic.h: 85: unsigned homed:1;
+[; ;pulsonic.h: 86: unsigned __a:7;
+[; ;pulsonic.h: 87: }flags;
+[; ;pulsonic.h: 89: };
+[; ;pulsonic.h: 91: extern volatile struct _pulsonic pulsonic;
+[; ;pulsonic.h: 93: extern const int8_t OIL_VISCOSITY[4];
+[; ;pulsonic.h: 95: void pulsonic_init(void);
+[; ;pulsonic.h: 96: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 97: int8_t pulsonic_getNumNozzleAvailable(void);
 "5 mpap.c
 [v __mpap_step1 `(v ~T0 @X0 1 sf ]
 "6
@@ -4566,31 +4574,31 @@ Version 3.2 HI-TECH Software Intermediate Code
 "81
 [f ]
 "82
-[v F4834 `c ~T0 @X0 1 s i ]
-[i F4834
+[v F4843 `c ~T0 @X0 1 s i ]
+[i F4843
 -> -U -> 1 `i `c
 ]
 [; ;mpap.c: 82: static int8_t i = -1;
 [; ;mpap.c: 84: i= i + KI;
 "84
-[e = F4834 -> + -> F4834 `i -> _KI `i `c ]
+[e = F4843 -> + -> F4843 `i -> _KI `i `c ]
 [; ;mpap.c: 85: if (i>3){i=0;}
 "85
-[e $ ! > -> F4834 `i -> 3 `i 580  ]
+[e $ ! > -> F4843 `i -> 3 `i 580  ]
 {
-[e = F4834 -> -> 0 `i `c ]
+[e = F4843 -> -> 0 `i `c ]
 }
 [e :U 580 ]
 [; ;mpap.c: 86: if (i<0){i=3;}
 "86
-[e $ ! < -> F4834 `i -> 0 `i 581  ]
+[e $ ! < -> F4843 `i -> 0 `i 581  ]
 {
-[e = F4834 -> -> 3 `i `c ]
+[e = F4843 -> -> 3 `i `c ]
 }
 [e :U 581 ]
 [; ;mpap.c: 88: mpap_step[i]();
 "88
-[e ( *U *U + &U _mpap_step * -> -> F4834 `uc `ux -> -> # *U &U _mpap_step `ui `ux ..  ]
+[e ( *U *U + &U _mpap_step * -> -> F4843 `uc `ux -> -> # *U &U _mpap_step `ui `ux ..  ]
 [; ;mpap.c: 89: }
 "89
 [e :UE 579 ]
@@ -4752,7 +4760,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;mpap.c: 154: pulsonic.flags.homed = 1;
 "154
-[e = . . _pulsonic 8 0 -> -> 1 `i `uc ]
+[e = . . _pulsonic 12 0 -> -> 1 `i `uc ]
 [; ;mpap.c: 155: mpap.mode = MPAP_STALL_MODE;
 "155
 [e = . _mpap 4 -> . `E4715 1 `c ]

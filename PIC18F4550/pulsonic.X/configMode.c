@@ -188,6 +188,8 @@ static int8_t configMode_kb(void)
         //next address is for index-of-OIL_VISCOSITY[]
         eepromWrite(EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)), pulsonic.oil.i);
         //
+        pulsonic.numNozzleAvailable = pulsonic_getNumNozzleAvailable();//reinicia una nueva cuenta
+        //
         flushAtNozzle_active = 0;
         flushAtNozzle_cmd(JOB_STOP);
         

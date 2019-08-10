@@ -84,7 +84,6 @@ void mykb_layout0(void)
     ikb_setKeyProp(KB_LYOUT_KEY_FLUSHENTER, prop);
 }
 
-
 void setdc(uint16_t dc)
 {
     CCP2CON = (uint8_t)  ( ((dc&0x03)<<4)| (CCP2CON & 0xCF));
@@ -92,138 +91,15 @@ void setdc(uint16_t dc)
 }
 
 //#define PR2_VAL 255
-#define PR2_VAL 149
+#define PR2_VAL 149 //20khz-> 50us
 #define DC_TOP (PR2_VAL<<2)
 
 #define MICROSTEP_N 4
 //#define DC_MIN 0.5*1024f
 //#define DC_MAX 0.7*1024f
 #define DC_MIN (0.5*DC_TOP)
-#define DC_MAX (0.7*DC_TOP)
+#define DC_MAX (0.8*DC_TOP)
 #define MICROSTEP (DC_MAX - DC_MIN)/MICROSTEP_N
-
-void x(void)
-{
-    int i=0;
-    uint16_t dc;
-    
-    for (i=0; i<MICROSTEP_N; i++)
-    {
-        dc =  DC_MIN + ((i+1)*(MICROSTEP)) ;
-        dc = DC_TOP - dc;   //complemento
-        setdc(dc);
-        __delay_us(50);
-    }
-    __delay_us(50);
-    
-    for (i=0; i<MICROSTEP_N; i++)
-    {
-        dc = DC_MAX - ((i+1)*(MICROSTEP));
-        dc = DC_TOP -dc;
-        setdc(dc);
-        __delay_us(50);
-    }
-}
-
-void bajo2(void)
-{
-    int i=0;
-    int y;
-    while (1)
-    {
-        for (i=0; i< 50*18; i++)
-        {
-            LATD = STEP_WAVE_1A;
-            x();
-            LATD = STEP_WAVE_2A;
-            x();
-            LATD = STEP_WAVE_1B;
-            x();
-            LATD = STEP_WAVE_2B;
-            x();
-            
-            if (i%50 == 0)
-            {
-                for(y=0;y<200;y++)
-                __delay_ms(10);
-            }
-            
-//            LATD = STEP_FULL_A;
-//            x();
-//            LATD = STEP_FULL_B;
-//            x();
-//            LATD = STEP_FULL_C;
-//            x();
-//            LATD = STEP_FULL_D;
-//            x();
-            
-//            LATD = STEP_HALF_1;
-//            x();
-//            LATD = STEP_HALF_2;
-//            x();
-//            LATD = STEP_HALF_3;
-//            x();
-//            LATD = STEP_HALF_4;
-//            x();
-//            LATD = STEP_HALF_5;
-//            x();
-//            LATD = STEP_HALF_6;
-//            x();
-//            LATD = STEP_HALF_7;
-//            x();
-//            LATD = STEP_HALF_8;
-//            x();
-        }
-        for (i=0; i<200; i++)
-            {__delay_ms(10);}
-
-        for (i=0; i< 50*18; i++)
-        {
-            LATD = STEP_WAVE_1B;
-            x();
-            LATD = STEP_WAVE_2A;
-            x();
-            LATD = STEP_WAVE_1A;
-            x();
-            LATD = STEP_WAVE_2B;
-            x();
-            
-            if (i%50 == 0)
-            {
-                for(y=0;y<200;y++)
-                __delay_ms(10);
-            }
-//            LATD = STEP_FULL_C;
-//            x();
-//            LATD = STEP_FULL_B;
-//            x();
-//            LATD = STEP_FULL_A;
-//            x();
-//            LATD = STEP_FULL_D;
-//            x();
-//            LATD = STEP_HALF_7;
-//            x();
-//            LATD = STEP_HALF_6;
-//            x();
-//            LATD = STEP_HALF_5;
-//            x();
-//            LATD = STEP_HALF_4;
-//            x();
-//            LATD = STEP_HALF_3;
-//            x();
-//            LATD = STEP_HALF_2;
-//            x();
-//            LATD = STEP_HALF_1;
-//            x();
-//            LATD = STEP_HALF_8;
-//            x();
-            
-        }
-        for (i=0; i<200; i++)
-            {__delay_ms(10);}
-  }
-
-}
 
 
 void main(void) 
@@ -251,10 +127,10 @@ void main(void)
     UCON = 0;       //USBEN Disable
     UCFG = 1<<3;    //UTRDIS Digital input enable RC4/RC5
     //
-    T0CON = 0B10000100; //16BITS
-    TMR0H = (uint8_t)(TMR16B_OVF(1e-3, 32) >> 8);
-    TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 32));
-    TMR0IE = 1;
+//    T0CON = 0B10000100; //16BITS
+//    TMR0H = (uint8_t)(TMR16B_OVF(1e-3, 32) >> 8);
+//    TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 32));
+//    TMR0IE = 1;
     //.....
     RELAY_ENABLE();
     ConfigOutputPin(CONFIGIOxRELAY, PINxRELAY);
@@ -283,6 +159,8 @@ void main(void)
     ConfigInputPin(CONFIGIOxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME);
 
     ConfigInputPin(CONFIGIOxOILLEVEL, PINxOILLEVEL);//ext. pullup
+    //ConfigOutputPin(CONFIGIOxOILLEVEL, PINxOILLEVEL);//ext. pullup    
+
     ConfigInputPin(CONFIGIOxSTARTSIGNAL, PINxSTARTSIGNAL);//ext. pullup
     
     ikb_init();
@@ -508,6 +386,11 @@ const uint16_t ustep_lockup[MICROSTEP_N+1]=
     DC_TOP -(DC_MIN+(MICROSTEP*2)), 
     DC_TOP -(DC_MIN+(MICROSTEP*3)), 
     DC_TOP -(DC_MIN+(MICROSTEP*4)), //MAX
+//
+//DC_TOP -(DC_MIN+(MICROSTEP*5)), //MAX
+//DC_TOP -(DC_MIN+(MICROSTEP*6)), //MAX
+//DC_TOP -(DC_MIN+(MICROSTEP*7)), //MAX
+//DC_TOP -(DC_MIN+(MICROSTEP*8)), //MAX
 };
 /*
 octave:34> (65536) - (1e-3*48e6/(32*4)) 
@@ -518,16 +401,7 @@ void interrupt INTERRUPCION(void)
     static uint8_t ustep_sm0;
     static int8_t ustep_c = 1;
     
-    static int8_t c;
-    static int8_t en;
-    
-    if (TMR0IF)
-    {
-        isr_flag.f1ms = 1;
-        TMR0IF = 0;
-        TMR0H = (uint8_t)(TMR16B_OVF(1e-3, 32) >> 8);
-        TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 32));
-    }
+    static int8_t cticks;
     
     if (TMR2IF)
     {
@@ -542,56 +416,50 @@ void interrupt INTERRUPCION(void)
         }
         if (ustep_sm0 == 1)
         {
-            if (!en)
+            setdc(ustep_lockup[ustep_c]);
+            if (++ustep_c == (MICROSTEP_N+1) )
             {
-                setdc(ustep_lockup[ustep_c]);
-                if (++ustep_c == (MICROSTEP_N+1) )
-                {
-                    ustep_c = 0x00;
-                    ustep_sm0++;
-                }
-                en =1;
-            }
-            if (++c == 2)
-            {
-                c = 0;
-                en = 0;
+                ustep_c = 0x00;
+                ustep_sm0++;
             }
         }
         
         else if (ustep_sm0 == 2)
         {
-            if (++ustep_c == 10)
+            if (++ustep_c == 12)//12
             {
-                ustep_c = 0x3;
+                ustep_c = MICROSTEP_N-1;//ustep_c = 0x3;
                 ustep_sm0++;
-                //
-                en = 0;
-                c = 0;
             }
         }
         else if (ustep_sm0 == 3)
         {
-            if (!en)
-            {
-                setdc( ustep_lockup[ustep_c] );
+            setdc( ustep_lockup[ustep_c] );
 
-                if (--ustep_c < 0)
-                {
-                    ustep_c = 1;
-                    ustep_sm0 = 0x0;
-                }
-                en = 1;
-            }
-            if (++c == 2)
+            if (--ustep_c < 0)
             {
-                c = 0;
-                en = 0;
+                ustep_c = 1;
+                ustep_sm0 = 0x0;
+                //LATC0 =!LATC0;//aqui deberia tener 1ms: OK Correcto!
             }
         }
-        
+        //
+        if (++cticks == 20)//50us*20 = 1ms
+        {
+            isr_flag.f1ms = 1;
+            cticks = 0x00;
+        }
+        //
         TMR2IF = 0;
     }
+    
+//    if (TMR0IF)
+//    {
+//        isr_flag.f1ms = 1;
+//        TMR0IF = 0;
+//        TMR0H = (uint8_t)(TMR16B_OVF(1e-3, 32) >> 8);
+//        TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 32));
+//    }
     
 }
 

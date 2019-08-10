@@ -5701,17 +5701,26 @@ struct _pulsonic
 {
 union _errorFlag error;
 
-uint16_t Kticks_0p1ml;
-uint16_t dist_total_time;
-uint16_t dist_access_time;
+double ml_x1tick;
+double dist_total_time;
+double dist_access_time;
+double timeslice;
 
-double sum_all_mlh;
+
 
 struct _pulsonic_nozzle
 {
 double Q_mlh;
-uint16_t total_ticks_mlh;
-int8_t nticks_slicetime;
+double nticks_xtimeslice;
+double kmax_ticks_xtimeslice;
+
+double accError;
+
+
+
+int counterTicks_xTotalTime;
+uint16_t nticks_delivered_inThisTimeSlice;
+
 }nozzle[8];
 
 struct _pulsonic_oil
@@ -5719,6 +5728,11 @@ struct _pulsonic_oil
 int8_t i;
 int8_t viscosity;
 }oil;
+
+double sum_all_mlh;
+int8_t numNozzleAvailable;
+uint32_t kTimeBetweenNozzleAvailable;
+uint32_t countTimeBetweenNozzleAvailable;
 
 struct _pulsonic_display
 {
@@ -5740,6 +5754,7 @@ extern const int8_t OIL_VISCOSITY[4];
 
 void pulsonic_init(void);
 double pulsonic_getTotalSum_mlh(void);
+int8_t pulsonic_getNumNozzleAvailable(void);
 
 # 11 "mpap.h"
 enum MPAP_MODES
@@ -5853,7 +5868,45 @@ extern const struct _key_prop propEmpty;
 void flushAllMode_cmd(int8_t cmd);
 void flushAllMode_job(void);
 
-# 10 "autoMode.c"
+# 16 "autoMode.c"
+double Qmhl_measured = 5.0;
+double nTicks_measured = 231;
+
+void autoMode_setup(void)
+{
+int i;
+double nticksReq_xTotalTime;
+
+
+pulsonic.ml_x1tick = Qmhl_measured/nTicks_measured;
+
+
+pulsonic.dist_total_time = 60;
+pulsonic.dist_access_time = 2;
+pulsonic.timeslice = pulsonic.dist_total_time/pulsonic.dist_access_time;
+
+pulsonic.kTimeBetweenNozzleAvailable = (uint16_t) ( (pulsonic.dist_access_time* 1000)/ pulsonic.numNozzleAvailable);
+pulsonic.countTimeBetweenNozzleAvailable = 0x0000;
+
+
+for (i=0; i<8; i++)
+{
+if (nozzle_isEnabled(i))
+{
+
+nticksReq_xTotalTime = pulsonic.nozzle[i].Q_mlh / pulsonic.ml_x1tick;
+pulsonic.nozzle[i].nticks_xtimeslice = nticksReq_xTotalTime / pulsonic.timeslice;
+
+if (pulsonic.nozzle[i].nticks_xtimeslice <1)
+{pulsonic.nozzle[i].kmax_ticks_xtimeslice = 1;}
+else
+{pulsonic.nozzle[i].kmax_ticks_xtimeslice = (uint16_t)pulsonic.nozzle[i].nticks_xtimeslice;}
+}
+
+}
+
+
+}
 static struct _autoMode
 {
 int8_t numNozzle;
@@ -5883,6 +5936,7 @@ pump_stop();
 mpap.mode = MPAP_STALL_MODE;
 }
 
+# 182
 void autoMode_job(void)
 {
 static uint16_t c_ms;

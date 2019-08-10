@@ -35,26 +35,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 "25
 [u S564 `S565 1 `c 1 ]
 [n S564 _errorFlag f packed ]
-"50
-[s S567 `d 1 `ui 1 `c 1 ]
-[n S567 _pulsonic_nozzle Q_mlh total_ticks_mlh nticks_slicetime ]
-"57
+"51
+[s S567 `d 1 `d 1 `d 1 `d 1 `i 1 `ui 1 ]
+[n S567 _pulsonic_nozzle Q_mlh nticks_xtimeslice kmax_ticks_xtimeslice accError counterTicks_xTotalTime nticks_delivered_inThisTimeSlice ]
+"66
 [s S568 `c 1 `c 1 ]
 [n S568 _pulsonic_oil i viscosity ]
-"63
+"77
 [s S569 `uc -> 3 `i `uc -> 2 `i ]
 [n S569 _pulsonic_display qty mode ]
-"69
+"83
 [s S570 :1 `uc 1 :7 `uc 1 ]
 [n S570 _pulsonic_flags homed __a ]
 "40
-[s S566 `S564 1 `ui 1 `ui 1 `ui 1 `d 1 `S567 -> 8 `i `S568 1 `S569 1 `S570 1 ]
-[n S566 _pulsonic error Kticks_0p1ml dist_total_time dist_access_time sum_all_mlh nozzle oil disp7s flags ]
-"77
+[s S566 `S564 1 `d 1 `d 1 `d 1 `d 1 `S567 -> 8 `i `S568 1 `d 1 `c 1 `ul 1 `ul 1 `S569 1 `S570 1 ]
+[n S566 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable disp7s flags ]
+"91
 [v _pulsonic `VS566 ~T0 @X0 0 e ]
 "16 nozzle.h
 [v _NOZZLE_QTY_DIFF `d ~T0 @X0 0 e ]
-"79 pulsonic.h
+"93 pulsonic.h
 [v _OIL_VISCOSITY `Cc ~T0 @X0 -> 0 `x e ]
 "12 flushAtNozzle.h
 [v _flushAtNozzle_setNozzle `(v ~T0 @X0 0 ef1`c ]
@@ -67,6 +67,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _eepromWrite_double `(v ~T0 @X0 0 ef2`*uc`d ]
 "11
 [v _eepromWrite `(v ~T0 @X0 0 ef2`uc`uc ]
+"97 pulsonic.h
+[v _pulsonic_getNumNozzleAvailable `(c ~T0 @X0 0 ef ]
 "170 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h
 [v _propEmpty `CS571 ~T0 @X0 0 e ]
 "169
@@ -4419,36 +4421,44 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 40: struct _pulsonic
 [; ;pulsonic.h: 41: {
 [; ;pulsonic.h: 42: union _errorFlag error;
-[; ;pulsonic.h: 44: uint16_t Kticks_0p1ml;
-[; ;pulsonic.h: 45: uint16_t dist_total_time;
-[; ;pulsonic.h: 46: uint16_t dist_access_time;
-[; ;pulsonic.h: 48: double sum_all_mlh;
-[; ;pulsonic.h: 50: struct _pulsonic_nozzle
-[; ;pulsonic.h: 51: {
-[; ;pulsonic.h: 52: double Q_mlh;
-[; ;pulsonic.h: 53: uint16_t total_ticks_mlh;
-[; ;pulsonic.h: 54: int8_t nticks_slicetime;
-[; ;pulsonic.h: 55: }nozzle[8];
-[; ;pulsonic.h: 57: struct _pulsonic_oil
-[; ;pulsonic.h: 58: {
-[; ;pulsonic.h: 59: int8_t i;
-[; ;pulsonic.h: 60: int8_t viscosity;
-[; ;pulsonic.h: 61: }oil;
-[; ;pulsonic.h: 63: struct _pulsonic_display
-[; ;pulsonic.h: 64: {
-[; ;pulsonic.h: 65: uint8_t qty[3];
-[; ;pulsonic.h: 66: uint8_t mode[2];
-[; ;pulsonic.h: 67: }disp7s;
-[; ;pulsonic.h: 69: struct _pulsonic_flags
-[; ;pulsonic.h: 70: {
-[; ;pulsonic.h: 71: unsigned homed:1;
-[; ;pulsonic.h: 72: unsigned __a:7;
-[; ;pulsonic.h: 73: }flags;
-[; ;pulsonic.h: 75: };
-[; ;pulsonic.h: 77: extern volatile struct _pulsonic pulsonic;
-[; ;pulsonic.h: 79: extern const int8_t OIL_VISCOSITY[4];
-[; ;pulsonic.h: 81: void pulsonic_init(void);
-[; ;pulsonic.h: 82: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 44: double ml_x1tick;
+[; ;pulsonic.h: 45: double dist_total_time;
+[; ;pulsonic.h: 46: double dist_access_time;
+[; ;pulsonic.h: 47: double timeslice;
+[; ;pulsonic.h: 51: struct _pulsonic_nozzle
+[; ;pulsonic.h: 52: {
+[; ;pulsonic.h: 53: double Q_mlh;
+[; ;pulsonic.h: 54: double nticks_xtimeslice;
+[; ;pulsonic.h: 55: double kmax_ticks_xtimeslice;
+[; ;pulsonic.h: 57: double accError;
+[; ;pulsonic.h: 61: int counterTicks_xTotalTime;
+[; ;pulsonic.h: 62: uint16_t nticks_delivered_inThisTimeSlice;
+[; ;pulsonic.h: 64: }nozzle[8];
+[; ;pulsonic.h: 66: struct _pulsonic_oil
+[; ;pulsonic.h: 67: {
+[; ;pulsonic.h: 68: int8_t i;
+[; ;pulsonic.h: 69: int8_t viscosity;
+[; ;pulsonic.h: 70: }oil;
+[; ;pulsonic.h: 72: double sum_all_mlh;
+[; ;pulsonic.h: 73: int8_t numNozzleAvailable;
+[; ;pulsonic.h: 74: uint32_t kTimeBetweenNozzleAvailable;
+[; ;pulsonic.h: 75: uint32_t countTimeBetweenNozzleAvailable;
+[; ;pulsonic.h: 77: struct _pulsonic_display
+[; ;pulsonic.h: 78: {
+[; ;pulsonic.h: 79: uint8_t qty[3];
+[; ;pulsonic.h: 80: uint8_t mode[2];
+[; ;pulsonic.h: 81: }disp7s;
+[; ;pulsonic.h: 83: struct _pulsonic_flags
+[; ;pulsonic.h: 84: {
+[; ;pulsonic.h: 85: unsigned homed:1;
+[; ;pulsonic.h: 86: unsigned __a:7;
+[; ;pulsonic.h: 87: }flags;
+[; ;pulsonic.h: 89: };
+[; ;pulsonic.h: 91: extern volatile struct _pulsonic pulsonic;
+[; ;pulsonic.h: 93: extern const int8_t OIL_VISCOSITY[4];
+[; ;pulsonic.h: 95: void pulsonic_init(void);
+[; ;pulsonic.h: 96: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 97: int8_t pulsonic_getNumNozzleAvailable(void);
 [; ;ikb.h: 127: void ikb_init(void);
 [; ;ikb.h: 128: void ikb_job(void);
 [; ;ikb.h: 129: void ikb_flush(void);
@@ -4582,11 +4592,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;configMode.c: 43: int8_t cod_ret = 0;
 [e = _cod_ret -> -> 0 `i `c ]
 "44
-[v F4863 `c ~T0 @X0 1 s flushAtNozzle_active ]
+[v F4872 `c ~T0 @X0 1 s flushAtNozzle_active ]
 "45
 [v _prop `S571 ~T0 @X0 1 a ]
-[v F4865 `S571 ~T0 @X0 1 s ]
-[i F4865
+[v F4874 `S571 ~T0 @X0 1 s ]
+[i F4874
 :U ..
 :U ..
 :U ..
@@ -4603,10 +4613,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [; ;configMode.c: 44: static int8_t flushAtNozzle_active;
 [; ;configMode.c: 45: struct _key_prop prop = {0};
-[e = _prop F4865 ]
+[e = _prop F4874 ]
 [; ;configMode.c: 47: if (!flushAtNozzle_active)
 "47
-[e $ ! ! != -> F4863 `i -> -> -> 0 `i `c `i 581  ]
+[e $ ! ! != -> F4872 `i -> -> -> 0 `i `c `i 581  ]
 [; ;configMode.c: 48: {
 "48
 {
@@ -4683,7 +4693,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 78: if (!flushAtNozzle_active)
 "78
-[e $ ! ! != -> F4863 `i -> -> -> 0 `i `c `i 588  ]
+[e $ ! ! != -> F4872 `i -> -> -> 0 `i `c `i 588  ]
 [; ;configMode.c: 79: {
 "79
 {
@@ -4785,7 +4795,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 115: if (!flushAtNozzle_active)
 "115
-[e $ ! ! != -> F4863 `i -> -> -> 0 `i `c `i 596  ]
+[e $ ! ! != -> F4872 `i -> -> -> 0 `i `c `i 596  ]
 [; ;configMode.c: 116: {
 "116
 {
@@ -4905,10 +4915,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 157: flushAtNozzle_active = !flushAtNozzle_active;
 "157
-[e = F4863 -> -> ! != -> F4863 `i -> -> -> 0 `i `c `i `i `c ]
+[e = F4872 -> -> ! != -> F4872 `i -> -> -> 0 `i `c `i `i `c ]
 [; ;configMode.c: 159: if (flushAtNozzle_active)
 "159
-[e $ ! != -> F4863 `i -> -> -> 0 `i `c `i 606  ]
+[e $ ! != -> F4872 `i -> -> -> 0 `i `c `i 606  ]
 [; ;configMode.c: 160: {
 "160
 {
@@ -4986,109 +4996,112 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;configMode.c: 189: eepromWrite(0x00 + (8*sizeof(double)), pulsonic.oil.i);
 "189
 [e ( _eepromWrite (2 , -> + -> -> 0 `i `ui * -> -> 8 `i `ui -> # `d `ui `uc -> . . _pulsonic 6 0 `uc ]
-[; ;configMode.c: 191: flushAtNozzle_active = 0;
+[; ;configMode.c: 191: pulsonic.numNozzleAvailable = pulsonic_getNumNozzleAvailable();
 "191
-[e = F4863 -> -> 0 `i `c ]
-[; ;configMode.c: 192: flushAtNozzle_cmd(JOB_STOP);
-"192
+[e = . _pulsonic 8 ( _pulsonic_getNumNozzleAvailable ..  ]
+[; ;configMode.c: 193: flushAtNozzle_active = 0;
+"193
+[e = F4872 -> -> 0 `i `c ]
+[; ;configMode.c: 194: flushAtNozzle_cmd(JOB_STOP);
+"194
 [e ( _flushAtNozzle_cmd (1 -> . `E4712 1 `c ]
-[; ;configMode.c: 195: prop = propEmpty;
-"195
-[e = _prop _propEmpty ]
-[; ;configMode.c: 196: prop.uFlag.f.whilePressing = 1;
-"196
-[e = . . . _prop 0 0 3 -> -> 1 `i `uc ]
-[; ;configMode.c: 197: ikb_setKeyProp(4, prop);
+[; ;configMode.c: 197: prop = propEmpty;
 "197
-[e ( _ikb_setKeyProp (2 , -> -> 4 `i `uc _prop ]
-[; ;configMode.c: 199: cod_ret = 1;
+[e = _prop _propEmpty ]
+[; ;configMode.c: 198: prop.uFlag.f.whilePressing = 1;
+"198
+[e = . . . _prop 0 0 3 -> -> 1 `i `uc ]
+[; ;configMode.c: 199: ikb_setKeyProp(4, prop);
 "199
+[e ( _ikb_setKeyProp (2 , -> -> 4 `i `uc _prop ]
+[; ;configMode.c: 201: cod_ret = 1;
+"201
 [e = _cod_ret -> -> 1 `i `c ]
-"200
+"202
 }
 [e :U 608 ]
-[; ;configMode.c: 200: }
-[; ;configMode.c: 202: return cod_ret;
-"202
+[; ;configMode.c: 202: }
+[; ;configMode.c: 204: return cod_ret;
+"204
 [e ) _cod_ret ]
 [e $UE 580  ]
-[; ;configMode.c: 203: }
-"203
+[; ;configMode.c: 205: }
+"205
 [e :UE 580 ]
 }
-"204
-[v _configMode_disp `(v ~T0 @X0 1 sf1`c ]
-"205
-{
-[; ;configMode.c: 204: static void configMode_disp(int8_t numRegistro)
-[; ;configMode.c: 205: {
-[e :U _configMode_disp ]
-"204
-[v _numRegistro `c ~T0 @X0 1 r1 ]
-"205
-[f ]
 "206
-[v _qty `d ~T0 @X0 1 a ]
-[; ;configMode.c: 206: double qty;
-[; ;configMode.c: 208: if (numRegistro < 8)
+[v _configMode_disp `(v ~T0 @X0 1 sf1`c ]
+"207
+{
+[; ;configMode.c: 206: static void configMode_disp(int8_t numRegistro)
+[; ;configMode.c: 207: {
+[e :U _configMode_disp ]
+"206
+[v _numRegistro `c ~T0 @X0 1 r1 ]
+"207
+[f ]
 "208
-[e $ ! < -> _numRegistro `i -> 8 `i 613  ]
-[; ;configMode.c: 209: {
-"209
-{
-[; ;configMode.c: 210: disp7s_modeDisp_writeInt(numRegistro+1);
+[v _qty `d ~T0 @X0 1 a ]
+[; ;configMode.c: 208: double qty;
+[; ;configMode.c: 210: if (numRegistro < 8)
 "210
-[e ( _disp7s_modeDisp_writeInt (1 + -> _numRegistro `i -> 1 `i ]
-[; ;configMode.c: 212: qty = pulsonic.nozzle[numRegistro].Q_mlh;
+[e $ ! < -> _numRegistro `i -> 8 `i 613  ]
+[; ;configMode.c: 211: {
+"211
+{
+[; ;configMode.c: 212: disp7s_modeDisp_writeInt(numRegistro+1);
 "212
-[e = _qty . *U + &U . _pulsonic 5 * -> -> _numRegistro `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 ]
-[; ;configMode.c: 213: if (qty == 0)
-"213
-[e $ ! == _qty -> -> 0 `i `d 614  ]
-[; ;configMode.c: 214: {
+[e ( _disp7s_modeDisp_writeInt (1 + -> _numRegistro `i -> 1 `i ]
+[; ;configMode.c: 214: qty = pulsonic.nozzle[numRegistro].Q_mlh;
 "214
-{
-[; ;configMode.c: 215: disp7s_qtyDisp_writeText_OFF();
+[e = _qty . *U + &U . _pulsonic 5 * -> -> _numRegistro `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 0 ]
+[; ;configMode.c: 215: if (qty == 0)
 "215
-[e ( _disp7s_qtyDisp_writeText_OFF ..  ]
+[e $ ! == _qty -> -> 0 `i `d 614  ]
+[; ;configMode.c: 216: {
 "216
-}
-[; ;configMode.c: 216: }
-[e $U 615  ]
-"217
-[e :U 614 ]
-[; ;configMode.c: 217: else
-[; ;configMode.c: 218: {
-"218
 {
-[; ;configMode.c: 219: disp7s_qtyDisp_writeFloat( qty );
+[; ;configMode.c: 217: disp7s_qtyDisp_writeText_OFF();
+"217
+[e ( _disp7s_qtyDisp_writeText_OFF ..  ]
+"218
+}
+[; ;configMode.c: 218: }
+[e $U 615  ]
 "219
-[e ( _disp7s_qtyDisp_writeFloat (1 -> _qty `f ]
+[e :U 614 ]
+[; ;configMode.c: 219: else
+[; ;configMode.c: 220: {
 "220
+{
+[; ;configMode.c: 221: disp7s_qtyDisp_writeFloat( qty );
+"221
+[e ( _disp7s_qtyDisp_writeFloat (1 -> _qty `f ]
+"222
 }
 [e :U 615 ]
-"221
-}
-[; ;configMode.c: 220: }
-[; ;configMode.c: 221: }
-[e $U 616  ]
-"222
-[e :U 613 ]
-[; ;configMode.c: 222: else
-[; ;configMode.c: 223: {
 "223
-{
-[; ;configMode.c: 224: disp7s_modeDisp_writeText_oil();
+}
+[; ;configMode.c: 222: }
+[; ;configMode.c: 223: }
+[e $U 616  ]
 "224
-[e ( _disp7s_modeDisp_writeText_oil ..  ]
-[; ;configMode.c: 225: disp7s_qtyDisp_writeInt( pulsonic.oil.viscosity );
+[e :U 613 ]
+[; ;configMode.c: 224: else
+[; ;configMode.c: 225: {
 "225
-[e ( _disp7s_qtyDisp_writeInt (1 -> . . _pulsonic 6 1 `i ]
+{
+[; ;configMode.c: 226: disp7s_modeDisp_writeText_oil();
 "226
+[e ( _disp7s_modeDisp_writeText_oil ..  ]
+[; ;configMode.c: 227: disp7s_qtyDisp_writeInt( pulsonic.oil.viscosity );
+"227
+[e ( _disp7s_qtyDisp_writeInt (1 -> . . _pulsonic 6 1 `i ]
+"228
 }
 [e :U 616 ]
-[; ;configMode.c: 226: }
-[; ;configMode.c: 227: }
-"227
+[; ;configMode.c: 228: }
+[; ;configMode.c: 229: }
+"229
 [e :UE 612 ]
 }
