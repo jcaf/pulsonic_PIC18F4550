@@ -4319,31 +4319,31 @@ Version 3.2 HI-TECH Software Intermediate Code
 "8
 [v _reg `uc ~T0 @X0 1 a ]
 [; ;myeeprom.c: 8: uint8_t reg;
-[; ;myeeprom.c: 9: for (reg=0; reg<8; reg++)
+[; ;myeeprom.c: 9: for (reg=0; reg<18; reg++)
 "9
 {
 [e = _reg -> -> 0 `i `uc ]
-[e $ < -> _reg `i -> 8 `i 565  ]
+[e $ < -> _reg `i -> 18 `i 565  ]
 [e $U 566  ]
 "10
 [e :U 565 ]
 [; ;myeeprom.c: 10: {
 {
-[; ;myeeprom.c: 11: eepromWrite_double(&(((double*)0x00)[reg]), 6.5f);
+[; ;myeeprom.c: 11: eepromWrite_double(&(((double*)0x00)[reg]), 12.0f);
 "11
-[e ( _eepromWrite_double (2 , -> &U *U + -> -> 0 `i `*d * -> _reg `ux -> -> # *U -> -> 0 `i `*d `ui `ux `*uc -> -> .6.5 `f `d ]
+[e ( _eepromWrite_double (2 , -> &U *U + -> -> 0 `i `*d * -> _reg `ux -> -> # *U -> -> 0 `i `*d `ui `ux `*uc -> -> .12.0 `f `d ]
 "12
 }
 "9
 [e ++ _reg -> -> 1 `i `uc ]
-[e $ < -> _reg `i -> 8 `i 565  ]
+[e $ < -> _reg `i -> 18 `i 565  ]
 [e :U 566 ]
 "12
 }
 [; ;myeeprom.c: 12: }
-[; ;myeeprom.c: 14: eepromWrite(0x00 + (8*sizeof(double)), 0);
+[; ;myeeprom.c: 14: eepromWrite(0x00 + (18*sizeof(double)), 0);
 "14
-[e ( _eepromWrite (2 , -> + -> -> 0 `i `ui * -> -> 8 `i `ui -> # `d `ui `uc -> -> 0 `i `uc ]
+[e ( _eepromWrite (2 , -> + -> -> 0 `i `ui * -> -> 18 `i `ui -> # `d `ui `uc -> -> 0 `i `uc ]
 [; ;myeeprom.c: 15: }
 "15
 [e :UE 564 ]

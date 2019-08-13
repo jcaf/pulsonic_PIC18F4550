@@ -163,6 +163,7 @@ static int8_t configMode_kb(void)
             }
             else
             {
+                configMode.disp7s_accessReq = 1;//re-imprime
                 flushAtNozzle_cmd(JOB_STOP);
             }
         }
@@ -175,8 +176,8 @@ static int8_t configMode_kb(void)
         (ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_MINUS)==KB_AFTER_THR) &&
         ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
     {
-         ikb_key_was_read(KB_LYOUT_KEY_PLUS);
-            ikb_key_was_read(KB_LYOUT_KEY_MINUS);
+        ikb_key_was_read(KB_LYOUT_KEY_PLUS);
+        ikb_key_was_read(KB_LYOUT_KEY_MINUS);
                 //
         
         /* Update EEPROM*/
@@ -188,7 +189,9 @@ static int8_t configMode_kb(void)
         //next address is for index-of-OIL_VISCOSITY[]
         eepromWrite(EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)), pulsonic.oil.i);
         //
+        //added
         pulsonic.numNozzleAvailable = pulsonic_getNumNozzleAvailable();//reinicia una nueva cuenta
+        //autoMode_setup();//->autoMode_cmd(JOB_RESTART)) alli se hace la llamada
         //
         flushAtNozzle_active = 0;
         flushAtNozzle_cmd(JOB_STOP);
@@ -227,4 +230,3 @@ static void configMode_disp(int8_t numRegistro)
         disp7s_qtyDisp_writeInt( pulsonic.oil.viscosity );
     }
 }
-

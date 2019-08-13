@@ -1,8 +1,7 @@
 #include "main.h"
 #include "pump.h"
 
-#define PUMP_TICK_TIME_ON   25//in ms
-#define PUMP_TICK_TIME_OFF  75//in ms
+
 
 static struct _pump pump;
 

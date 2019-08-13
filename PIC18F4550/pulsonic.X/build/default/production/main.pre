@@ -5721,7 +5721,7 @@ double accError;
 int counterTicks_xTotalTime;
 uint16_t nticks_delivered_inThisTimeSlice;
 
-}nozzle[8];
+}nozzle[18];
 
 struct _pulsonic_oil
 {
@@ -5733,6 +5733,9 @@ double sum_all_mlh;
 int8_t numNozzleAvailable;
 uint32_t kTimeBetweenNozzleAvailable;
 uint32_t countTimeBetweenNozzleAvailable;
+
+int16_t num_timeslice;
+int8_t countNozzleAvailable;
 
 struct _pulsonic_display
 {
@@ -5845,7 +5848,7 @@ uint8_t numGroup;
 void ikb_setKeyProp(uint8_t i, struct _key_prop prop);
 extern const struct _key_prop propEmpty;
 
-# 11 "pump.h"
+# 14 "pump.h"
 struct _pump
 {
 uint16_t ticks;
@@ -6001,7 +6004,7 @@ do{TRISD &= ~(1<<1);}while(0);
 
 
 PR2 = 149;
-setdc((149<<2)-(0.5*(149<<2)));
+setdc((149<<2)-(0.35*(149<<2)));
 do{do{TRISC &= ~(1<<1);}while(0);}while(0);
 T2CON = 0b00000101;
 
@@ -6011,12 +6014,8 @@ T2CON = 0b00000101;
 CCP2CON = 0B00001100;
 
 
-
 do{TRISE |= 1<<1;}while(0);
-
 do{TRISC |= 1<<0;}while(0);
-
-
 do{TRISE |= 1<<2;}while(0);
 
 ikb_init();
@@ -6064,6 +6063,8 @@ c_access_disp = 0;
 disp7s_job();
 }
 }
+
+# 217
 error_job();
 
 startSig = is_startSignal();
@@ -6156,7 +6157,7 @@ if (ikb_key_is_ready2read(0))
 {
 
 
-if (++visMode.numVista >= (8+1))
+if (++visMode.numVista >= (18+1))
 {
 visMode.numVista = -1;
 psFlag.autoMode_toreturn_disp7s = 1;
@@ -6172,7 +6173,7 @@ else if (ikb_key_is_ready2read(1))
 
 
 if (visMode.numVista == -1)
-{visMode.numVista = (8+1);}
+{visMode.numVista = (18+1);}
 
 if (--visMode.numVista < 0)
 {
@@ -6196,6 +6197,7 @@ ikb_key_is_ready2read(3))
 ikb_key_was_read(2);
 ikb_key_was_read(3);
 
+pump_stop();
 mpap.mode = MPAP_STALL_MODE;
 
 funcMach = FUNCMACH_CONFIG;
@@ -6237,16 +6239,15 @@ smain.f.f1ms = 0;
 
 
 const uint16_t ustep_lockup[4+1]=
-{ (149<<2) -((0.5*(149<<2))+(((0.8*(149<<2)) - (0.5*(149<<2)))/4*0)),
-(149<<2) -((0.5*(149<<2))+(((0.8*(149<<2)) - (0.5*(149<<2)))/4*1)),
-(149<<2) -((0.5*(149<<2))+(((0.8*(149<<2)) - (0.5*(149<<2)))/4*2)),
-(149<<2) -((0.5*(149<<2))+(((0.8*(149<<2)) - (0.5*(149<<2)))/4*3)),
-(149<<2) -((0.5*(149<<2))+(((0.8*(149<<2)) - (0.5*(149<<2)))/4*4)),
+{ (149<<2) -((0.35*(149<<2))+(((0.8*(149<<2)) - (0.35*(149<<2)))/4*0)),
+(149<<2) -((0.35*(149<<2))+(((0.8*(149<<2)) - (0.35*(149<<2)))/4*1)),
+(149<<2) -((0.35*(149<<2))+(((0.8*(149<<2)) - (0.35*(149<<2)))/4*2)),
+(149<<2) -((0.35*(149<<2))+(((0.8*(149<<2)) - (0.35*(149<<2)))/4*3)),
+(149<<2) -((0.35*(149<<2))+(((0.8*(149<<2)) - (0.35*(149<<2)))/4*4)),
 
-# 394
+# 401
 };
 
-# 399
 void interrupt INTERRUPCION(void)
 {
 static uint8_t ustep_sm0;
@@ -6274,7 +6275,6 @@ ustep_c = 0x00;
 ustep_sm0++;
 }
 }
-
 else if (ustep_sm0 == 2)
 {
 if (++ustep_c == 12)
@@ -6292,7 +6292,6 @@ if (--ustep_c < 0)
 ustep_c = 1;
 ustep_sm0 = 0x0;
 
-# 448
 }
 }
 
@@ -6305,9 +6304,8 @@ cticks = 0x00;
 TMR2IF = 0;
 }
 
-# 468
+# 470
 }
-
 
 static union _errorFlag error_grantedToWriteDisp;
 static void errorHandler_queue(void);

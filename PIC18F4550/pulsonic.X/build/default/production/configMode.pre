@@ -5725,7 +5725,7 @@ double accError;
 int counterTicks_xTotalTime;
 uint16_t nticks_delivered_inThisTimeSlice;
 
-}nozzle[8];
+}nozzle[18];
 
 struct _pulsonic_oil
 {
@@ -5737,6 +5737,9 @@ double sum_all_mlh;
 int8_t numNozzleAvailable;
 uint32_t kTimeBetweenNozzleAvailable;
 uint32_t countTimeBetweenNozzleAvailable;
+
+int16_t num_timeslice;
+int8_t countNozzleAvailable;
 
 struct _pulsonic_display
 {
@@ -5863,7 +5866,7 @@ if (ikb_key_is_ready2read(0))
 {
 
 
-if (++configMode.numRegistro >= (8+1))
+if (++configMode.numRegistro >= (18+1))
 {
 configMode.numRegistro = 0x00;
 }
@@ -5876,7 +5879,7 @@ else if (ikb_key_is_ready2read(1))
 
 if (--configMode.numRegistro < 0)
 {
-configMode.numRegistro = (8+1)-1;
+configMode.numRegistro = (18+1)-1;
 }
 configMode.disp7s_accessReq = 1;
 }
@@ -5890,7 +5893,7 @@ ikb_key_is_ready2read(2))
 {
 if (!flushAtNozzle_active)
 {
-if (configMode.numRegistro < 8)
+if (configMode.numRegistro < 18)
 {
 if (pulsonic.nozzle[configMode.numRegistro].Q_mlh == 0)
 {
@@ -5927,7 +5930,7 @@ ikb_key_is_ready2read(3))
 {
 if (!flushAtNozzle_active)
 {
-if (configMode.numRegistro < 8)
+if (configMode.numRegistro < 18)
 {
 pulsonic.nozzle[configMode.numRegistro].Q_mlh -= NOZZLE_QTY_DIFF;
 
@@ -5965,7 +5968,7 @@ if (ikb_key_is_ready2read(4))
 {
 ikb_key_was_read(4);
 
-if (configMode.numRegistro < 8)
+if (configMode.numRegistro < 18)
 {
 flushAtNozzle_active = !flushAtNozzle_active;
 
@@ -5976,6 +5979,7 @@ flushAtNozzle_cmd(JOB_RESTART);
 }
 else
 {
+configMode.disp7s_accessReq = 1;
 flushAtNozzle_cmd(JOB_STOP);
 }
 }
@@ -5994,14 +5998,16 @@ ikb_key_was_read(3);
 
 
 uint8_t reg;
-for (reg=0; reg<8; reg++)
+for (reg=0; reg<18; reg++)
 {
 eepromWrite_double(&(((double*)0x00)[reg]), pulsonic.nozzle[reg].Q_mlh);
 }
 
-eepromWrite(0x00 + (8*sizeof(double)), pulsonic.oil.i);
+eepromWrite(0x00 + (18*sizeof(double)), pulsonic.oil.i);
+
 
 pulsonic.numNozzleAvailable = pulsonic_getNumNozzleAvailable();
+
 
 flushAtNozzle_active = 0;
 flushAtNozzle_cmd(JOB_STOP);
@@ -6020,7 +6026,7 @@ static void configMode_disp(int8_t numRegistro)
 {
 double qty;
 
-if (numRegistro < 8)
+if (numRegistro < 18)
 {
 disp7s_modeDisp_writeInt(numRegistro+1);
 
@@ -6040,4 +6046,3 @@ disp7s_modeDisp_writeText_oil();
 disp7s_qtyDisp_writeInt( pulsonic.oil.viscosity );
 }
 }
-

@@ -9,7 +9,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _disp7s_modeDisp_off `(v ~T0 @X0 0 ef ]
 "61
 [v _disp7s_qtyDisp_writeText_FLU `(v ~T0 @X0 0 ef ]
-"19 pump.h
+"22 pump.h
 [v _pump_stop `(v ~T0 @X0 0 ef ]
 "18 mpap.h
 [s S571 `i 1 `i 1 `i 1 `c 1 `c 1 ]
@@ -17,8 +17,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "26
 [v _mpap `VS571 ~T0 @X0 0 e ]
 "30 flushAllMode.c
-[c E4799 0 1 2 3 .. ]
-[n E4799 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_HOMMING_MODE MPAP_NORMAL_MODE  ]
+[c E4801 0 1 2 3 .. ]
+[n E4801 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_HOMMING_MODE MPAP_NORMAL_MODE  ]
 "34 mpap.h
 [v _mpap_isIdle `(c ~T0 @X0 0 ef ]
 "31
@@ -27,9 +27,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _nozzle_isEnabled `(c ~T0 @X0 0 ef1`i ]
 "33 mpap.h
 [v _mpap_movetoNozzle `(v ~T0 @X0 0 ef1`c ]
-"17 pump.h
+"20 pump.h
 [v _pump_setTick `(v ~T0 @X0 0 ef1`ui ]
-"21
+"24
 [v _pump_isIdle `(c ~T0 @X0 0 ef ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
@@ -4379,7 +4379,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 57: double accError;
 [; ;pulsonic.h: 61: int counterTicks_xTotalTime;
 [; ;pulsonic.h: 62: uint16_t nticks_delivered_inThisTimeSlice;
-[; ;pulsonic.h: 64: }nozzle[8];
+[; ;pulsonic.h: 64: }nozzle[18];
 [; ;pulsonic.h: 66: struct _pulsonic_oil
 [; ;pulsonic.h: 67: {
 [; ;pulsonic.h: 68: int8_t i;
@@ -4389,22 +4389,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 73: int8_t numNozzleAvailable;
 [; ;pulsonic.h: 74: uint32_t kTimeBetweenNozzleAvailable;
 [; ;pulsonic.h: 75: uint32_t countTimeBetweenNozzleAvailable;
-[; ;pulsonic.h: 77: struct _pulsonic_display
-[; ;pulsonic.h: 78: {
-[; ;pulsonic.h: 79: uint8_t qty[3];
-[; ;pulsonic.h: 80: uint8_t mode[2];
-[; ;pulsonic.h: 81: }disp7s;
-[; ;pulsonic.h: 83: struct _pulsonic_flags
-[; ;pulsonic.h: 84: {
-[; ;pulsonic.h: 85: unsigned homed:1;
-[; ;pulsonic.h: 86: unsigned __a:7;
-[; ;pulsonic.h: 87: }flags;
-[; ;pulsonic.h: 89: };
-[; ;pulsonic.h: 91: extern volatile struct _pulsonic pulsonic;
-[; ;pulsonic.h: 93: extern const int8_t OIL_VISCOSITY[4];
-[; ;pulsonic.h: 95: void pulsonic_init(void);
-[; ;pulsonic.h: 96: double pulsonic_getTotalSum_mlh(void);
-[; ;pulsonic.h: 97: int8_t pulsonic_getNumNozzleAvailable(void);
+[; ;pulsonic.h: 77: int16_t num_timeslice;
+[; ;pulsonic.h: 78: int8_t countNozzleAvailable;
+[; ;pulsonic.h: 80: struct _pulsonic_display
+[; ;pulsonic.h: 81: {
+[; ;pulsonic.h: 82: uint8_t qty[3];
+[; ;pulsonic.h: 83: uint8_t mode[2];
+[; ;pulsonic.h: 84: }disp7s;
+[; ;pulsonic.h: 86: struct _pulsonic_flags
+[; ;pulsonic.h: 87: {
+[; ;pulsonic.h: 88: unsigned homed:1;
+[; ;pulsonic.h: 89: unsigned __a:7;
+[; ;pulsonic.h: 90: }flags;
+[; ;pulsonic.h: 92: };
+[; ;pulsonic.h: 94: extern volatile struct _pulsonic pulsonic;
+[; ;pulsonic.h: 96: extern const int8_t OIL_VISCOSITY[4];
+[; ;pulsonic.h: 98: void pulsonic_init(void);
+[; ;pulsonic.h: 99: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 100: int8_t pulsonic_getNumNozzleAvailable(void);
 [; ;mpap.h: 11: enum MPAP_MODES
 [; ;mpap.h: 12: {
 [; ;mpap.h: 13: MPAP_IDLE_MODE=0,
@@ -4429,16 +4431,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 35: void mpap_do1step(int8_t KI);
 [; ;mpap.h: 69: void autoModexxx_job(void);
 [; ;mpap.h: 74: void l6506d_job(void);
-[; ;pump.h: 11: struct _pump
-[; ;pump.h: 12: {
-[; ;pump.h: 13: uint16_t ticks;
-[; ;pump.h: 14: int8_t sm0;
-[; ;pump.h: 15: };
-[; ;pump.h: 17: void pump_setTick(uint16_t ticks);
-[; ;pump.h: 18: uint16_t pump_getTick(void);
-[; ;pump.h: 19: void pump_stop(void);
-[; ;pump.h: 20: int8_t pump_job(void);
-[; ;pump.h: 21: int8_t pump_isIdle(void);
+[; ;pump.h: 14: struct _pump
+[; ;pump.h: 15: {
+[; ;pump.h: 16: uint16_t ticks;
+[; ;pump.h: 17: int8_t sm0;
+[; ;pump.h: 18: };
+[; ;pump.h: 20: void pump_setTick(uint16_t ticks);
+[; ;pump.h: 21: uint16_t pump_getTick(void);
+[; ;pump.h: 22: void pump_stop(void);
+[; ;pump.h: 23: int8_t pump_job(void);
+[; ;pump.h: 24: int8_t pump_isIdle(void);
 [; ;autoMode.h: 11: void autoMode_disp7s_writeSumTotal(void);
 [; ;autoMode.h: 12: void autoMode_cmd(int8_t cmd);
 [; ;autoMode.h: 13: void autoMode_job(void);
@@ -4535,7 +4537,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _pump_stop ..  ]
 [; ;flushAllMode.c: 30: mpap.mode = MPAP_STALL_MODE;
 "30
-[e = . _mpap 4 -> . `E4799 1 `c ]
+[e = . _mpap 4 -> . `E4801 1 `c ]
 [; ;flushAllMode.c: 31: }
 "31
 [e :UE 578 ]
@@ -4627,9 +4629,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 590 ]
 [; ;flushAllMode.c: 59: }
-[; ;flushAllMode.c: 61: if (++flushAllMode.numNozzle == 8)
+[; ;flushAllMode.c: 61: if (++flushAllMode.numNozzle == 18)
 "61
-[e $ ! == -> =+ . _flushAllMode 0 -> -> 1 `i `c `i -> 8 `i 591  ]
+[e $ ! == -> =+ . _flushAllMode 0 -> -> 1 `i `c `i -> 18 `i 591  ]
 [; ;flushAllMode.c: 62: {flushAllMode.numNozzle = 0x00;}
 "62
 {
@@ -4653,9 +4655,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;flushAllMode.c: 67: {
 "67
 {
-[; ;flushAllMode.c: 68: pump_setTick(2);
+[; ;flushAllMode.c: 68: pump_setTick(18);
 "68
-[e ( _pump_setTick (1 -> -> 2 `i `ui ]
+[e ( _pump_setTick (1 -> -> 18 `i `ui ]
 [; ;flushAllMode.c: 69: flushAllMode.sm0++;
 "69
 [e ++ . _flushAllMode 1 -> -> 1 `i `c ]

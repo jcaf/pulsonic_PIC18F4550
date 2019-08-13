@@ -5756,7 +5756,7 @@ double accError;
 int counterTicks_xTotalTime;
 uint16_t nticks_delivered_inThisTimeSlice;
 
-}nozzle[8];
+}nozzle[18];
 
 struct _pulsonic_oil
 {
@@ -5768,6 +5768,9 @@ double sum_all_mlh;
 int8_t numNozzleAvailable;
 uint32_t kTimeBetweenNozzleAvailable;
 uint32_t countTimeBetweenNozzleAvailable;
+
+int16_t num_timeslice;
+int8_t countNozzleAvailable;
 
 struct _pulsonic_display
 {
@@ -5798,72 +5801,117 @@ static void _mpap_step1(void)
 # 12
 LATD = (1<<0);
 }
+
 static void _mpap_step2(void)
 {
 
-# 21
+# 22
 LATD = (1<<3);
 }
+
 static void _mpap_step3(void)
 {
 
-# 30
+# 32
 LATD = (1<<2);
 }
+
 static void _mpap_step4(void)
 {
 
-# 39
+# 42
 LATD = (1<<1);
 }
 
-PTRFX_retVOID mpap_step[4] =
-{
+PTRFX_retVOID mpap_step[4] ={
 _mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
 };
 
-# 57
+# 59
 volatile struct _mpap mpap;
 
 
 void mpap_setupToTurn(int16_t numSteps_tomove)
 {
-if (numSteps_tomove !=0)
+if (numSteps_tomove != 0)
 {
-mpap.KI = (numSteps_tomove<0)? -1: 1;
+mpap.KI = (numSteps_tomove < 0) ? -1 : 1;
 mpap.counter_steps = 0;
 mpap.numSteps_tomove = numSteps_tomove;
 }
 }
+
 void mpap_setupToHomming(void)
 {
 
-mpap_setupToTurn( -1 *( (18*200) +20));
+mpap_setupToTurn(-1 * ((18 * 200) + 20));
 
 mpap.mode = MPAP_HOMMING_MODE;
 }
 
-# 80
+int8_t mpap_homming_job(void)
+{
+int8_t cod_ret = 0;
+static int8_t sm0;
+if (sm0 == 0)
+{
+if (((PORTE & (1<<1))>>1) == 0)
+{
+mpap_setupToTurn(-1 * ((2 * 200)));
+mpap.mode = MPAP_NORMAL_MODE;
+sm0++;
+}
+else
+{
+mpap_setupToHomming();
+sm0 = 2;
+}
+}
+else if (sm0 == 1)
+{
+if (mpap_isIdle())
+{
+mpap_setupToHomming();
+sm0++;
+}
+}
+else if (sm0 == 2)
+{
+if (mpap_isIdle())
+{
+cod_ret = 1;
+}
+}
+return cod_ret;
+}
+
+# 119
 void mpap_do1step(int8_t KI)
 {
 static int8_t i = -1;
 
-i= i + KI;
-if (i>3){i=0;}
-if (i<0){i=3;}
+i = i + KI;
+if (i > 3)
+{
+i = 0;
+}
+if (i < 0)
+{
+i = 3;
+}
 
 mpap_step[i]();
 }
 
-# 99
+# 144
 int8_t mpap_homming(void)
 {
 int8_t cod_ret = 0;
-if (mpap.numSteps_tomove !=0 )
+if (mpap.numSteps_tomove != 0)
 {
 mpap_do1step(mpap.KI);
 
-mpap.counter_steps+= mpap.KI;
+mpap.counter_steps += mpap.KI;
 
 if (((PORTE & (1<<1))>>1) == 0)
 {
@@ -5871,11 +5919,14 @@ mpap.numSteps_tomove = 0x0000;
 mpap.numSteps_current = 0x0000;
 cod_ret = 1;
 }
-if ( mpap.counter_steps == mpap.numSteps_tomove)
+else
+{
+if (mpap.counter_steps == mpap.numSteps_tomove)
 {
 mpap.numSteps_tomove = 0x0000;
 mpap.numSteps_current = 0x0000;
 cod_ret = 2;
+}
 }
 }
 return cod_ret;
@@ -5885,15 +5936,15 @@ return cod_ret;
 int8_t mpap_normal_mode(void)
 {
 int8_t cod_ret = 0;
-if (mpap.numSteps_tomove!=0)
+if (mpap.numSteps_tomove != 0)
 {
 mpap_do1step(mpap.KI);
 
-mpap.counter_steps+= mpap.KI;
+mpap.counter_steps += mpap.KI;
 
-mpap.numSteps_current+= mpap.KI;
+mpap.numSteps_current += mpap.KI;
 
-if ( mpap.counter_steps== mpap.numSteps_tomove)
+if (mpap.counter_steps == mpap.numSteps_tomove)
 {
 mpap.numSteps_tomove = 0;
 cod_ret = 1;
@@ -5916,8 +5967,9 @@ mpap.mode = MPAP_STALL_MODE;
 }
 else if (cod_ret == 2)
 {
+pulsonic.flags.homed = 0;
+pulsonic.error.f.homeSensor = 1;
 mpap.mode = MPAP_STALL_MODE;
-
 }
 }
 else if (mpap.mode == MPAP_NORMAL_MODE)
@@ -5936,17 +5988,20 @@ mpap.mode = MPAP_IDLE_MODE;
 void mpap_movetoNozzle(int8_t numNozzle)
 {
 
-int16_t numSteps_tomove = (numNozzle*200) - mpap.numSteps_current;
-if (numSteps_tomove != 0 )
+int16_t numSteps_tomove = (numNozzle * 200) - mpap.numSteps_current;
+if (numSteps_tomove != 0)
 {
 mpap_setupToTurn(numSteps_tomove);
 mpap.mode = MPAP_NORMAL_MODE;
 }
 
 }
+
 int8_t mpap_isIdle(void)
 {
 if (mpap.mode == MPAP_IDLE_MODE)
-{return 1;}
+{
+return 1;
+}
 return 0;
 }

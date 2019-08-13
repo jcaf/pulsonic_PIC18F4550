@@ -8,7 +8,7 @@
 #ifndef NOZZLE_H
 #define	NOZZLE_H
 
-    #define NOZZLE_NUMMAX 8//18
+    #define NOZZLE_NUMMAX 18
 
     #define NOZZLE_OFF 0
     #define NOZZLE_QMLH_MIN 0.3

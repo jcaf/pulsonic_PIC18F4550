@@ -27,7 +27,7 @@ void flushAtNozzle_cmd(int8_t cmd)
         disp7s_qtyDisp_writeText_FLU();
         //
         flushAtNozzle.sm0 = 0x1;
-counterTicks = 0;
+        counterTicks = 0;
     }
     if (cmd == JOB_STOP)
     {

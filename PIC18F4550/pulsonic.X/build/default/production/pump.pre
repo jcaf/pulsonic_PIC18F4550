@@ -5642,7 +5642,7 @@ JOB_RESTART = 0,
 JOB_STOP
 };
 
-# 11 "pump.h"
+# 14 "pump.h"
 struct _pump
 {
 uint16_t ticks;
@@ -5655,7 +5655,7 @@ void pump_stop(void);
 int8_t pump_job(void);
 int8_t pump_isIdle(void);
 
-# 7 "pump.c"
+# 6 "pump.c"
 static struct _pump pump;
 
 void pump_setTick(uint16_t ticks)
@@ -5689,7 +5689,7 @@ else if (pump.sm0 == 1)
 {
 if (smain.f.f1ms)
 {
-if (++c == 25)
+if (++c == 50)
 {
 c=0x0000;
 pump.sm0++;

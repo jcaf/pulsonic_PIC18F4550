@@ -97,7 +97,7 @@ void setdc(uint16_t dc)
 #define MICROSTEP_N 4
 //#define DC_MIN 0.5*1024f
 //#define DC_MAX 0.7*1024f
-#define DC_MIN (0.5*DC_TOP)
+#define DC_MIN (0.35*DC_TOP)
 #define DC_MAX (0.8*DC_TOP)
 #define MICROSTEP (DC_MAX - DC_MIN)/MICROSTEP_N
 
@@ -127,10 +127,10 @@ void main(void)
     UCON = 0;       //USBEN Disable
     UCFG = 1<<3;    //UTRDIS Digital input enable RC4/RC5
     //
-//    T0CON = 0B10000100; //16BITS
-//    TMR0H = (uint8_t)(TMR16B_OVF(1e-3, 32) >> 8);
-//    TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 32));
-//    TMR0IE = 1;
+    //    T0CON = 0B10000100; //16BITS
+    //    TMR0H = (uint8_t)(TMR16B_OVF(1e-3, 32) >> 8);
+    //    TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 32));
+    //    TMR0IE = 1;
     //.....
     RELAY_ENABLE();
     ConfigOutputPin(CONFIGIOxRELAY, PINxRELAY);
@@ -143,24 +143,20 @@ void main(void)
     ConfigOutputPin(CONFIGIOxSTEPPER_C, PINxSTEPPER_C);
     ConfigOutputPin(CONFIGIOxSTEPPER_D, PINxSTEPPER_D);
     
-    //+++++--------
-    PR2 = PR2_VAL;//255;
+    //+-
+    PR2 = PR2_VAL;      //255;
     setdc(DC_TOP-DC_MIN);
-    STEPPER_ENABLE();//output pin
+    STEPPER_ENABLE();   //output pin
     T2CON = 0b00000101;
     //T2CKPS1:T2CKPS0: Timer2 Clock Prescale Select bits
     //00 = Prescaler is 1
     //01 = Prescaler is 4
     //1x = Prescaler is 16
     CCP2CON = 0B00001100;//PWM
-    //bajo2();
+    //+-
 
-    //
     ConfigInputPin(CONFIGIOxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME);
-
     ConfigInputPin(CONFIGIOxOILLEVEL, PINxOILLEVEL);//ext. pullup
-    //ConfigOutputPin(CONFIGIOxOILLEVEL, PINxOILLEVEL);//ext. pullup    
-
     ConfigInputPin(CONFIGIOxSTARTSIGNAL, PINxSTARTSIGNAL);//ext. pullup
     
     ikb_init();
@@ -185,9 +181,9 @@ void main(void)
     PEIE = 1;
     GIE = 1;
 
-//mpap.mode = MPAP_HOMMING_MODE;
-//while(1);
-
+    //mpap.mode = MPAP_HOMMING_MODE;
+    //while(1);
+    
     while(1)
     {
         if (isr_flag.f1ms)
@@ -208,7 +204,17 @@ void main(void)
                 disp7s_job();
             }
         }
-        error_job();
+        
+//        if (smi == 0)
+//        {
+//            
+//        }
+//        else
+//        {
+//            
+//        }
+        
+        error_job();//change the program-flow 
         
         startSig = is_startSignal();
 
@@ -340,6 +346,7 @@ void main(void)
                 ikb_key_was_read(KB_LYOUT_KEY_PLUS);
                 ikb_key_was_read(KB_LYOUT_KEY_MINUS);
                 //
+                pump_stop();
                 mpap.mode = MPAP_STALL_MODE;
                 
                 funcMach = FUNCMACH_CONFIG;
@@ -386,16 +393,13 @@ const uint16_t ustep_lockup[MICROSTEP_N+1]=
     DC_TOP -(DC_MIN+(MICROSTEP*2)), 
     DC_TOP -(DC_MIN+(MICROSTEP*3)), 
     DC_TOP -(DC_MIN+(MICROSTEP*4)), //MAX
-//
-//DC_TOP -(DC_MIN+(MICROSTEP*5)), //MAX
-//DC_TOP -(DC_MIN+(MICROSTEP*6)), //MAX
-//DC_TOP -(DC_MIN+(MICROSTEP*7)), //MAX
-//DC_TOP -(DC_MIN+(MICROSTEP*8)), //MAX
+    //
+    //DC_TOP -(DC_MIN+(MICROSTEP*5)), //MAX
+    //DC_TOP -(DC_MIN+(MICROSTEP*6)), //MAX
+    //DC_TOP -(DC_MIN+(MICROSTEP*7)), //MAX
+    //DC_TOP -(DC_MIN+(MICROSTEP*8)), //MAX
 };
-/*
-octave:34> (65536) - (1e-3*48e6/(32*4)) 
-ans =  65161
- */
+
 void interrupt INTERRUPCION(void)
 {
     static uint8_t ustep_sm0;
@@ -423,7 +427,6 @@ void interrupt INTERRUPCION(void)
                 ustep_sm0++;
             }
         }
-        
         else if (ustep_sm0 == 2)
         {
             if (++ustep_c == 12)//12
@@ -452,17 +455,19 @@ void interrupt INTERRUPCION(void)
         //
         TMR2IF = 0;
     }
-    
-//    if (TMR0IF)
-//    {
-//        isr_flag.f1ms = 1;
-//        TMR0IF = 0;
-//        TMR0H = (uint8_t)(TMR16B_OVF(1e-3, 32) >> 8);
-//        TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 32));
-//    }
+
+    //TMMR0:
+    //octave:34> (65536) - (1e-3*48e6/(32*4)) 
+    //ans =  65161    
+    //    if (TMR0IF)
+    //    {
+    //        isr_flag.f1ms = 1;
+    //        TMR0IF = 0;
+    //        TMR0H = (uint8_t)(TMR16B_OVF(1e-3, 32) >> 8);
+    //        TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 32));
+    //    }
     
 }
-
 
 static union _errorFlag error_grantedToWriteDisp;//Always in the same bit position like error
 static void errorHandler_queue(void);

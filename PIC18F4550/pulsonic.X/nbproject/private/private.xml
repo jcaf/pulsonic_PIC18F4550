@@ -4,17 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pump.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/myeeprom.c</file>
             <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.h</file>
             <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/configMode.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/nozzle.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/system.h</file>
             <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/flushAllMode.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.h</file>
             <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/flushAtNozzle.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/nozzle.h</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pump.h</file>
         </group>
     </open-files>
 </project-private>

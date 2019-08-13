@@ -5734,7 +5734,7 @@ double accError;
 int counterTicks_xTotalTime;
 uint16_t nticks_delivered_inThisTimeSlice;
 
-}nozzle[8];
+}nozzle[18];
 
 struct _pulsonic_oil
 {
@@ -5746,6 +5746,9 @@ double sum_all_mlh;
 int8_t numNozzleAvailable;
 uint32_t kTimeBetweenNozzleAvailable;
 uint32_t countTimeBetweenNozzleAvailable;
+
+int16_t num_timeslice;
+int8_t countNozzleAvailable;
 
 struct _pulsonic_display
 {
@@ -5832,7 +5835,7 @@ static void visMode_disp(int8_t numVista)
 {
 double qty;
 
-if (numVista < 8)
+if (numVista < 18)
 {
 disp7s_modeDisp_writeInt(numVista+1);
 

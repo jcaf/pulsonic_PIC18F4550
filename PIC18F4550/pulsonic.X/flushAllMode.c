@@ -65,7 +65,7 @@ void flushAllMode_job(void)
         {
             if (mpap_isIdle())
             {
-                pump_setTick(2);
+                pump_setTick(18);
                 flushAllMode.sm0++;
             }
         }

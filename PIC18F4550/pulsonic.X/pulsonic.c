@@ -19,7 +19,10 @@ void pulsonic_init(void)
     //next address is for index-of-OIL_VISCOSITY[]
     pulsonic.oil.i = eepromRead( EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)) );
     pulsonic.oil.viscosity = OIL_VISCOSITY[pulsonic.oil.i];
+    
     pulsonic.numNozzleAvailable = pulsonic_getNumNozzleAvailable();
+    
+    //autoMode_setup();
 }
 
 double pulsonic_getTotalSum_mlh(void)
@@ -43,5 +46,5 @@ int8_t pulsonic_getNumNozzleAvailable(void)
         if (nozzle_isEnabled(i))
             {numNozzleAvailable++;}
     }
-        return numNozzleAvailable;
+    return numNozzleAvailable;
 }

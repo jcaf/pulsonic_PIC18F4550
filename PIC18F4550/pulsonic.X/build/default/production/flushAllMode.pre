@@ -5721,7 +5721,7 @@ double accError;
 int counterTicks_xTotalTime;
 uint16_t nticks_delivered_inThisTimeSlice;
 
-}nozzle[8];
+}nozzle[18];
 
 struct _pulsonic_oil
 {
@@ -5733,6 +5733,9 @@ double sum_all_mlh;
 int8_t numNozzleAvailable;
 uint32_t kTimeBetweenNozzleAvailable;
 uint32_t countTimeBetweenNozzleAvailable;
+
+int16_t num_timeslice;
+int8_t countNozzleAvailable;
 
 struct _pulsonic_display
 {
@@ -5791,7 +5794,7 @@ void autoModexxx_job(void);
 
 void l6506d_job(void);
 
-# 11 "pump.h"
+# 14 "pump.h"
 struct _pump
 {
 uint16_t ticks;
@@ -5908,14 +5911,14 @@ mpap_movetoNozzle(flushAllMode.numNozzle);
 flushAllMode.sm0++;
 }
 
-if (++flushAllMode.numNozzle == 8)
+if (++flushAllMode.numNozzle == 18)
 {flushAllMode.numNozzle = 0x00;}
 }
 else if (flushAllMode.sm0 == 4)
 {
 if (mpap_isIdle())
 {
-pump_setTick(2);
+pump_setTick(18);
 flushAllMode.sm0++;
 }
 }

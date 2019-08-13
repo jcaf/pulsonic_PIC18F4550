@@ -74,6 +74,9 @@
         uint32_t kTimeBetweenNozzleAvailable;
         uint32_t countTimeBetweenNozzleAvailable;
         
+        int16_t num_timeslice;
+        int8_t countNozzleAvailable;
+        
         struct _pulsonic_display
         {
             uint8_t qty[DISP7S_QTY_NUMMAX];
