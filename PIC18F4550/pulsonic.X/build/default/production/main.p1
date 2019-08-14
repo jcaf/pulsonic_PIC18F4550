@@ -4687,12 +4687,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 "39
 [p x MCLRE=ON ]
 [p x BOR=OFF ]
-"40
-[p x CP0=ON ]
-[p x CP1=ON ]
-[p x CP2=ON ]
-[p x CP3=ON ]
-[p x CPD=OFF ]
 "46
 [v _isr_flag `VS579 ~T0 @X0 1 s ]
 [i _isr_flag

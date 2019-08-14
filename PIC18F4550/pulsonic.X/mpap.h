@@ -10,8 +10,8 @@
 
     enum MPAP_MODES
     {
-        MPAP_IDLE_MODE=0,
-        MPAP_STALL_MODE,
+        MPAP_IDLE_MODE=0,   //fixed idx
+        MPAP_STALL_MODE=1,    //fixed idx
         MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE,
         MPAP_CROSSING_HOMESENSOR_MODE,
         MPAP_NORMAL_MODE

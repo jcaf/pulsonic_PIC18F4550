@@ -29,7 +29,8 @@ void flushAllMode_cmd(int8_t cmd)
         flushAllMode.sm0 = 0;
     }
     pump_stop();
-    mpap.mode = MPAP_STALL_MODE;
+    
+    mpap_setMode(MPAP_STALL_MODE);
 }
 
 void flushAllMode_job(void)
@@ -47,7 +48,7 @@ void flushAllMode_job(void)
                     pulsonic.numNozzle = 0x00;
                     //
                     mpap_setupToTurn(1 * MPAP_NUMSTEP_1NOZZLE);
-                    mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
+                    mpap_setMode(MPAP_CROSSING_HOMESENSOR_MODE);
                     //
                 }
                 else

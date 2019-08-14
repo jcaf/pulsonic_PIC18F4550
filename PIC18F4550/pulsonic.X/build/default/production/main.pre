@@ -5912,7 +5912,7 @@ extern const uint16_t ustep_lockup[4+1];
 # 38 "main.c"
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF",
-#pragma config "CP0=ON", "CP1=ON", "CP2=ON", "CP3=ON", "CPD=OFF"
+
 
 volatile static struct _isr_flag
 {

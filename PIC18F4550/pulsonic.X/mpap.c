@@ -125,6 +125,27 @@ static int8_t mpap_searchFirstPointHomeSensor(void)
     }
     return cod_ret;
 }
+
+void mpap_setMode(int mode)
+{
+    switch (mode)
+    {
+        case MPAP_IDLE_MODE:break;
+        case MPAP_STALL_MODE:break;
+        case MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE:break;
+        case MPAP_CROSSING_HOMESENSOR_MODE:
+            counterZeros = 0x00;
+        break;
+        case MPAP_NORMAL_MODE:break;
+        default:break;
+    }
+    mpap.mode = mode;
+}
+int8_t mpap_getMode(void)
+{
+    return mpap.mode;
+}
+
 static int8_t mpap_crossingHomeSensor(void)
 {
     int8_t cod_ret = 0;
@@ -191,13 +212,13 @@ void mpap_job(void)
         {
             pulsonic.error.f.homeSensor = 0;
             pulsonic.flags.homed = 1;
-            mpap.mode = MPAP_STALL_MODE;
+            mpap_setMode(MPAP_STALL_MODE);
         }
         else if (cod_ret == 2)
         {
             pulsonic.error.f.homeSensor = 1;
             pulsonic.flags.homed = 0;
-            mpap.mode = MPAP_STALL_MODE;
+            mpap_setMode(MPAP_STALL_MODE);
         }
     }
     else if (mpap.mode == MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE)
@@ -207,25 +228,25 @@ void mpap_job(void)
         {
             pulsonic.flags.homed = 1;
             pulsonic.error.f.homeSensor = 0;
-            mpap.mode = MPAP_STALL_MODE;
+            mpap_setMode(MPAP_STALL_MODE);
         }
         else if (cod_ret == 2)
         {
             pulsonic.flags.homed = 0;
             pulsonic.error.f.homeSensor = 1;
-            mpap.mode = MPAP_STALL_MODE;
+            mpap_setMode(MPAP_STALL_MODE);
         }
     }
     else if (mpap.mode == MPAP_NORMAL_MODE)
     {
         if (mpap_normal_mode())
-            mpap.mode = MPAP_STALL_MODE;
+            mpap_setMode(MPAP_STALL_MODE);
     }
     //
     if (mpap.mode == MPAP_STALL_MODE)
     {
         mpap.numSteps_tomove = 0x00;
-        mpap.mode = MPAP_IDLE_MODE;
+        mpap_setMode(MPAP_IDLE_MODE);
     }
 }
 
@@ -235,7 +256,7 @@ void mpap_movetoNozzle(int8_t numNozzle)//0..NOZZLE_NUMMAX-1
     if (numSteps_tomove != 0)
     {
         mpap_setupToTurn(numSteps_tomove);
-        mpap.mode = MPAP_NORMAL_MODE;
+        mpap_setMode(MPAP_NORMAL_MODE);
     }
 }
 
@@ -274,7 +295,7 @@ int8_t mpap_homming_job(void)
         if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 0)
         {
             mpap_setupToTurn(+1 * ((2 * MPAP_NUMSTEP_1NOZZLE))); //exit from this point by 2 turn for safe
-            mpap.mode = MPAP_NORMAL_MODE;
+            mpap_setMode(MPAP_NORMAL_MODE);
             homming.sm0++;
         }
         else
@@ -298,7 +319,8 @@ int8_t mpap_homming_job(void)
             if (pulsonic.error.f.homeSensor == 0)
             {
                 mpap_setupToTurn(1 * MPAP_NUMSTEP_1NOZZLE);
-                mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
+                
+                mpap_setMode(MPAP_CROSSING_HOMESENSOR_MODE);
                 homming.sm0++;
             }
             else//error sensor!

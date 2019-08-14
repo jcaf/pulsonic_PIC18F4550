@@ -7,22 +7,17 @@
 #include "ikb/ikb.h"
 #include "flushAllMode.h"
 
-/*
- * Experimental
-Con Ronald calculamos que 300 ticks = 10 ml
- */
-//    double Qmhl_measured = 10;//ml
-//    double nTicks_measured = 300;//#ticks
+/*Medida oficial en jeringa*/
 double Qmhl_measured = 5.0; //ml
-double nTicks_measured = 231; //#ticks
+double nTicks_measured = 268; //#ticks
 
 void autoMode_setup(void)
 {
     int i;
     double nticksReq_xTotalTime;
 
-    //pulsonic.ml_x1tick = 5.0/231; //5ml/231 ticks 0.021645ml/tick
-    pulsonic.ml_x1tick = Qmhl_measured / nTicks_measured; //con Ronald
+    //pulsonic.ml_x1tick = 5.0/268; 
+    pulsonic.ml_x1tick = Qmhl_measured / nTicks_measured; 
 
     //
     pulsonic.dist_total_time = 60; //=60min
@@ -40,14 +35,7 @@ void autoMode_setup(void)
             nticksReq_xTotalTime = pulsonic.nozzle[i].Q_mlh / pulsonic.ml_x1tick;
             pulsonic.nozzle[i].nticks_xtimeslice = nticksReq_xTotalTime / pulsonic.timeslice;
 
-            //            if (pulsonic.nozzle[i].nticks_xtimeslice < 1)
-            //            {
-            //                pulsonic.nozzle[i].kmax_ticks_xtimeslice = 1;
-            //            }
-            //            else
-            //            {
-            //                pulsonic.nozzle[i].kmax_ticks_xtimeslice = (uint16_t) pulsonic.nozzle[i].nticks_xtimeslice;
-            //            }//trunca
+         
             if (pulsonic.nozzle[i].nticks_xtimeslice >= 1)
                 {pulsonic.nozzle[i].kmax_ticks_xtimeslice = (uint16_t) pulsonic.nozzle[i].nticks_xtimeslice;}
             
@@ -63,7 +51,6 @@ void autoMode_setup(void)
 
 static struct _autoMode
 {
-    //int8_t numNozzle; //current nozzle position
     int8_t sm0;
 } autoMode;
 
@@ -91,7 +78,7 @@ void autoMode_cmd(int8_t cmd)
         autoMode.sm0 = 0x00;
     }
     pump_stop();
-    mpap.mode = MPAP_STALL_MODE;
+    mpap_setMode(MPAP_STALL_MODE);
 }
 
 void autoMode_job(void)
@@ -176,7 +163,7 @@ void autoMode_job(void)
                 pulsonic.numNozzle = 0x00;
                 //
                 mpap_setupToTurn(1 * MPAP_NUMSTEP_1NOZZLE);
-                mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
+                mpap_setMode(MPAP_CROSSING_HOMESENSOR_MODE);
                 //
             }
             else
