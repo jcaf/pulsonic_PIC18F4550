@@ -63,7 +63,7 @@ void autoMode_setup(void)
 
 static struct _autoMode
 {
-    int8_t numNozzle; //current nozzle position
+    //int8_t numNozzle; //current nozzle position
     int8_t sm0;
 } autoMode;
 
@@ -80,14 +80,15 @@ void autoMode_cmd(int8_t cmd)
 {
     if (cmd == JOB_RESTART)
     {
-        autoMode.numNozzle = 0x0;
+        //pulsonic.numNozzle = 0x0;
+        mpap_homming_job_reset();
         autoMode.sm0 = 0x1;
         //
         autoMode_setup();
     }
     else if (cmd == JOB_STOP)
     {
-        autoMode.sm0 = 0;
+        autoMode.sm0 = 0x00;
     }
     pump_stop();
     mpap.mode = MPAP_STALL_MODE;
@@ -109,6 +110,7 @@ void autoMode_job(void)
             {
                 if (mpap.numSteps_current == 0x000)//origin
                 {
+                    pulsonic.numNozzle = 0x0;
                     autoMode.sm0+=2;//direct
                 }
                 else
@@ -121,6 +123,7 @@ void autoMode_job(void)
         {
             if (mpap_homming_job())//cod_ret = 1 o 2
             {
+                pulsonic.numNozzle = 0x0;
                 autoMode.sm0++;
             }
         } //Distribute oil
@@ -129,28 +132,28 @@ void autoMode_job(void)
             if (mpap_isIdle())
             {
                 //+-
-                pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice = 0;
-                pulsonic.nozzle[autoMode.numNozzle].accError += pulsonic.nozzle[autoMode.numNozzle].nticks_xtimeslice;
-                if (pulsonic.nozzle[autoMode.numNozzle].accError >= pulsonic.nozzle[autoMode.numNozzle].kmax_ticks_xtimeslice)
+                pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice = 0;
+                pulsonic.nozzle[pulsonic.numNozzle].accError += pulsonic.nozzle[pulsonic.numNozzle].nticks_xtimeslice;
+                if (pulsonic.nozzle[pulsonic.numNozzle].accError >= pulsonic.nozzle[pulsonic.numNozzle].kmax_ticks_xtimeslice)
                 {
-                    e = pulsonic.nozzle[autoMode.numNozzle].accError - pulsonic.nozzle[autoMode.numNozzle].kmax_ticks_xtimeslice;
+                    e = pulsonic.nozzle[pulsonic.numNozzle].accError - pulsonic.nozzle[pulsonic.numNozzle].kmax_ticks_xtimeslice;
                     if (e >= 1)
                     {
                         e = e - 1;
-                        pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice += 1;
+                        pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice += 1;
                     }
-                    pulsonic.nozzle[autoMode.numNozzle].accError = e;
+                    pulsonic.nozzle[pulsonic.numNozzle].accError = e;
                 }
                 if (pulsonic.num_timeslice == ((int) pulsonic.timeslice) - 1)
                 {
                     if (e > 0)
-                        pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice += 1;
+                        pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice += 1;
                 }
-                pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice += (uint16_t) pulsonic.nozzle[autoMode.numNozzle].kmax_ticks_xtimeslice;
-                pulsonic.nozzle[autoMode.numNozzle].counterTicks_xTotalTime += pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice;
+                pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice += (uint16_t) pulsonic.nozzle[pulsonic.numNozzle].kmax_ticks_xtimeslice;
+                pulsonic.nozzle[pulsonic.numNozzle].counterTicks_xTotalTime += pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice;
                 //-+
 
-                pump_setTick(pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice);
+                pump_setTick(pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice);
                 autoMode.sm0++;
 
             }
@@ -159,18 +162,18 @@ void autoMode_job(void)
         {
             if (pump_isIdle())
             {
-                tacc = pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice; //save
+                tacc = pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice; //save
                 numVueltas = 0x00;
                 autoMode.sm0++;
             }
         }
         else if (autoMode.sm0 == 5)
         {
-            autoMode.numNozzle++;
+            pulsonic.numNozzle++;
             
-            if (autoMode.numNozzle >= NOZZLE_NUMMAX)
+            if (pulsonic.numNozzle >= NOZZLE_NUMMAX)
             {
-                autoMode.numNozzle = 0x00;
+                pulsonic.numNozzle = 0x00;
                 //
                 mpap_setupToTurn(1 * MPAP_NUMSTEP_1NOZZLE);
                 mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
@@ -178,10 +181,9 @@ void autoMode_job(void)
             }
             else
             {
-                mpap_movetoNozzle(autoMode.numNozzle);
+                mpap_movetoNozzle(pulsonic.numNozzle);
             }
             numVueltas++;
-
             
             autoMode.sm0++;
         }
@@ -189,7 +191,7 @@ void autoMode_job(void)
         {
             if (mpap_isIdle())
             {
-                if (nozzle_isEnabled(autoMode.numNozzle))
+                if (nozzle_isEnabled(pulsonic.numNozzle))
                 {
                     tacc = (numVueltas * 200) + (  tacc * (PUMP_TICK_TIME_ON+PUMP_TICK_TIME_OFF)); //ms
                     ktime_residuary = pulsonic.kTimeBetweenNozzleAvailable - tacc;
@@ -257,7 +259,7 @@ void autoMode_jobX(void)
         {
             if (1)
             {
-                mpap_movetoNozzle(autoMode.numNozzle);
+                mpap_movetoNozzle(pulsonic.numNozzle);
                 autoMode.sm0++;
             }
             
@@ -274,14 +276,14 @@ void autoMode_jobX(void)
         {
             if (pump_isIdle())
             {
-                autoMode.numNozzle++;
-                if (  autoMode.numNozzle == NOZZLE_NUMMAX+1)
+                pulsonic.numNozzle++;
+                if (  pulsonic.numNozzle == NOZZLE_NUMMAX+1)
                 {
                     while (1);
                     
                     if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 0)
                     {
-                        //autoMode.numNozzle = 0x00;
+                        //pulsonic.numNozzle = 0x00;
                     }
 
                 }

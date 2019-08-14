@@ -9,6 +9,31 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _disp7s_modeDisp_off `(v ~T0 @X0 0 ef ]
 "61
 [v _disp7s_qtyDisp_writeText_FLU `(v ~T0 @X0 0 ef ]
+"27 pulsonic.h
+[s S565 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
+[n S565 _errorFlag_flags oilLevel homeSensor unblockedNozzle inductiveSensorRPM __a ]
+"25
+[u S564 `S565 1 `c 1 ]
+[n S564 _errorFlag f packed ]
+"49
+[s S567 `d 1 `d 1 `d 1 `d 1 `i 1 `ui 1 ]
+[n S567 _pulsonic_nozzle Q_mlh nticks_xtimeslice kmax_ticks_xtimeslice accError counterTicks_xTotalTime nticks_delivered_inThisTimeSlice ]
+"64
+[s S568 `c 1 `c 1 ]
+[n S568 _pulsonic_oil i viscosity ]
+"78
+[s S569 `uc -> 3 `i `uc -> 2 `i ]
+[n S569 _pulsonic_display qty mode ]
+"84
+[s S570 :1 `uc 1 :7 `uc 1 ]
+[n S570 _pulsonic_flags homed __a ]
+"40
+[s S566 `S564 1 `d 1 `d 1 `d 1 `d 1 `S567 -> 18 `i `S568 1 `d 1 `c 1 `ul 1 `ul 1 `i 1 `c 1 `S569 1 `S570 1 `c 1 ]
+[n S566 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags numNozzle ]
+"93
+[v _pulsonic `VS566 ~T0 @X0 0 e ]
+"37 mpap.h
+[v _mpap_getNozzlePosition `(c ~T0 @X0 0 ef ]
 "22 pump.h
 [v _pump_stop `(v ~T0 @X0 0 ef ]
 "19 mpap.h
@@ -16,17 +41,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S571 _mpap numSteps_current counter_steps numSteps_tomove KI mode ]
 "27
 [v _mpap `VS571 ~T0 @X0 0 e ]
-"30 flushAllMode.c
-[c E4803 0 1 2 3 4 .. ]
-[n E4803 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE MPAP_CROSSING_HOMESENSOR_MODE MPAP_NORMAL_MODE  ]
+"32 flushAllMode.c
+[c E4804 0 1 2 3 4 .. ]
+[n E4804 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE MPAP_CROSSING_HOMESENSOR_MODE MPAP_NORMAL_MODE  ]
 "35 mpap.h
 [v _mpap_isIdle `(c ~T0 @X0 0 ef ]
-"32
-[v _mpap_setup_searchFirstPointHomeSensor `(v ~T0 @X0 0 ef ]
+"33
+[v _mpap_setupToTurn `(v ~T0 @X0 0 ef1`i ]
+"34
+[v _mpap_movetoNozzle `(v ~T0 @X0 0 ef1`c ]
 "18 nozzle.h
 [v _nozzle_isEnabled `(c ~T0 @X0 0 ef1`i ]
-"34 mpap.h
-[v _mpap_movetoNozzle `(v ~T0 @X0 0 ef1`c ]
 "20 pump.h
 [v _pump_setTick `(v ~T0 @X0 0 ef1`ui ]
 "24
@@ -4402,12 +4427,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 86: unsigned homed:1;
 [; ;pulsonic.h: 87: unsigned __a:7;
 [; ;pulsonic.h: 88: }flags;
-[; ;pulsonic.h: 90: };
-[; ;pulsonic.h: 92: extern volatile struct _pulsonic pulsonic;
-[; ;pulsonic.h: 94: extern const int8_t OIL_VISCOSITY[4];
-[; ;pulsonic.h: 96: void pulsonic_init(void);
-[; ;pulsonic.h: 97: double pulsonic_getTotalSum_mlh(void);
-[; ;pulsonic.h: 98: int8_t pulsonic_getNumNozzleAvailable(void);
+[; ;pulsonic.h: 90: int8_t numNozzle;
+[; ;pulsonic.h: 91: };
+[; ;pulsonic.h: 93: extern volatile struct _pulsonic pulsonic;
+[; ;pulsonic.h: 95: extern const int8_t OIL_VISCOSITY[4];
+[; ;pulsonic.h: 97: void pulsonic_init(void);
+[; ;pulsonic.h: 98: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 99: int8_t pulsonic_getNumNozzleAvailable(void);
 [; ;mpap.h: 11: enum MPAP_MODES
 [; ;mpap.h: 12: {
 [; ;mpap.h: 13: MPAP_IDLE_MODE=0,
@@ -4431,7 +4457,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 34: void mpap_movetoNozzle(int8_t n);
 [; ;mpap.h: 35: int8_t mpap_isIdle(void);
 [; ;mpap.h: 36: void mpap_do1step(int8_t KI);
-[; ;mpap.h: 38: int8_t mpap_homming_job(void);
+[; ;mpap.h: 37: int8_t mpap_getNozzlePosition(void);
+[; ;mpap.h: 39: int8_t mpap_homming_job(void);
+[; ;mpap.h: 40: void mpap_homming_job_reset(void);
 [; ;pump.h: 14: struct _pump
 [; ;pump.h: 15: {
 [; ;pump.h: 16: uint16_t ticks;
@@ -4487,7 +4515,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;flushAllMode.c: 10: {
 [; ;flushAllMode.c: 11: int8_t numNozzle;
 [; ;flushAllMode.c: 12: int8_t sm0;
-[; ;flushAllMode.c: 13: }flushAllMode;
+[; ;flushAllMode.c: 13: } flushAllMode;
 "15
 [v _flushAllMode_cmd `(v ~T0 @X0 1 ef1`c ]
 "16
@@ -4511,199 +4539,217 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;flushAllMode.c: 20: disp7s_qtyDisp_writeText_FLU();
 "20
 [e ( _disp7s_qtyDisp_writeText_FLU ..  ]
-[; ;flushAllMode.c: 22: flushAllMode.numNozzle = 0x0;
-"22
-[e = . _flushAllMode 0 -> -> 0 `i `c ]
-[; ;flushAllMode.c: 23: flushAllMode.sm0 = 0x1;
+[; ;flushAllMode.c: 23: pulsonic.numNozzle = mpap_getNozzlePosition();
 "23
+[e = . _pulsonic 15 ( _mpap_getNozzlePosition ..  ]
+[; ;flushAllMode.c: 25: flushAllMode.sm0 = 0x1;
+"25
 [e = . _flushAllMode 1 -> -> 1 `i `c ]
-"24
+"26
 }
 [e :U 579 ]
-[; ;flushAllMode.c: 24: }
-[; ;flushAllMode.c: 25: if (cmd == JOB_STOP)
-"25
-[e $ ! == -> _cmd `i -> . `E4712 1 `i 580  ]
-[; ;flushAllMode.c: 26: {
-"26
-{
-[; ;flushAllMode.c: 27: flushAllMode.sm0 = 0;
+[; ;flushAllMode.c: 26: }
+[; ;flushAllMode.c: 27: if (cmd == JOB_STOP)
 "27
-[e = . _flushAllMode 1 -> -> 0 `i `c ]
+[e $ ! == -> _cmd `i -> . `E4712 1 `i 580  ]
+[; ;flushAllMode.c: 28: {
 "28
+{
+[; ;flushAllMode.c: 29: flushAllMode.sm0 = 0;
+"29
+[e = . _flushAllMode 1 -> -> 0 `i `c ]
+"30
 }
 [e :U 580 ]
-[; ;flushAllMode.c: 28: }
-[; ;flushAllMode.c: 29: pump_stop();
-"29
-[e ( _pump_stop ..  ]
-[; ;flushAllMode.c: 30: mpap.mode = MPAP_STALL_MODE;
-"30
-[e = . _mpap 4 -> . `E4803 1 `c ]
-[; ;flushAllMode.c: 31: }
+[; ;flushAllMode.c: 30: }
+[; ;flushAllMode.c: 31: pump_stop();
 "31
+[e ( _pump_stop ..  ]
+[; ;flushAllMode.c: 32: mpap.mode = MPAP_STALL_MODE;
+"32
+[e = . _mpap 4 -> . `E4804 1 `c ]
+[; ;flushAllMode.c: 33: }
+"33
 [e :UE 578 ]
 }
-"33
-[v _flushAllMode_job `(v ~T0 @X0 1 ef ]
-"34
-{
-[; ;flushAllMode.c: 33: void flushAllMode_job(void)
-[; ;flushAllMode.c: 34: {
-[e :U _flushAllMode_job ]
-[f ]
-[; ;flushAllMode.c: 35: if (flushAllMode.sm0 > 0)
 "35
-[e $ ! > -> . _flushAllMode 1 `i -> 0 `i 582  ]
-[; ;flushAllMode.c: 36: {
+[v _flushAllMode_job `(v ~T0 @X0 1 ef ]
 "36
 {
-[; ;flushAllMode.c: 37: if (flushAllMode.sm0 == 1)
+[; ;flushAllMode.c: 35: void flushAllMode_job(void)
+[; ;flushAllMode.c: 36: {
+[e :U _flushAllMode_job ]
+[f ]
+[; ;flushAllMode.c: 37: if (flushAllMode.sm0 > 0)
 "37
-[e $ ! == -> . _flushAllMode 1 `i -> 1 `i 583  ]
+[e $ ! > -> . _flushAllMode 1 `i -> 0 `i 582  ]
 [; ;flushAllMode.c: 38: {
 "38
 {
-[; ;flushAllMode.c: 39: if (mpap_isIdle())
+[; ;flushAllMode.c: 39: if (flushAllMode.sm0 == 1)
 "39
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 584  ]
+[e $ ! == -> . _flushAllMode 1 `i -> 1 `i 583  ]
 [; ;flushAllMode.c: 40: {
 "40
 {
-[; ;flushAllMode.c: 41: mpap_setup_searchFirstPointHomeSensor();
+[; ;flushAllMode.c: 41: if (mpap_isIdle())
 "41
-[e ( _mpap_setup_searchFirstPointHomeSensor ..  ]
-[; ;flushAllMode.c: 42: flushAllMode.sm0++;
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 584  ]
+[; ;flushAllMode.c: 42: {
 "42
-[e ++ . _flushAllMode 1 -> -> 1 `i `c ]
+{
+[; ;flushAllMode.c: 43: pulsonic.numNozzle++;
 "43
-}
-[e :U 584 ]
-"44
-}
-[; ;flushAllMode.c: 43: }
-[; ;flushAllMode.c: 44: }
-[e $U 585  ]
+[e ++ . _pulsonic 15 -> -> 1 `i `c ]
+[; ;flushAllMode.c: 45: if (pulsonic.numNozzle >= 18)
 "45
-[e :U 583 ]
-[; ;flushAllMode.c: 45: else if (flushAllMode.sm0 == 2)
-[e $ ! == -> . _flushAllMode 1 `i -> 2 `i 586  ]
+[e $ ! >= -> . _pulsonic 15 `i -> 18 `i 585  ]
 [; ;flushAllMode.c: 46: {
 "46
 {
-[; ;flushAllMode.c: 47: if (mpap_isIdle())
+[; ;flushAllMode.c: 47: pulsonic.numNozzle = 0x00;
 "47
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 587  ]
-[; ;flushAllMode.c: 48: {
-"48
-{
-[; ;flushAllMode.c: 49: flushAllMode.sm0++;
+[e = . _pulsonic 15 -> -> 0 `i `c ]
+[; ;flushAllMode.c: 49: mpap_setupToTurn(1 * 200);
 "49
-[e ++ . _flushAllMode 1 -> -> 1 `i `c ]
+[e ( _mpap_setupToTurn (1 * -> 1 `i -> 200 `i ]
+[; ;flushAllMode.c: 50: mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
 "50
+[e = . _mpap 4 -> . `E4804 3 `c ]
+"52
 }
-[e :U 587 ]
-"51
-}
-[; ;flushAllMode.c: 50: }
-[; ;flushAllMode.c: 51: }
-[e $U 588  ]
+[; ;flushAllMode.c: 52: }
+[e $U 586  ]
 "53
-[e :U 586 ]
-[; ;flushAllMode.c: 53: else if (flushAllMode.sm0 == 3)
-[e $ ! == -> . _flushAllMode 1 `i -> 3 `i 589  ]
+[e :U 585 ]
+[; ;flushAllMode.c: 53: else
 [; ;flushAllMode.c: 54: {
 "54
 {
-[; ;flushAllMode.c: 55: if (nozzle_isEnabled(flushAllMode.numNozzle))
+[; ;flushAllMode.c: 55: mpap_movetoNozzle(pulsonic.numNozzle);
 "55
-[e $ ! != -> ( _nozzle_isEnabled (1 -> . _flushAllMode 0 `i `i -> -> -> 0 `i `c `i 590  ]
-[; ;flushAllMode.c: 56: {
+[e ( _mpap_movetoNozzle (1 . _pulsonic 15 ]
 "56
-{
-[; ;flushAllMode.c: 57: mpap_movetoNozzle(flushAllMode.numNozzle);
+}
+[e :U 586 ]
+[; ;flushAllMode.c: 56: }
+[; ;flushAllMode.c: 57: flushAllMode.sm0++;
 "57
-[e ( _mpap_movetoNozzle (1 . _flushAllMode 0 ]
-[; ;flushAllMode.c: 58: flushAllMode.sm0++;
-"58
 [e ++ . _flushAllMode 1 -> -> 1 `i `c ]
+"58
+}
+[e :U 584 ]
 "59
 }
-[e :U 590 ]
+[; ;flushAllMode.c: 58: }
 [; ;flushAllMode.c: 59: }
-[; ;flushAllMode.c: 61: if (++flushAllMode.numNozzle == 18)
+[e $U 587  ]
+"60
+[e :U 583 ]
+[; ;flushAllMode.c: 60: else if (flushAllMode.sm0 == 2)
+[e $ ! == -> . _flushAllMode 1 `i -> 2 `i 588  ]
+[; ;flushAllMode.c: 61: {
 "61
-[e $ ! == -> =+ . _flushAllMode 0 -> -> 1 `i `c `i -> 18 `i 591  ]
-[; ;flushAllMode.c: 62: {flushAllMode.numNozzle = 0x00;}
-"62
 {
-[e = . _flushAllMode 0 -> -> 0 `i `c ]
-}
-[e :U 591 ]
+[; ;flushAllMode.c: 62: if (mpap_isIdle())
+"62
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 589  ]
+[; ;flushAllMode.c: 63: {
 "63
-}
-[; ;flushAllMode.c: 63: }
-[e $U 592  ]
+{
+[; ;flushAllMode.c: 64: if (nozzle_isEnabled(pulsonic.numNozzle))
 "64
-[e :U 589 ]
-[; ;flushAllMode.c: 64: else if (flushAllMode.sm0 == 4)
-[e $ ! == -> . _flushAllMode 1 `i -> 4 `i 593  ]
+[e $ ! != -> ( _nozzle_isEnabled (1 -> . _pulsonic 15 `i `i -> -> -> 0 `i `c `i 590  ]
 [; ;flushAllMode.c: 65: {
 "65
 {
-[; ;flushAllMode.c: 66: if (mpap_isIdle())
+[; ;flushAllMode.c: 66: flushAllMode.sm0++;
 "66
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 594  ]
-[; ;flushAllMode.c: 67: {
-"67
-{
-[; ;flushAllMode.c: 68: pump_setTick(18);
-"68
-[e ( _pump_setTick (1 -> -> 18 `i `ui ]
-[; ;flushAllMode.c: 69: flushAllMode.sm0++;
-"69
 [e ++ . _flushAllMode 1 -> -> 1 `i `c ]
-"70
+"67
 }
-[e :U 594 ]
+[; ;flushAllMode.c: 67: }
+[e $U 591  ]
+"68
+[e :U 590 ]
+[; ;flushAllMode.c: 68: else
+[; ;flushAllMode.c: 69: {
+"69
+{
+[; ;flushAllMode.c: 70: flushAllMode.sm0--;
+"70
+[e -- . _flushAllMode 1 -> -> 1 `i `c ]
 "71
 }
-[; ;flushAllMode.c: 70: }
-[; ;flushAllMode.c: 71: }
-[e $U 595  ]
+[e :U 591 ]
 "72
-[e :U 593 ]
-[; ;flushAllMode.c: 72: else if (flushAllMode.sm0 == 5)
-[e $ ! == -> . _flushAllMode 1 `i -> 5 `i 596  ]
-[; ;flushAllMode.c: 73: {
+}
+[e :U 589 ]
 "73
-{
-[; ;flushAllMode.c: 74: if (pump_isIdle())
+}
+[; ;flushAllMode.c: 71: }
+[; ;flushAllMode.c: 72: }
+[; ;flushAllMode.c: 73: }
+[e $U 592  ]
 "74
-[e $ ! != -> ( _pump_isIdle ..  `i -> -> -> 0 `i `c `i 597  ]
+[e :U 588 ]
+[; ;flushAllMode.c: 74: else if (flushAllMode.sm0 == 3)
+[e $ ! == -> . _flushAllMode 1 `i -> 3 `i 593  ]
 [; ;flushAllMode.c: 75: {
 "75
 {
-[; ;flushAllMode.c: 76: flushAllMode.sm0 = 0x3;
+[; ;flushAllMode.c: 76: if (mpap_isIdle())
 "76
-[e = . _flushAllMode 1 -> -> 3 `i `c ]
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 594  ]
+[; ;flushAllMode.c: 77: {
 "77
+{
+[; ;flushAllMode.c: 78: pump_setTick(6);
+"78
+[e ( _pump_setTick (1 -> -> 6 `i `ui ]
+[; ;flushAllMode.c: 79: flushAllMode.sm0++;
+"79
+[e ++ . _flushAllMode 1 -> -> 1 `i `c ]
+"80
+}
+[e :U 594 ]
+"81
+}
+[; ;flushAllMode.c: 80: }
+[; ;flushAllMode.c: 81: }
+[e $U 595  ]
+"82
+[e :U 593 ]
+[; ;flushAllMode.c: 82: else if (flushAllMode.sm0 == 4)
+[e $ ! == -> . _flushAllMode 1 `i -> 4 `i 596  ]
+[; ;flushAllMode.c: 83: {
+"83
+{
+[; ;flushAllMode.c: 84: if (pump_isIdle())
+"84
+[e $ ! != -> ( _pump_isIdle ..  `i -> -> -> 0 `i `c `i 597  ]
+[; ;flushAllMode.c: 85: {
+"85
+{
+[; ;flushAllMode.c: 86: flushAllMode.sm0 = 0x1;
+"86
+[e = . _flushAllMode 1 -> -> 1 `i `c ]
+"87
 }
 [e :U 597 ]
-"78
+"88
 }
 [e :U 596 ]
-"79
+"89
 [e :U 595 ]
 [e :U 592 ]
-[e :U 588 ]
-[e :U 585 ]
+[e :U 587 ]
 }
 [e :U 582 ]
-[; ;flushAllMode.c: 77: }
-[; ;flushAllMode.c: 78: }
-[; ;flushAllMode.c: 79: }
-[; ;flushAllMode.c: 80: }
-"80
+[; ;flushAllMode.c: 87: }
+[; ;flushAllMode.c: 88: }
+[; ;flushAllMode.c: 89: }
+[; ;flushAllMode.c: 90: }
+"90
 [e :UE 581 ]
 }

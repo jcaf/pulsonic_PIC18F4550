@@ -62,12 +62,14 @@ void mpap_setupToTurn(int16_t numSteps_tomove)
         mpap.numSteps_tomove = numSteps_tomove;
     }
 }
+/*return the truncated current position(left adjusted)*/
+int8_t mpap_getNozzlePosition(void)
+{
+    return (mpap.numSteps_current/MPAP_NUMSTEP_1NOZZLE);
+}
 
 void mpap_setup_searchFirstPointHomeSensor(void)
 {
-    //mpap_setupToTurn( -1 *( (NOZZLE_NUMMAX*MPAP_NUMSTEP_1NOZZLE) +20));//direccion negativa
-    //mpap_setupToTurn(-1 * ((18 * MPAP_NUMSTEP_1NOZZLE) + 20)); //direccion negativa
-    
     mpap_setupToTurn(+1 * ((18 * MPAP_NUMSTEP_1NOZZLE) + 20)); 
     mpap.mode = MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE;
 }
@@ -107,8 +109,9 @@ static int8_t mpap_searchFirstPointHomeSensor(void)
     {
         mpap_do1step(mpap.KI);
         //
-        mpap.counter_steps += mpap.KI; //inc/dec +-1
-
+        mpap.counter_steps += mpap.KI;
+        mpap.numSteps_current += mpap.KI; //keep the current position
+        //
         if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 0)
             {cod_ret = 1;}
         else
@@ -134,7 +137,7 @@ static int8_t mpap_crossingHomeSensor(void)
         mpap.counter_steps += mpap.KI; //inc/dec +-1
 
         if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 0)
-            counterZeros++;
+            {counterZeros++;}
         
         if (mpap.counter_steps == mpap.numSteps_tomove)//max. num. vueltas
         {
@@ -163,9 +166,9 @@ static int8_t mpap_normal_mode(void)
     {
         mpap_do1step(mpap.KI);
         //
-        mpap.counter_steps += mpap.KI; //inc/dec +-1
+        mpap.counter_steps += mpap.KI; 
 
-        mpap.numSteps_current += mpap.KI; //+= mpap.counter_steps;//siempre mantiene la posicion 
+        mpap.numSteps_current += mpap.KI; //keep the current position
 
         if (mpap.counter_steps == mpap.numSteps_tomove)//AQUI PUEDE SER COMPARAR CON < > segun el caso si es negativo o positivo la comparacion
         {
@@ -228,14 +231,12 @@ void mpap_job(void)
 
 void mpap_movetoNozzle(int8_t numNozzle)//0..NOZZLE_NUMMAX-1
 {
-    //mpap_setupToTurn( nozzle * MPAP_NUMSTEP_1NOZZLE);//se escala	
-    int16_t numSteps_tomove = (numNozzle * MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current;
+    int16_t numSteps_tomove = (numNozzle*MPAP_NUMSTEP_1NOZZLE)-mpap.numSteps_current;
     if (numSteps_tomove != 0)
     {
         mpap_setupToTurn(numSteps_tomove);
         mpap.mode = MPAP_NORMAL_MODE;
     }
-
 }
 
 int8_t mpap_isIdle(void)
@@ -247,7 +248,6 @@ int8_t mpap_isIdle(void)
     return 0;
 }
 
-
 /*
  * 1=ok
  * 2=bad
@@ -256,33 +256,42 @@ int8_t mpap_isIdle(void)
  * pulsonic.flags.homed
  * pulsonic.error.f.homeSensor
  */
+struct _homming
+{
+    int8_t sm0;
+}homming;
+
+void  mpap_homming_job_reset(void)
+{
+    homming.sm0 = 0x00;
+}
 int8_t mpap_homming_job(void)
 {
     int8_t cod_ret = 0;
-    static int8_t sm0;
-    if (sm0 == 0)
+    
+    if (homming.sm0 == 0)
     {
         if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 0)
         {
             mpap_setupToTurn(+1 * ((2 * MPAP_NUMSTEP_1NOZZLE))); //exit from this point by 2 turn for safe
             mpap.mode = MPAP_NORMAL_MODE;
-            sm0++;
+            homming.sm0++;
         }
         else
         {
             mpap_setup_searchFirstPointHomeSensor();
-            sm0 = 2;
+            homming.sm0 = 2;
         }
     }
-    else if (sm0 == 1)
+    else if (homming.sm0 == 1)
     {
         if (mpap_isIdle())
         {
             mpap_setup_searchFirstPointHomeSensor();
-            sm0++;
+            homming.sm0++;
         }
     }
-    else if (sm0 == 2)
+    else if (homming.sm0 == 2)
     {
         if (mpap_isIdle())
         {
@@ -290,7 +299,7 @@ int8_t mpap_homming_job(void)
             {
                 mpap_setupToTurn(1 * MPAP_NUMSTEP_1NOZZLE);
                 mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
-                sm0++;
+                homming.sm0++;
             }
             else//error sensor!
             {
@@ -300,11 +309,11 @@ int8_t mpap_homming_job(void)
                 pulsonic.error.f.homeSensor = 0;
                 */
                 cod_ret = 2;
-                sm0 = 0x00;
+                homming.sm0 = 0x00;
             }
         }
     }
-    else if (sm0 == 3)
+    else if (homming.sm0 == 3)
     {
         if (mpap_isIdle())
         {
@@ -322,7 +331,7 @@ int8_t mpap_homming_job(void)
                 cod_ret = 2;
             }
             
-            sm0 = 0x00;
+            homming.sm0 = 0x00;
         }
     }
     return cod_ret;

@@ -21,15 +21,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [s S570 :1 `uc 1 :7 `uc 1 ]
 [n S570 _pulsonic_flags homed __a ]
 "40
-[s S566 `S564 1 `d 1 `d 1 `d 1 `d 1 `S567 -> 18 `i `S568 1 `d 1 `c 1 `ul 1 `ul 1 `i 1 `c 1 `S569 1 `S570 1 ]
-[n S566 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags ]
-"92
+[s S566 `S564 1 `d 1 `d 1 `d 1 `d 1 `S567 -> 18 `i `S568 1 `d 1 `c 1 `ul 1 `ul 1 `i 1 `c 1 `S569 1 `S570 1 `c 1 ]
+[n S566 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags numNozzle ]
+"93
 [v _pulsonic `VS566 ~T0 @X0 0 e ]
 "18 nozzle.h
 [v _nozzle_isEnabled `(c ~T0 @X0 0 ef1`i ]
 "64 autoMode.c
-[s S585 `c 1 `c 1 ]
-[n S585 _autoMode numNozzle sm0 ]
+[s S585 `c 1 ]
+[n S585 _autoMode sm0 ]
 "41 main.h
 [v _disp_owner `c ~T0 @X0 0 e ]
 "72 autoMode.c
@@ -39,11 +39,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _disp7s_modeDisp_off `(v ~T0 @X0 0 ef ]
 "48
 [v _disp7s_qtyDisp_writeFloat `(v ~T0 @X0 0 ef1`f ]
-"97 pulsonic.h
+"98 pulsonic.h
 [v _pulsonic_getTotalSum_mlh `(d ~T0 @X0 0 ef ]
 "81 autoMode.c
 [c E4712 0 1 .. ]
 [n E4712 _JOB_CMD JOB_RESTART JOB_STOP  ]
+"40 mpap.h
+[v _mpap_homming_job_reset `(v ~T0 @X0 0 ef ]
 "22 pump.h
 [v _pump_stop `(v ~T0 @X0 0 ef ]
 "19 mpap.h
@@ -51,12 +53,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S571 _mpap numSteps_current counter_steps numSteps_tomove KI mode ]
 "27
 [v _mpap `VS571 ~T0 @X0 0 e ]
-"93 autoMode.c
-[c E4803 0 1 2 3 4 .. ]
-[n E4803 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE MPAP_CROSSING_HOMESENSOR_MODE MPAP_NORMAL_MODE  ]
+"94 autoMode.c
+[c E4804 0 1 2 3 4 .. ]
+[n E4804 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE MPAP_CROSSING_HOMESENSOR_MODE MPAP_NORMAL_MODE  ]
 "35 mpap.h
 [v _mpap_isIdle `(c ~T0 @X0 0 ef ]
-"38
+"39
 [v _mpap_homming_job `(c ~T0 @X0 0 ef ]
 "20 pump.h
 [v _pump_setTick `(v ~T0 @X0 0 ef1`ui ]
@@ -4452,12 +4454,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 86: unsigned homed:1;
 [; ;pulsonic.h: 87: unsigned __a:7;
 [; ;pulsonic.h: 88: }flags;
-[; ;pulsonic.h: 90: };
-[; ;pulsonic.h: 92: extern volatile struct _pulsonic pulsonic;
-[; ;pulsonic.h: 94: extern const int8_t OIL_VISCOSITY[4];
-[; ;pulsonic.h: 96: void pulsonic_init(void);
-[; ;pulsonic.h: 97: double pulsonic_getTotalSum_mlh(void);
-[; ;pulsonic.h: 98: int8_t pulsonic_getNumNozzleAvailable(void);
+[; ;pulsonic.h: 90: int8_t numNozzle;
+[; ;pulsonic.h: 91: };
+[; ;pulsonic.h: 93: extern volatile struct _pulsonic pulsonic;
+[; ;pulsonic.h: 95: extern const int8_t OIL_VISCOSITY[4];
+[; ;pulsonic.h: 97: void pulsonic_init(void);
+[; ;pulsonic.h: 98: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 99: int8_t pulsonic_getNumNozzleAvailable(void);
 [; ;mpap.h: 11: enum MPAP_MODES
 [; ;mpap.h: 12: {
 [; ;mpap.h: 13: MPAP_IDLE_MODE=0,
@@ -4481,7 +4484,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 34: void mpap_movetoNozzle(int8_t n);
 [; ;mpap.h: 35: int8_t mpap_isIdle(void);
 [; ;mpap.h: 36: void mpap_do1step(int8_t KI);
-[; ;mpap.h: 38: int8_t mpap_homming_job(void);
+[; ;mpap.h: 37: int8_t mpap_getNozzlePosition(void);
+[; ;mpap.h: 39: int8_t mpap_homming_job(void);
+[; ;mpap.h: 40: void mpap_homming_job_reset(void);
 [; ;pump.h: 14: struct _pump
 [; ;pump.h: 15: {
 [; ;pump.h: 16: uint16_t ticks;
@@ -4644,7 +4649,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _autoMode `S585 ~T0 @X0 1 s ]
 [; ;autoMode.c: 64: static struct _autoMode
 [; ;autoMode.c: 65: {
-[; ;autoMode.c: 66: int8_t numNozzle;
 [; ;autoMode.c: 67: int8_t sm0;
 [; ;autoMode.c: 68: } autoMode;
 "70
@@ -4692,426 +4696,432 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;autoMode.c: 82: {
 "82
 {
-[; ;autoMode.c: 83: autoMode.numNozzle = 0x0;
-"83
-[e = . _autoMode 0 -> -> 0 `i `c ]
-[; ;autoMode.c: 84: autoMode.sm0 = 0x1;
+[; ;autoMode.c: 84: mpap_homming_job_reset();
 "84
-[e = . _autoMode 1 -> -> 1 `i `c ]
-[; ;autoMode.c: 86: autoMode_setup();
-"86
-[e ( _autoMode_setup ..  ]
+[e ( _mpap_homming_job_reset ..  ]
+[; ;autoMode.c: 85: autoMode.sm0 = 0x1;
+"85
+[e = . _autoMode 0 -> -> 1 `i `c ]
+[; ;autoMode.c: 87: autoMode_setup();
 "87
-}
-[; ;autoMode.c: 87: }
-[e $U 590  ]
+[e ( _autoMode_setup ..  ]
 "88
-[e :U 589 ]
-[; ;autoMode.c: 88: else if (cmd == JOB_STOP)
-[e $ ! == -> _cmd `i -> . `E4712 1 `i 591  ]
-[; ;autoMode.c: 89: {
+}
+[; ;autoMode.c: 88: }
+[e $U 590  ]
 "89
-{
-[; ;autoMode.c: 90: autoMode.sm0 = 0;
+[e :U 589 ]
+[; ;autoMode.c: 89: else if (cmd == JOB_STOP)
+[e $ ! == -> _cmd `i -> . `E4712 1 `i 591  ]
+[; ;autoMode.c: 90: {
 "90
-[e = . _autoMode 1 -> -> 0 `i `c ]
+{
+[; ;autoMode.c: 91: autoMode.sm0 = 0x00;
 "91
+[e = . _autoMode 0 -> -> 0 `i `c ]
+"92
 }
 [e :U 591 ]
-"92
-[e :U 590 ]
-[; ;autoMode.c: 91: }
-[; ;autoMode.c: 92: pump_stop();
-[e ( _pump_stop ..  ]
-[; ;autoMode.c: 93: mpap.mode = MPAP_STALL_MODE;
 "93
-[e = . _mpap 4 -> . `E4803 1 `c ]
-[; ;autoMode.c: 94: }
+[e :U 590 ]
+[; ;autoMode.c: 92: }
+[; ;autoMode.c: 93: pump_stop();
+[e ( _pump_stop ..  ]
+[; ;autoMode.c: 94: mpap.mode = MPAP_STALL_MODE;
 "94
+[e = . _mpap 4 -> . `E4804 1 `c ]
+[; ;autoMode.c: 95: }
+"95
 [e :UE 588 ]
 }
-"96
-[v _autoMode_job `(v ~T0 @X0 1 ef ]
 "97
+[v _autoMode_job `(v ~T0 @X0 1 ef ]
+"98
 {
-[; ;autoMode.c: 96: void autoMode_job(void)
-[; ;autoMode.c: 97: {
+[; ;autoMode.c: 97: void autoMode_job(void)
+[; ;autoMode.c: 98: {
 [e :U _autoMode_job ]
 [f ]
-"98
-[v F4924 `ul ~T0 @X0 1 s tacc ]
-[v F4925 `ul ~T0 @X0 1 s ktime_residuary ]
 "99
-[v F4926 `uc ~T0 @X0 1 s numVueltas ]
-"102
+[v F4928 `ul ~T0 @X0 1 s tacc ]
+[v F4929 `ul ~T0 @X0 1 s ktime_residuary ]
+"100
+[v F4930 `uc ~T0 @X0 1 s numVueltas ]
+"103
 [v _e `d ~T0 @X0 1 a ]
-[; ;autoMode.c: 98: static uint32_t tacc, ktime_residuary;
-[; ;autoMode.c: 99: static uint8_t numVueltas;
-[; ;autoMode.c: 102: double e = 0;
+[; ;autoMode.c: 99: static uint32_t tacc, ktime_residuary;
+[; ;autoMode.c: 100: static uint8_t numVueltas;
+[; ;autoMode.c: 103: double e = 0;
 [e = _e -> -> 0 `i `d ]
-[; ;autoMode.c: 104: if (autoMode.sm0 > 0)
-"104
-[e $ ! > -> . _autoMode 1 `i -> 0 `i 593  ]
-[; ;autoMode.c: 105: {
+[; ;autoMode.c: 105: if (autoMode.sm0 > 0)
 "105
-{
-[; ;autoMode.c: 106: if (autoMode.sm0 == 1)
+[e $ ! > -> . _autoMode 0 `i -> 0 `i 593  ]
+[; ;autoMode.c: 106: {
 "106
-[e $ ! == -> . _autoMode 1 `i -> 1 `i 594  ]
-[; ;autoMode.c: 107: {
+{
+[; ;autoMode.c: 107: if (autoMode.sm0 == 1)
 "107
-{
-[; ;autoMode.c: 108: if (mpap_isIdle())
+[e $ ! == -> . _autoMode 0 `i -> 1 `i 594  ]
+[; ;autoMode.c: 108: {
 "108
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 595  ]
-[; ;autoMode.c: 109: {
+{
+[; ;autoMode.c: 109: if (mpap_isIdle())
 "109
-{
-[; ;autoMode.c: 110: if (mpap.numSteps_current == 0x000)
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 595  ]
+[; ;autoMode.c: 110: {
 "110
-[e $ ! == . _mpap 0 -> 0 `i 596  ]
-[; ;autoMode.c: 111: {
+{
+[; ;autoMode.c: 111: if (mpap.numSteps_current == 0x000)
 "111
-{
-[; ;autoMode.c: 112: autoMode.sm0+=2;
+[e $ ! == . _mpap 0 -> 0 `i 596  ]
+[; ;autoMode.c: 112: {
 "112
-[e =+ . _autoMode 1 -> -> 2 `i `c ]
-"113
-}
-[; ;autoMode.c: 113: }
-[e $U 597  ]
-"114
-[e :U 596 ]
-[; ;autoMode.c: 114: else
-[; ;autoMode.c: 115: {
-"115
 {
-[; ;autoMode.c: 116: autoMode.sm0++;
+[; ;autoMode.c: 113: pulsonic.numNozzle = 0x0;
+"113
+[e = . _pulsonic 15 -> -> 0 `i `c ]
+[; ;autoMode.c: 114: autoMode.sm0+=2;
+"114
+[e =+ . _autoMode 0 -> -> 2 `i `c ]
+"115
+}
+[; ;autoMode.c: 115: }
+[e $U 597  ]
 "116
-[e ++ . _autoMode 1 -> -> 1 `i `c ]
+[e :U 596 ]
+[; ;autoMode.c: 116: else
+[; ;autoMode.c: 117: {
 "117
-}
-[e :U 597 ]
+{
+[; ;autoMode.c: 118: autoMode.sm0++;
 "118
-}
-[e :U 595 ]
+[e ++ . _autoMode 0 -> -> 1 `i `c ]
 "119
 }
-[; ;autoMode.c: 117: }
-[; ;autoMode.c: 118: }
-[; ;autoMode.c: 119: }
-[e $U 598  ]
+[e :U 597 ]
 "120
-[e :U 594 ]
-[; ;autoMode.c: 120: else if (autoMode.sm0 == 2)
-[e $ ! == -> . _autoMode 1 `i -> 2 `i 599  ]
-[; ;autoMode.c: 121: {
+}
+[e :U 595 ]
 "121
-{
-[; ;autoMode.c: 122: if (mpap_homming_job())
+}
+[; ;autoMode.c: 119: }
+[; ;autoMode.c: 120: }
+[; ;autoMode.c: 121: }
+[e $U 598  ]
 "122
-[e $ ! != -> ( _mpap_homming_job ..  `i -> -> -> 0 `i `c `i 600  ]
+[e :U 594 ]
+[; ;autoMode.c: 122: else if (autoMode.sm0 == 2)
+[e $ ! == -> . _autoMode 0 `i -> 2 `i 599  ]
 [; ;autoMode.c: 123: {
 "123
 {
-[; ;autoMode.c: 124: autoMode.sm0++;
+[; ;autoMode.c: 124: if (mpap_homming_job())
 "124
-[e ++ . _autoMode 1 -> -> 1 `i `c ]
+[e $ ! != -> ( _mpap_homming_job ..  `i -> -> -> 0 `i `c `i 600  ]
+[; ;autoMode.c: 125: {
 "125
+{
+[; ;autoMode.c: 126: pulsonic.numNozzle = 0x0;
+"126
+[e = . _pulsonic 15 -> -> 0 `i `c ]
+[; ;autoMode.c: 127: autoMode.sm0++;
+"127
+[e ++ . _autoMode 0 -> -> 1 `i `c ]
+"128
 }
 [e :U 600 ]
-"126
-}
-[; ;autoMode.c: 125: }
-[; ;autoMode.c: 126: }
-[e $U 601  ]
-"127
-[e :U 599 ]
-[; ;autoMode.c: 127: else if (autoMode.sm0 == 3)
-[e $ ! == -> . _autoMode 1 `i -> 3 `i 602  ]
-[; ;autoMode.c: 128: {
-"128
-{
-[; ;autoMode.c: 129: if (mpap_isIdle())
 "129
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 603  ]
-[; ;autoMode.c: 130: {
+}
+[; ;autoMode.c: 128: }
+[; ;autoMode.c: 129: }
+[e $U 601  ]
 "130
+[e :U 599 ]
+[; ;autoMode.c: 130: else if (autoMode.sm0 == 3)
+[e $ ! == -> . _autoMode 0 `i -> 3 `i 602  ]
+[; ;autoMode.c: 131: {
+"131
 {
-[; ;autoMode.c: 132: pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice = 0;
+[; ;autoMode.c: 132: if (mpap_isIdle())
 "132
-[e = . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 -> -> 0 `i `ui ]
-[; ;autoMode.c: 133: pulsonic.nozzle[autoMode.numNozzle].accError += pulsonic.nozzle[autoMode.numNozzle].nticks_xtimeslice;
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 603  ]
+[; ;autoMode.c: 133: {
 "133
-[e =+ . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 3 . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 1 ]
-[; ;autoMode.c: 134: if (pulsonic.nozzle[autoMode.numNozzle].accError >= pulsonic.nozzle[autoMode.numNozzle].kmax_ticks_xtimeslice)
-"134
-[e $ ! >= . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 3 . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 2 604  ]
-[; ;autoMode.c: 135: {
-"135
 {
-[; ;autoMode.c: 136: e = pulsonic.nozzle[autoMode.numNozzle].accError - pulsonic.nozzle[autoMode.numNozzle].kmax_ticks_xtimeslice;
+[; ;autoMode.c: 135: pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice = 0;
+"135
+[e = . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 -> -> 0 `i `ui ]
+[; ;autoMode.c: 136: pulsonic.nozzle[pulsonic.numNozzle].accError += pulsonic.nozzle[pulsonic.numNozzle].nticks_xtimeslice;
 "136
-[e = _e - . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 3 . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 2 ]
-[; ;autoMode.c: 137: if (e >= 1)
+[e =+ . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 3 . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 1 ]
+[; ;autoMode.c: 137: if (pulsonic.nozzle[pulsonic.numNozzle].accError >= pulsonic.nozzle[pulsonic.numNozzle].kmax_ticks_xtimeslice)
 "137
-[e $ ! >= _e -> -> 1 `i `d 605  ]
+[e $ ! >= . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 3 . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 2 604  ]
 [; ;autoMode.c: 138: {
 "138
 {
-[; ;autoMode.c: 139: e = e - 1;
+[; ;autoMode.c: 139: e = pulsonic.nozzle[pulsonic.numNozzle].accError - pulsonic.nozzle[pulsonic.numNozzle].kmax_ticks_xtimeslice;
 "139
-[e = _e - _e -> -> 1 `i `d ]
-[; ;autoMode.c: 140: pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice += 1;
+[e = _e - . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 3 . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 2 ]
+[; ;autoMode.c: 140: if (e >= 1)
 "140
-[e =+ . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 -> -> 1 `i `ui ]
+[e $ ! >= _e -> -> 1 `i `d 605  ]
+[; ;autoMode.c: 141: {
 "141
+{
+[; ;autoMode.c: 142: e = e - 1;
+"142
+[e = _e - _e -> -> 1 `i `d ]
+[; ;autoMode.c: 143: pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice += 1;
+"143
+[e =+ . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 -> -> 1 `i `ui ]
+"144
 }
 [e :U 605 ]
-[; ;autoMode.c: 141: }
-[; ;autoMode.c: 142: pulsonic.nozzle[autoMode.numNozzle].accError = e;
-"142
-[e = . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 3 _e ]
-"143
+[; ;autoMode.c: 144: }
+[; ;autoMode.c: 145: pulsonic.nozzle[pulsonic.numNozzle].accError = e;
+"145
+[e = . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 3 _e ]
+"146
 }
 [e :U 604 ]
-[; ;autoMode.c: 143: }
-[; ;autoMode.c: 144: if (pulsonic.num_timeslice == ((int) pulsonic.timeslice) - 1)
-"144
-[e $ ! == . _pulsonic 11 - -> . _pulsonic 4 `i -> 1 `i 606  ]
-[; ;autoMode.c: 145: {
-"145
-{
-[; ;autoMode.c: 146: if (e > 0)
-"146
-[e $ ! > _e -> -> 0 `i `d 607  ]
-[; ;autoMode.c: 147: pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice += 1;
+[; ;autoMode.c: 146: }
+[; ;autoMode.c: 147: if (pulsonic.num_timeslice == ((int) pulsonic.timeslice) - 1)
 "147
-[e =+ . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 -> -> 1 `i `ui ]
-[e :U 607 ]
+[e $ ! == . _pulsonic 11 - -> . _pulsonic 4 `i -> 1 `i 606  ]
+[; ;autoMode.c: 148: {
 "148
+{
+[; ;autoMode.c: 149: if (e > 0)
+"149
+[e $ ! > _e -> -> 0 `i `d 607  ]
+[; ;autoMode.c: 150: pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice += 1;
+"150
+[e =+ . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 -> -> 1 `i `ui ]
+[e :U 607 ]
+"151
 }
 [e :U 606 ]
-[; ;autoMode.c: 148: }
-[; ;autoMode.c: 149: pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice += (uint16_t) pulsonic.nozzle[autoMode.numNozzle].kmax_ticks_xtimeslice;
-"149
-[e =+ . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 -> . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 2 `ui ]
-[; ;autoMode.c: 150: pulsonic.nozzle[autoMode.numNozzle].counterTicks_xTotalTime += pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice;
-"150
-[e =+ . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 4 -> . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 `i ]
-[; ;autoMode.c: 153: pump_setTick(pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice);
+[; ;autoMode.c: 151: }
+[; ;autoMode.c: 152: pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice += (uint16_t) pulsonic.nozzle[pulsonic.numNozzle].kmax_ticks_xtimeslice;
+"152
+[e =+ . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 -> . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 2 `ui ]
+[; ;autoMode.c: 153: pulsonic.nozzle[pulsonic.numNozzle].counterTicks_xTotalTime += pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice;
 "153
-[e ( _pump_setTick (1 . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 ]
-[; ;autoMode.c: 154: autoMode.sm0++;
-"154
-[e ++ . _autoMode 1 -> -> 1 `i `c ]
+[e =+ . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 4 -> . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 `i ]
+[; ;autoMode.c: 156: pump_setTick(pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice);
 "156
+[e ( _pump_setTick (1 . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 ]
+[; ;autoMode.c: 157: autoMode.sm0++;
+"157
+[e ++ . _autoMode 0 -> -> 1 `i `c ]
+"159
 }
 [e :U 603 ]
-"157
-}
-[; ;autoMode.c: 156: }
-[; ;autoMode.c: 157: }
-[e $U 608  ]
-"158
-[e :U 602 ]
-[; ;autoMode.c: 158: else if (autoMode.sm0 == 4)
-[e $ ! == -> . _autoMode 1 `i -> 4 `i 609  ]
-[; ;autoMode.c: 159: {
-"159
-{
-[; ;autoMode.c: 160: if (pump_isIdle())
 "160
-[e $ ! != -> ( _pump_isIdle ..  `i -> -> -> 0 `i `c `i 610  ]
-[; ;autoMode.c: 161: {
+}
+[; ;autoMode.c: 159: }
+[; ;autoMode.c: 160: }
+[e $U 608  ]
 "161
-{
-[; ;autoMode.c: 162: tacc = pulsonic.nozzle[autoMode.numNozzle].nticks_delivered_inThisTimeSlice;
+[e :U 602 ]
+[; ;autoMode.c: 161: else if (autoMode.sm0 == 4)
+[e $ ! == -> . _autoMode 0 `i -> 4 `i 609  ]
+[; ;autoMode.c: 162: {
 "162
-[e = F4924 -> . *U + &U . _pulsonic 5 * -> -> . _autoMode 0 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 `ul ]
-[; ;autoMode.c: 163: numVueltas = 0x00;
+{
+[; ;autoMode.c: 163: if (pump_isIdle())
 "163
-[e = F4926 -> -> 0 `i `uc ]
-[; ;autoMode.c: 164: autoMode.sm0++;
+[e $ ! != -> ( _pump_isIdle ..  `i -> -> -> 0 `i `c `i 610  ]
+[; ;autoMode.c: 164: {
 "164
-[e ++ . _autoMode 1 -> -> 1 `i `c ]
+{
+[; ;autoMode.c: 165: tacc = pulsonic.nozzle[pulsonic.numNozzle].nticks_delivered_inThisTimeSlice;
 "165
+[e = F4928 -> . *U + &U . _pulsonic 5 * -> -> . _pulsonic 15 `uc `ux -> -> # *U &U . _pulsonic 5 `ui `ux 5 `ul ]
+[; ;autoMode.c: 166: numVueltas = 0x00;
+"166
+[e = F4930 -> -> 0 `i `uc ]
+[; ;autoMode.c: 167: autoMode.sm0++;
+"167
+[e ++ . _autoMode 0 -> -> 1 `i `c ]
+"168
 }
 [e :U 610 ]
-"166
-}
-[; ;autoMode.c: 165: }
-[; ;autoMode.c: 166: }
-[e $U 611  ]
-"167
-[e :U 609 ]
-[; ;autoMode.c: 167: else if (autoMode.sm0 == 5)
-[e $ ! == -> . _autoMode 1 `i -> 5 `i 612  ]
-[; ;autoMode.c: 168: {
-"168
-{
-[; ;autoMode.c: 169: autoMode.numNozzle++;
 "169
-[e ++ . _autoMode 0 -> -> 1 `i `c ]
-[; ;autoMode.c: 171: if (autoMode.numNozzle >= 18)
-"171
-[e $ ! >= -> . _autoMode 0 `i -> 18 `i 613  ]
-[; ;autoMode.c: 172: {
-"172
-{
-[; ;autoMode.c: 173: autoMode.numNozzle = 0x00;
-"173
-[e = . _autoMode 0 -> -> 0 `i `c ]
-[; ;autoMode.c: 175: mpap_setupToTurn(1 * 200);
-"175
-[e ( _mpap_setupToTurn (1 * -> 1 `i -> 200 `i ]
-[; ;autoMode.c: 176: mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
-"176
-[e = . _mpap 4 -> . `E4803 3 `c ]
-"178
 }
-[; ;autoMode.c: 178: }
-[e $U 614  ]
-"179
-[e :U 613 ]
-[; ;autoMode.c: 179: else
-[; ;autoMode.c: 180: {
-"180
+[; ;autoMode.c: 168: }
+[; ;autoMode.c: 169: }
+[e $U 611  ]
+"170
+[e :U 609 ]
+[; ;autoMode.c: 170: else if (autoMode.sm0 == 5)
+[e $ ! == -> . _autoMode 0 `i -> 5 `i 612  ]
+[; ;autoMode.c: 171: {
+"171
 {
-[; ;autoMode.c: 181: mpap_movetoNozzle(autoMode.numNozzle);
+[; ;autoMode.c: 172: pulsonic.numNozzle++;
+"172
+[e ++ . _pulsonic 15 -> -> 1 `i `c ]
+[; ;autoMode.c: 174: if (pulsonic.numNozzle >= 18)
+"174
+[e $ ! >= -> . _pulsonic 15 `i -> 18 `i 613  ]
+[; ;autoMode.c: 175: {
+"175
+{
+[; ;autoMode.c: 176: pulsonic.numNozzle = 0x00;
+"176
+[e = . _pulsonic 15 -> -> 0 `i `c ]
+[; ;autoMode.c: 178: mpap_setupToTurn(1 * 200);
+"178
+[e ( _mpap_setupToTurn (1 * -> 1 `i -> 200 `i ]
+[; ;autoMode.c: 179: mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
+"179
+[e = . _mpap 4 -> . `E4804 3 `c ]
 "181
-[e ( _mpap_movetoNozzle (1 . _autoMode 0 ]
+}
+[; ;autoMode.c: 181: }
+[e $U 614  ]
 "182
+[e :U 613 ]
+[; ;autoMode.c: 182: else
+[; ;autoMode.c: 183: {
+"183
+{
+[; ;autoMode.c: 184: mpap_movetoNozzle(pulsonic.numNozzle);
+"184
+[e ( _mpap_movetoNozzle (1 . _pulsonic 15 ]
+"185
 }
 [e :U 614 ]
-[; ;autoMode.c: 182: }
-[; ;autoMode.c: 183: numVueltas++;
-"183
-[e ++ F4926 -> -> 1 `i `uc ]
-[; ;autoMode.c: 186: autoMode.sm0++;
+[; ;autoMode.c: 185: }
+[; ;autoMode.c: 186: numVueltas++;
 "186
-[e ++ . _autoMode 1 -> -> 1 `i `c ]
-"187
-}
-[; ;autoMode.c: 187: }
-[e $U 615  ]
+[e ++ F4930 -> -> 1 `i `uc ]
+[; ;autoMode.c: 188: autoMode.sm0++;
 "188
-[e :U 612 ]
-[; ;autoMode.c: 188: else if (autoMode.sm0 == 6)
-[e $ ! == -> . _autoMode 1 `i -> 6 `i 616  ]
-[; ;autoMode.c: 189: {
+[e ++ . _autoMode 0 -> -> 1 `i `c ]
 "189
-{
-[; ;autoMode.c: 190: if (mpap_isIdle())
+}
+[; ;autoMode.c: 189: }
+[e $U 615  ]
 "190
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 617  ]
+[e :U 612 ]
+[; ;autoMode.c: 190: else if (autoMode.sm0 == 6)
+[e $ ! == -> . _autoMode 0 `i -> 6 `i 616  ]
 [; ;autoMode.c: 191: {
 "191
 {
-[; ;autoMode.c: 192: if (nozzle_isEnabled(autoMode.numNozzle))
+[; ;autoMode.c: 192: if (mpap_isIdle())
 "192
-[e $ ! != -> ( _nozzle_isEnabled (1 -> . _autoMode 0 `i `i -> -> -> 0 `i `c `i 618  ]
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 617  ]
 [; ;autoMode.c: 193: {
 "193
 {
-[; ;autoMode.c: 194: tacc = (numVueltas * 200) + ( tacc * (50+75));
+[; ;autoMode.c: 194: if (nozzle_isEnabled(pulsonic.numNozzle))
 "194
-[e = F4924 + -> -> * -> F4926 `i -> 200 `i `l `ul * F4924 -> -> + -> 50 `i -> 75 `i `l `ul ]
-[; ;autoMode.c: 195: ktime_residuary = pulsonic.kTimeBetweenNozzleAvailable - tacc;
+[e $ ! != -> ( _nozzle_isEnabled (1 -> . _pulsonic 15 `i `i -> -> -> 0 `i `c `i 618  ]
+[; ;autoMode.c: 195: {
 "195
-[e = F4925 - . _pulsonic 9 F4924 ]
-[; ;autoMode.c: 196: pulsonic.countTimeBetweenNozzleAvailable = 0x0000;
+{
+[; ;autoMode.c: 196: tacc = (numVueltas * 200) + ( tacc * (50+75));
 "196
-[e = . _pulsonic 10 -> -> -> 0 `i `l `ul ]
-[; ;autoMode.c: 198: if (++pulsonic.countNozzleAvailable >= pulsonic.numNozzleAvailable)
+[e = F4928 + -> -> * -> F4930 `i -> 200 `i `l `ul * F4928 -> -> + -> 50 `i -> 75 `i `l `ul ]
+[; ;autoMode.c: 197: ktime_residuary = pulsonic.kTimeBetweenNozzleAvailable - tacc;
+"197
+[e = F4929 - . _pulsonic 9 F4928 ]
+[; ;autoMode.c: 198: pulsonic.countTimeBetweenNozzleAvailable = 0x0000;
 "198
-[e $ ! >= -> =+ . _pulsonic 12 -> -> 1 `i `c `i -> . _pulsonic 8 `i 619  ]
-[; ;autoMode.c: 199: {
-"199
-{
-[; ;autoMode.c: 200: pulsonic.countNozzleAvailable = 0;
+[e = . _pulsonic 10 -> -> -> 0 `i `l `ul ]
+[; ;autoMode.c: 200: if (++pulsonic.countNozzleAvailable >= pulsonic.numNozzleAvailable)
 "200
-[e = . _pulsonic 12 -> -> 0 `i `c ]
-[; ;autoMode.c: 202: if (++pulsonic.num_timeslice == ((int) pulsonic.timeslice))
-"202
-[e $ ! == =+ . _pulsonic 11 -> 1 `i -> . _pulsonic 4 `i 620  ]
-[; ;autoMode.c: 203: {
-"203
+[e $ ! >= -> =+ . _pulsonic 12 -> -> 1 `i `c `i -> . _pulsonic 8 `i 619  ]
+[; ;autoMode.c: 201: {
+"201
 {
-[; ;autoMode.c: 204: pulsonic.num_timeslice = 0;
+[; ;autoMode.c: 202: pulsonic.countNozzleAvailable = 0;
+"202
+[e = . _pulsonic 12 -> -> 0 `i `c ]
+[; ;autoMode.c: 204: if (++pulsonic.num_timeslice == ((int) pulsonic.timeslice))
 "204
-[e = . _pulsonic 11 -> 0 `i ]
+[e $ ! == =+ . _pulsonic 11 -> 1 `i -> . _pulsonic 4 `i 620  ]
+[; ;autoMode.c: 205: {
 "205
+{
+[; ;autoMode.c: 206: pulsonic.num_timeslice = 0;
+"206
+[e = . _pulsonic 11 -> 0 `i ]
+"207
 }
 [e :U 620 ]
-"206
+"208
 }
 [e :U 619 ]
-[; ;autoMode.c: 205: }
-[; ;autoMode.c: 206: }
-[; ;autoMode.c: 208: autoMode.sm0++;
-"208
-[e ++ . _autoMode 1 -> -> 1 `i `c ]
-"209
-}
-[; ;autoMode.c: 209: }
-[e $U 621  ]
+[; ;autoMode.c: 207: }
+[; ;autoMode.c: 208: }
+[; ;autoMode.c: 210: autoMode.sm0++;
 "210
-[e :U 618 ]
-[; ;autoMode.c: 210: else
-[; ;autoMode.c: 211: {
+[e ++ . _autoMode 0 -> -> 1 `i `c ]
 "211
-{
-[; ;autoMode.c: 212: autoMode.sm0--;
+}
+[; ;autoMode.c: 211: }
+[e $U 621  ]
 "212
-[e -- . _autoMode 1 -> -> 1 `i `c ]
+[e :U 618 ]
+[; ;autoMode.c: 212: else
+[; ;autoMode.c: 213: {
 "213
-}
-[e :U 621 ]
+{
+[; ;autoMode.c: 214: autoMode.sm0--;
 "214
-}
-[e :U 617 ]
+[e -- . _autoMode 0 -> -> 1 `i `c ]
 "215
 }
-[; ;autoMode.c: 213: }
-[; ;autoMode.c: 214: }
-[; ;autoMode.c: 215: }
-[e $U 622  ]
+[e :U 621 ]
 "216
-[e :U 616 ]
-[; ;autoMode.c: 216: else if (autoMode.sm0 == 7)
-[e $ ! == -> . _autoMode 1 `i -> 7 `i 623  ]
-[; ;autoMode.c: 217: {
+}
+[e :U 617 ]
 "217
-{
-[; ;autoMode.c: 218: if (smain.f.f1ms)
+}
+[; ;autoMode.c: 215: }
+[; ;autoMode.c: 216: }
+[; ;autoMode.c: 217: }
+[e $U 622  ]
 "218
-[e $ ! != -> . . _smain 0 0 `i -> -> -> 0 `i `Vuc `i 624  ]
+[e :U 616 ]
+[; ;autoMode.c: 218: else if (autoMode.sm0 == 7)
+[e $ ! == -> . _autoMode 0 `i -> 7 `i 623  ]
 [; ;autoMode.c: 219: {
 "219
 {
-[; ;autoMode.c: 220: if (++pulsonic.countTimeBetweenNozzleAvailable >= ktime_residuary)
+[; ;autoMode.c: 220: if (smain.f.f1ms)
 "220
-[e $ ! >= =+ . _pulsonic 10 -> -> -> 1 `i `l `ul F4925 625  ]
+[e $ ! != -> . . _smain 0 0 `i -> -> -> 0 `i `Vuc `i 624  ]
 [; ;autoMode.c: 221: {
 "221
 {
-[; ;autoMode.c: 222: pulsonic.countTimeBetweenNozzleAvailable = 0x0000;
+[; ;autoMode.c: 222: if (++pulsonic.countTimeBetweenNozzleAvailable >= ktime_residuary)
 "222
-[e = . _pulsonic 10 -> -> -> 0 `i `l `ul ]
-[; ;autoMode.c: 223: autoMode.sm0 = 3;
+[e $ ! >= =+ . _pulsonic 10 -> -> -> 1 `i `l `ul F4929 625  ]
+[; ;autoMode.c: 223: {
 "223
-[e = . _autoMode 1 -> -> 3 `i `c ]
-"226
-}
-[e :U 625 ]
-"227
-}
-[e :U 624 ]
+{
+[; ;autoMode.c: 224: pulsonic.countTimeBetweenNozzleAvailable = 0x0000;
+"224
+[e = . _pulsonic 10 -> -> -> 0 `i `l `ul ]
+[; ;autoMode.c: 225: autoMode.sm0 = 3;
+"225
+[e = . _autoMode 0 -> -> 3 `i `c ]
 "228
 }
-[e :U 623 ]
+[e :U 625 ]
+"229
+}
+[e :U 624 ]
 "230
+}
+[e :U 623 ]
+"232
 [e :U 622 ]
 [e :U 615 ]
 [e :U 611 ]
@@ -5120,206 +5130,206 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 598 ]
 }
 [e :U 593 ]
-[; ;autoMode.c: 226: }
-[; ;autoMode.c: 227: }
 [; ;autoMode.c: 228: }
+[; ;autoMode.c: 229: }
 [; ;autoMode.c: 230: }
-[; ;autoMode.c: 231: }
-"231
+[; ;autoMode.c: 232: }
+[; ;autoMode.c: 233: }
+"233
 [e :UE 592 ]
 }
-"234
+"236
 [v _autoMode_jobX `(v ~T0 @X0 1 ef ]
-"235
+"237
 {
-[; ;autoMode.c: 234: void autoMode_jobX(void)
-[; ;autoMode.c: 235: {
+[; ;autoMode.c: 236: void autoMode_jobX(void)
+[; ;autoMode.c: 237: {
 [e :U _autoMode_jobX ]
 [f ]
-"236
-[v F4948 `ui ~T0 @X0 1 s c_ms ]
-"237
-[v F4949 `ui ~T0 @X0 1 s c_min ]
-[; ;autoMode.c: 236: static uint16_t c_ms;
-[; ;autoMode.c: 237: static uint16_t c_min;
-[; ;autoMode.c: 238: if (autoMode.sm0 >0)
 "238
-[e $ ! > -> . _autoMode 1 `i -> 0 `i 627  ]
-[; ;autoMode.c: 239: {
+[v F4952 `ui ~T0 @X0 1 s c_ms ]
 "239
-{
-[; ;autoMode.c: 240: if (autoMode.sm0 == 1)
+[v F4953 `ui ~T0 @X0 1 s c_min ]
+[; ;autoMode.c: 238: static uint16_t c_ms;
+[; ;autoMode.c: 239: static uint16_t c_min;
+[; ;autoMode.c: 240: if (autoMode.sm0 >0)
 "240
-[e $ ! == -> . _autoMode 1 `i -> 1 `i 628  ]
+[e $ ! > -> . _autoMode 0 `i -> 0 `i 627  ]
 [; ;autoMode.c: 241: {
 "241
 {
-[; ;autoMode.c: 242: if (mpap_isIdle())
+[; ;autoMode.c: 242: if (autoMode.sm0 == 1)
 "242
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 629  ]
+[e $ ! == -> . _autoMode 0 `i -> 1 `i 628  ]
 [; ;autoMode.c: 243: {
 "243
 {
-[; ;autoMode.c: 244: mpap_setup_searchFirstPointHomeSensor();
+[; ;autoMode.c: 244: if (mpap_isIdle())
 "244
-[e ( _mpap_setup_searchFirstPointHomeSensor ..  ]
-[; ;autoMode.c: 245: autoMode.sm0++;
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 629  ]
+[; ;autoMode.c: 245: {
 "245
-[e ++ . _autoMode 1 -> -> 1 `i `c ]
+{
+[; ;autoMode.c: 246: mpap_setup_searchFirstPointHomeSensor();
 "246
+[e ( _mpap_setup_searchFirstPointHomeSensor ..  ]
+[; ;autoMode.c: 247: autoMode.sm0++;
+"247
+[e ++ . _autoMode 0 -> -> 1 `i `c ]
+"248
 }
 [e :U 629 ]
-"247
-}
-[; ;autoMode.c: 246: }
-[; ;autoMode.c: 247: }
-[e $U 630  ]
-"248
-[e :U 628 ]
-[; ;autoMode.c: 248: else if (autoMode.sm0 == 2)
-[e $ ! == -> . _autoMode 1 `i -> 2 `i 631  ]
-[; ;autoMode.c: 249: {
 "249
-{
-[; ;autoMode.c: 250: if (mpap_isIdle())
+}
+[; ;autoMode.c: 248: }
+[; ;autoMode.c: 249: }
+[e $U 630  ]
 "250
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 632  ]
+[e :U 628 ]
+[; ;autoMode.c: 250: else if (autoMode.sm0 == 2)
+[e $ ! == -> . _autoMode 0 `i -> 2 `i 631  ]
 [; ;autoMode.c: 251: {
 "251
 {
-[; ;autoMode.c: 252: autoMode.sm0++;
+[; ;autoMode.c: 252: if (mpap_isIdle())
 "252
-[e ++ . _autoMode 1 -> -> 1 `i `c ]
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 632  ]
+[; ;autoMode.c: 253: {
 "253
+{
+[; ;autoMode.c: 254: autoMode.sm0++;
+"254
+[e ++ . _autoMode 0 -> -> 1 `i `c ]
+"255
 }
 [e :U 632 ]
-"254
-}
-[; ;autoMode.c: 253: }
-[; ;autoMode.c: 254: }
-[e $U 633  ]
 "256
-[e :U 631 ]
-[; ;autoMode.c: 256: else if (autoMode.sm0 == 3)
-[e $ ! == -> . _autoMode 1 `i -> 3 `i 634  ]
-[; ;autoMode.c: 257: {
-"257
-{
-[; ;autoMode.c: 258: if (1)
+}
+[; ;autoMode.c: 255: }
+[; ;autoMode.c: 256: }
+[e $U 633  ]
 "258
-[e $ ! != -> 1 `i -> 0 `i 635  ]
+[e :U 631 ]
+[; ;autoMode.c: 258: else if (autoMode.sm0 == 3)
+[e $ ! == -> . _autoMode 0 `i -> 3 `i 634  ]
 [; ;autoMode.c: 259: {
 "259
 {
-[; ;autoMode.c: 260: mpap_movetoNozzle(autoMode.numNozzle);
+[; ;autoMode.c: 260: if (1)
 "260
-[e ( _mpap_movetoNozzle (1 . _autoMode 0 ]
-[; ;autoMode.c: 261: autoMode.sm0++;
+[e $ ! != -> 1 `i -> 0 `i 635  ]
+[; ;autoMode.c: 261: {
 "261
-[e ++ . _autoMode 1 -> -> 1 `i `c ]
+{
+[; ;autoMode.c: 262: mpap_movetoNozzle(pulsonic.numNozzle);
 "262
-}
-[e :U 635 ]
+[e ( _mpap_movetoNozzle (1 . _pulsonic 15 ]
+[; ;autoMode.c: 263: autoMode.sm0++;
+"263
+[e ++ . _autoMode 0 -> -> 1 `i `c ]
 "264
 }
-[; ;autoMode.c: 262: }
-[; ;autoMode.c: 264: }
-[e $U 636  ]
-"265
-[e :U 634 ]
-[; ;autoMode.c: 265: else if (autoMode.sm0 == 4)
-[e $ ! == -> . _autoMode 1 `i -> 4 `i 637  ]
-[; ;autoMode.c: 266: {
+[e :U 635 ]
 "266
-{
-[; ;autoMode.c: 267: if (mpap_isIdle())
+}
+[; ;autoMode.c: 264: }
+[; ;autoMode.c: 266: }
+[e $U 636  ]
 "267
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 638  ]
+[e :U 634 ]
+[; ;autoMode.c: 267: else if (autoMode.sm0 == 4)
+[e $ ! == -> . _autoMode 0 `i -> 4 `i 637  ]
 [; ;autoMode.c: 268: {
 "268
 {
-[; ;autoMode.c: 269: pump_setTick(2);
+[; ;autoMode.c: 269: if (mpap_isIdle())
 "269
-[e ( _pump_setTick (1 -> -> 2 `i `ui ]
-[; ;autoMode.c: 270: autoMode.sm0++;
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 638  ]
+[; ;autoMode.c: 270: {
 "270
-[e ++ . _autoMode 1 -> -> 1 `i `c ]
+{
+[; ;autoMode.c: 271: pump_setTick(2);
 "271
+[e ( _pump_setTick (1 -> -> 2 `i `ui ]
+[; ;autoMode.c: 272: autoMode.sm0++;
+"272
+[e ++ . _autoMode 0 -> -> 1 `i `c ]
+"273
 }
 [e :U 638 ]
-"272
-}
-[; ;autoMode.c: 271: }
-[; ;autoMode.c: 272: }
-[e $U 639  ]
-"273
-[e :U 637 ]
-[; ;autoMode.c: 273: else if (autoMode.sm0 == 5)
-[e $ ! == -> . _autoMode 1 `i -> 5 `i 640  ]
-[; ;autoMode.c: 274: {
 "274
-{
-[; ;autoMode.c: 275: if (pump_isIdle())
+}
+[; ;autoMode.c: 273: }
+[; ;autoMode.c: 274: }
+[e $U 639  ]
 "275
-[e $ ! != -> ( _pump_isIdle ..  `i -> -> -> 0 `i `c `i 641  ]
+[e :U 637 ]
+[; ;autoMode.c: 275: else if (autoMode.sm0 == 5)
+[e $ ! == -> . _autoMode 0 `i -> 5 `i 640  ]
 [; ;autoMode.c: 276: {
 "276
 {
-[; ;autoMode.c: 277: autoMode.numNozzle++;
+[; ;autoMode.c: 277: if (pump_isIdle())
 "277
-[e ++ . _autoMode 0 -> -> 1 `i `c ]
-[; ;autoMode.c: 278: if ( autoMode.numNozzle == 18+1)
+[e $ ! != -> ( _pump_isIdle ..  `i -> -> -> 0 `i `c `i 641  ]
+[; ;autoMode.c: 278: {
 "278
-[e $ ! == -> . _autoMode 0 `i + -> 18 `i -> 1 `i 642  ]
-[; ;autoMode.c: 279: {
-"279
 {
-[; ;autoMode.c: 280: while (1);
+[; ;autoMode.c: 279: pulsonic.numNozzle++;
+"279
+[e ++ . _pulsonic 15 -> -> 1 `i `c ]
+[; ;autoMode.c: 280: if ( pulsonic.numNozzle == 18+1)
 "280
+[e $ ! == -> . _pulsonic 15 `i + -> 18 `i -> 1 `i 642  ]
+[; ;autoMode.c: 281: {
+"281
+{
+[; ;autoMode.c: 282: while (1);
+"282
 [e :U 644 ]
 [e :U 643 ]
 [e $U 644  ]
 [e :U 645 ]
-[; ;autoMode.c: 282: if (((PORTE & (1<<1))>>1) == 0)
-"282
+[; ;autoMode.c: 284: if (((PORTE & (1<<1))>>1) == 0)
+"284
 [e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 0 `i 646  ]
-[; ;autoMode.c: 283: {
-"283
-{
+[; ;autoMode.c: 285: {
 "285
-}
-[e :U 646 ]
+{
 "287
 }
-[e :U 642 ]
-[; ;autoMode.c: 285: }
-[; ;autoMode.c: 287: }
-[; ;autoMode.c: 288: autoMode.sm0 = 3 ;
-"288
-[e = . _autoMode 1 -> -> 3 `i `c ]
-[; ;autoMode.c: 289: c_ms = 0x00;
+[e :U 646 ]
 "289
-[e = F4948 -> -> 0 `i `ui ]
-[; ;autoMode.c: 290: c_min = 0x00;
+}
+[e :U 642 ]
+[; ;autoMode.c: 287: }
+[; ;autoMode.c: 289: }
+[; ;autoMode.c: 290: autoMode.sm0 = 3 ;
 "290
-[e = F4949 -> -> 0 `i `ui ]
+[e = . _autoMode 0 -> -> 3 `i `c ]
+[; ;autoMode.c: 291: c_ms = 0x00;
 "291
+[e = F4952 -> -> 0 `i `ui ]
+[; ;autoMode.c: 292: c_min = 0x00;
+"292
+[e = F4953 -> -> 0 `i `ui ]
+"293
 }
 [e :U 641 ]
-"292
+"294
 }
 [e :U 640 ]
-"294
+"296
 [e :U 639 ]
 [e :U 636 ]
 [e :U 633 ]
 [e :U 630 ]
 }
 [e :U 627 ]
-[; ;autoMode.c: 291: }
-[; ;autoMode.c: 292: }
+[; ;autoMode.c: 293: }
 [; ;autoMode.c: 294: }
-[; ;autoMode.c: 295: }
-"295
+[; ;autoMode.c: 296: }
+[; ;autoMode.c: 297: }
+"297
 [e :UE 626 ]
 }

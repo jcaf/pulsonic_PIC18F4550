@@ -48,13 +48,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [s S570 :1 `uc 1 :7 `uc 1 ]
 [n S570 _pulsonic_flags homed __a ]
 "40
-[s S566 `S564 1 `d 1 `d 1 `d 1 `d 1 `S567 -> 18 `i `S568 1 `d 1 `c 1 `ul 1 `ul 1 `i 1 `c 1 `S569 1 `S570 1 ]
-[n S566 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags ]
-"92
+[s S566 `S564 1 `d 1 `d 1 `d 1 `d 1 `S567 -> 18 `i `S568 1 `d 1 `c 1 `ul 1 `ul 1 `i 1 `c 1 `S569 1 `S570 1 `c 1 ]
+[n S566 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags numNozzle ]
+"93
 [v _pulsonic `VS566 ~T0 @X0 0 e ]
 "16 nozzle.h
 [v _NOZZLE_QTY_DIFF `d ~T0 @X0 0 e ]
-"94 pulsonic.h
+"95 pulsonic.h
 [v _OIL_VISCOSITY `Cc ~T0 @X0 -> 0 `x e ]
 "12 flushAtNozzle.h
 [v _flushAtNozzle_setNozzle `(v ~T0 @X0 0 ef1`c ]
@@ -67,7 +67,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _eepromWrite_double `(v ~T0 @X0 0 ef2`*uc`d ]
 "11
 [v _eepromWrite `(v ~T0 @X0 0 ef2`uc`uc ]
-"98 pulsonic.h
+"99 pulsonic.h
 [v _pulsonic_getNumNozzleAvailable `(c ~T0 @X0 0 ef ]
 "170 /run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/ikb/ikb.h
 [v _propEmpty `CS571 ~T0 @X0 0 e ]
@@ -4456,12 +4456,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 86: unsigned homed:1;
 [; ;pulsonic.h: 87: unsigned __a:7;
 [; ;pulsonic.h: 88: }flags;
-[; ;pulsonic.h: 90: };
-[; ;pulsonic.h: 92: extern volatile struct _pulsonic pulsonic;
-[; ;pulsonic.h: 94: extern const int8_t OIL_VISCOSITY[4];
-[; ;pulsonic.h: 96: void pulsonic_init(void);
-[; ;pulsonic.h: 97: double pulsonic_getTotalSum_mlh(void);
-[; ;pulsonic.h: 98: int8_t pulsonic_getNumNozzleAvailable(void);
+[; ;pulsonic.h: 90: int8_t numNozzle;
+[; ;pulsonic.h: 91: };
+[; ;pulsonic.h: 93: extern volatile struct _pulsonic pulsonic;
+[; ;pulsonic.h: 95: extern const int8_t OIL_VISCOSITY[4];
+[; ;pulsonic.h: 97: void pulsonic_init(void);
+[; ;pulsonic.h: 98: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 99: int8_t pulsonic_getNumNozzleAvailable(void);
 [; ;ikb.h: 127: void ikb_init(void);
 [; ;ikb.h: 128: void ikb_job(void);
 [; ;ikb.h: 129: void ikb_flush(void);
@@ -4595,11 +4596,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;configMode.c: 43: int8_t cod_ret = 0;
 [e = _cod_ret -> -> 0 `i `c ]
 "44
-[v F4876 `c ~T0 @X0 1 s flushAtNozzle_active ]
+[v F4877 `c ~T0 @X0 1 s flushAtNozzle_active ]
 "45
 [v _prop `S571 ~T0 @X0 1 a ]
-[v F4878 `S571 ~T0 @X0 1 s ]
-[i F4878
+[v F4879 `S571 ~T0 @X0 1 s ]
+[i F4879
 :U ..
 :U ..
 :U ..
@@ -4616,10 +4617,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [; ;configMode.c: 44: static int8_t flushAtNozzle_active;
 [; ;configMode.c: 45: struct _key_prop prop = {0};
-[e = _prop F4878 ]
+[e = _prop F4879 ]
 [; ;configMode.c: 47: if (!flushAtNozzle_active)
 "47
-[e $ ! ! != -> F4876 `i -> -> -> 0 `i `c `i 581  ]
+[e $ ! ! != -> F4877 `i -> -> -> 0 `i `c `i 581  ]
 [; ;configMode.c: 48: {
 "48
 {
@@ -4696,7 +4697,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 78: if (!flushAtNozzle_active)
 "78
-[e $ ! ! != -> F4876 `i -> -> -> 0 `i `c `i 588  ]
+[e $ ! ! != -> F4877 `i -> -> -> 0 `i `c `i 588  ]
 [; ;configMode.c: 79: {
 "79
 {
@@ -4798,7 +4799,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 115: if (!flushAtNozzle_active)
 "115
-[e $ ! ! != -> F4876 `i -> -> -> 0 `i `c `i 596  ]
+[e $ ! ! != -> F4877 `i -> -> -> 0 `i `c `i 596  ]
 [; ;configMode.c: 116: {
 "116
 {
@@ -4918,10 +4919,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 157: flushAtNozzle_active = !flushAtNozzle_active;
 "157
-[e = F4876 -> -> ! != -> F4876 `i -> -> -> 0 `i `c `i `i `c ]
+[e = F4877 -> -> ! != -> F4877 `i -> -> -> 0 `i `c `i `i `c ]
 [; ;configMode.c: 159: if (flushAtNozzle_active)
 "159
-[e $ ! != -> F4876 `i -> -> -> 0 `i `c `i 606  ]
+[e $ ! != -> F4877 `i -> -> -> 0 `i `c `i 606  ]
 [; ;configMode.c: 160: {
 "160
 {
@@ -5007,7 +5008,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _pulsonic 8 ( _pulsonic_getNumNozzleAvailable ..  ]
 [; ;configMode.c: 196: flushAtNozzle_active = 0;
 "196
-[e = F4876 -> -> 0 `i `c ]
+[e = F4877 -> -> 0 `i `c ]
 [; ;configMode.c: 197: flushAtNozzle_cmd(JOB_STOP);
 "197
 [e ( _flushAtNozzle_cmd (1 -> . `E4712 1 `c ]

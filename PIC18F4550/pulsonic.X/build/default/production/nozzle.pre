@@ -5669,8 +5669,10 @@ void mpap_setupToTurn(int16_t numSteps_tomove);
 void mpap_movetoNozzle(int8_t n);
 int8_t mpap_isIdle(void);
 void mpap_do1step(int8_t KI);
+int8_t mpap_getNozzlePosition(void);
 
 int8_t mpap_homming_job(void);
+void mpap_homming_job_reset(void);
 
 # 16 "nozzle.h"
 extern double NOZZLE_QTY_DIFF;
@@ -5778,6 +5780,7 @@ unsigned homed:1;
 unsigned __a:7;
 }flags;
 
+int8_t numNozzle;
 };
 
 extern volatile struct _pulsonic pulsonic;

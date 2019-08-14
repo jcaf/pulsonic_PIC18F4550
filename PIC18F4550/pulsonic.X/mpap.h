@@ -34,8 +34,10 @@
     void mpap_movetoNozzle(int8_t n);//0..NOZZLE_NUMMAX-1
     int8_t mpap_isIdle(void);
     void mpap_do1step(int8_t KI);
+    int8_t mpap_getNozzlePosition(void);
     
     int8_t mpap_homming_job(void);
+    void  mpap_homming_job_reset(void);
     //WAVE
     #define STEP_WAVE_1A (1<<1)//RD1
     #define STEP_WAVE_2A (1<<2)//RD2

@@ -30,9 +30,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [s S572 :1 `uc 1 :7 `uc 1 ]
 [n S572 _pulsonic_flags homed __a ]
 "40
-[s S568 `S566 1 `d 1 `d 1 `d 1 `d 1 `S569 -> 18 `i `S570 1 `d 1 `c 1 `ul 1 `ul 1 `i 1 `c 1 `S571 1 `S572 1 ]
-[n S568 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags ]
-"92
+[s S568 `S566 1 `d 1 `d 1 `d 1 `d 1 `S569 -> 18 `i `S570 1 `d 1 `c 1 `ul 1 `ul 1 `i 1 `c 1 `S571 1 `S572 1 `c 1 ]
+[n S568 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags numNozzle ]
+"93
 [v _pulsonic `VS568 ~T0 @X0 0 e ]
 "58 display.h
 [v _disp7s_qtyDisp_writeText_OFF `(v ~T0 @X0 0 ef ]
@@ -4424,12 +4424,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 86: unsigned homed:1;
 [; ;pulsonic.h: 87: unsigned __a:7;
 [; ;pulsonic.h: 88: }flags;
-[; ;pulsonic.h: 90: };
-[; ;pulsonic.h: 92: extern volatile struct _pulsonic pulsonic;
-[; ;pulsonic.h: 94: extern const int8_t OIL_VISCOSITY[4];
-[; ;pulsonic.h: 96: void pulsonic_init(void);
-[; ;pulsonic.h: 97: double pulsonic_getTotalSum_mlh(void);
-[; ;pulsonic.h: 98: int8_t pulsonic_getNumNozzleAvailable(void);
+[; ;pulsonic.h: 90: int8_t numNozzle;
+[; ;pulsonic.h: 91: };
+[; ;pulsonic.h: 93: extern volatile struct _pulsonic pulsonic;
+[; ;pulsonic.h: 95: extern const int8_t OIL_VISCOSITY[4];
+[; ;pulsonic.h: 97: void pulsonic_init(void);
+[; ;pulsonic.h: 98: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 99: int8_t pulsonic_getNumNozzleAvailable(void);
 [; ;ikb.h: 127: void ikb_init(void);
 [; ;ikb.h: 128: void ikb_job(void);
 [; ;ikb.h: 129: void ikb_flush(void);

@@ -5748,6 +5748,7 @@ unsigned homed:1;
 unsigned __a:7;
 }flags;
 
+int8_t numNozzle;
 };
 
 extern volatile struct _pulsonic pulsonic;
@@ -5785,8 +5786,10 @@ void mpap_setupToTurn(int16_t numSteps_tomove);
 void mpap_movetoNozzle(int8_t n);
 int8_t mpap_isIdle(void);
 void mpap_do1step(int8_t KI);
+int8_t mpap_getNozzlePosition(void);
 
 int8_t mpap_homming_job(void);
+void mpap_homming_job_reset(void);
 
 # 14 "pump.h"
 struct _pump
@@ -5859,7 +5862,7 @@ static struct _flushAllMode
 {
 int8_t numNozzle;
 int8_t sm0;
-}flushAllMode;
+} flushAllMode;
 
 void flushAllMode_cmd(int8_t cmd)
 {
@@ -5868,7 +5871,9 @@ if (cmd == JOB_RESTART)
 disp7s_modeDisp_off();
 disp7s_qtyDisp_writeText_FLU();
 
-flushAllMode.numNozzle = 0x0;
+
+pulsonic.numNozzle = mpap_getNozzlePosition();
+
 flushAllMode.sm0 = 0x1;
 }
 if (cmd == JOB_STOP)
@@ -5887,7 +5892,20 @@ if (flushAllMode.sm0 == 1)
 {
 if (mpap_isIdle())
 {
-mpap_setup_searchFirstPointHomeSensor();
+pulsonic.numNozzle++;
+
+if (pulsonic.numNozzle >= 18)
+{
+pulsonic.numNozzle = 0x00;
+
+mpap_setupToTurn(1 * 200);
+mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
+
+}
+else
+{
+mpap_movetoNozzle(pulsonic.numNozzle);
+}
 flushAllMode.sm0++;
 }
 }
@@ -5895,34 +5913,29 @@ else if (flushAllMode.sm0 == 2)
 {
 if (mpap_isIdle())
 {
+if (nozzle_isEnabled(pulsonic.numNozzle))
+{
 flushAllMode.sm0++;
 }
+else
+{
+flushAllMode.sm0--;
 }
-
+}
+}
 else if (flushAllMode.sm0 == 3)
-{
-if (nozzle_isEnabled(flushAllMode.numNozzle))
-{
-mpap_movetoNozzle(flushAllMode.numNozzle);
-flushAllMode.sm0++;
-}
-
-if (++flushAllMode.numNozzle == 18)
-{flushAllMode.numNozzle = 0x00;}
-}
-else if (flushAllMode.sm0 == 4)
 {
 if (mpap_isIdle())
 {
-pump_setTick(18);
+pump_setTick(6);
 flushAllMode.sm0++;
 }
 }
-else if (flushAllMode.sm0 == 5)
+else if (flushAllMode.sm0 == 4)
 {
 if (pump_isIdle())
 {
-flushAllMode.sm0 = 0x3;
+flushAllMode.sm0 = 0x1;
 }
 }
 }

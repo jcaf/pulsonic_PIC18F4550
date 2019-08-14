@@ -87,6 +87,7 @@
             unsigned __a:7;
         }flags;
         
+        int8_t numNozzle; //current nozzle position
     };
     
     extern volatile struct _pulsonic pulsonic;
