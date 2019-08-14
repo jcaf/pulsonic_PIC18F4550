@@ -5679,6 +5679,7 @@ void disp7s_qtyDisp_writeText_FLU(void);
 
 void disp7s_qtyDisp_writeText_20_3RAYAS(void);
 void disp7s_qtyDisp_writeText_NO_OIL(void);
+void disp7s_qtyDisp_writeText_NO_HOME_SENSOR(void);
 
 void disp7s_init(void);
 void disp7s_job(void);
@@ -5718,8 +5719,6 @@ double ml_x1tick;
 double dist_total_time;
 double dist_access_time;
 double timeslice;
-
-
 
 struct _pulsonic_nozzle
 {

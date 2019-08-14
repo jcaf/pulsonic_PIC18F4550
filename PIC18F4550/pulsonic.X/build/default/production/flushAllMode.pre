@@ -5666,6 +5666,7 @@ void disp7s_qtyDisp_writeText_FLU(void);
 
 void disp7s_qtyDisp_writeText_20_3RAYAS(void);
 void disp7s_qtyDisp_writeText_NO_OIL(void);
+void disp7s_qtyDisp_writeText_NO_HOME_SENSOR(void);
 
 void disp7s_init(void);
 void disp7s_job(void);
@@ -5705,8 +5706,6 @@ double ml_x1tick;
 double dist_total_time;
 double dist_access_time;
 double timeslice;
-
-
 
 struct _pulsonic_nozzle
 {
@@ -5764,7 +5763,8 @@ enum MPAP_MODES
 {
 MPAP_IDLE_MODE=0,
 MPAP_STALL_MODE,
-MPAP_HOMMING_MODE,
+MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE,
+MPAP_CROSSING_HOMESENSOR_MODE,
 MPAP_NORMAL_MODE
 };
 struct _mpap
@@ -5780,19 +5780,13 @@ extern volatile struct _mpap mpap;
 
 
 void mpap_job(void);
-void mpap_setupToHomming(void);
+void mpap_setup_searchFirstPointHomeSensor(void);
 void mpap_setupToTurn(int16_t numSteps_tomove);
 void mpap_movetoNozzle(int8_t n);
 int8_t mpap_isIdle(void);
 void mpap_do1step(int8_t KI);
 
-# 69
-void autoModexxx_job(void);
-
-
-
-
-void l6506d_job(void);
+int8_t mpap_homming_job(void);
 
 # 14 "pump.h"
 struct _pump
@@ -5811,6 +5805,8 @@ int8_t pump_isIdle(void);
 void autoMode_disp7s_writeSumTotal(void);
 void autoMode_cmd(int8_t cmd);
 void autoMode_job(void);
+
+void autoMode_jobX(void);
 
 # 12 "flushAllMode.h"
 void flushAllMode_cmd(int8_t cmd);
@@ -5891,7 +5887,7 @@ if (flushAllMode.sm0 == 1)
 {
 if (mpap_isIdle())
 {
-mpap_setupToHomming();
+mpap_setup_searchFirstPointHomeSensor();
 flushAllMode.sm0++;
 }
 }

@@ -13,26 +13,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 "25
 [u S564 `S565 1 `c 1 ]
 [n S564 _errorFlag f packed ]
-"51
+"49
 [s S567 `d 1 `d 1 `d 1 `d 1 `i 1 `ui 1 ]
 [n S567 _pulsonic_nozzle Q_mlh nticks_xtimeslice kmax_ticks_xtimeslice accError counterTicks_xTotalTime nticks_delivered_inThisTimeSlice ]
-"66
+"64
 [s S568 `c 1 `c 1 ]
 [n S568 _pulsonic_oil i viscosity ]
-"80
+"78
 [s S569 `uc -> 3 `i `uc -> 2 `i ]
 [n S569 _pulsonic_display qty mode ]
-"86
+"84
 [s S570 :1 `uc 1 :7 `uc 1 ]
 [n S570 _pulsonic_flags homed __a ]
 "40
 [s S566 `S564 1 `d 1 `d 1 `d 1 `d 1 `S567 -> 18 `i `S568 1 `d 1 `c 1 `ul 1 `ul 1 `i 1 `c 1 `S569 1 `S570 1 ]
 [n S566 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags ]
-"94
+"92
 [v _pulsonic `VS566 ~T0 @X0 0 e ]
 "116 display.c
-[c E4745 0 1 .. ]
-[n E4745 _DISP7S_CHARS OFF RAYA  ]
+[c E4747 0 1 .. ]
+[n E4747 _DISP7S_CHARS OFF RAYA  ]
 "4171 /opt/microchip/xc8/v1.33/include/pic18f4550.h
 [v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
 "3493
@@ -4353,14 +4353,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;display.h: 61: void disp7s_qtyDisp_writeText_FLU(void);
 [; ;display.h: 64: void disp7s_qtyDisp_writeText_20_3RAYAS(void);
 [; ;display.h: 65: void disp7s_qtyDisp_writeText_NO_OIL(void);
-[; ;display.h: 67: void disp7s_init(void);
-[; ;display.h: 68: void disp7s_job(void);
-[; ;display.h: 70: extern const uint8_t DISP7S_NUMS[10];
-[; ;display.h: 71: extern const uint8_t DISP7S_CHARS[2];
-[; ;display.h: 73: enum _DISP7S_CHARS {
-[; ;display.h: 74: OFF,
-[; ;display.h: 75: RAYA
-[; ;display.h: 76: };
+[; ;display.h: 66: void disp7s_qtyDisp_writeText_NO_HOME_SENSOR(void);
+[; ;display.h: 68: void disp7s_init(void);
+[; ;display.h: 69: void disp7s_job(void);
+[; ;display.h: 71: extern const uint8_t DISP7S_NUMS[10];
+[; ;display.h: 72: extern const uint8_t DISP7S_CHARS[2];
+[; ;display.h: 74: enum _DISP7S_CHARS {
+[; ;display.h: 75: OFF,
+[; ;display.h: 76: RAYA
+[; ;display.h: 77: };
 [; ;nozzle.h: 16: extern double NOZZLE_QTY_DIFF;
 [; ;nozzle.h: 18: int8_t nozzle_isEnabled(int n);
 [; ;pulsonic.h: 19: typedef int8_t intNumMaxErr_t;
@@ -4383,45 +4384,45 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 45: double dist_total_time;
 [; ;pulsonic.h: 46: double dist_access_time;
 [; ;pulsonic.h: 47: double timeslice;
-[; ;pulsonic.h: 51: struct _pulsonic_nozzle
-[; ;pulsonic.h: 52: {
-[; ;pulsonic.h: 53: double Q_mlh;
-[; ;pulsonic.h: 54: double nticks_xtimeslice;
-[; ;pulsonic.h: 55: double kmax_ticks_xtimeslice;
-[; ;pulsonic.h: 57: double accError;
-[; ;pulsonic.h: 61: int counterTicks_xTotalTime;
-[; ;pulsonic.h: 62: uint16_t nticks_delivered_inThisTimeSlice;
-[; ;pulsonic.h: 64: }nozzle[18];
-[; ;pulsonic.h: 66: struct _pulsonic_oil
-[; ;pulsonic.h: 67: {
-[; ;pulsonic.h: 68: int8_t i;
-[; ;pulsonic.h: 69: int8_t viscosity;
-[; ;pulsonic.h: 70: }oil;
-[; ;pulsonic.h: 72: double sum_all_mlh;
-[; ;pulsonic.h: 73: int8_t numNozzleAvailable;
-[; ;pulsonic.h: 74: uint32_t kTimeBetweenNozzleAvailable;
-[; ;pulsonic.h: 75: uint32_t countTimeBetweenNozzleAvailable;
-[; ;pulsonic.h: 77: int16_t num_timeslice;
-[; ;pulsonic.h: 78: int8_t countNozzleAvailable;
-[; ;pulsonic.h: 80: struct _pulsonic_display
-[; ;pulsonic.h: 81: {
-[; ;pulsonic.h: 82: uint8_t qty[3];
-[; ;pulsonic.h: 83: uint8_t mode[2];
-[; ;pulsonic.h: 84: }disp7s;
-[; ;pulsonic.h: 86: struct _pulsonic_flags
-[; ;pulsonic.h: 87: {
-[; ;pulsonic.h: 88: unsigned homed:1;
-[; ;pulsonic.h: 89: unsigned __a:7;
-[; ;pulsonic.h: 90: }flags;
-[; ;pulsonic.h: 92: };
-[; ;pulsonic.h: 94: extern volatile struct _pulsonic pulsonic;
-[; ;pulsonic.h: 96: extern const int8_t OIL_VISCOSITY[4];
-[; ;pulsonic.h: 98: void pulsonic_init(void);
-[; ;pulsonic.h: 99: double pulsonic_getTotalSum_mlh(void);
-[; ;pulsonic.h: 100: int8_t pulsonic_getNumNozzleAvailable(void);
-[v F4803 `(v ~T0 @X0 1 tf ]
+[; ;pulsonic.h: 49: struct _pulsonic_nozzle
+[; ;pulsonic.h: 50: {
+[; ;pulsonic.h: 51: double Q_mlh;
+[; ;pulsonic.h: 52: double nticks_xtimeslice;
+[; ;pulsonic.h: 53: double kmax_ticks_xtimeslice;
+[; ;pulsonic.h: 55: double accError;
+[; ;pulsonic.h: 59: int counterTicks_xTotalTime;
+[; ;pulsonic.h: 60: uint16_t nticks_delivered_inThisTimeSlice;
+[; ;pulsonic.h: 62: }nozzle[18];
+[; ;pulsonic.h: 64: struct _pulsonic_oil
+[; ;pulsonic.h: 65: {
+[; ;pulsonic.h: 66: int8_t i;
+[; ;pulsonic.h: 67: int8_t viscosity;
+[; ;pulsonic.h: 68: }oil;
+[; ;pulsonic.h: 70: double sum_all_mlh;
+[; ;pulsonic.h: 71: int8_t numNozzleAvailable;
+[; ;pulsonic.h: 72: uint32_t kTimeBetweenNozzleAvailable;
+[; ;pulsonic.h: 73: uint32_t countTimeBetweenNozzleAvailable;
+[; ;pulsonic.h: 75: int16_t num_timeslice;
+[; ;pulsonic.h: 76: int8_t countNozzleAvailable;
+[; ;pulsonic.h: 78: struct _pulsonic_display
+[; ;pulsonic.h: 79: {
+[; ;pulsonic.h: 80: uint8_t qty[3];
+[; ;pulsonic.h: 81: uint8_t mode[2];
+[; ;pulsonic.h: 82: }disp7s;
+[; ;pulsonic.h: 84: struct _pulsonic_flags
+[; ;pulsonic.h: 85: {
+[; ;pulsonic.h: 86: unsigned homed:1;
+[; ;pulsonic.h: 87: unsigned __a:7;
+[; ;pulsonic.h: 88: }flags;
+[; ;pulsonic.h: 90: };
+[; ;pulsonic.h: 92: extern volatile struct _pulsonic pulsonic;
+[; ;pulsonic.h: 94: extern const int8_t OIL_VISCOSITY[4];
+[; ;pulsonic.h: 96: void pulsonic_init(void);
+[; ;pulsonic.h: 97: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 98: int8_t pulsonic_getNumNozzleAvailable(void);
+[v F4805 `(v ~T0 @X0 1 tf ]
 "5 display.c
-[v _disp7s_mux0_off `TF4803 ~T0 @X0 1 s ]
+[v _disp7s_mux0_off `TF4805 ~T0 @X0 1 s ]
 "6
 {
 [; ;display.c: 5: static inline void disp7s_mux0_off(void)
@@ -4439,9 +4440,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "8
 [e :UE 571 ]
 }
-[v F4806 `(v ~T0 @X0 1 tf ]
+[v F4808 `(v ~T0 @X0 1 tf ]
 "9
-[v _disp7s_mux0_on `TF4806 ~T0 @X0 1 s ]
+[v _disp7s_mux0_on `TF4808 ~T0 @X0 1 s ]
 "10
 {
 [; ;display.c: 9: static inline void disp7s_mux0_on(void)
@@ -4459,9 +4460,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "12
 [e :UE 575 ]
 }
-[v F4809 `(v ~T0 @X0 1 tf ]
+[v F4811 `(v ~T0 @X0 1 tf ]
 "14
-[v _disp7s_mux1_off `TF4809 ~T0 @X0 1 s ]
+[v _disp7s_mux1_off `TF4811 ~T0 @X0 1 s ]
 "15
 {
 [; ;display.c: 14: static inline void disp7s_mux1_off(void)
@@ -4479,9 +4480,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "17
 [e :UE 579 ]
 }
-[v F4812 `(v ~T0 @X0 1 tf ]
+[v F4814 `(v ~T0 @X0 1 tf ]
 "18
-[v _disp7s_mux1_on `TF4812 ~T0 @X0 1 s ]
+[v _disp7s_mux1_on `TF4814 ~T0 @X0 1 s ]
 "19
 {
 [; ;display.c: 18: static inline void disp7s_mux1_on(void)
@@ -4499,9 +4500,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "21
 [e :UE 583 ]
 }
-[v F4815 `(v ~T0 @X0 1 tf ]
+[v F4817 `(v ~T0 @X0 1 tf ]
 "23
-[v _disp7s_mux2_off `TF4815 ~T0 @X0 1 s ]
+[v _disp7s_mux2_off `TF4817 ~T0 @X0 1 s ]
 "24
 {
 [; ;display.c: 23: static inline void disp7s_mux2_off(void)
@@ -4519,9 +4520,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "26
 [e :UE 587 ]
 }
-[v F4818 `(v ~T0 @X0 1 tf ]
+[v F4820 `(v ~T0 @X0 1 tf ]
 "27
-[v _disp7s_mux2_on `TF4818 ~T0 @X0 1 s ]
+[v _disp7s_mux2_on `TF4820 ~T0 @X0 1 s ]
 "28
 {
 [; ;display.c: 27: static inline void disp7s_mux2_on(void)
@@ -4539,9 +4540,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "30
 [e :UE 591 ]
 }
-[v F4821 `(v ~T0 @X0 1 tf ]
+[v F4823 `(v ~T0 @X0 1 tf ]
 "32
-[v _disp7s_mux3_off `TF4821 ~T0 @X0 1 s ]
+[v _disp7s_mux3_off `TF4823 ~T0 @X0 1 s ]
 "33
 {
 [; ;display.c: 32: static inline void disp7s_mux3_off(void)
@@ -4559,9 +4560,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "35
 [e :UE 595 ]
 }
-[v F4824 `(v ~T0 @X0 1 tf ]
+[v F4826 `(v ~T0 @X0 1 tf ]
 "36
-[v _disp7s_mux3_on `TF4824 ~T0 @X0 1 s ]
+[v _disp7s_mux3_on `TF4826 ~T0 @X0 1 s ]
 "37
 {
 [; ;display.c: 36: static inline void disp7s_mux3_on(void)
@@ -4579,9 +4580,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "39
 [e :UE 599 ]
 }
-[v F4827 `(v ~T0 @X0 1 tf ]
+[v F4829 `(v ~T0 @X0 1 tf ]
 "41
-[v _disp7s_mux4_off `TF4827 ~T0 @X0 1 s ]
+[v _disp7s_mux4_off `TF4829 ~T0 @X0 1 s ]
 "42
 {
 [; ;display.c: 41: static inline void disp7s_mux4_off(void)
@@ -4599,9 +4600,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "44
 [e :UE 603 ]
 }
-[v F4830 `(v ~T0 @X0 1 tf ]
+[v F4832 `(v ~T0 @X0 1 tf ]
 "45
-[v _disp7s_mux4_on `TF4830 ~T0 @X0 1 s ]
+[v _disp7s_mux4_on `TF4832 ~T0 @X0 1 s ]
 "46
 {
 [; ;display.c: 45: static inline void disp7s_mux4_on(void)
@@ -4870,7 +4871,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 638 ]
 [; ;display.c: 116: {pulsonic.disp7s.mode[i] = DISP7S_CHARS[OFF];}
 {
-[e = *U + &U . . _pulsonic 13 1 * -> -> _i `uc `ux -> -> # *U &U . . _pulsonic 13 1 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4745 0 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
+[e = *U + &U . . _pulsonic 13 1 * -> -> _i `uc `ux -> -> # *U &U . . _pulsonic 13 1 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 0 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
 }
 "115
 [e ++ _i -> -> 1 `i `c ]
@@ -4888,7 +4889,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 641 ]
 [; ;display.c: 119: {pulsonic.disp7s.qty[i] = DISP7S_CHARS[OFF];}
 {
-[e = *U + &U . . _pulsonic 13 0 * -> -> _i `uc `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4745 0 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
+[e = *U + &U . . _pulsonic 13 0 * -> -> _i `uc `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 0 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
 }
 "118
 [e ++ _i -> -> 1 `i `c ]
@@ -4915,7 +4916,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _disp7s_job ]
 [f ]
 "130
-[v F4845 `c ~T0 @X0 1 s q ]
+[v F4847 `c ~T0 @X0 1 s q ]
 "133
 [v _pq `c ~T0 @X0 1 a ]
 [; ;display.c: 130: static int8_t q;
@@ -4923,7 +4924,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _pq -> -> 0 `i `c ]
 [; ;display.c: 134: pq= q-1;
 "134
-[e = _pq -> - -> F4845 `i -> 1 `i `c ]
+[e = _pq -> - -> F4847 `i -> 1 `i `c ]
 [; ;display.c: 135: if (pq<0)
 "135
 [e $ ! < -> _pq `i -> 0 `i 645  ]
@@ -4938,11 +4939,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( *U *U + &U . *U + &U _disp7s_mux * -> -> _pq `uc `ux -> -> # *U &U _disp7s_mux `ui `ux 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U + &U _disp7s_mux * -> -> _pq `uc `ux -> -> # *U &U _disp7s_mux `ui `ux 0 `ui `ux ..  ]
 [; ;display.c: 139: if (q < 3)
 "139
-[e $ ! < -> F4845 `i -> 3 `i 646  ]
+[e $ ! < -> F4847 `i -> 3 `i 646  ]
 [; ;display.c: 140: {LATB = pulsonic.disp7s.qty[q];}
 "140
 {
-[e = _LATB *U + &U . . _pulsonic 13 0 * -> -> F4845 `uc `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux ]
+[e = _LATB *U + &U . . _pulsonic 13 0 * -> -> F4847 `uc `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux ]
 }
 [e $U 647  ]
 "141
@@ -4951,19 +4952,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;display.c: 142: {LATB = pulsonic.disp7s.mode[q-3];}
 "142
 {
-[e = _LATB *U + &U . . _pulsonic 13 1 * -> -> - -> F4845 `i -> 3 `i `ui `ux -> -> # *U &U . . _pulsonic 13 1 `ui `ux ]
+[e = _LATB *U + &U . . _pulsonic 13 1 * -> -> - -> F4847 `i -> 3 `i `ui `ux -> -> # *U &U . . _pulsonic 13 1 `ui `ux ]
 }
 [e :U 647 ]
 [; ;display.c: 144: disp7s_mux_Q(q);
 "144
-[e ( _disp7s_mux_Q (1 F4845 ]
+[e ( _disp7s_mux_Q (1 F4847 ]
 [; ;display.c: 146: if (++q == (2 + 3))
 "146
-[e $ ! == -> =+ F4845 -> -> 1 `i `c `i + -> 2 `i -> 3 `i 648  ]
+[e $ ! == -> =+ F4847 -> -> 1 `i `c `i + -> 2 `i -> 3 `i 648  ]
 [; ;display.c: 147: {q=0x0;}
 "147
 {
-[e = F4845 -> -> 0 `i `c ]
+[e = F4847 -> -> 0 `i `c ]
 }
 [e :U 648 ]
 [; ;display.c: 148: }
@@ -4994,7 +4995,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 650 ]
 [; ;display.c: 154: {pDisp[i] = DISP7S_CHARS[OFF];}
 {
-[e = *U + _pDisp * -> _i `x -> -> # *U _pDisp `i `x *U + &U _DISP7S_CHARS * -> . `E4745 0 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
+[e = *U + _pDisp * -> _i `x -> -> # *U _pDisp `i `x *U + &U _DISP7S_CHARS * -> . `E4747 0 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
 }
 "153
 [e ++ _i -> -> 1 `i `c ]
@@ -5131,13 +5132,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _disp7s_modeDisp_writeInt (1 -> 20 `i ]
 [; ;display.c: 192: pulsonic.disp7s.qty[2] =DISP7S_CHARS[RAYA];
 "192
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4745 1 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
+[e = *U + &U . . _pulsonic 13 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 1 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
 [; ;display.c: 193: pulsonic.disp7s.qty[1] =DISP7S_CHARS[RAYA];
 "193
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4745 1 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
+[e = *U + &U . . _pulsonic 13 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 1 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
 [; ;display.c: 194: pulsonic.disp7s.qty[0] =DISP7S_CHARS[RAYA];
 "194
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4745 1 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
+[e = *U + &U . . _pulsonic 13 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 1 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
 [; ;display.c: 195: }
 "195
 [e :UE 660 ]
@@ -5169,350 +5170,374 @@ Version 3.2 HI-TECH Software Intermediate Code
 "204
 [e :UE 661 ]
 }
-"219
-[v _disp7s_write_f `(v ~T0 @X0 1 ef3`*uc`c`d ]
-"220
+"205
+[v _disp7s_qtyDisp_writeText_NO_HOME_SENSOR `(v ~T0 @X0 1 ef ]
+"206
 {
-[; ;display.c: 219: void disp7s_write_f(uint8_t *pDisp, int8_t NUM_OF_DISP, double num)
-[; ;display.c: 220: {
+[; ;display.c: 205: void disp7s_qtyDisp_writeText_NO_HOME_SENSOR(void)
+[; ;display.c: 206: {
+[e :U _disp7s_qtyDisp_writeText_NO_HOME_SENSOR ]
+[f ]
+[; ;display.c: 207: disp7s_modeDisp_writeInt(21);
+"207
+[e ( _disp7s_modeDisp_writeInt (1 -> 21 `i ]
+[; ;display.c: 209: pulsonic.disp7s.qty[2] = 0x79;
+"209
+[e = *U + &U . . _pulsonic 13 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 121 `i `uc ]
+[; ;display.c: 210: pulsonic.disp7s.qty[1] = 0x50;
+"210
+[e = *U + &U . . _pulsonic 13 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 80 `i `uc ]
+[; ;display.c: 211: pulsonic.disp7s.qty[0] = 0x50;
+"211
+[e = *U + &U . . _pulsonic 13 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 80 `i `uc ]
+[; ;display.c: 212: }
+"212
+[e :UE 662 ]
+}
+"226
+[v _disp7s_write_f `(v ~T0 @X0 1 ef3`*uc`c`d ]
+"227
+{
+[; ;display.c: 226: void disp7s_write_f(uint8_t *pDisp, int8_t NUM_OF_DISP, double num)
+[; ;display.c: 227: {
 [e :U _disp7s_write_f ]
-"219
+"226
 [v _pDisp `*uc ~T0 @X0 1 r1 ]
 [v _NUM_OF_DISP `c ~T0 @X0 1 r2 ]
 [v _num `d ~T0 @X0 1 r3 ]
-"220
-[f ]
-"221
-[v _K10MULT `d ~T0 @X0 1 a ]
-"222
-[v _I `i ~T0 @X0 1 a ]
-"223
-[v _buff `uc ~T0 @X0 -> 10 `i a ]
-"224
-[v _i `c ~T0 @X0 1 a ]
-"225
-[v _pi `c ~T0 @X0 1 a ]
-[; ;display.c: 221: double K10MULT;
-[; ;display.c: 222: int16_t I;
-[; ;display.c: 223: char buff[10];
-[; ;display.c: 224: int8_t i;
-[; ;display.c: 225: int8_t pi;
-[; ;display.c: 227: K10MULT = 1;
 "227
-[e = _K10MULT -> -> 1 `i `d ]
-[; ;display.c: 228: i = NUM_OF_DISP;
+[f ]
 "228
-[e = _i _NUM_OF_DISP ]
-[; ;display.c: 229: while (i--)
+[v _K10MULT `d ~T0 @X0 1 a ]
 "229
-[e $U 663  ]
-[e :U 664 ]
-[; ;display.c: 230: {K10MULT *=10;}
+[v _I `i ~T0 @X0 1 a ]
 "230
+[v _buff `uc ~T0 @X0 -> 10 `i a ]
+"231
+[v _i `c ~T0 @X0 1 a ]
+"232
+[v _pi `c ~T0 @X0 1 a ]
+[; ;display.c: 228: double K10MULT;
+[; ;display.c: 229: int16_t I;
+[; ;display.c: 230: char buff[10];
+[; ;display.c: 231: int8_t i;
+[; ;display.c: 232: int8_t pi;
+[; ;display.c: 234: K10MULT = 1;
+"234
+[e = _K10MULT -> -> 1 `i `d ]
+[; ;display.c: 235: i = NUM_OF_DISP;
+"235
+[e = _i _NUM_OF_DISP ]
+[; ;display.c: 236: while (i--)
+"236
+[e $U 664  ]
+[e :U 665 ]
+[; ;display.c: 237: {K10MULT *=10;}
+"237
 {
 [e =* _K10MULT -> -> 10 `i `d ]
 }
-[e :U 663 ]
-"229
-[e $ != -> -- _i -> -> 1 `i `c `i -> -> -> 0 `i `c `i 664  ]
-[e :U 665 ]
-[; ;display.c: 231: if (num >= K10MULT)
-"231
-[e $ ! >= _num _K10MULT 666  ]
-[; ;display.c: 232: {num= K10MULT-1;}
-"232
+[e :U 664 ]
+"236
+[e $ != -> -- _i -> -> 1 `i `c `i -> -> -> 0 `i `c `i 665  ]
+[e :U 666 ]
+[; ;display.c: 238: if (num >= K10MULT)
+"238
+[e $ ! >= _num _K10MULT 667  ]
+[; ;display.c: 239: {num= K10MULT-1;}
+"239
 {
 [e = _num - _K10MULT -> -> 1 `i `d ]
 }
-[e :U 666 ]
-[; ;display.c: 234: disp7s_off(pDisp, NUM_OF_DISP);
-"234
+[e :U 667 ]
+[; ;display.c: 241: disp7s_off(pDisp, NUM_OF_DISP);
+"241
 [e ( _disp7s_off (2 , _pDisp _NUM_OF_DISP ]
-[; ;display.c: 238: K10MULT = 1;
-"238
+[; ;display.c: 245: K10MULT = 1;
+"245
 [e = _K10MULT -> -> 1 `i `d ]
-[; ;display.c: 239: for (i=0; i<=NUM_OF_DISP; i++)
-"239
+[; ;display.c: 246: for (i=0; i<=NUM_OF_DISP; i++)
+"246
 {
 [e = _i -> -> 0 `i `c ]
-[e $U 670  ]
-"240
-[e :U 667 ]
-[; ;display.c: 240: {
+[e $U 671  ]
+"247
+[e :U 668 ]
+[; ;display.c: 247: {
 {
-[; ;display.c: 241: if (num< K10MULT)
-"241
-[e $ ! < _num _K10MULT 671  ]
-[; ;display.c: 242: {
-"242
-{
-[; ;display.c: 243: if (i<NUM_OF_DISP)
-"243
-[e $ ! < -> _i `i -> _NUM_OF_DISP `i 672  ]
-[; ;display.c: 244: {
-"244
-{
-[; ;display.c: 245: I = (int16_t)(num*10);
-"245
-[e = _I -> * _num -> -> 10 `i `d `i ]
-[; ;display.c: 248: if (i==0)
+[; ;display.c: 248: if (num< K10MULT)
 "248
-[e $ ! == -> _i `i -> 0 `i 673  ]
-[; ;display.c: 249: {pDisp[1]= DISP7S_NUMS[0];}
+[e $ ! < _num _K10MULT 672  ]
+[; ;display.c: 249: {
 "249
+{
+[; ;display.c: 250: if (i<NUM_OF_DISP)
+"250
+[e $ ! < -> _i `i -> _NUM_OF_DISP `i 673  ]
+[; ;display.c: 251: {
+"251
+{
+[; ;display.c: 252: I = (int16_t)(num*10);
+"252
+[e = _I -> * _num -> -> 10 `i `d `i ]
+[; ;display.c: 255: if (i==0)
+"255
+[e $ ! == -> _i `i -> 0 `i 674  ]
+[; ;display.c: 256: {pDisp[1]= DISP7S_NUMS[0];}
+"256
 {
 [e = *U + _pDisp * -> -> 1 `i `x -> -> # *U _pDisp `i `x *U + &U _DISP7S_NUMS * -> -> -> 0 `i `ui `ux -> -> # *U &U _DISP7S_NUMS `ui `ux ]
 }
-[e :U 673 ]
-[; ;display.c: 251: pDisp[1] |= 0x80;
-"251
-[e =| *U + _pDisp * -> -> 1 `i `x -> -> # *U _pDisp `i `x -> -> 128 `i `uc ]
-[; ;display.c: 252: pi = i;
-"252
-[e = _pi _i ]
-[; ;display.c: 253: break;
-"253
-[e $U 668  ]
-"254
-}
-[; ;display.c: 254: }
-[e $U 674  ]
-"255
-[e :U 672 ]
-[; ;display.c: 255: else
-[; ;display.c: 256: {
-"256
-{
-[; ;display.c: 257: I = (int16_t)(num);
-"257
-[e = _I -> _num `i ]
-[; ;display.c: 258: pi = i-1;
-"258
-[e = _pi -> - -> _i `i -> 1 `i `c ]
-"259
-}
 [e :U 674 ]
+[; ;display.c: 258: pDisp[1] |= 0x80;
+"258
+[e =| *U + _pDisp * -> -> 1 `i `x -> -> # *U _pDisp `i `x -> -> 128 `i `uc ]
+[; ;display.c: 259: pi = i;
+"259
+[e = _pi _i ]
+[; ;display.c: 260: break;
 "260
-}
-[e :U 671 ]
-[; ;display.c: 259: }
-[; ;display.c: 260: }
-[; ;display.c: 261: K10MULT *= 10;
+[e $U 669  ]
 "261
-[e =* _K10MULT -> -> 10 `i `d ]
-"262
 }
-"239
-[e ++ _i -> -> 1 `i `c ]
-[e :U 670 ]
-[e $ <= -> _i `i -> _NUM_OF_DISP `i 667  ]
-[e :U 668 ]
-"262
-}
-[; ;display.c: 262: }
-[; ;display.c: 264: itoa(buff, I, 10);
-"264
-[e ( _itoa (3 , , &U _buff _I -> 10 `i ]
-[; ;display.c: 266: i=0;
-"266
-[e = _i -> -> 0 `i `c ]
-[; ;display.c: 267: while (buff[i] != '\0')
-"267
+[; ;display.c: 261: }
 [e $U 675  ]
-[e :U 676 ]
-[; ;display.c: 268: {
-"268
+"262
+[e :U 673 ]
+[; ;display.c: 262: else
+[; ;display.c: 263: {
+"263
 {
-[; ;display.c: 269: pDisp[pi--] |= DISP7S_NUMS[ buff[i] - 0x30 ];
-"269
-[e =| *U + _pDisp * -> -- _pi -> -> 1 `i `c `x -> -> # *U _pDisp `i `x *U + &U _DISP7S_NUMS * -> -> - -> *U + &U _buff * -> -> _i `uc `ux -> -> # *U &U _buff `ui `ux `i -> 48 `i `ui `ux -> -> # *U &U _DISP7S_NUMS `ui `ux ]
-[; ;display.c: 270: i++;
-"270
-[e ++ _i -> -> 1 `i `c ]
-"271
+[; ;display.c: 264: I = (int16_t)(num);
+"264
+[e = _I -> _num `i ]
+[; ;display.c: 265: pi = i-1;
+"265
+[e = _pi -> - -> _i `i -> 1 `i `c ]
+"266
 }
 [e :U 675 ]
 "267
-[e $ != -> *U + &U _buff * -> -> _i `uc `ux -> -> # *U &U _buff `ui `ux `ui -> 0 `ui 676  ]
+}
+[e :U 672 ]
+[; ;display.c: 266: }
+[; ;display.c: 267: }
+[; ;display.c: 268: K10MULT *= 10;
+"268
+[e =* _K10MULT -> -> 10 `i `d ]
+"269
+}
+"246
+[e ++ _i -> -> 1 `i `c ]
+[e :U 671 ]
+[e $ <= -> _i `i -> _NUM_OF_DISP `i 668  ]
+[e :U 669 ]
+"269
+}
+[; ;display.c: 269: }
+[; ;display.c: 271: itoa(buff, I, 10);
+"271
+[e ( _itoa (3 , , &U _buff _I -> 10 `i ]
+[; ;display.c: 273: i=0;
+"273
+[e = _i -> -> 0 `i `c ]
+[; ;display.c: 274: while (buff[i] != '\0')
+"274
+[e $U 676  ]
 [e :U 677 ]
-[; ;display.c: 271: }
-[; ;display.c: 272: }
-"272
-[e :UE 662 ]
-}
-"274
-[v _disp7s_qtyDisp_writeFloat `(v ~T0 @X0 1 ef1`f ]
-"275
-{
-[; ;display.c: 274: void disp7s_qtyDisp_writeFloat(float num)
 [; ;display.c: 275: {
-[e :U _disp7s_qtyDisp_writeFloat ]
-"274
-[v _num `f ~T0 @X0 1 r1 ]
 "275
-[f ]
-[; ;display.c: 276: disp7s_write_f(pulsonic.disp7s.qty, 3, num);
-"276
-[e ( _disp7s_write_f (3 , , -> &U . . _pulsonic 13 0 `*uc -> -> 3 `i `c -> _num `d ]
-[; ;display.c: 277: }
-"277
-[e :UE 678 ]
-}
-"278
-[v _disp7s_modeDisp_writeFloat `(v ~T0 @X0 1 ef1`f ]
-"279
 {
-[; ;display.c: 278: void disp7s_modeDisp_writeFloat(float num)
-[; ;display.c: 279: {
-[e :U _disp7s_modeDisp_writeFloat ]
+[; ;display.c: 276: pDisp[pi--] |= DISP7S_NUMS[ buff[i] - 0x30 ];
+"276
+[e =| *U + _pDisp * -> -- _pi -> -> 1 `i `c `x -> -> # *U _pDisp `i `x *U + &U _DISP7S_NUMS * -> -> - -> *U + &U _buff * -> -> _i `uc `ux -> -> # *U &U _buff `ui `ux `i -> 48 `i `ui `ux -> -> # *U &U _DISP7S_NUMS `ui `ux ]
+[; ;display.c: 277: i++;
+"277
+[e ++ _i -> -> 1 `i `c ]
 "278
-[v _num `f ~T0 @X0 1 r1 ]
+}
+[e :U 676 ]
+"274
+[e $ != -> *U + &U _buff * -> -> _i `uc `ux -> -> # *U &U _buff `ui `ux `ui -> 0 `ui 677  ]
+[e :U 678 ]
+[; ;display.c: 278: }
+[; ;display.c: 279: }
 "279
-[f ]
-[; ;display.c: 280: disp7s_write_f(pulsonic.disp7s.mode, 2, num);
-"280
-[e ( _disp7s_write_f (3 , , -> &U . . _pulsonic 13 1 `*uc -> -> 2 `i `c -> _num `d ]
-[; ;display.c: 281: }
+[e :UE 663 ]
+}
 "281
+[v _disp7s_qtyDisp_writeFloat `(v ~T0 @X0 1 ef1`f ]
+"282
+{
+[; ;display.c: 281: void disp7s_qtyDisp_writeFloat(float num)
+[; ;display.c: 282: {
+[e :U _disp7s_qtyDisp_writeFloat ]
+"281
+[v _num `f ~T0 @X0 1 r1 ]
+"282
+[f ]
+[; ;display.c: 283: disp7s_write_f(pulsonic.disp7s.qty, 3, num);
+"283
+[e ( _disp7s_write_f (3 , , -> &U . . _pulsonic 13 0 `*uc -> -> 3 `i `c -> _num `d ]
+[; ;display.c: 284: }
+"284
 [e :UE 679 ]
 }
-"283
-[v _disp7s_write_i `(v ~T0 @X0 1 ef3`*uc`c`i ]
-"284
+"285
+[v _disp7s_modeDisp_writeFloat `(v ~T0 @X0 1 ef1`f ]
+"286
 {
-[; ;display.c: 283: void disp7s_write_i(uint8_t *pDisp, int8_t NUM_OF_DISP, int16_t num)
-[; ;display.c: 284: {
+[; ;display.c: 285: void disp7s_modeDisp_writeFloat(float num)
+[; ;display.c: 286: {
+[e :U _disp7s_modeDisp_writeFloat ]
+"285
+[v _num `f ~T0 @X0 1 r1 ]
+"286
+[f ]
+[; ;display.c: 287: disp7s_write_f(pulsonic.disp7s.mode, 2, num);
+"287
+[e ( _disp7s_write_f (3 , , -> &U . . _pulsonic 13 1 `*uc -> -> 2 `i `c -> _num `d ]
+[; ;display.c: 288: }
+"288
+[e :UE 680 ]
+}
+"290
+[v _disp7s_write_i `(v ~T0 @X0 1 ef3`*uc`c`i ]
+"291
+{
+[; ;display.c: 290: void disp7s_write_i(uint8_t *pDisp, int8_t NUM_OF_DISP, int16_t num)
+[; ;display.c: 291: {
 [e :U _disp7s_write_i ]
-"283
+"290
 [v _pDisp `*uc ~T0 @X0 1 r1 ]
 [v _NUM_OF_DISP `c ~T0 @X0 1 r2 ]
 [v _num `i ~T0 @X0 1 r3 ]
-"284
-[f ]
-"285
-[v _K10MULT `i ~T0 @X0 1 a ]
-"286
-[v _buff `uc ~T0 @X0 -> 10 `i a ]
-"287
-[v _i `c ~T0 @X0 1 a ]
-"288
-[v _pi `c ~T0 @X0 1 a ]
-[; ;display.c: 285: int16_t K10MULT;
-[; ;display.c: 286: char buff[10];
-[; ;display.c: 287: int8_t i;
-[; ;display.c: 288: int8_t pi;
-[; ;display.c: 290: K10MULT = 1;
-"290
-[e = _K10MULT -> 1 `i ]
-[; ;display.c: 291: i = NUM_OF_DISP;
 "291
-[e = _i _NUM_OF_DISP ]
-[; ;display.c: 292: while (i--)
+[f ]
 "292
-[e $U 681  ]
-[e :U 682 ]
-[; ;display.c: 293: {K10MULT *=10;}
+[v _K10MULT `i ~T0 @X0 1 a ]
 "293
+[v _buff `uc ~T0 @X0 -> 10 `i a ]
+"294
+[v _i `c ~T0 @X0 1 a ]
+"295
+[v _pi `c ~T0 @X0 1 a ]
+[; ;display.c: 292: int16_t K10MULT;
+[; ;display.c: 293: char buff[10];
+[; ;display.c: 294: int8_t i;
+[; ;display.c: 295: int8_t pi;
+[; ;display.c: 297: K10MULT = 1;
+"297
+[e = _K10MULT -> 1 `i ]
+[; ;display.c: 298: i = NUM_OF_DISP;
+"298
+[e = _i _NUM_OF_DISP ]
+[; ;display.c: 299: while (i--)
+"299
+[e $U 682  ]
+[e :U 683 ]
+[; ;display.c: 300: {K10MULT *=10;}
+"300
 {
 [e =* _K10MULT -> 10 `i ]
 }
-[e :U 681 ]
-"292
-[e $ != -> -- _i -> -> 1 `i `c `i -> -> -> 0 `i `c `i 682  ]
-[e :U 683 ]
-[; ;display.c: 295: if (num >= K10MULT)
-"295
-[e $ ! >= _num _K10MULT 684  ]
-[; ;display.c: 296: {num= K10MULT-1;}
-"296
+[e :U 682 ]
+"299
+[e $ != -> -- _i -> -> 1 `i `c `i -> -> -> 0 `i `c `i 683  ]
+[e :U 684 ]
+[; ;display.c: 302: if (num >= K10MULT)
+"302
+[e $ ! >= _num _K10MULT 685  ]
+[; ;display.c: 303: {num= K10MULT-1;}
+"303
 {
 [e = _num - _K10MULT -> 1 `i ]
 }
-[e :U 684 ]
-[; ;display.c: 298: itoa(buff, num, 10);
-"298
-[e ( _itoa (3 , , &U _buff _num -> 10 `i ]
-[; ;display.c: 301: for (i=0; i<NUM_OF_DISP; i++)
-"301
-{
-[e = _i -> -> 0 `i `c ]
-[e $U 688  ]
-"302
 [e :U 685 ]
-[; ;display.c: 302: {pDisp[i] = DISP7S_CHARS[OFF];}
-{
-[e = *U + _pDisp * -> _i `x -> -> # *U _pDisp `i `x *U + &U _DISP7S_CHARS * -> . `E4745 0 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
-}
-"301
-[e ++ _i -> -> 1 `i `c ]
-[e :U 688 ]
-[e $ < -> _i `i -> _NUM_OF_DISP `i 685  ]
-[e :U 686 ]
-"302
-}
-[; ;display.c: 304: i=0;
-"304
-[e = _i -> -> 0 `i `c ]
-[; ;display.c: 305: pi = strlen(buff)-1;
+[; ;display.c: 305: itoa(buff, num, 10);
 "305
-[e = _pi -> - ( _strlen (1 -> &U _buff `*Cuc -> -> 1 `i `ui `c ]
-[; ;display.c: 306: while (buff[i] != '\0')
-"306
-[e $U 689  ]
-[e :U 690 ]
-[; ;display.c: 307: {
-"307
-{
-[; ;display.c: 308: pDisp[pi--] |= DISP7S_NUMS[ buff[i] - 0x30 ];
+[e ( _itoa (3 , , &U _buff _num -> 10 `i ]
+[; ;display.c: 308: for (i=0; i<NUM_OF_DISP; i++)
 "308
-[e =| *U + _pDisp * -> -- _pi -> -> 1 `i `c `x -> -> # *U _pDisp `i `x *U + &U _DISP7S_NUMS * -> -> - -> *U + &U _buff * -> -> _i `uc `ux -> -> # *U &U _buff `ui `ux `i -> 48 `i `ui `ux -> -> # *U &U _DISP7S_NUMS `ui `ux ]
-[; ;display.c: 309: i++;
+{
+[e = _i -> -> 0 `i `c ]
+[e $U 689  ]
 "309
+[e :U 686 ]
+[; ;display.c: 309: {pDisp[i] = DISP7S_CHARS[OFF];}
+{
+[e = *U + _pDisp * -> _i `x -> -> # *U _pDisp `i `x *U + &U _DISP7S_CHARS * -> . `E4747 0 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
+}
+"308
 [e ++ _i -> -> 1 `i `c ]
-"310
-}
 [e :U 689 ]
-"306
-[e $ != -> *U + &U _buff * -> -> _i `uc `ux -> -> # *U &U _buff `ui `ux `ui -> 0 `ui 690  ]
-[e :U 691 ]
-[; ;display.c: 310: }
-[; ;display.c: 312: }
+[e $ < -> _i `i -> _NUM_OF_DISP `i 686  ]
+[e :U 687 ]
+"309
+}
+[; ;display.c: 311: i=0;
+"311
+[e = _i -> -> 0 `i `c ]
+[; ;display.c: 312: pi = strlen(buff)-1;
 "312
-[e :UE 680 ]
-}
+[e = _pi -> - ( _strlen (1 -> &U _buff `*Cuc -> -> 1 `i `ui `c ]
+[; ;display.c: 313: while (buff[i] != '\0')
 "313
-[v _disp7s_qtyDisp_writeInt `(v ~T0 @X0 1 ef1`i ]
-"314
-{
-[; ;display.c: 313: void disp7s_qtyDisp_writeInt(int16_t num)
+[e $U 690  ]
+[e :U 691 ]
 [; ;display.c: 314: {
-[e :U _disp7s_qtyDisp_writeInt ]
-"313
-[v _num `i ~T0 @X0 1 r1 ]
 "314
-[f ]
-[; ;display.c: 315: disp7s_write_i(pulsonic.disp7s.qty, 3, num);
-"315
-[e ( _disp7s_write_i (3 , , -> &U . . _pulsonic 13 0 `*uc -> -> 3 `i `c _num ]
-[; ;display.c: 316: }
-"316
-[e :UE 692 ]
-}
-"317
-[v _disp7s_modeDisp_writeInt `(v ~T0 @X0 1 ef1`i ]
-"318
 {
-[; ;display.c: 317: void disp7s_modeDisp_writeInt(int16_t num)
-[; ;display.c: 318: {
-[e :U _disp7s_modeDisp_writeInt ]
+[; ;display.c: 315: pDisp[pi--] |= DISP7S_NUMS[ buff[i] - 0x30 ];
+"315
+[e =| *U + _pDisp * -> -- _pi -> -> 1 `i `c `x -> -> # *U _pDisp `i `x *U + &U _DISP7S_NUMS * -> -> - -> *U + &U _buff * -> -> _i `uc `ux -> -> # *U &U _buff `ui `ux `i -> 48 `i `ui `ux -> -> # *U &U _DISP7S_NUMS `ui `ux ]
+[; ;display.c: 316: i++;
+"316
+[e ++ _i -> -> 1 `i `c ]
 "317
-[v _num `i ~T0 @X0 1 r1 ]
-"318
-[f ]
-[; ;display.c: 319: disp7s_write_i(pulsonic.disp7s.mode, 2, num);
+}
+[e :U 690 ]
+"313
+[e $ != -> *U + &U _buff * -> -> _i `uc `ux -> -> # *U &U _buff `ui `ux `ui -> 0 `ui 691  ]
+[e :U 692 ]
+[; ;display.c: 317: }
+[; ;display.c: 319: }
 "319
-[e ( _disp7s_write_i (3 , , -> &U . . _pulsonic 13 1 `*uc -> -> 2 `i `c _num ]
-[; ;display.c: 320: }
+[e :UE 681 ]
+}
 "320
+[v _disp7s_qtyDisp_writeInt `(v ~T0 @X0 1 ef1`i ]
+"321
+{
+[; ;display.c: 320: void disp7s_qtyDisp_writeInt(int16_t num)
+[; ;display.c: 321: {
+[e :U _disp7s_qtyDisp_writeInt ]
+"320
+[v _num `i ~T0 @X0 1 r1 ]
+"321
+[f ]
+[; ;display.c: 322: disp7s_write_i(pulsonic.disp7s.qty, 3, num);
+"322
+[e ( _disp7s_write_i (3 , , -> &U . . _pulsonic 13 0 `*uc -> -> 3 `i `c _num ]
+[; ;display.c: 323: }
+"323
 [e :UE 693 ]
+}
+"324
+[v _disp7s_modeDisp_writeInt `(v ~T0 @X0 1 ef1`i ]
+"325
+{
+[; ;display.c: 324: void disp7s_modeDisp_writeInt(int16_t num)
+[; ;display.c: 325: {
+[e :U _disp7s_modeDisp_writeInt ]
+"324
+[v _num `i ~T0 @X0 1 r1 ]
+"325
+[f ]
+[; ;display.c: 326: disp7s_write_i(pulsonic.disp7s.mode, 2, num);
+"326
+[e ( _disp7s_write_i (3 , , -> &U . . _pulsonic 13 1 `*uc -> -> 2 `i `c _num ]
+[; ;display.c: 327: }
+"327
+[e :UE 694 ]
 }

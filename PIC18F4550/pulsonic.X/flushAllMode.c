@@ -38,7 +38,7 @@ void flushAllMode_job(void)
         {
             if (mpap_isIdle())
             {
-                mpap_setupToHomming();
+                mpap_setup_searchFirstPointHomeSensor();
                 flushAllMode.sm0++;
             }
         }

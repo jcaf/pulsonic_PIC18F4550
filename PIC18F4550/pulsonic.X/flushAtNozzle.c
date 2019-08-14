@@ -23,7 +23,6 @@ void flushAtNozzle_cmd(int8_t cmd)
 {
     if (cmd == JOB_RESTART)
     {
-        //disp7s_modeDisp_off();
         disp7s_qtyDisp_writeText_FLU();
         //
         flushAtNozzle.sm0 = 0x1;
@@ -51,7 +50,7 @@ void flushAtNozzle_job(void)
             {
                 if (mpap_isIdle())
                 {
-                    mpap_setupToHomming();
+                    mpap_setup_searchFirstPointHomeSensor();
                     flushAtNozzle.sm0++;
                 }
             }

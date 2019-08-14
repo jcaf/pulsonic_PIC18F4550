@@ -107,13 +107,19 @@ void autoMode_job(void)
         {
             if (mpap_isIdle())
             {
-                mpap_setupToHomming();
-                autoMode.sm0++;
+                if (mpap.numSteps_current == 0x000)//origin
+                {
+                    autoMode.sm0+=2;//direct
+                }
+                else
+                {
+                    autoMode.sm0++;
+                }
             }
         }
         else if (autoMode.sm0 == 2)
         {
-            if (mpap_isIdle())
+            if (mpap_homming_job())//cod_ret = 1 o 2
             {
                 autoMode.sm0++;
             }
@@ -161,17 +167,22 @@ void autoMode_job(void)
         else if (autoMode.sm0 == 5)
         {
             autoMode.numNozzle++;
-            if (autoMode.numNozzle == NOZZLE_NUMMAX)
+            
+            if (autoMode.numNozzle >= NOZZLE_NUMMAX)
             {
                 autoMode.numNozzle = 0x00;
-                numVueltas += (NOZZLE_NUMMAX - 1); //rollover
+                //
+                mpap_setupToTurn(1 * MPAP_NUMSTEP_1NOZZLE);
+                mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
+                //
             }
             else
             {
-                numVueltas++;
+                mpap_movetoNozzle(autoMode.numNozzle);
             }
+            numVueltas++;
 
-            mpap_movetoNozzle(autoMode.numNozzle);
+            
             autoMode.sm0++;
         }
         else if (autoMode.sm0 == 6)
@@ -180,7 +191,7 @@ void autoMode_job(void)
             {
                 if (nozzle_isEnabled(autoMode.numNozzle))
                 {
-                    tacc = (numVueltas * 200) + (  tacc* (PUMP_TICK_TIME_ON+PUMP_TICK_TIME_OFF)); //ms
+                    tacc = (numVueltas * 200) + (  tacc * (PUMP_TICK_TIME_ON+PUMP_TICK_TIME_OFF)); //ms
                     ktime_residuary = pulsonic.kTimeBetweenNozzleAvailable - tacc;
                     pulsonic.countTimeBetweenNozzleAvailable = 0x0000;
                     //
@@ -219,12 +230,76 @@ void autoMode_job(void)
     }//if (autoMode.sm0 >0)
 }
 
-/*
-void autoMode_job(void)
+
+void autoMode_jobX(void)
 {
     static uint16_t c_ms;
     static uint16_t c_min;
+    if (autoMode.sm0 >0)
+    {
+        if (autoMode.sm0 == 1)
+        {
+            if (mpap_isIdle())
+            {
+                mpap_setup_searchFirstPointHomeSensor();
+                autoMode.sm0++;
+            }
+        }
+        else if (autoMode.sm0 == 2)
+        {
+            if (mpap_isIdle())
+            {
+                autoMode.sm0++;
+            }
+        }
+        //Distribute oil 
+        else if (autoMode.sm0 == 3)
+        {
+            if (1)
+            {
+                mpap_movetoNozzle(autoMode.numNozzle);
+                autoMode.sm0++;
+            }
+            
+        }
+        else if (autoMode.sm0 == 4)
+        {
+            if (mpap_isIdle())
+            {
+                pump_setTick(2);
+                autoMode.sm0++;
+            }
+        }
+        else if (autoMode.sm0 == 5)
+        {
+            if (pump_isIdle())
+            {
+                autoMode.numNozzle++;
+                if (  autoMode.numNozzle == NOZZLE_NUMMAX+1)
+                {
+                    while (1);
+                    
+                    if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 0)
+                    {
+                        //autoMode.numNozzle = 0x00;
+                    }
 
+                }
+                autoMode.sm0 = 3 ;
+                c_ms = 0x00;
+                c_min = 0x00;
+            }
+        }
+
+    }
+}
+ 
+/*
+void autoMode_jobX(void)
+{
+    static uint16_t c_ms;
+    static uint16_t c_min;
+    static int8_t n;
     if (autoMode.sm0 >0)
     {
         if (autoMode.sm0 == 1)
@@ -239,26 +314,21 @@ void autoMode_job(void)
         {
             if (mpap_isIdle())
             {
+                n = 17;
                 autoMode.sm0++;
             }
         }
         //Distribute oil 
         else if (autoMode.sm0 == 3)
         {
-            if (nozzle_isEnabled(autoMode.numNozzle))
-            {
-                mpap_movetoNozzle(autoMode.numNozzle);
-                autoMode.sm0++;
-            }
-
-            if (++autoMode.numNozzle == NOZZLE_NUMMAX)
-                {autoMode.numNozzle = 0x00;}
+            mpap_movetoNozzle(n);
+            autoMode.sm0++;
         }
         else if (autoMode.sm0 == 4)
         {
             if (mpap_isIdle())
             {
-                pump_setTick(2);
+                pump_setTick(5);
                 autoMode.sm0++;
             }
         }
@@ -266,7 +336,8 @@ void autoMode_job(void)
         {
             if (pump_isIdle())
             {
-                autoMode.sm0++;
+                n++;
+                autoMode.sm0 = ;
                 c_ms = 0x00;
                 c_min = 0x00;
             }

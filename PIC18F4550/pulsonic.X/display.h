@@ -63,6 +63,7 @@
     
     void disp7s_qtyDisp_writeText_20_3RAYAS(void);
     void disp7s_qtyDisp_writeText_NO_OIL(void);
+    void disp7s_qtyDisp_writeText_NO_HOME_SENSOR(void);
     
     void disp7s_init(void);
     void disp7s_job(void);

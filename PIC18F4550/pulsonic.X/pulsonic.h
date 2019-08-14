@@ -46,8 +46,6 @@
         double dist_access_time;//en 60 min, cada cuanto tiempo se accede(en min)
         double timeslice;
         
-       
-        
         struct _pulsonic_nozzle
         {
             double Q_mlh;                //quantity ml/h

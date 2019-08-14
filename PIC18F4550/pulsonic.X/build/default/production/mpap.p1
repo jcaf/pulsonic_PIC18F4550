@@ -2,38 +2,36 @@ Version 3.2 HI-TECH Software Intermediate Code
 "3740 /opt/microchip/xc8/v1.33/include/pic18f4550.h
 [v _LATD `Vuc ~T0 @X0 0 e@3980 ]
 [v F4680 `(v ~T0 @X0 0 tf ]
-"18 mpap.h
+"19 mpap.h
 [s S564 `i 1 `i 1 `i 1 `c 1 `c 1 ]
 [n S564 _mpap numSteps_current counter_steps numSteps_tomove KI mode ]
-"77 mpap.c
-[c E4715 0 1 2 3 .. ]
-[n E4715 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_HOMMING_MODE MPAP_NORMAL_MODE  ]
+"72 mpap.c
+[c E4715 0 1 2 3 4 .. ]
+[n E4715 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE MPAP_CROSSING_HOMESENSOR_MODE MPAP_NORMAL_MODE  ]
 "3107 /opt/microchip/xc8/v1.33/include/pic18f4550.h
 [v _PORTE `Vuc ~T0 @X0 0 e@3972 ]
-"34 mpap.h
-[v _mpap_isIdle `(c ~T0 @X0 0 ef ]
 "27 pulsonic.h
 [s S566 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
 [n S566 _errorFlag_flags oilLevel homeSensor unblockedNozzle inductiveSensorRPM __a ]
 "25
 [u S565 `S566 1 `c 1 ]
 [n S565 _errorFlag f packed ]
-"51
+"49
 [s S568 `d 1 `d 1 `d 1 `d 1 `i 1 `ui 1 ]
 [n S568 _pulsonic_nozzle Q_mlh nticks_xtimeslice kmax_ticks_xtimeslice accError counterTicks_xTotalTime nticks_delivered_inThisTimeSlice ]
-"66
+"64
 [s S569 `c 1 `c 1 ]
 [n S569 _pulsonic_oil i viscosity ]
-"80
+"78
 [s S570 `uc -> 3 `i `uc -> 2 `i ]
 [n S570 _pulsonic_display qty mode ]
-"86
+"84
 [s S571 :1 `uc 1 :7 `uc 1 ]
 [n S571 _pulsonic_flags homed __a ]
 "40
 [s S567 `S565 1 `d 1 `d 1 `d 1 `d 1 `S568 -> 18 `i `S569 1 `d 1 `c 1 `ul 1 `ul 1 `i 1 `c 1 `S570 1 `S571 1 ]
 [n S567 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags ]
-"94
+"92
 [v _pulsonic `VS567 ~T0 @X0 0 e ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
@@ -4337,26 +4335,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 12: {
 [; ;mpap.h: 13: MPAP_IDLE_MODE=0,
 [; ;mpap.h: 14: MPAP_STALL_MODE,
-[; ;mpap.h: 15: MPAP_HOMMING_MODE,
-[; ;mpap.h: 16: MPAP_NORMAL_MODE
-[; ;mpap.h: 17: };
-[; ;mpap.h: 18: struct _mpap
-[; ;mpap.h: 19: {
-[; ;mpap.h: 20: int16_t numSteps_current;
-[; ;mpap.h: 21: int16_t counter_steps;
-[; ;mpap.h: 22: int16_t numSteps_tomove;
-[; ;mpap.h: 23: int8_t KI;
-[; ;mpap.h: 24: int8_t mode;
-[; ;mpap.h: 25: };
-[; ;mpap.h: 26: extern volatile struct _mpap mpap;
-[; ;mpap.h: 30: void mpap_job(void);
-[; ;mpap.h: 31: void mpap_setupToHomming(void);
-[; ;mpap.h: 32: void mpap_setupToTurn(int16_t numSteps_tomove);
-[; ;mpap.h: 33: void mpap_movetoNozzle(int8_t n);
-[; ;mpap.h: 34: int8_t mpap_isIdle(void);
-[; ;mpap.h: 35: void mpap_do1step(int8_t KI);
-[; ;mpap.h: 69: void autoModexxx_job(void);
-[; ;mpap.h: 74: void l6506d_job(void);
+[; ;mpap.h: 15: MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE,
+[; ;mpap.h: 16: MPAP_CROSSING_HOMESENSOR_MODE,
+[; ;mpap.h: 17: MPAP_NORMAL_MODE
+[; ;mpap.h: 18: };
+[; ;mpap.h: 19: struct _mpap
+[; ;mpap.h: 20: {
+[; ;mpap.h: 21: int16_t numSteps_current;
+[; ;mpap.h: 22: int16_t counter_steps;
+[; ;mpap.h: 23: int16_t numSteps_tomove;
+[; ;mpap.h: 24: int8_t KI;
+[; ;mpap.h: 25: int8_t mode;
+[; ;mpap.h: 26: };
+[; ;mpap.h: 27: extern volatile struct _mpap mpap;
+[; ;mpap.h: 31: void mpap_job(void);
+[; ;mpap.h: 32: void mpap_setup_searchFirstPointHomeSensor(void);
+[; ;mpap.h: 33: void mpap_setupToTurn(int16_t numSteps_tomove);
+[; ;mpap.h: 34: void mpap_movetoNozzle(int8_t n);
+[; ;mpap.h: 35: int8_t mpap_isIdle(void);
+[; ;mpap.h: 36: void mpap_do1step(int8_t KI);
+[; ;mpap.h: 38: int8_t mpap_homming_job(void);
 [; ;nozzle.h: 16: extern double NOZZLE_QTY_DIFF;
 [; ;nozzle.h: 18: int8_t nozzle_isEnabled(int n);
 [; ;display.h: 48: void disp7s_qtyDisp_writeFloat(float num);
@@ -4371,14 +4369,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;display.h: 61: void disp7s_qtyDisp_writeText_FLU(void);
 [; ;display.h: 64: void disp7s_qtyDisp_writeText_20_3RAYAS(void);
 [; ;display.h: 65: void disp7s_qtyDisp_writeText_NO_OIL(void);
-[; ;display.h: 67: void disp7s_init(void);
-[; ;display.h: 68: void disp7s_job(void);
-[; ;display.h: 70: extern const uint8_t DISP7S_NUMS[10];
-[; ;display.h: 71: extern const uint8_t DISP7S_CHARS[2];
-[; ;display.h: 73: enum _DISP7S_CHARS {
-[; ;display.h: 74: OFF,
-[; ;display.h: 75: RAYA
-[; ;display.h: 76: };
+[; ;display.h: 66: void disp7s_qtyDisp_writeText_NO_HOME_SENSOR(void);
+[; ;display.h: 68: void disp7s_init(void);
+[; ;display.h: 69: void disp7s_job(void);
+[; ;display.h: 71: extern const uint8_t DISP7S_NUMS[10];
+[; ;display.h: 72: extern const uint8_t DISP7S_CHARS[2];
+[; ;display.h: 74: enum _DISP7S_CHARS {
+[; ;display.h: 75: OFF,
+[; ;display.h: 76: RAYA
+[; ;display.h: 77: };
 [; ;pulsonic.h: 19: typedef int8_t intNumMaxErr_t;
 [; ;pulsonic.h: 25: union _errorFlag
 [; ;pulsonic.h: 26: {
@@ -4399,42 +4398,42 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 45: double dist_total_time;
 [; ;pulsonic.h: 46: double dist_access_time;
 [; ;pulsonic.h: 47: double timeslice;
-[; ;pulsonic.h: 51: struct _pulsonic_nozzle
-[; ;pulsonic.h: 52: {
-[; ;pulsonic.h: 53: double Q_mlh;
-[; ;pulsonic.h: 54: double nticks_xtimeslice;
-[; ;pulsonic.h: 55: double kmax_ticks_xtimeslice;
-[; ;pulsonic.h: 57: double accError;
-[; ;pulsonic.h: 61: int counterTicks_xTotalTime;
-[; ;pulsonic.h: 62: uint16_t nticks_delivered_inThisTimeSlice;
-[; ;pulsonic.h: 64: }nozzle[18];
-[; ;pulsonic.h: 66: struct _pulsonic_oil
-[; ;pulsonic.h: 67: {
-[; ;pulsonic.h: 68: int8_t i;
-[; ;pulsonic.h: 69: int8_t viscosity;
-[; ;pulsonic.h: 70: }oil;
-[; ;pulsonic.h: 72: double sum_all_mlh;
-[; ;pulsonic.h: 73: int8_t numNozzleAvailable;
-[; ;pulsonic.h: 74: uint32_t kTimeBetweenNozzleAvailable;
-[; ;pulsonic.h: 75: uint32_t countTimeBetweenNozzleAvailable;
-[; ;pulsonic.h: 77: int16_t num_timeslice;
-[; ;pulsonic.h: 78: int8_t countNozzleAvailable;
-[; ;pulsonic.h: 80: struct _pulsonic_display
-[; ;pulsonic.h: 81: {
-[; ;pulsonic.h: 82: uint8_t qty[3];
-[; ;pulsonic.h: 83: uint8_t mode[2];
-[; ;pulsonic.h: 84: }disp7s;
-[; ;pulsonic.h: 86: struct _pulsonic_flags
-[; ;pulsonic.h: 87: {
-[; ;pulsonic.h: 88: unsigned homed:1;
-[; ;pulsonic.h: 89: unsigned __a:7;
-[; ;pulsonic.h: 90: }flags;
-[; ;pulsonic.h: 92: };
-[; ;pulsonic.h: 94: extern volatile struct _pulsonic pulsonic;
-[; ;pulsonic.h: 96: extern const int8_t OIL_VISCOSITY[4];
-[; ;pulsonic.h: 98: void pulsonic_init(void);
-[; ;pulsonic.h: 99: double pulsonic_getTotalSum_mlh(void);
-[; ;pulsonic.h: 100: int8_t pulsonic_getNumNozzleAvailable(void);
+[; ;pulsonic.h: 49: struct _pulsonic_nozzle
+[; ;pulsonic.h: 50: {
+[; ;pulsonic.h: 51: double Q_mlh;
+[; ;pulsonic.h: 52: double nticks_xtimeslice;
+[; ;pulsonic.h: 53: double kmax_ticks_xtimeslice;
+[; ;pulsonic.h: 55: double accError;
+[; ;pulsonic.h: 59: int counterTicks_xTotalTime;
+[; ;pulsonic.h: 60: uint16_t nticks_delivered_inThisTimeSlice;
+[; ;pulsonic.h: 62: }nozzle[18];
+[; ;pulsonic.h: 64: struct _pulsonic_oil
+[; ;pulsonic.h: 65: {
+[; ;pulsonic.h: 66: int8_t i;
+[; ;pulsonic.h: 67: int8_t viscosity;
+[; ;pulsonic.h: 68: }oil;
+[; ;pulsonic.h: 70: double sum_all_mlh;
+[; ;pulsonic.h: 71: int8_t numNozzleAvailable;
+[; ;pulsonic.h: 72: uint32_t kTimeBetweenNozzleAvailable;
+[; ;pulsonic.h: 73: uint32_t countTimeBetweenNozzleAvailable;
+[; ;pulsonic.h: 75: int16_t num_timeslice;
+[; ;pulsonic.h: 76: int8_t countNozzleAvailable;
+[; ;pulsonic.h: 78: struct _pulsonic_display
+[; ;pulsonic.h: 79: {
+[; ;pulsonic.h: 80: uint8_t qty[3];
+[; ;pulsonic.h: 81: uint8_t mode[2];
+[; ;pulsonic.h: 82: }disp7s;
+[; ;pulsonic.h: 84: struct _pulsonic_flags
+[; ;pulsonic.h: 85: {
+[; ;pulsonic.h: 86: unsigned homed:1;
+[; ;pulsonic.h: 87: unsigned __a:7;
+[; ;pulsonic.h: 88: }flags;
+[; ;pulsonic.h: 90: };
+[; ;pulsonic.h: 92: extern volatile struct _pulsonic pulsonic;
+[; ;pulsonic.h: 94: extern const int8_t OIL_VISCOSITY[4];
+[; ;pulsonic.h: 96: void pulsonic_init(void);
+[; ;pulsonic.h: 97: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 98: int8_t pulsonic_getNumNozzleAvailable(void);
 "5 mpap.c
 [v __mpap_step1 `(v ~T0 @X0 1 sf ]
 "6
@@ -4450,596 +4449,815 @@ Version 3.2 HI-TECH Software Intermediate Code
 "13
 [e :UE 572 ]
 }
-"15
+"14
 [v __mpap_step2 `(v ~T0 @X0 1 sf ]
-"16
+"15
 {
-[; ;mpap.c: 15: static void _mpap_step2(void)
-[; ;mpap.c: 16: {
+[; ;mpap.c: 14: static void _mpap_step2(void)
+[; ;mpap.c: 15: {
 [e :U __mpap_step2 ]
 [f ]
-[; ;mpap.c: 22: LATD = (1<<3);
-"22
+[; ;mpap.c: 21: LATD = (1<<3);
+"21
 [e = _LATD -> << -> 1 `i -> 3 `i `uc ]
-[; ;mpap.c: 23: }
-"23
+[; ;mpap.c: 22: }
+"22
 [e :UE 573 ]
 }
-"25
+"23
 [v __mpap_step3 `(v ~T0 @X0 1 sf ]
-"26
+"24
 {
-[; ;mpap.c: 25: static void _mpap_step3(void)
-[; ;mpap.c: 26: {
+[; ;mpap.c: 23: static void _mpap_step3(void)
+[; ;mpap.c: 24: {
 [e :U __mpap_step3 ]
 [f ]
-[; ;mpap.c: 32: LATD = (1<<2);
-"32
+[; ;mpap.c: 30: LATD = (1<<2);
+"30
 [e = _LATD -> << -> 1 `i -> 2 `i `uc ]
-[; ;mpap.c: 33: }
-"33
+[; ;mpap.c: 31: }
+"31
 [e :UE 574 ]
 }
-"35
+"32
 [v __mpap_step4 `(v ~T0 @X0 1 sf ]
-"36
+"33
 {
-[; ;mpap.c: 35: static void _mpap_step4(void)
-[; ;mpap.c: 36: {
+[; ;mpap.c: 32: static void _mpap_step4(void)
+[; ;mpap.c: 33: {
 [e :U __mpap_step4 ]
 [f ]
-[; ;mpap.c: 42: LATD = (1<<1);
-"42
+[; ;mpap.c: 39: LATD = (1<<1);
+"39
 [e = _LATD -> << -> 1 `i -> 1 `i `uc ]
-[; ;mpap.c: 43: }
-"43
+[; ;mpap.c: 40: }
+"40
 [e :UE 575 ]
 }
-"45
+"42
 [v _mpap_step `*F4680 ~T0 @X0 -> 4 `i e ]
 [i _mpap_step
 :U ..
-"46
 &U __mpap_step1
 &U __mpap_step2
 &U __mpap_step3
-"47
 &U __mpap_step4
 ..
 ]
-[; ;mpap.c: 45: PTRFX_retVOID mpap_step[4] ={
-[; ;mpap.c: 46: _mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
-[; ;mpap.c: 47: };
-"59
+[; ;mpap.c: 42: PTRFX_retVOID mpap_step[4] = {_mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4};
+"53
 [v _mpap `VS564 ~T0 @X0 1 e ]
-[; ;mpap.c: 59: volatile struct _mpap mpap;
-"62
+[; ;mpap.c: 53: volatile struct _mpap mpap;
+"56
 [v _mpap_setupToTurn `(v ~T0 @X0 1 ef1`i ]
-"63
+"57
 {
-[; ;mpap.c: 62: void mpap_setupToTurn(int16_t numSteps_tomove)
-[; ;mpap.c: 63: {
+[; ;mpap.c: 56: void mpap_setupToTurn(int16_t numSteps_tomove)
+[; ;mpap.c: 57: {
 [e :U _mpap_setupToTurn ]
-"62
+"56
 [v _numSteps_tomove `i ~T0 @X0 1 r1 ]
-"63
+"57
 [f ]
-[; ;mpap.c: 64: if (numSteps_tomove != 0)
-"64
+[; ;mpap.c: 58: if (numSteps_tomove != 0)
+"58
 [e $ ! != _numSteps_tomove -> 0 `i 577  ]
-[; ;mpap.c: 65: {
-"65
+[; ;mpap.c: 59: {
+"59
 {
-[; ;mpap.c: 66: mpap.KI = (numSteps_tomove < 0) ? -1 : 1;
-"66
+[; ;mpap.c: 60: mpap.KI = (numSteps_tomove < 0) ? -1 : 1;
+"60
 [e = . _mpap 3 -> ? < _numSteps_tomove -> 0 `i : -U -> 1 `i -> 1 `i `c ]
-[; ;mpap.c: 67: mpap.counter_steps = 0;
-"67
+[; ;mpap.c: 61: mpap.counter_steps = 0x0000;
+"61
 [e = . _mpap 1 -> 0 `i ]
-[; ;mpap.c: 68: mpap.numSteps_tomove = numSteps_tomove;
-"68
+[; ;mpap.c: 62: mpap.numSteps_tomove = numSteps_tomove;
+"62
 [e = . _mpap 2 _numSteps_tomove ]
-"69
+"63
 }
 [e :U 577 ]
-[; ;mpap.c: 69: }
-[; ;mpap.c: 70: }
-"70
+[; ;mpap.c: 63: }
+[; ;mpap.c: 64: }
+"64
 [e :UE 576 ]
 }
-"72
-[v _mpap_setupToHomming `(v ~T0 @X0 1 ef ]
-"73
+"66
+[v _mpap_setup_searchFirstPointHomeSensor `(v ~T0 @X0 1 ef ]
+"67
 {
-[; ;mpap.c: 72: void mpap_setupToHomming(void)
-[; ;mpap.c: 73: {
-[e :U _mpap_setupToHomming ]
+[; ;mpap.c: 66: void mpap_setup_searchFirstPointHomeSensor(void)
+[; ;mpap.c: 67: {
+[e :U _mpap_setup_searchFirstPointHomeSensor ]
 [f ]
-[; ;mpap.c: 75: mpap_setupToTurn(-1 * ((18 * 200) + 20));
-"75
-[e ( _mpap_setupToTurn (1 * -U -> 1 `i + * -> 18 `i -> 200 `i -> 20 `i ]
-[; ;mpap.c: 77: mpap.mode = MPAP_HOMMING_MODE;
-"77
+[; ;mpap.c: 71: mpap_setupToTurn(+1 * ((18 * 200) + 20));
+"71
+[e ( _mpap_setupToTurn (1 * -> 1 `i + * -> 18 `i -> 200 `i -> 20 `i ]
+[; ;mpap.c: 72: mpap.mode = MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE;
+"72
 [e = . _mpap 4 -> . `E4715 2 `c ]
-[; ;mpap.c: 78: }
-"78
+[; ;mpap.c: 73: }
+"73
 [e :UE 578 ]
 }
-"80
-[v _mpap_homming_job `(c ~T0 @X0 1 ef ]
-"81
+"78
+[v _mpap_do1step `(v ~T0 @X0 1 ef1`c ]
+"79
 {
-[; ;mpap.c: 80: int8_t mpap_homming_job(void)
-[; ;mpap.c: 81: {
-[e :U _mpap_homming_job ]
+[; ;mpap.c: 78: void mpap_do1step(int8_t KI)
+[; ;mpap.c: 79: {
+[e :U _mpap_do1step ]
+"78
+[v _KI `c ~T0 @X0 1 r1 ]
+"79
 [f ]
+"80
+[v F4846 `c ~T0 @X0 1 s i ]
+[i F4846
+-> -U -> 1 `i `c
+]
+[; ;mpap.c: 80: static int8_t i = -1;
+[; ;mpap.c: 82: i = i + KI;
 "82
-[v _cod_ret `c ~T0 @X0 1 a ]
-[; ;mpap.c: 82: int8_t cod_ret = 0;
-[e = _cod_ret -> -> 0 `i `c ]
+[e = F4846 -> + -> F4846 `i -> _KI `i `c ]
+[; ;mpap.c: 83: if (i > 3)
 "83
-[v F4847 `c ~T0 @X0 1 s sm0 ]
-[; ;mpap.c: 83: static int8_t sm0;
-[; ;mpap.c: 84: if (sm0 == 0)
+[e $ ! > -> F4846 `i -> 3 `i 580  ]
+[; ;mpap.c: 84: {
 "84
-[e $ ! == -> F4847 `i -> 0 `i 580  ]
-[; ;mpap.c: 85: {
+{
+[; ;mpap.c: 85: i = 0;
 "85
-{
-[; ;mpap.c: 86: if (((PORTE & (1<<1))>>1) == 0)
+[e = F4846 -> -> 0 `i `c ]
 "86
-[e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 0 `i 581  ]
-[; ;mpap.c: 87: {
-"87
-{
-[; ;mpap.c: 88: mpap_setupToTurn(-1 * ((2 * 200)));
-"88
-[e ( _mpap_setupToTurn (1 * -U -> 1 `i * -> 2 `i -> 200 `i ]
-[; ;mpap.c: 89: mpap.mode = MPAP_NORMAL_MODE;
-"89
-[e = . _mpap 4 -> . `E4715 3 `c ]
-[; ;mpap.c: 90: sm0++;
-"90
-[e ++ F4847 -> -> 1 `i `c ]
-"91
 }
-[; ;mpap.c: 91: }
-[e $U 582  ]
-"92
-[e :U 581 ]
-[; ;mpap.c: 92: else
-[; ;mpap.c: 93: {
-"93
-{
-[; ;mpap.c: 94: mpap_setupToHomming();
-"94
-[e ( _mpap_setupToHomming ..  ]
-[; ;mpap.c: 95: sm0 = 2;
-"95
-[e = F4847 -> -> 2 `i `c ]
-"96
-}
-[e :U 582 ]
-"97
-}
-[; ;mpap.c: 96: }
-[; ;mpap.c: 97: }
-[e $U 583  ]
-"98
 [e :U 580 ]
-[; ;mpap.c: 98: else if (sm0 == 1)
-[e $ ! == -> F4847 `i -> 1 `i 584  ]
-[; ;mpap.c: 99: {
-"99
+[; ;mpap.c: 86: }
+[; ;mpap.c: 87: if (i < 0)
+"87
+[e $ ! < -> F4846 `i -> 0 `i 581  ]
+[; ;mpap.c: 88: {
+"88
 {
-[; ;mpap.c: 100: if (mpap_isIdle())
-"100
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 585  ]
-[; ;mpap.c: 101: {
-"101
-{
-[; ;mpap.c: 102: mpap_setupToHomming();
+[; ;mpap.c: 89: i = 3;
+"89
+[e = F4846 -> -> 3 `i `c ]
+"90
+}
+[e :U 581 ]
+[; ;mpap.c: 90: }
+[; ;mpap.c: 91: mpap_step[i]();
+"91
+[e ( *U *U + &U _mpap_step * -> -> F4846 `uc `ux -> -> # *U &U _mpap_step `ui `ux ..  ]
+[; ;mpap.c: 92: }
+"92
+[e :UE 579 ]
+}
 "102
-[e ( _mpap_setupToHomming ..  ]
-[; ;mpap.c: 103: sm0++;
+[v _mpap_searchFirstPointHomeSensor `(c ~T0 @X0 1 sf ]
 "103
-[e ++ F4847 -> -> 1 `i `c ]
+{
+[; ;mpap.c: 102: static int8_t mpap_searchFirstPointHomeSensor(void)
+[; ;mpap.c: 103: {
+[e :U _mpap_searchFirstPointHomeSensor ]
+[f ]
 "104
-}
-[e :U 585 ]
-"105
-}
-[; ;mpap.c: 104: }
-[; ;mpap.c: 105: }
-[e $U 586  ]
+[v _cod_ret `c ~T0 @X0 1 a ]
+[; ;mpap.c: 104: int8_t cod_ret = 0;
+[e = _cod_ret -> -> 0 `i `c ]
+[; ;mpap.c: 106: if (mpap.numSteps_tomove != 0)
 "106
-[e :U 584 ]
-[; ;mpap.c: 106: else if (sm0 == 2)
-[e $ ! == -> F4847 `i -> 2 `i 587  ]
+[e $ ! != . _mpap 2 -> 0 `i 583  ]
 [; ;mpap.c: 107: {
 "107
 {
-[; ;mpap.c: 108: if (mpap_isIdle())
+[; ;mpap.c: 108: mpap_do1step(mpap.KI);
 "108
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 588  ]
-[; ;mpap.c: 109: {
-"109
-{
-[; ;mpap.c: 110: cod_ret = 1;
+[e ( _mpap_do1step (1 . _mpap 3 ]
+[; ;mpap.c: 110: mpap.counter_steps += mpap.KI;
 "110
-[e = _cod_ret -> -> 1 `i `c ]
-"111
-}
-[e :U 588 ]
+[e =+ . _mpap 1 -> . _mpap 3 `i ]
+[; ;mpap.c: 112: if (((PORTE & (1<<1))>>1) == 0)
 "112
+[e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 0 `i 584  ]
+[; ;mpap.c: 113: {cod_ret = 1;}
+"113
+{
+[e = _cod_ret -> -> 1 `i `c ]
+}
+[e $U 585  ]
+"114
+[e :U 584 ]
+[; ;mpap.c: 114: else
+[; ;mpap.c: 115: {
+"115
+{
+[; ;mpap.c: 116: if (mpap.counter_steps == mpap.numSteps_tomove)
+"116
+[e $ ! == . _mpap 1 . _mpap 2 586  ]
+[; ;mpap.c: 117: {cod_ret = 2;}
+"117
+{
+[e = _cod_ret -> -> 2 `i `c ]
+}
+[e :U 586 ]
+"118
+}
+[e :U 585 ]
+[; ;mpap.c: 118: }
+[; ;mpap.c: 120: if (cod_ret>0)
+"120
+[e $ ! > -> _cod_ret `i -> 0 `i 587  ]
+[; ;mpap.c: 121: {mpap.numSteps_tomove = 0x0000;}
+"121
+{
+[e = . _mpap 2 -> 0 `i ]
 }
 [e :U 587 ]
-"113
-[e :U 586 ]
+"122
+}
 [e :U 583 ]
-[; ;mpap.c: 111: }
-[; ;mpap.c: 112: }
-[; ;mpap.c: 113: return cod_ret;
-[e ) _cod_ret ]
-[e $UE 579  ]
-[; ;mpap.c: 114: }
-"114
-[e :UE 579 ]
-}
-"119
-[v _mpap_do1step `(v ~T0 @X0 1 ef1`c ]
-"120
-{
-[; ;mpap.c: 119: void mpap_do1step(int8_t KI)
-[; ;mpap.c: 120: {
-[e :U _mpap_do1step ]
-"119
-[v _KI `c ~T0 @X0 1 r1 ]
-"120
-[f ]
-"121
-[v F4849 `c ~T0 @X0 1 s i ]
-[i F4849
--> -U -> 1 `i `c
-]
-[; ;mpap.c: 121: static int8_t i = -1;
-[; ;mpap.c: 123: i = i + KI;
+[; ;mpap.c: 122: }
+[; ;mpap.c: 123: return cod_ret;
 "123
-[e = F4849 -> + -> F4849 `i -> _KI `i `c ]
-[; ;mpap.c: 124: if (i > 3)
+[e ) _cod_ret ]
+[e $UE 582  ]
+[; ;mpap.c: 124: }
 "124
-[e $ ! > -> F4849 `i -> 3 `i 590  ]
-[; ;mpap.c: 125: {
+[e :UE 582 ]
+}
 "125
-{
-[; ;mpap.c: 126: i = 0;
+[v _mpap_crossingHomeSensor `(c ~T0 @X0 1 sf ]
 "126
-[e = F4849 -> -> 0 `i `c ]
-"127
-}
-[e :U 590 ]
-[; ;mpap.c: 127: }
-[; ;mpap.c: 128: if (i < 0)
-"128
-[e $ ! < -> F4849 `i -> 0 `i 591  ]
-[; ;mpap.c: 129: {
-"129
 {
-[; ;mpap.c: 130: i = 3;
-"130
-[e = F4849 -> -> 3 `i `c ]
-"131
-}
-[e :U 591 ]
-[; ;mpap.c: 131: }
-[; ;mpap.c: 133: mpap_step[i]();
-"133
-[e ( *U *U + &U _mpap_step * -> -> F4849 `uc `ux -> -> # *U &U _mpap_step `ui `ux ..  ]
-[; ;mpap.c: 134: }
-"134
-[e :UE 589 ]
-}
-"144
-[v _mpap_homming `(c ~T0 @X0 1 ef ]
-"145
-{
-[; ;mpap.c: 144: int8_t mpap_homming(void)
-[; ;mpap.c: 145: {
-[e :U _mpap_homming ]
+[; ;mpap.c: 125: static int8_t mpap_crossingHomeSensor(void)
+[; ;mpap.c: 126: {
+[e :U _mpap_crossingHomeSensor ]
 [f ]
-"146
+"127
 [v _cod_ret `c ~T0 @X0 1 a ]
-[; ;mpap.c: 146: int8_t cod_ret = 0;
+[; ;mpap.c: 127: int8_t cod_ret = 0;
 [e = _cod_ret -> -> 0 `i `c ]
-[; ;mpap.c: 147: if (mpap.numSteps_tomove != 0)
-"147
-[e $ ! != . _mpap 2 -> 0 `i 593  ]
-[; ;mpap.c: 148: {
-"148
+"128
+[v F4853 `ui ~T0 @X0 1 s counterZeros ]
+[; ;mpap.c: 128: static uint16_t counterZeros;
+[; ;mpap.c: 130: if (mpap.numSteps_tomove != 0)
+"130
+[e $ ! != . _mpap 2 -> 0 `i 589  ]
+[; ;mpap.c: 131: {
+"131
 {
-[; ;mpap.c: 149: mpap_do1step(mpap.KI);
-"149
+[; ;mpap.c: 132: mpap_do1step(mpap.KI);
+"132
 [e ( _mpap_do1step (1 . _mpap 3 ]
-[; ;mpap.c: 151: mpap.counter_steps += mpap.KI;
-"151
+[; ;mpap.c: 134: mpap.counter_steps += mpap.KI;
+"134
 [e =+ . _mpap 1 -> . _mpap 3 `i ]
-[; ;mpap.c: 153: if (((PORTE & (1<<1))>>1) == 0)
-"153
-[e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 0 `i 594  ]
-[; ;mpap.c: 154: {
-"154
+[; ;mpap.c: 136: if (((PORTE & (1<<1))>>1) == 0)
+"136
+[e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 0 `i 590  ]
+[; ;mpap.c: 137: counterZeros++;
+"137
+[e ++ F4853 -> -> 1 `i `ui ]
+[e :U 590 ]
+[; ;mpap.c: 139: if (mpap.counter_steps == mpap.numSteps_tomove)
+"139
+[e $ ! == . _mpap 1 . _mpap 2 591  ]
+[; ;mpap.c: 140: {
+"140
 {
-[; ;mpap.c: 155: mpap.numSteps_tomove = 0x0000;
-"155
-[e = . _mpap 2 -> 0 `i ]
-[; ;mpap.c: 156: mpap.numSteps_current = 0x0000;
-"156
-[e = . _mpap 0 -> 0 `i ]
-[; ;mpap.c: 157: cod_ret = 1;
-"157
+[; ;mpap.c: 141: if (counterZeros >= 200*0.9)
+"141
+[e $ ! >= -> F4853 `d * -> -> 200 `i `d .0.9 592  ]
+[; ;mpap.c: 142: {cod_ret = 1;}
+"142
+{
 [e = _cod_ret -> -> 1 `i `c ]
-"158
 }
-[; ;mpap.c: 158: }
-[e $U 595  ]
-"159
-[e :U 594 ]
-[; ;mpap.c: 159: else
-[; ;mpap.c: 160: {
-"160
+[e $U 593  ]
+"143
+[e :U 592 ]
+[; ;mpap.c: 143: else
+[; ;mpap.c: 144: {cod_ret = 2;}
+"144
 {
-[; ;mpap.c: 161: if (mpap.counter_steps == mpap.numSteps_tomove)
-"161
-[e $ ! == . _mpap 1 . _mpap 2 596  ]
-[; ;mpap.c: 162: {
-"162
-{
-[; ;mpap.c: 163: mpap.numSteps_tomove = 0x0000;
-"163
-[e = . _mpap 2 -> 0 `i ]
-[; ;mpap.c: 164: mpap.numSteps_current = 0x0000;
-"164
-[e = . _mpap 0 -> 0 `i ]
-[; ;mpap.c: 165: cod_ret = 2;
-"165
 [e = _cod_ret -> -> 2 `i `c ]
-"166
-}
-[e :U 596 ]
-"167
-}
-[e :U 595 ]
-"168
 }
 [e :U 593 ]
-[; ;mpap.c: 166: }
-[; ;mpap.c: 167: }
-[; ;mpap.c: 168: }
-[; ;mpap.c: 169: return cod_ret;
-"169
-[e ) _cod_ret ]
-[e $UE 592  ]
-[; ;mpap.c: 170: }
-"170
-[e :UE 592 ]
+[; ;mpap.c: 146: counterZeros = 0x000;
+"146
+[e = F4853 -> -> 0 `i `ui ]
+"147
 }
-"173
-[v _mpap_normal_mode `(c ~T0 @X0 1 ef ]
-"174
+[e :U 591 ]
+[; ;mpap.c: 147: }
+[; ;mpap.c: 149: if (cod_ret>0)
+"149
+[e $ ! > -> _cod_ret `i -> 0 `i 594  ]
+[; ;mpap.c: 150: {
+"150
 {
-[; ;mpap.c: 173: int8_t mpap_normal_mode(void)
-[; ;mpap.c: 174: {
+[; ;mpap.c: 152: mpap.numSteps_current = 0x0000;
+"152
+[e = . _mpap 0 -> 0 `i ]
+[; ;mpap.c: 153: mpap.numSteps_tomove = 0x0000;
+"153
+[e = . _mpap 2 -> 0 `i ]
+"154
+}
+[e :U 594 ]
+"155
+}
+[e :U 589 ]
+[; ;mpap.c: 154: }
+[; ;mpap.c: 155: }
+[; ;mpap.c: 156: return cod_ret;
+"156
+[e ) _cod_ret ]
+[e $UE 588  ]
+[; ;mpap.c: 157: }
+"157
+[e :UE 588 ]
+}
+"159
+[v _mpap_normal_mode `(c ~T0 @X0 1 sf ]
+"160
+{
+[; ;mpap.c: 159: static int8_t mpap_normal_mode(void)
+[; ;mpap.c: 160: {
 [e :U _mpap_normal_mode ]
 [f ]
-"175
+"161
 [v _cod_ret `c ~T0 @X0 1 a ]
-[; ;mpap.c: 175: int8_t cod_ret = 0;
+[; ;mpap.c: 161: int8_t cod_ret = 0;
 [e = _cod_ret -> -> 0 `i `c ]
-[; ;mpap.c: 176: if (mpap.numSteps_tomove != 0)
-"176
-[e $ ! != . _mpap 2 -> 0 `i 598  ]
-[; ;mpap.c: 177: {
-"177
+[; ;mpap.c: 162: if (mpap.numSteps_tomove != 0)
+"162
+[e $ ! != . _mpap 2 -> 0 `i 596  ]
+[; ;mpap.c: 163: {
+"163
 {
-[; ;mpap.c: 178: mpap_do1step(mpap.KI);
-"178
+[; ;mpap.c: 164: mpap_do1step(mpap.KI);
+"164
 [e ( _mpap_do1step (1 . _mpap 3 ]
-[; ;mpap.c: 180: mpap.counter_steps += mpap.KI;
-"180
+[; ;mpap.c: 166: mpap.counter_steps += mpap.KI;
+"166
 [e =+ . _mpap 1 -> . _mpap 3 `i ]
-[; ;mpap.c: 182: mpap.numSteps_current += mpap.KI;
-"182
+[; ;mpap.c: 168: mpap.numSteps_current += mpap.KI;
+"168
 [e =+ . _mpap 0 -> . _mpap 3 `i ]
-[; ;mpap.c: 184: if (mpap.counter_steps == mpap.numSteps_tomove)
+[; ;mpap.c: 170: if (mpap.counter_steps == mpap.numSteps_tomove)
+"170
+[e $ ! == . _mpap 1 . _mpap 2 597  ]
+[; ;mpap.c: 171: {
+"171
+{
+[; ;mpap.c: 172: mpap.numSteps_tomove = 0;
+"172
+[e = . _mpap 2 -> 0 `i ]
+[; ;mpap.c: 173: cod_ret = 1;
+"173
+[e = _cod_ret -> -> 1 `i `c ]
+"174
+}
+[e :U 597 ]
+"175
+}
+[e :U 596 ]
+[; ;mpap.c: 174: }
+[; ;mpap.c: 175: }
+[; ;mpap.c: 176: return cod_ret;
+"176
+[e ) _cod_ret ]
+[e $UE 595  ]
+[; ;mpap.c: 177: }
+"177
+[e :UE 595 ]
+}
+"180
+[v _mpap_job `(v ~T0 @X0 1 ef ]
+"181
+{
+[; ;mpap.c: 180: void mpap_job(void)
+[; ;mpap.c: 181: {
+[e :U _mpap_job ]
+[f ]
+"182
+[v _cod_ret `c ~T0 @X0 1 a ]
+[; ;mpap.c: 182: int8_t cod_ret;
+[; ;mpap.c: 184: if (mpap.mode == MPAP_CROSSING_HOMESENSOR_MODE)
 "184
-[e $ ! == . _mpap 1 . _mpap 2 599  ]
+[e $ ! == -> . _mpap 4 `i -> . `E4715 3 `i 599  ]
 [; ;mpap.c: 185: {
 "185
 {
-[; ;mpap.c: 186: mpap.numSteps_tomove = 0;
+[; ;mpap.c: 186: cod_ret = mpap_crossingHomeSensor();
 "186
-[e = . _mpap 2 -> 0 `i ]
-[; ;mpap.c: 187: cod_ret = 1;
+[e = _cod_ret ( _mpap_crossingHomeSensor ..  ]
+[; ;mpap.c: 187: if (cod_ret == 1)
 "187
-[e = _cod_ret -> -> 1 `i `c ]
+[e $ ! == -> _cod_ret `i -> 1 `i 600  ]
+[; ;mpap.c: 188: {
 "188
-}
-[e :U 599 ]
+{
+[; ;mpap.c: 189: pulsonic.error.f.homeSensor = 0;
 "189
-}
-[e :U 598 ]
-[; ;mpap.c: 188: }
-[; ;mpap.c: 189: }
-[; ;mpap.c: 190: return cod_ret;
+[e = . . . _pulsonic 0 0 1 -> -> 0 `i `uc ]
+[; ;mpap.c: 190: pulsonic.flags.homed = 1;
 "190
-[e ) _cod_ret ]
-[e $UE 597  ]
-[; ;mpap.c: 191: }
+[e = . . _pulsonic 14 0 -> -> 1 `i `uc ]
+[; ;mpap.c: 191: mpap.mode = MPAP_STALL_MODE;
 "191
-[e :UE 597 ]
+[e = . _mpap 4 -> . `E4715 1 `c ]
+"192
 }
+[; ;mpap.c: 192: }
+[e $U 601  ]
+"193
+[e :U 600 ]
+[; ;mpap.c: 193: else if (cod_ret == 2)
+[e $ ! == -> _cod_ret `i -> 2 `i 602  ]
+[; ;mpap.c: 194: {
 "194
-[v _mpap_job `(v ~T0 @X0 1 ef ]
+{
+[; ;mpap.c: 195: pulsonic.error.f.homeSensor = 1;
 "195
-{
-[; ;mpap.c: 194: void mpap_job(void)
-[; ;mpap.c: 195: {
-[e :U _mpap_job ]
-[f ]
+[e = . . . _pulsonic 0 0 1 -> -> 1 `i `uc ]
+[; ;mpap.c: 196: pulsonic.flags.homed = 0;
 "196
-[v _cod_ret `c ~T0 @X0 1 a ]
-[; ;mpap.c: 196: int8_t cod_ret;
-[; ;mpap.c: 197: if (mpap.mode == MPAP_HOMMING_MODE)
+[e = . . _pulsonic 14 0 -> -> 0 `i `uc ]
+[; ;mpap.c: 197: mpap.mode = MPAP_STALL_MODE;
 "197
-[e $ ! == -> . _mpap 4 `i -> . `E4715 2 `i 601  ]
-[; ;mpap.c: 198: {
+[e = . _mpap 4 -> . `E4715 1 `c ]
 "198
-{
-[; ;mpap.c: 199: cod_ret = mpap_homming();
+}
+[e :U 602 ]
 "199
-[e = _cod_ret ( _mpap_homming ..  ]
-[; ;mpap.c: 200: if (cod_ret == 1)
+[e :U 601 ]
+}
+[; ;mpap.c: 198: }
+[; ;mpap.c: 199: }
+[e $U 603  ]
 "200
-[e $ ! == -> _cod_ret `i -> 1 `i 602  ]
+[e :U 599 ]
+[; ;mpap.c: 200: else if (mpap.mode == MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE)
+[e $ ! == -> . _mpap 4 `i -> . `E4715 2 `i 604  ]
 [; ;mpap.c: 201: {
 "201
 {
-[; ;mpap.c: 202: pulsonic.flags.homed = 1;
+[; ;mpap.c: 202: cod_ret = mpap_searchFirstPointHomeSensor();
 "202
-[e = . . _pulsonic 14 0 -> -> 1 `i `uc ]
-[; ;mpap.c: 203: mpap.mode = MPAP_STALL_MODE;
+[e = _cod_ret ( _mpap_searchFirstPointHomeSensor ..  ]
+[; ;mpap.c: 203: if (cod_ret == 1)
 "203
-[e = . _mpap 4 -> . `E4715 1 `c ]
+[e $ ! == -> _cod_ret `i -> 1 `i 605  ]
+[; ;mpap.c: 204: {
 "204
-}
-[; ;mpap.c: 204: }
-[e $U 603  ]
+{
+[; ;mpap.c: 205: pulsonic.flags.homed = 1;
 "205
-[e :U 602 ]
-[; ;mpap.c: 205: else if (cod_ret == 2)
-[e $ ! == -> _cod_ret `i -> 2 `i 604  ]
-[; ;mpap.c: 206: {
+[e = . . _pulsonic 14 0 -> -> 1 `i `uc ]
+[; ;mpap.c: 206: pulsonic.error.f.homeSensor = 0;
 "206
-{
-[; ;mpap.c: 207: pulsonic.flags.homed = 0;
+[e = . . . _pulsonic 0 0 1 -> -> 0 `i `uc ]
+[; ;mpap.c: 207: mpap.mode = MPAP_STALL_MODE;
 "207
-[e = . . _pulsonic 14 0 -> -> 0 `i `uc ]
-[; ;mpap.c: 208: pulsonic.error.f.homeSensor = 1;
+[e = . _mpap 4 -> . `E4715 1 `c ]
 "208
-[e = . . . _pulsonic 0 0 1 -> -> 1 `i `uc ]
-[; ;mpap.c: 209: mpap.mode = MPAP_STALL_MODE;
+}
+[; ;mpap.c: 208: }
+[e $U 606  ]
 "209
-[e = . _mpap 4 -> . `E4715 1 `c ]
-"210
-}
-[e :U 604 ]
-"211
-[e :U 603 ]
-}
-[; ;mpap.c: 210: }
-[; ;mpap.c: 211: }
-[e $U 605  ]
-"212
-[e :U 601 ]
-[; ;mpap.c: 212: else if (mpap.mode == MPAP_NORMAL_MODE)
-[e $ ! == -> . _mpap 4 `i -> . `E4715 3 `i 606  ]
-[; ;mpap.c: 213: {
-"213
-{
-[; ;mpap.c: 214: if (mpap_normal_mode())
-"214
-[e $ ! != -> ( _mpap_normal_mode ..  `i -> -> -> 0 `i `c `i 607  ]
-[; ;mpap.c: 215: mpap.mode = MPAP_STALL_MODE;
-"215
-[e = . _mpap 4 -> . `E4715 1 `c ]
-[e :U 607 ]
-"216
-}
-[e :U 606 ]
-"218
 [e :U 605 ]
-[; ;mpap.c: 216: }
-[; ;mpap.c: 218: if (mpap.mode == MPAP_STALL_MODE)
-[e $ ! == -> . _mpap 4 `i -> . `E4715 1 `i 608  ]
-[; ;mpap.c: 219: {
+[; ;mpap.c: 209: else if (cod_ret == 2)
+[e $ ! == -> _cod_ret `i -> 2 `i 607  ]
+[; ;mpap.c: 210: {
+"210
+{
+[; ;mpap.c: 211: pulsonic.flags.homed = 0;
+"211
+[e = . . _pulsonic 14 0 -> -> 0 `i `uc ]
+[; ;mpap.c: 212: pulsonic.error.f.homeSensor = 1;
+"212
+[e = . . . _pulsonic 0 0 1 -> -> 1 `i `uc ]
+[; ;mpap.c: 213: mpap.mode = MPAP_STALL_MODE;
+"213
+[e = . _mpap 4 -> . `E4715 1 `c ]
+"214
+}
+[e :U 607 ]
+"215
+[e :U 606 ]
+}
+[; ;mpap.c: 214: }
+[; ;mpap.c: 215: }
+[e $U 608  ]
+"216
+[e :U 604 ]
+[; ;mpap.c: 216: else if (mpap.mode == MPAP_NORMAL_MODE)
+[e $ ! == -> . _mpap 4 `i -> . `E4715 4 `i 609  ]
+[; ;mpap.c: 217: {
+"217
+{
+[; ;mpap.c: 218: if (mpap_normal_mode())
+"218
+[e $ ! != -> ( _mpap_normal_mode ..  `i -> -> -> 0 `i `c `i 610  ]
+[; ;mpap.c: 219: mpap.mode = MPAP_STALL_MODE;
 "219
-{
-[; ;mpap.c: 220: mpap.numSteps_tomove = 0x00;
+[e = . _mpap 4 -> . `E4715 1 `c ]
+[e :U 610 ]
 "220
-[e = . _mpap 2 -> 0 `i ]
-[; ;mpap.c: 221: mpap.mode = MPAP_IDLE_MODE;
-"221
-[e = . _mpap 4 -> . `E4715 0 `c ]
+}
+[e :U 609 ]
 "222
-}
 [e :U 608 ]
-[; ;mpap.c: 222: }
-[; ;mpap.c: 223: }
+[e :U 603 ]
+[; ;mpap.c: 220: }
+[; ;mpap.c: 222: if (mpap.mode == MPAP_STALL_MODE)
+[e $ ! == -> . _mpap 4 `i -> . `E4715 1 `i 611  ]
+[; ;mpap.c: 223: {
 "223
-[e :UE 600 ]
-}
-"225
-[v _mpap_movetoNozzle `(v ~T0 @X0 1 ef1`c ]
-"226
 {
-[; ;mpap.c: 225: void mpap_movetoNozzle(int8_t numNozzle)
-[; ;mpap.c: 226: {
-[e :U _mpap_movetoNozzle ]
+[; ;mpap.c: 224: mpap.numSteps_tomove = 0x00;
+"224
+[e = . _mpap 2 -> 0 `i ]
+[; ;mpap.c: 225: mpap.mode = MPAP_IDLE_MODE;
 "225
-[v _numNozzle `c ~T0 @X0 1 r1 ]
+[e = . _mpap 4 -> . `E4715 0 `c ]
 "226
-[f ]
-"228
-[v _numSteps_tomove `i ~T0 @X0 1 a ]
-[; ;mpap.c: 228: int16_t numSteps_tomove = (numNozzle * 200) - mpap.numSteps_current;
-[e = _numSteps_tomove - * -> _numNozzle `i -> 200 `i . _mpap 0 ]
-[; ;mpap.c: 229: if (numSteps_tomove != 0)
+}
+[e :U 611 ]
+[; ;mpap.c: 226: }
+[; ;mpap.c: 227: }
+"227
+[e :UE 598 ]
+}
 "229
-[e $ ! != _numSteps_tomove -> 0 `i 610  ]
-[; ;mpap.c: 230: {
+[v _mpap_movetoNozzle `(v ~T0 @X0 1 ef1`c ]
 "230
 {
-[; ;mpap.c: 231: mpap_setupToTurn(numSteps_tomove);
-"231
-[e ( _mpap_setupToTurn (1 _numSteps_tomove ]
-[; ;mpap.c: 232: mpap.mode = MPAP_NORMAL_MODE;
+[; ;mpap.c: 229: void mpap_movetoNozzle(int8_t numNozzle)
+[; ;mpap.c: 230: {
+[e :U _mpap_movetoNozzle ]
+"229
+[v _numNozzle `c ~T0 @X0 1 r1 ]
+"230
+[f ]
 "232
-[e = . _mpap 4 -> . `E4715 3 `c ]
+[v _numSteps_tomove `i ~T0 @X0 1 a ]
+[; ;mpap.c: 232: int16_t numSteps_tomove = (numNozzle * 200) - mpap.numSteps_current;
+[e = _numSteps_tomove - * -> _numNozzle `i -> 200 `i . _mpap 0 ]
+[; ;mpap.c: 233: if (numSteps_tomove != 0)
 "233
-}
-[e :U 610 ]
-[; ;mpap.c: 233: }
-[; ;mpap.c: 235: }
-"235
-[e :UE 609 ]
-}
-"237
-[v _mpap_isIdle `(c ~T0 @X0 1 ef ]
-"238
+[e $ ! != _numSteps_tomove -> 0 `i 613  ]
+[; ;mpap.c: 234: {
+"234
 {
-[; ;mpap.c: 237: int8_t mpap_isIdle(void)
-[; ;mpap.c: 238: {
+[; ;mpap.c: 235: mpap_setupToTurn(numSteps_tomove);
+"235
+[e ( _mpap_setupToTurn (1 _numSteps_tomove ]
+[; ;mpap.c: 236: mpap.mode = MPAP_NORMAL_MODE;
+"236
+[e = . _mpap 4 -> . `E4715 4 `c ]
+"237
+}
+[e :U 613 ]
+[; ;mpap.c: 237: }
+[; ;mpap.c: 239: }
+"239
+[e :UE 612 ]
+}
+"241
+[v _mpap_isIdle `(c ~T0 @X0 1 ef ]
+"242
+{
+[; ;mpap.c: 241: int8_t mpap_isIdle(void)
+[; ;mpap.c: 242: {
 [e :U _mpap_isIdle ]
 [f ]
-[; ;mpap.c: 239: if (mpap.mode == MPAP_IDLE_MODE)
-"239
-[e $ ! == -> . _mpap 4 `i -> . `E4715 0 `i 612  ]
-[; ;mpap.c: 240: {
-"240
-{
-[; ;mpap.c: 241: return 1;
-"241
-[e ) -> -> 1 `i `c ]
-[e $UE 611  ]
-"242
-}
-[e :U 612 ]
-[; ;mpap.c: 242: }
-[; ;mpap.c: 243: return 0;
+[; ;mpap.c: 243: if (mpap.mode == MPAP_IDLE_MODE)
 "243
-[e ) -> -> 0 `i `c ]
-[e $UE 611  ]
-[; ;mpap.c: 244: }
+[e $ ! == -> . _mpap 4 `i -> . `E4715 0 `i 615  ]
+[; ;mpap.c: 244: {
 "244
-[e :UE 611 ]
+{
+[; ;mpap.c: 245: return 1;
+"245
+[e ) -> -> 1 `i `c ]
+[e $UE 614  ]
+"246
+}
+[e :U 615 ]
+[; ;mpap.c: 246: }
+[; ;mpap.c: 247: return 0;
+"247
+[e ) -> -> 0 `i `c ]
+[e $UE 614  ]
+[; ;mpap.c: 248: }
+"248
+[e :UE 614 ]
+}
+"259
+[v _mpap_homming_job `(c ~T0 @X0 1 ef ]
+"260
+{
+[; ;mpap.c: 259: int8_t mpap_homming_job(void)
+[; ;mpap.c: 260: {
+[e :U _mpap_homming_job ]
+[f ]
+"261
+[v _cod_ret `c ~T0 @X0 1 a ]
+[; ;mpap.c: 261: int8_t cod_ret = 0;
+[e = _cod_ret -> -> 0 `i `c ]
+"262
+[v F4864 `c ~T0 @X0 1 s sm0 ]
+[; ;mpap.c: 262: static int8_t sm0;
+[; ;mpap.c: 263: if (sm0 == 0)
+"263
+[e $ ! == -> F4864 `i -> 0 `i 617  ]
+[; ;mpap.c: 264: {
+"264
+{
+[; ;mpap.c: 265: if (((PORTE & (1<<1))>>1) == 0)
+"265
+[e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 0 `i 618  ]
+[; ;mpap.c: 266: {
+"266
+{
+[; ;mpap.c: 267: mpap_setupToTurn(+1 * ((2 * 200)));
+"267
+[e ( _mpap_setupToTurn (1 * -> 1 `i * -> 2 `i -> 200 `i ]
+[; ;mpap.c: 268: mpap.mode = MPAP_NORMAL_MODE;
+"268
+[e = . _mpap 4 -> . `E4715 4 `c ]
+[; ;mpap.c: 269: sm0++;
+"269
+[e ++ F4864 -> -> 1 `i `c ]
+"270
+}
+[; ;mpap.c: 270: }
+[e $U 619  ]
+"271
+[e :U 618 ]
+[; ;mpap.c: 271: else
+[; ;mpap.c: 272: {
+"272
+{
+[; ;mpap.c: 273: mpap_setup_searchFirstPointHomeSensor();
+"273
+[e ( _mpap_setup_searchFirstPointHomeSensor ..  ]
+[; ;mpap.c: 274: sm0 = 2;
+"274
+[e = F4864 -> -> 2 `i `c ]
+"275
+}
+[e :U 619 ]
+"276
+}
+[; ;mpap.c: 275: }
+[; ;mpap.c: 276: }
+[e $U 620  ]
+"277
+[e :U 617 ]
+[; ;mpap.c: 277: else if (sm0 == 1)
+[e $ ! == -> F4864 `i -> 1 `i 621  ]
+[; ;mpap.c: 278: {
+"278
+{
+[; ;mpap.c: 279: if (mpap_isIdle())
+"279
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 622  ]
+[; ;mpap.c: 280: {
+"280
+{
+[; ;mpap.c: 281: mpap_setup_searchFirstPointHomeSensor();
+"281
+[e ( _mpap_setup_searchFirstPointHomeSensor ..  ]
+[; ;mpap.c: 282: sm0++;
+"282
+[e ++ F4864 -> -> 1 `i `c ]
+"283
+}
+[e :U 622 ]
+"284
+}
+[; ;mpap.c: 283: }
+[; ;mpap.c: 284: }
+[e $U 623  ]
+"285
+[e :U 621 ]
+[; ;mpap.c: 285: else if (sm0 == 2)
+[e $ ! == -> F4864 `i -> 2 `i 624  ]
+[; ;mpap.c: 286: {
+"286
+{
+[; ;mpap.c: 287: if (mpap_isIdle())
+"287
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 625  ]
+[; ;mpap.c: 288: {
+"288
+{
+[; ;mpap.c: 289: if (pulsonic.error.f.homeSensor == 0)
+"289
+[e $ ! == -> . . . _pulsonic 0 0 1 `i -> 0 `i 626  ]
+[; ;mpap.c: 290: {
+"290
+{
+[; ;mpap.c: 291: mpap_setupToTurn(1 * 200);
+"291
+[e ( _mpap_setupToTurn (1 * -> 1 `i -> 200 `i ]
+[; ;mpap.c: 292: mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
+"292
+[e = . _mpap 4 -> . `E4715 3 `c ]
+[; ;mpap.c: 293: sm0++;
+"293
+[e ++ F4864 -> -> 1 `i `c ]
+"294
+}
+[; ;mpap.c: 294: }
+[e $U 627  ]
+"295
+[e :U 626 ]
+[; ;mpap.c: 295: else
+[; ;mpap.c: 296: {
+"296
+{
+[; ;mpap.c: 302: cod_ret = 2;
+"302
+[e = _cod_ret -> -> 2 `i `c ]
+[; ;mpap.c: 303: sm0 = 0x00;
+"303
+[e = F4864 -> -> 0 `i `c ]
+"304
+}
+[e :U 627 ]
+"305
+}
+[e :U 625 ]
+"306
+}
+[; ;mpap.c: 304: }
+[; ;mpap.c: 305: }
+[; ;mpap.c: 306: }
+[e $U 628  ]
+"307
+[e :U 624 ]
+[; ;mpap.c: 307: else if (sm0 == 3)
+[e $ ! == -> F4864 `i -> 3 `i 629  ]
+[; ;mpap.c: 308: {
+"308
+{
+[; ;mpap.c: 309: if (mpap_isIdle())
+"309
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 630  ]
+[; ;mpap.c: 310: {
+"310
+{
+[; ;mpap.c: 314: if (pulsonic.error.f.homeSensor == 0)
+"314
+[e $ ! == -> . . . _pulsonic 0 0 1 `i -> 0 `i 631  ]
+[; ;mpap.c: 315: {
+"315
+{
+[; ;mpap.c: 318: cod_ret = 1;
+"318
+[e = _cod_ret -> -> 1 `i `c ]
+"319
+}
+[; ;mpap.c: 319: }
+[e $U 632  ]
+"320
+[e :U 631 ]
+[; ;mpap.c: 320: else
+[; ;mpap.c: 321: {
+"321
+{
+[; ;mpap.c: 322: cod_ret = 2;
+"322
+[e = _cod_ret -> -> 2 `i `c ]
+"323
+}
+[e :U 632 ]
+[; ;mpap.c: 323: }
+[; ;mpap.c: 325: sm0 = 0x00;
+"325
+[e = F4864 -> -> 0 `i `c ]
+"326
+}
+[e :U 630 ]
+"327
+}
+[e :U 629 ]
+"328
+[e :U 628 ]
+[e :U 623 ]
+[e :U 620 ]
+[; ;mpap.c: 326: }
+[; ;mpap.c: 327: }
+[; ;mpap.c: 328: return cod_ret;
+[e ) _cod_ret ]
+[e $UE 616  ]
+[; ;mpap.c: 329: }
+"329
+[e :UE 616 ]
 }

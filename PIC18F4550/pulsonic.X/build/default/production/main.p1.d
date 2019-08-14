@@ -1,6 +1,7 @@
  build/default/production/main.d  \
  build/default/production/main.p1:  \
  main.c  \
+ustepping.h  \
 inputs.h  \
 mpap.h  \
 pulsonic.h  \

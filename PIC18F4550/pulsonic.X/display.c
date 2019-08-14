@@ -202,7 +202,14 @@ void disp7s_qtyDisp_writeText_NO_OIL(void)
     pulsonic.disp7s.qty[1] = 0x30;//I
     pulsonic.disp7s.qty[0] = 0x38;//L
 }
-
+void disp7s_qtyDisp_writeText_NO_HOME_SENSOR(void)
+{
+    disp7s_modeDisp_writeInt(21);
+    //
+    pulsonic.disp7s.qty[2] = 0x79;//E
+    pulsonic.disp7s.qty[1] = 0x50;//r
+    pulsonic.disp7s.qty[0] = 0x50;//r
+}
 
 /*
 Take 1 decimal

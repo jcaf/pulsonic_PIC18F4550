@@ -11,6 +11,8 @@
    void autoMode_disp7s_writeSumTotal(void);
    void autoMode_cmd(int8_t cmd);
    void autoMode_job(void);
+   
+   void autoMode_jobX(void);
     
 #ifdef	__cplusplus
 extern "C" {

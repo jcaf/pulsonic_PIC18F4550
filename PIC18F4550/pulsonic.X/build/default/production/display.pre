@@ -5661,6 +5661,7 @@ void disp7s_qtyDisp_writeText_FLU(void);
 
 void disp7s_qtyDisp_writeText_20_3RAYAS(void);
 void disp7s_qtyDisp_writeText_NO_OIL(void);
+void disp7s_qtyDisp_writeText_NO_HOME_SENSOR(void);
 
 void disp7s_init(void);
 void disp7s_job(void);
@@ -5705,8 +5706,6 @@ double ml_x1tick;
 double dist_total_time;
 double dist_access_time;
 double timeslice;
-
-
 
 struct _pulsonic_nozzle
 {
@@ -5956,8 +5955,16 @@ pulsonic.disp7s.qty[2] = DISP7S_NUMS[0];
 pulsonic.disp7s.qty[1] = 0x30;
 pulsonic.disp7s.qty[0] = 0x38;
 }
+void disp7s_qtyDisp_writeText_NO_HOME_SENSOR(void)
+{
+disp7s_modeDisp_writeInt(21);
 
-# 219
+pulsonic.disp7s.qty[2] = 0x79;
+pulsonic.disp7s.qty[1] = 0x50;
+pulsonic.disp7s.qty[0] = 0x50;
+}
+
+# 226
 void disp7s_write_f(uint8_t *pDisp, int8_t NUM_OF_DISP, double num)
 {
 double K10MULT;

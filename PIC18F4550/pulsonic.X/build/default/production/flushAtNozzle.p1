@@ -9,44 +9,44 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _disp7s_qtyDisp_writeText_FLU `(v ~T0 @X0 0 ef ]
 "22 pump.h
 [v _pump_stop `(v ~T0 @X0 0 ef ]
-"18 mpap.h
+"19 mpap.h
 [s S571 `i 1 `i 1 `i 1 `c 1 `c 1 ]
 [n S571 _mpap numSteps_current counter_steps numSteps_tomove KI mode ]
-"26
+"27
 [v _mpap `VS571 ~T0 @X0 0 e ]
 "37 flushAtNozzle.c
-[c E4801 0 1 2 3 .. ]
-[n E4801 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_HOMMING_MODE MPAP_NORMAL_MODE  ]
+[c E4803 0 1 2 3 4 .. ]
+[n E4803 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE MPAP_CROSSING_HOMESENSOR_MODE MPAP_NORMAL_MODE  ]
 "27 pulsonic.h
 [s S565 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
 [n S565 _errorFlag_flags oilLevel homeSensor unblockedNozzle inductiveSensorRPM __a ]
 "25
 [u S564 `S565 1 `c 1 ]
 [n S564 _errorFlag f packed ]
-"51
+"49
 [s S567 `d 1 `d 1 `d 1 `d 1 `i 1 `ui 1 ]
 [n S567 _pulsonic_nozzle Q_mlh nticks_xtimeslice kmax_ticks_xtimeslice accError counterTicks_xTotalTime nticks_delivered_inThisTimeSlice ]
-"66
+"64
 [s S568 `c 1 `c 1 ]
 [n S568 _pulsonic_oil i viscosity ]
-"80
+"78
 [s S569 `uc -> 3 `i `uc -> 2 `i ]
 [n S569 _pulsonic_display qty mode ]
-"86
+"84
 [s S570 :1 `uc 1 :7 `uc 1 ]
 [n S570 _pulsonic_flags homed __a ]
 "40
 [s S566 `S564 1 `d 1 `d 1 `d 1 `d 1 `S567 -> 18 `i `S568 1 `d 1 `c 1 `ul 1 `ul 1 `i 1 `c 1 `S569 1 `S570 1 ]
 [n S566 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags ]
-"94
+"92
 [v _pulsonic `VS566 ~T0 @X0 0 e ]
-"34 mpap.h
+"35 mpap.h
 [v _mpap_isIdle `(c ~T0 @X0 0 ef ]
-"31
-[v _mpap_setupToHomming `(v ~T0 @X0 0 ef ]
+"32
+[v _mpap_setup_searchFirstPointHomeSensor `(v ~T0 @X0 0 ef ]
 "18 nozzle.h
 [v _nozzle_isEnabled `(c ~T0 @X0 0 ef1`i ]
-"33 mpap.h
+"34 mpap.h
 [v _mpap_movetoNozzle `(v ~T0 @X0 0 ef1`c ]
 "20 pump.h
 [v _pump_setTick `(v ~T0 @X0 0 ef1`ui ]
@@ -4364,14 +4364,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;display.h: 61: void disp7s_qtyDisp_writeText_FLU(void);
 [; ;display.h: 64: void disp7s_qtyDisp_writeText_20_3RAYAS(void);
 [; ;display.h: 65: void disp7s_qtyDisp_writeText_NO_OIL(void);
-[; ;display.h: 67: void disp7s_init(void);
-[; ;display.h: 68: void disp7s_job(void);
-[; ;display.h: 70: extern const uint8_t DISP7S_NUMS[10];
-[; ;display.h: 71: extern const uint8_t DISP7S_CHARS[2];
-[; ;display.h: 73: enum _DISP7S_CHARS {
-[; ;display.h: 74: OFF,
-[; ;display.h: 75: RAYA
-[; ;display.h: 76: };
+[; ;display.h: 66: void disp7s_qtyDisp_writeText_NO_HOME_SENSOR(void);
+[; ;display.h: 68: void disp7s_init(void);
+[; ;display.h: 69: void disp7s_job(void);
+[; ;display.h: 71: extern const uint8_t DISP7S_NUMS[10];
+[; ;display.h: 72: extern const uint8_t DISP7S_CHARS[2];
+[; ;display.h: 74: enum _DISP7S_CHARS {
+[; ;display.h: 75: OFF,
+[; ;display.h: 76: RAYA
+[; ;display.h: 77: };
 [; ;pulsonic.h: 19: typedef int8_t intNumMaxErr_t;
 [; ;pulsonic.h: 25: union _errorFlag
 [; ;pulsonic.h: 26: {
@@ -4392,66 +4393,66 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pulsonic.h: 45: double dist_total_time;
 [; ;pulsonic.h: 46: double dist_access_time;
 [; ;pulsonic.h: 47: double timeslice;
-[; ;pulsonic.h: 51: struct _pulsonic_nozzle
-[; ;pulsonic.h: 52: {
-[; ;pulsonic.h: 53: double Q_mlh;
-[; ;pulsonic.h: 54: double nticks_xtimeslice;
-[; ;pulsonic.h: 55: double kmax_ticks_xtimeslice;
-[; ;pulsonic.h: 57: double accError;
-[; ;pulsonic.h: 61: int counterTicks_xTotalTime;
-[; ;pulsonic.h: 62: uint16_t nticks_delivered_inThisTimeSlice;
-[; ;pulsonic.h: 64: }nozzle[18];
-[; ;pulsonic.h: 66: struct _pulsonic_oil
-[; ;pulsonic.h: 67: {
-[; ;pulsonic.h: 68: int8_t i;
-[; ;pulsonic.h: 69: int8_t viscosity;
-[; ;pulsonic.h: 70: }oil;
-[; ;pulsonic.h: 72: double sum_all_mlh;
-[; ;pulsonic.h: 73: int8_t numNozzleAvailable;
-[; ;pulsonic.h: 74: uint32_t kTimeBetweenNozzleAvailable;
-[; ;pulsonic.h: 75: uint32_t countTimeBetweenNozzleAvailable;
-[; ;pulsonic.h: 77: int16_t num_timeslice;
-[; ;pulsonic.h: 78: int8_t countNozzleAvailable;
-[; ;pulsonic.h: 80: struct _pulsonic_display
-[; ;pulsonic.h: 81: {
-[; ;pulsonic.h: 82: uint8_t qty[3];
-[; ;pulsonic.h: 83: uint8_t mode[2];
-[; ;pulsonic.h: 84: }disp7s;
-[; ;pulsonic.h: 86: struct _pulsonic_flags
-[; ;pulsonic.h: 87: {
-[; ;pulsonic.h: 88: unsigned homed:1;
-[; ;pulsonic.h: 89: unsigned __a:7;
-[; ;pulsonic.h: 90: }flags;
-[; ;pulsonic.h: 92: };
-[; ;pulsonic.h: 94: extern volatile struct _pulsonic pulsonic;
-[; ;pulsonic.h: 96: extern const int8_t OIL_VISCOSITY[4];
-[; ;pulsonic.h: 98: void pulsonic_init(void);
-[; ;pulsonic.h: 99: double pulsonic_getTotalSum_mlh(void);
-[; ;pulsonic.h: 100: int8_t pulsonic_getNumNozzleAvailable(void);
+[; ;pulsonic.h: 49: struct _pulsonic_nozzle
+[; ;pulsonic.h: 50: {
+[; ;pulsonic.h: 51: double Q_mlh;
+[; ;pulsonic.h: 52: double nticks_xtimeslice;
+[; ;pulsonic.h: 53: double kmax_ticks_xtimeslice;
+[; ;pulsonic.h: 55: double accError;
+[; ;pulsonic.h: 59: int counterTicks_xTotalTime;
+[; ;pulsonic.h: 60: uint16_t nticks_delivered_inThisTimeSlice;
+[; ;pulsonic.h: 62: }nozzle[18];
+[; ;pulsonic.h: 64: struct _pulsonic_oil
+[; ;pulsonic.h: 65: {
+[; ;pulsonic.h: 66: int8_t i;
+[; ;pulsonic.h: 67: int8_t viscosity;
+[; ;pulsonic.h: 68: }oil;
+[; ;pulsonic.h: 70: double sum_all_mlh;
+[; ;pulsonic.h: 71: int8_t numNozzleAvailable;
+[; ;pulsonic.h: 72: uint32_t kTimeBetweenNozzleAvailable;
+[; ;pulsonic.h: 73: uint32_t countTimeBetweenNozzleAvailable;
+[; ;pulsonic.h: 75: int16_t num_timeslice;
+[; ;pulsonic.h: 76: int8_t countNozzleAvailable;
+[; ;pulsonic.h: 78: struct _pulsonic_display
+[; ;pulsonic.h: 79: {
+[; ;pulsonic.h: 80: uint8_t qty[3];
+[; ;pulsonic.h: 81: uint8_t mode[2];
+[; ;pulsonic.h: 82: }disp7s;
+[; ;pulsonic.h: 84: struct _pulsonic_flags
+[; ;pulsonic.h: 85: {
+[; ;pulsonic.h: 86: unsigned homed:1;
+[; ;pulsonic.h: 87: unsigned __a:7;
+[; ;pulsonic.h: 88: }flags;
+[; ;pulsonic.h: 90: };
+[; ;pulsonic.h: 92: extern volatile struct _pulsonic pulsonic;
+[; ;pulsonic.h: 94: extern const int8_t OIL_VISCOSITY[4];
+[; ;pulsonic.h: 96: void pulsonic_init(void);
+[; ;pulsonic.h: 97: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 98: int8_t pulsonic_getNumNozzleAvailable(void);
 [; ;mpap.h: 11: enum MPAP_MODES
 [; ;mpap.h: 12: {
 [; ;mpap.h: 13: MPAP_IDLE_MODE=0,
 [; ;mpap.h: 14: MPAP_STALL_MODE,
-[; ;mpap.h: 15: MPAP_HOMMING_MODE,
-[; ;mpap.h: 16: MPAP_NORMAL_MODE
-[; ;mpap.h: 17: };
-[; ;mpap.h: 18: struct _mpap
-[; ;mpap.h: 19: {
-[; ;mpap.h: 20: int16_t numSteps_current;
-[; ;mpap.h: 21: int16_t counter_steps;
-[; ;mpap.h: 22: int16_t numSteps_tomove;
-[; ;mpap.h: 23: int8_t KI;
-[; ;mpap.h: 24: int8_t mode;
-[; ;mpap.h: 25: };
-[; ;mpap.h: 26: extern volatile struct _mpap mpap;
-[; ;mpap.h: 30: void mpap_job(void);
-[; ;mpap.h: 31: void mpap_setupToHomming(void);
-[; ;mpap.h: 32: void mpap_setupToTurn(int16_t numSteps_tomove);
-[; ;mpap.h: 33: void mpap_movetoNozzle(int8_t n);
-[; ;mpap.h: 34: int8_t mpap_isIdle(void);
-[; ;mpap.h: 35: void mpap_do1step(int8_t KI);
-[; ;mpap.h: 69: void autoModexxx_job(void);
-[; ;mpap.h: 74: void l6506d_job(void);
+[; ;mpap.h: 15: MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE,
+[; ;mpap.h: 16: MPAP_CROSSING_HOMESENSOR_MODE,
+[; ;mpap.h: 17: MPAP_NORMAL_MODE
+[; ;mpap.h: 18: };
+[; ;mpap.h: 19: struct _mpap
+[; ;mpap.h: 20: {
+[; ;mpap.h: 21: int16_t numSteps_current;
+[; ;mpap.h: 22: int16_t counter_steps;
+[; ;mpap.h: 23: int16_t numSteps_tomove;
+[; ;mpap.h: 24: int8_t KI;
+[; ;mpap.h: 25: int8_t mode;
+[; ;mpap.h: 26: };
+[; ;mpap.h: 27: extern volatile struct _mpap mpap;
+[; ;mpap.h: 31: void mpap_job(void);
+[; ;mpap.h: 32: void mpap_setup_searchFirstPointHomeSensor(void);
+[; ;mpap.h: 33: void mpap_setupToTurn(int16_t numSteps_tomove);
+[; ;mpap.h: 34: void mpap_movetoNozzle(int8_t n);
+[; ;mpap.h: 35: int8_t mpap_isIdle(void);
+[; ;mpap.h: 36: void mpap_do1step(int8_t KI);
+[; ;mpap.h: 38: int8_t mpap_homming_job(void);
 [; ;pump.h: 14: struct _pump
 [; ;pump.h: 15: {
 [; ;pump.h: 16: uint16_t ticks;
@@ -4465,6 +4466,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;autoMode.h: 11: void autoMode_disp7s_writeSumTotal(void);
 [; ;autoMode.h: 12: void autoMode_cmd(int8_t cmd);
 [; ;autoMode.h: 13: void autoMode_job(void);
+[; ;autoMode.h: 15: void autoMode_jobX(void);
 [; ;flushAtNozzle.h: 12: void flushAtNozzle_setNozzle(int8_t nozzle);
 [; ;flushAtNozzle.h: 13: void flushAtNozzle_cmd(int8_t cmd);
 [; ;flushAtNozzle.h: 14: void flushAtNozzle_job(void);
@@ -4580,7 +4582,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _pump_stop ..  ]
 [; ;flushAtNozzle.c: 37: mpap.mode = MPAP_STALL_MODE;
 "37
-[e = . _mpap 4 -> . `E4801 1 `c ]
+[e = . _mpap 4 -> . `E4803 1 `c ]
 [; ;flushAtNozzle.c: 38: }
 "38
 [e :UE 579 ]
@@ -4630,9 +4632,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;flushAtNozzle.c: 53: {
 "53
 {
-[; ;flushAtNozzle.c: 54: mpap_setupToHomming();
+[; ;flushAtNozzle.c: 54: mpap_setup_searchFirstPointHomeSensor();
 "54
-[e ( _mpap_setupToHomming ..  ]
+[e ( _mpap_setup_searchFirstPointHomeSensor ..  ]
 [; ;flushAtNozzle.c: 55: flushAtNozzle.sm0++;
 "55
 [e ++ . _flushAtNozzle 1 -> -> 1 `i `c ]
