@@ -5646,6 +5646,9 @@ JOB_STOP
 extern double NOZZLE_QTY_DIFF;
 
 int8_t nozzle_isEnabled(int n);
+int8_t nozzle_getPosition(void);
+int8_t nozzle_setPosition(int8_t n);
+void nozzle_setPosition_reset(void);
 
 # 48 "display.h"
 void disp7s_qtyDisp_writeFloat(float num);
@@ -5763,7 +5766,7 @@ int8_t pulsonic_getNumNozzleAvailable(void);
 enum MPAP_MODES
 {
 MPAP_IDLE_MODE=0,
-MPAP_STALL_MODE,
+MPAP_STALL_MODE=1,
 MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE,
 MPAP_CROSSING_HOMESENSOR_MODE,
 MPAP_NORMAL_MODE
@@ -5782,12 +5785,17 @@ extern volatile struct _mpap mpap;
 
 void mpap_job(void);
 void mpap_setup_searchFirstPointHomeSensor(void);
-void mpap_setupToTurn(int16_t numSteps_tomove);
+
 void mpap_movetoNozzle(int8_t n);
 int8_t mpap_isIdle(void);
 void mpap_do1step(int8_t KI);
-int8_t mpap_getNozzlePosition(void);
 
+void mpap_stall(void);
+
+void mpap_setMode(int8_t mode);
+int8_t mpap_getMode(void);
+void mpap_doMovement(int16_t numSteps_tomove, int8_t mode);
+int16_t mpap_get_numSteps_current(void);
 int8_t mpap_homming_job(void);
 void mpap_homming_job_reset(void);
 
@@ -5872,7 +5880,7 @@ disp7s_modeDisp_off();
 disp7s_qtyDisp_writeText_FLU();
 
 
-pulsonic.numNozzle = mpap_getNozzlePosition();
+pulsonic.numNozzle = nozzle_getPosition();
 
 flushAllMode.sm0 = 0x1;
 }
@@ -5881,7 +5889,8 @@ if (cmd == JOB_STOP)
 flushAllMode.sm0 = 0;
 }
 pump_stop();
-mpap.mode = MPAP_STALL_MODE;
+
+mpap_stall();
 }
 
 void flushAllMode_job(void)
@@ -5898,8 +5907,9 @@ if (pulsonic.numNozzle >= 18)
 {
 pulsonic.numNozzle = 0x00;
 
-mpap_setupToTurn(1 * 200);
-mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
+
+
+mpap_doMovement(1 * 200, MPAP_CROSSING_HOMESENSOR_MODE);
 
 }
 else

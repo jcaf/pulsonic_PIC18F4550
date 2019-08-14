@@ -4385,6 +4385,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;configMode.h: 13: int8_t configMode_job(void);
 [; ;nozzle.h: 16: extern double NOZZLE_QTY_DIFF;
 [; ;nozzle.h: 18: int8_t nozzle_isEnabled(int n);
+[; ;nozzle.h: 19: int8_t nozzle_getPosition(void);
+[; ;nozzle.h: 20: int8_t nozzle_setPosition(int8_t n);
+[; ;nozzle.h: 21: void nozzle_setPosition_reset(void);
 [; ;display.h: 48: void disp7s_qtyDisp_writeFloat(float num);
 [; ;display.h: 49: void disp7s_modeDisp_writeFloat(float num);
 [; ;display.h: 51: void disp7s_qtyDisp_writeInt(int16_t num);
@@ -4596,11 +4599,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;configMode.c: 43: int8_t cod_ret = 0;
 [e = _cod_ret -> -> 0 `i `c ]
 "44
-[v F4877 `c ~T0 @X0 1 s flushAtNozzle_active ]
+[v F4883 `c ~T0 @X0 1 s flushAtNozzle_active ]
 "45
 [v _prop `S571 ~T0 @X0 1 a ]
-[v F4879 `S571 ~T0 @X0 1 s ]
-[i F4879
+[v F4885 `S571 ~T0 @X0 1 s ]
+[i F4885
 :U ..
 :U ..
 :U ..
@@ -4617,10 +4620,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [; ;configMode.c: 44: static int8_t flushAtNozzle_active;
 [; ;configMode.c: 45: struct _key_prop prop = {0};
-[e = _prop F4879 ]
+[e = _prop F4885 ]
 [; ;configMode.c: 47: if (!flushAtNozzle_active)
 "47
-[e $ ! ! != -> F4877 `i -> -> -> 0 `i `c `i 581  ]
+[e $ ! ! != -> F4883 `i -> -> -> 0 `i `c `i 581  ]
 [; ;configMode.c: 48: {
 "48
 {
@@ -4697,7 +4700,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 78: if (!flushAtNozzle_active)
 "78
-[e $ ! ! != -> F4877 `i -> -> -> 0 `i `c `i 588  ]
+[e $ ! ! != -> F4883 `i -> -> -> 0 `i `c `i 588  ]
 [; ;configMode.c: 79: {
 "79
 {
@@ -4799,7 +4802,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 115: if (!flushAtNozzle_active)
 "115
-[e $ ! ! != -> F4877 `i -> -> -> 0 `i `c `i 596  ]
+[e $ ! ! != -> F4883 `i -> -> -> 0 `i `c `i 596  ]
 [; ;configMode.c: 116: {
 "116
 {
@@ -4919,10 +4922,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;configMode.c: 157: flushAtNozzle_active = !flushAtNozzle_active;
 "157
-[e = F4877 -> -> ! != -> F4877 `i -> -> -> 0 `i `c `i `i `c ]
+[e = F4883 -> -> ! != -> F4883 `i -> -> -> 0 `i `c `i `i `c ]
 [; ;configMode.c: 159: if (flushAtNozzle_active)
 "159
-[e $ ! != -> F4877 `i -> -> -> 0 `i `c `i 606  ]
+[e $ ! != -> F4883 `i -> -> -> 0 `i `c `i 606  ]
 [; ;configMode.c: 160: {
 "160
 {
@@ -5008,7 +5011,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _pulsonic 8 ( _pulsonic_getNumNozzleAvailable ..  ]
 [; ;configMode.c: 196: flushAtNozzle_active = 0;
 "196
-[e = F4877 -> -> 0 `i `c ]
+[e = F4883 -> -> 0 `i `c ]
 [; ;configMode.c: 197: flushAtNozzle_cmd(JOB_STOP);
 "197
 [e ( _flushAtNozzle_cmd (1 -> . `E4712 1 `c ]

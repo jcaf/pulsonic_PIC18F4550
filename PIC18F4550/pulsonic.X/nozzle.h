@@ -16,6 +16,9 @@
     extern double NOZZLE_QTY_DIFF;
     
     int8_t nozzle_isEnabled(int n);
+    int8_t nozzle_getPosition(void);
+    int8_t nozzle_setPosition(int8_t n);
+    void nozzle_setPosition_reset(void);
 
 #ifdef	__cplusplus
 extern "C" {

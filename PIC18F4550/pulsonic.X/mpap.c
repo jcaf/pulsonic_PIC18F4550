@@ -53,6 +53,7 @@ PTRFX_retVOID mpap_step[4] = {_mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
 volatile struct _mpap mpap;
 
 /* Deja todo listo para girar N pasos, se llama 1 vez */
+/*
 void mpap_setupToTurn(int16_t numSteps_tomove)
 {
     if (numSteps_tomove != 0)
@@ -62,19 +63,68 @@ void mpap_setupToTurn(int16_t numSteps_tomove)
         mpap.numSteps_tomove = numSteps_tomove;
     }
 }
-/*return the truncated current position(left adjusted)*/
-int8_t mpap_getNozzlePosition(void)
+*/
+//void mpap_setMode(int8_t mode)
+//{
+//    mpap.mode = mode;
+//}
+int8_t mpap_getMode(void)
 {
-    return (mpap.numSteps_current/MPAP_NUMSTEP_1NOZZLE);
+    return mpap.mode;
 }
+
+void mpap_stall(void)
+{
+    mpap.mode = MPAP_STALL_MODE;
+}
+
+static uint16_t counterZeros;
+
+static
+void mpap_setup_movement(int16_t numSteps_tomove)
+{
+    if (numSteps_tomove != 0)
+    {
+        mpap.KI = (numSteps_tomove < 0) ? -1 : 1; //+-1
+        mpap.numSteps_tomove = numSteps_tomove;
+        //
+        mpap.counter_steps = 0x0000;
+    }
+}
+
+void mpap_doMovement(int16_t numSteps_tomove, int8_t mode)
+{
+    if (numSteps_tomove != 0)
+    {
+        mpap_setup_movement(numSteps_tomove);
+        mpap.mode =  mode;
+        
+        //post
+        if (mode == MPAP_CROSSING_HOMESENSOR_MODE)
+        {
+            counterZeros = 0x00;
+        }
+    }
+    else
+    {
+         mpap.mode =  MPAP_IDLE_MODE;
+    }
+}
+
+int16_t mpap_get_numSteps_current(void)
+{
+    return mpap.numSteps_current;
+}
+
+    
+
 
 void mpap_setup_searchFirstPointHomeSensor(void)
 {
-    mpap_setupToTurn(+1 * ((18 * MPAP_NUMSTEP_1NOZZLE) + 20)); 
-    mpap_setMode(MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
+    //mpap_setupToTurn(); 
+    //mpap_setMode(MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
     
-//    numSteps = mpap_setupToTurn(+1 * ((18 * MPAP_NUMSTEP_1NOZZLE) + 20)); 
-//    mpap_setMode(MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE, numSteps);
+    mpap_doMovement(+1 * ((18 * MPAP_NUMSTEP_1NOZZLE) + 20),MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
 }
 
 /* mpap.numSteps_current se mantiene, no se pierde 
@@ -106,25 +156,6 @@ void mpap_do1step(int8_t KI)
  */
 
 
-void mpap_setMode(int mode)
-{
-    if (mpap.numSteps_tomove != 0)
-    {
-        if (mode == MPAP_CROSSING_HOMESENSOR_MODE)
-        {
-            counterZeros = 0x00;
-        }
-        mpap.mode = mode;
-    }
-    else
-    {
-        mpap.mode = MPAP_IDLE_MODE;
-    }
-}
-int8_t mpap_getMode(void)
-{
-    return mpap.mode;
-}
 
 /* mode ubicacion en los nozzle */
 static int8_t mpap_normal_mode(void)
@@ -177,7 +208,7 @@ static int8_t mpap_searchFirstPointHomeSensor(void)
 static int8_t mpap_crossingHomeSensor(void)
 {
     int8_t cod_ret = 0;
-    static uint16_t counterZeros;
+    
     
     if (mpap.numSteps_tomove != 0)
     {
@@ -256,12 +287,8 @@ void mpap_job(void)//ISR
 
 void mpap_movetoNozzle(int8_t numNozzle)//0..NOZZLE_NUMMAX-1
 {
-    int16_t numSteps_tomove = (numNozzle*MPAP_NUMSTEP_1NOZZLE)-mpap.numSteps_current;
-    if (numSteps_tomove != 0)
-    {
-        mpap_setupToTurn(numSteps_tomove);
-        mpap_setMode(MPAP_NORMAL_MODE);
-    }
+    int16_t numSteps_tomove = (numNozzle*MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current;
+    mpap_doMovement(numSteps_tomove, MPAP_NORMAL_MODE);
 }
 
 int8_t mpap_isIdle(void)
@@ -298,8 +325,9 @@ int8_t mpap_homming_job(void)
     {
         if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 0)
         {
-            mpap_setupToTurn(+1 * ((2 * MPAP_NUMSTEP_1NOZZLE))); //exit from this point by 2 turn for safe
-            mpap_setMode(MPAP_NORMAL_MODE);
+            //mpap_setupToTurn(+1 * ((2 * MPAP_NUMSTEP_1NOZZLE))); //exit from this point by 2 turn for safe
+            //mpap_setMode(MPAP_NORMAL_MODE);
+            mpap_doMovement(+1 * ((2 * MPAP_NUMSTEP_1NOZZLE)), MPAP_NORMAL_MODE);
             homming.sm0++;
         }
         else
@@ -322,9 +350,10 @@ int8_t mpap_homming_job(void)
         {
             if (pulsonic.error.f.homeSensor == 0)
             {
-                mpap_setupToTurn(1 * MPAP_NUMSTEP_1NOZZLE);
+                //mpap_setupToTurn(1 * MPAP_NUMSTEP_1NOZZLE);
+                //mpap_setMode(MPAP_CROSSING_HOMESENSOR_MODE);
+                mpap_doMovement(1 * MPAP_NUMSTEP_1NOZZLE, MPAP_CROSSING_HOMESENSOR_MODE);
                 
-                mpap_setMode(MPAP_CROSSING_HOMESENSOR_MODE);
                 homming.sm0++;
             }
             else//Cannot find the first point in the home sensor

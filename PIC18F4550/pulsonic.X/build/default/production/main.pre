@@ -5646,6 +5646,9 @@ JOB_STOP
 extern double NOZZLE_QTY_DIFF;
 
 int8_t nozzle_isEnabled(int n);
+int8_t nozzle_getPosition(void);
+int8_t nozzle_setPosition(int8_t n);
+void nozzle_setPosition_reset(void);
 
 # 48 "display.h"
 void disp7s_qtyDisp_writeFloat(float num);
@@ -5763,7 +5766,7 @@ int8_t pulsonic_getNumNozzleAvailable(void);
 enum MPAP_MODES
 {
 MPAP_IDLE_MODE=0,
-MPAP_STALL_MODE,
+MPAP_STALL_MODE=1,
 MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE,
 MPAP_CROSSING_HOMESENSOR_MODE,
 MPAP_NORMAL_MODE
@@ -5782,12 +5785,17 @@ extern volatile struct _mpap mpap;
 
 void mpap_job(void);
 void mpap_setup_searchFirstPointHomeSensor(void);
-void mpap_setupToTurn(int16_t numSteps_tomove);
+
 void mpap_movetoNozzle(int8_t n);
 int8_t mpap_isIdle(void);
 void mpap_do1step(int8_t KI);
-int8_t mpap_getNozzlePosition(void);
 
+void mpap_stall(void);
+
+void mpap_setMode(int8_t mode);
+int8_t mpap_getMode(void);
+void mpap_doMovement(int16_t numSteps_tomove, int8_t mode);
+int16_t mpap_get_numSteps_current(void);
 int8_t mpap_homming_job(void);
 void mpap_homming_job_reset(void);
 
@@ -5912,7 +5920,7 @@ extern const uint16_t ustep_lockup[4+1];
 # 38 "main.c"
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF",
-
+#pragma config "CP0=ON", "CP1=ON", "CP2=ON", "CP3=ON", "CPD=OFF"
 
 volatile static struct _isr_flag
 {
@@ -5989,8 +5997,8 @@ CMCON = 0xCF;
 UCON = 0;
 UCFG = 1 << 3;
 
-# 122
-do{do{LATA &= ~(1<<5);}while(0);}while(0);
+# 123
+do{do{LATA |= 1<<5;}while(0);}while(0);
 do{TRISA &= ~(1<<5);}while(0);
 
 do{do{LATE |= 1<<0;}while(0);}while(0);
@@ -6217,7 +6225,7 @@ ikb_key_was_read(2);
 ikb_key_was_read(3);
 
 pump_stop();
-mpap.mode = MPAP_STALL_MODE;
+mpap_stall();
 
 funcMach = FUNCMACH_CONFIG;
 disp_owner = DISPOWNER_CONFIGMODE;
@@ -6272,7 +6280,7 @@ if (ustep_sm0 == 0)
 {
 mpap_job();
 
-if (mpap.mode > MPAP_STALL_MODE)
+if (mpap_getMode() > MPAP_STALL_MODE)
 {
 ustep_sm0++;
 }
@@ -6315,7 +6323,7 @@ cticks = 0x00;
 TMR2IF = 0;
 }
 
-# 458
+# 459
 }
 
 static union _errorFlag error_grantedToWriteDisp;
@@ -6339,7 +6347,7 @@ errorPacked_last = pulsonic.error.packed;
 
 if (errorPacked_last != 0)
 {
-mpap.mode = MPAP_STALL_MODE;
+mpap_stall();
 pump_stop();
 flushAllMode_cmd(JOB_STOP);
 funcMach = FUNCMACH_ERROR;

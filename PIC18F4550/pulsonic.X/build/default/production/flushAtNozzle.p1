@@ -7,22 +7,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n E4712 _JOB_CMD JOB_RESTART JOB_STOP  ]
 "61 display.h
 [v _disp7s_qtyDisp_writeText_FLU `(v ~T0 @X0 0 ef ]
+"21 nozzle.h
+[v _nozzle_setPosition_reset `(v ~T0 @X0 0 ef ]
 "22 pump.h
 [v _pump_stop `(v ~T0 @X0 0 ef ]
-"19 mpap.h
-[s S571 `i 1 `i 1 `i 1 `c 1 `c 1 ]
-[n S571 _mpap numSteps_current counter_steps numSteps_tomove KI mode ]
-"27
-[v _mpap `VS571 ~T0 @X0 0 e ]
-"36 flushAtNozzle.c
-[c E4804 0 1 2 3 4 .. ]
-[n E4804 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE MPAP_CROSSING_HOMESENSOR_MODE MPAP_NORMAL_MODE  ]
-"35 mpap.h
+"38 mpap.h
+[v _mpap_stall `(v ~T0 @X0 0 ef ]
+"35
 [v _mpap_isIdle `(c ~T0 @X0 0 ef ]
 "18 nozzle.h
 [v _nozzle_isEnabled `(c ~T0 @X0 0 ef1`i ]
-"34 mpap.h
-[v _mpap_movetoNozzle `(v ~T0 @X0 0 ef1`c ]
+"20
+[v _nozzle_setPosition `(c ~T0 @X0 0 ef1`c ]
 "20 pump.h
 [v _pump_setTick `(v ~T0 @X0 0 ef1`ui ]
 "24
@@ -4327,6 +4323,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.h: 53: };
 [; ;nozzle.h: 16: extern double NOZZLE_QTY_DIFF;
 [; ;nozzle.h: 18: int8_t nozzle_isEnabled(int n);
+[; ;nozzle.h: 19: int8_t nozzle_getPosition(void);
+[; ;nozzle.h: 20: int8_t nozzle_setPosition(int8_t n);
+[; ;nozzle.h: 21: void nozzle_setPosition_reset(void);
 [; ;display.h: 48: void disp7s_qtyDisp_writeFloat(float num);
 [; ;display.h: 49: void disp7s_modeDisp_writeFloat(float num);
 [; ;display.h: 51: void disp7s_qtyDisp_writeInt(int16_t num);
@@ -4408,7 +4407,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 11: enum MPAP_MODES
 [; ;mpap.h: 12: {
 [; ;mpap.h: 13: MPAP_IDLE_MODE=0,
-[; ;mpap.h: 14: MPAP_STALL_MODE,
+[; ;mpap.h: 14: MPAP_STALL_MODE=1,
 [; ;mpap.h: 15: MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE,
 [; ;mpap.h: 16: MPAP_CROSSING_HOMESENSOR_MODE,
 [; ;mpap.h: 17: MPAP_NORMAL_MODE
@@ -4424,13 +4423,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 27: extern volatile struct _mpap mpap;
 [; ;mpap.h: 31: void mpap_job(void);
 [; ;mpap.h: 32: void mpap_setup_searchFirstPointHomeSensor(void);
-[; ;mpap.h: 33: void mpap_setupToTurn(int16_t numSteps_tomove);
 [; ;mpap.h: 34: void mpap_movetoNozzle(int8_t n);
 [; ;mpap.h: 35: int8_t mpap_isIdle(void);
 [; ;mpap.h: 36: void mpap_do1step(int8_t KI);
-[; ;mpap.h: 37: int8_t mpap_getNozzlePosition(void);
-[; ;mpap.h: 39: int8_t mpap_homming_job(void);
-[; ;mpap.h: 40: void mpap_homming_job_reset(void);
+[; ;mpap.h: 38: void mpap_stall(void);
+[; ;mpap.h: 40: void mpap_setMode(int8_t mode);
+[; ;mpap.h: 41: int8_t mpap_getMode(void);
+[; ;mpap.h: 42: void mpap_doMovement(int16_t numSteps_tomove, int8_t mode);
+[; ;mpap.h: 43: int16_t mpap_get_numSteps_current(void);
+[; ;mpap.h: 44: int8_t mpap_homming_job(void);
+[; ;mpap.h: 45: void mpap_homming_job_reset(void);
 [; ;pump.h: 14: struct _pump
 [; ;pump.h: 15: {
 [; ;pump.h: 16: uint16_t ticks;
@@ -4535,162 +4537,172 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;flushAtNozzle.c: 28: flushAtNozzle.sm0 = 0x1;
 "28
 [e = . _flushAtNozzle 1 -> -> 1 `i `c ]
-[; ;flushAtNozzle.c: 29: counterTicks_debug = 0;
-"29
-[e = _counterTicks_debug -> -> 0 `i `ui ]
+[; ;flushAtNozzle.c: 30: nozzle_setPosition_reset();
 "30
+[e ( _nozzle_setPosition_reset ..  ]
+[; ;flushAtNozzle.c: 32: counterTicks_debug = 0;
+"32
+[e = _counterTicks_debug -> -> 0 `i `ui ]
+"33
 }
 [e :U 580 ]
-[; ;flushAtNozzle.c: 30: }
-[; ;flushAtNozzle.c: 31: if (cmd == JOB_STOP)
-"31
-[e $ ! == -> _cmd `i -> . `E4712 1 `i 581  ]
-[; ;flushAtNozzle.c: 32: {
-"32
-{
-[; ;flushAtNozzle.c: 33: flushAtNozzle.sm0 = 0;
-"33
-[e = . _flushAtNozzle 1 -> -> 0 `i `c ]
+[; ;flushAtNozzle.c: 33: }
+[; ;flushAtNozzle.c: 34: if (cmd == JOB_STOP)
 "34
+[e $ ! == -> _cmd `i -> . `E4712 1 `i 581  ]
+[; ;flushAtNozzle.c: 35: {
+"35
+{
+[; ;flushAtNozzle.c: 36: flushAtNozzle.sm0 = 0;
+"36
+[e = . _flushAtNozzle 1 -> -> 0 `i `c ]
+"37
 }
 [e :U 581 ]
-[; ;flushAtNozzle.c: 34: }
-[; ;flushAtNozzle.c: 35: pump_stop();
-"35
-[e ( _pump_stop ..  ]
-[; ;flushAtNozzle.c: 36: mpap.mode = MPAP_STALL_MODE;
-"36
-[e = . _mpap 4 -> . `E4804 1 `c ]
 [; ;flushAtNozzle.c: 37: }
-"37
+[; ;flushAtNozzle.c: 38: pump_stop();
+"38
+[e ( _pump_stop ..  ]
+[; ;flushAtNozzle.c: 39: mpap_stall();
+"39
+[e ( _mpap_stall ..  ]
+[; ;flushAtNozzle.c: 40: }
+"40
 [e :UE 579 ]
 }
-"39
+"78
 [v _flushAtNozzle_job `(v ~T0 @X0 1 ef ]
-"40
+"79
 {
-[; ;flushAtNozzle.c: 39: void flushAtNozzle_job(void)
-[; ;flushAtNozzle.c: 40: {
+[; ;flushAtNozzle.c: 78: void flushAtNozzle_job(void)
+[; ;flushAtNozzle.c: 79: {
 [e :U _flushAtNozzle_job ]
 [f ]
-[; ;flushAtNozzle.c: 41: if (flushAtNozzle.sm0 > 0)
-"41
+[; ;flushAtNozzle.c: 80: if (flushAtNozzle.sm0 > 0)
+"80
 [e $ ! > -> . _flushAtNozzle 1 `i -> 0 `i 583  ]
-[; ;flushAtNozzle.c: 42: {
-"42
+[; ;flushAtNozzle.c: 81: {
+"81
 {
-[; ;flushAtNozzle.c: 43: if (flushAtNozzle.sm0 == 1)
-"43
+[; ;flushAtNozzle.c: 82: if (flushAtNozzle.sm0 == 1)
+"82
 [e $ ! == -> . _flushAtNozzle 1 `i -> 1 `i 584  ]
-[; ;flushAtNozzle.c: 44: {
-"44
+[; ;flushAtNozzle.c: 83: {
+"83
 {
-[; ;flushAtNozzle.c: 45: if (mpap_isIdle())
-"45
+[; ;flushAtNozzle.c: 84: if (mpap_isIdle())
+"84
 [e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 585  ]
-[; ;flushAtNozzle.c: 46: {
-"46
+[; ;flushAtNozzle.c: 85: {
+"85
 {
-[; ;flushAtNozzle.c: 47: flushAtNozzle.sm0++;
-"47
+[; ;flushAtNozzle.c: 86: flushAtNozzle.sm0++;
+"86
 [e ++ . _flushAtNozzle 1 -> -> 1 `i `c ]
-"48
+"87
 }
 [e :U 585 ]
-"49
+"88
 }
-[; ;flushAtNozzle.c: 48: }
-[; ;flushAtNozzle.c: 49: }
+[; ;flushAtNozzle.c: 87: }
+[; ;flushAtNozzle.c: 88: }
 [e $U 586  ]
-"50
+"89
 [e :U 584 ]
-[; ;flushAtNozzle.c: 50: else if (flushAtNozzle.sm0 == 2)
+[; ;flushAtNozzle.c: 89: else if (flushAtNozzle.sm0 == 2)
 [e $ ! == -> . _flushAtNozzle 1 `i -> 2 `i 587  ]
-[; ;flushAtNozzle.c: 51: {
-"51
+[; ;flushAtNozzle.c: 90: {
+"90
 {
-[; ;flushAtNozzle.c: 52: if (nozzle_isEnabled(flushAtNozzle.numNozzle))
-"52
+[; ;flushAtNozzle.c: 91: if (nozzle_isEnabled(flushAtNozzle.numNozzle))
+"91
 [e $ ! != -> ( _nozzle_isEnabled (1 -> . _flushAtNozzle 0 `i `i -> -> -> 0 `i `c `i 588  ]
-[; ;flushAtNozzle.c: 53: {
-"53
+[; ;flushAtNozzle.c: 92: {
+"92
 {
-[; ;flushAtNozzle.c: 54: mpap_movetoNozzle(flushAtNozzle.numNozzle);
-"54
-[e ( _mpap_movetoNozzle (1 . _flushAtNozzle 0 ]
-[; ;flushAtNozzle.c: 55: flushAtNozzle.sm0++;
-"55
+[; ;flushAtNozzle.c: 94: if (nozzle_setPosition(flushAtNozzle.numNozzle))
+"94
+[e $ ! != -> ( _nozzle_setPosition (1 . _flushAtNozzle 0 `i -> -> -> 0 `i `c `i 589  ]
+[; ;flushAtNozzle.c: 95: {
+"95
+{
+[; ;flushAtNozzle.c: 96: flushAtNozzle.sm0++;
+"96
 [e ++ . _flushAtNozzle 1 -> -> 1 `i `c ]
-"56
+"97
+}
+[e :U 589 ]
+"98
 }
 [e :U 588 ]
-"57
+"99
 }
-[; ;flushAtNozzle.c: 56: }
-[; ;flushAtNozzle.c: 57: }
-[e $U 589  ]
-"58
+[; ;flushAtNozzle.c: 97: }
+[; ;flushAtNozzle.c: 98: }
+[; ;flushAtNozzle.c: 99: }
+[e $U 590  ]
+"100
 [e :U 587 ]
-[; ;flushAtNozzle.c: 58: else if (flushAtNozzle.sm0 == 3)
-[e $ ! == -> . _flushAtNozzle 1 `i -> 3 `i 590  ]
-[; ;flushAtNozzle.c: 59: {
-"59
+[; ;flushAtNozzle.c: 100: else if (flushAtNozzle.sm0 == 3)
+[e $ ! == -> . _flushAtNozzle 1 `i -> 3 `i 591  ]
+[; ;flushAtNozzle.c: 101: {
+"101
 {
-[; ;flushAtNozzle.c: 60: if (mpap_isIdle())
-"60
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 591  ]
-[; ;flushAtNozzle.c: 61: {
-"61
+[; ;flushAtNozzle.c: 102: if (mpap_isIdle())
+"102
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 592  ]
+[; ;flushAtNozzle.c: 103: {
+"103
 {
-[; ;flushAtNozzle.c: 62: pump_setTick(1);
-"62
+[; ;flushAtNozzle.c: 104: pump_setTick(1);
+"104
 [e ( _pump_setTick (1 -> -> 1 `i `ui ]
-[; ;flushAtNozzle.c: 63: flushAtNozzle.sm0++;
-"63
+[; ;flushAtNozzle.c: 105: flushAtNozzle.sm0++;
+"105
 [e ++ . _flushAtNozzle 1 -> -> 1 `i `c ]
-[; ;flushAtNozzle.c: 65: counterTicks_debug++;
-"65
+[; ;flushAtNozzle.c: 107: counterTicks_debug++;
+"107
 [e ++ _counterTicks_debug -> -> 1 `i `ui ]
-"66
+"108
 }
+[e :U 592 ]
+"109
+}
+[; ;flushAtNozzle.c: 108: }
+[; ;flushAtNozzle.c: 109: }
+[e $U 593  ]
+"110
 [e :U 591 ]
-"67
-}
-[; ;flushAtNozzle.c: 66: }
-[; ;flushAtNozzle.c: 67: }
-[e $U 592  ]
-"68
-[e :U 590 ]
-[; ;flushAtNozzle.c: 68: else if (flushAtNozzle.sm0 == 4)
-[e $ ! == -> . _flushAtNozzle 1 `i -> 4 `i 593  ]
-[; ;flushAtNozzle.c: 69: {
-"69
+[; ;flushAtNozzle.c: 110: else if (flushAtNozzle.sm0 == 4)
+[e $ ! == -> . _flushAtNozzle 1 `i -> 4 `i 594  ]
+[; ;flushAtNozzle.c: 111: {
+"111
 {
-[; ;flushAtNozzle.c: 70: if (pump_isIdle())
-"70
-[e $ ! != -> ( _pump_isIdle ..  `i -> -> -> 0 `i `c `i 594  ]
-[; ;flushAtNozzle.c: 71: {
-"71
+[; ;flushAtNozzle.c: 112: if (pump_isIdle())
+"112
+[e $ ! != -> ( _pump_isIdle ..  `i -> -> -> 0 `i `c `i 595  ]
+[; ;flushAtNozzle.c: 113: {
+"113
 {
-[; ;flushAtNozzle.c: 72: flushAtNozzle.sm0--;
-"72
+[; ;flushAtNozzle.c: 114: flushAtNozzle.sm0--;
+"114
 [e -- . _flushAtNozzle 1 -> -> 1 `i `c ]
-"73
+"115
+}
+[e :U 595 ]
+"116
 }
 [e :U 594 ]
-"74
-}
+"117
 [e :U 593 ]
-"75
-[e :U 592 ]
-[e :U 589 ]
+[e :U 590 ]
 [e :U 586 ]
 }
 [e :U 583 ]
-[; ;flushAtNozzle.c: 73: }
-[; ;flushAtNozzle.c: 74: }
-[; ;flushAtNozzle.c: 75: }
-[; ;flushAtNozzle.c: 76: }
-"76
+[; ;flushAtNozzle.c: 115: }
+[; ;flushAtNozzle.c: 116: }
+[; ;flushAtNozzle.c: 117: }
+[; ;flushAtNozzle.c: 118: }
+"118
 [e :UE 582 ]
 }

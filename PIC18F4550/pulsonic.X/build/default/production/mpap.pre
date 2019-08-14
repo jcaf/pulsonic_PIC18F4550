@@ -5646,7 +5646,7 @@ JOB_STOP
 enum MPAP_MODES
 {
 MPAP_IDLE_MODE=0,
-MPAP_STALL_MODE,
+MPAP_STALL_MODE=1,
 MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE,
 MPAP_CROSSING_HOMESENSOR_MODE,
 MPAP_NORMAL_MODE
@@ -5665,12 +5665,17 @@ extern volatile struct _mpap mpap;
 
 void mpap_job(void);
 void mpap_setup_searchFirstPointHomeSensor(void);
-void mpap_setupToTurn(int16_t numSteps_tomove);
+
 void mpap_movetoNozzle(int8_t n);
 int8_t mpap_isIdle(void);
 void mpap_do1step(int8_t KI);
-int8_t mpap_getNozzlePosition(void);
 
+void mpap_stall(void);
+
+void mpap_setMode(int8_t mode);
+int8_t mpap_getMode(void);
+void mpap_doMovement(int16_t numSteps_tomove, int8_t mode);
+int16_t mpap_get_numSteps_current(void);
 int8_t mpap_homming_job(void);
 void mpap_homming_job_reset(void);
 
@@ -5678,6 +5683,9 @@ void mpap_homming_job_reset(void);
 extern double NOZZLE_QTY_DIFF;
 
 int8_t nozzle_isEnabled(int n);
+int8_t nozzle_getPosition(void);
+int8_t nozzle_setPosition(int8_t n);
+void nozzle_setPosition_reset(void);
 
 # 48 "display.h"
 void disp7s_qtyDisp_writeFloat(float num);
@@ -5822,29 +5830,67 @@ PTRFX_retVOID mpap_step[4] = {_mpap_step1, _mpap_step2, _mpap_step3, _mpap_step4
 # 53
 volatile struct _mpap mpap;
 
+# 71
+int8_t mpap_getMode(void)
+{
+return mpap.mode;
+}
 
-void mpap_setupToTurn(int16_t numSteps_tomove)
+void mpap_stall(void)
+{
+mpap.mode = MPAP_STALL_MODE;
+}
+
+static uint16_t counterZeros;
+
+static
+void mpap_setup_movement(int16_t numSteps_tomove)
 {
 if (numSteps_tomove != 0)
 {
 mpap.KI = (numSteps_tomove < 0) ? -1 : 1;
-mpap.counter_steps = 0x0000;
 mpap.numSteps_tomove = numSteps_tomove;
+
+mpap.counter_steps = 0x0000;
 }
 }
 
-int8_t mpap_getNozzlePosition(void)
+void mpap_doMovement(int16_t numSteps_tomove, int8_t mode)
 {
-return (mpap.numSteps_current/200);
+if (numSteps_tomove != 0)
+{
+mpap_setup_movement(numSteps_tomove);
+mpap.mode = mode;
+
+
+if (mode == MPAP_CROSSING_HOMESENSOR_MODE)
+{
+counterZeros = 0x00;
 }
+}
+else
+{
+mpap.mode = MPAP_IDLE_MODE;
+}
+}
+
+int16_t mpap_get_numSteps_current(void)
+{
+return mpap.numSteps_current;
+}
+
+
+
 
 void mpap_setup_searchFirstPointHomeSensor(void)
 {
-mpap_setupToTurn(+1 * ((18 * 200) + 20));
-mpap.mode = MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE;
+
+
+
+mpap_doMovement(+1 * ((18 * 200) + 20),MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
 }
 
-# 80
+# 133
 void mpap_do1step(int8_t KI)
 {
 static int8_t i = -1;
@@ -5861,7 +5907,30 @@ i = 3;
 mpap_step[i]();
 }
 
-# 104
+# 161
+static int8_t mpap_normal_mode(void)
+{
+int8_t cod_ret = 0;
+if (mpap.numSteps_tomove != 0)
+{
+mpap_do1step(mpap.KI);
+
+mpap.counter_steps += mpap.KI;
+
+mpap.numSteps_current += mpap.KI;
+
+if (mpap.counter_steps == mpap.numSteps_tomove)
+{
+mpap.numSteps_tomove = 0;
+cod_ret = 1;
+}
+}
+else
+{
+cod_ret = 1;
+}
+return cod_ret;
+}
 static int8_t mpap_searchFirstPointHomeSensor(void)
 {
 int8_t cod_ret = 0;
@@ -5889,12 +5958,11 @@ return cod_ret;
 static int8_t mpap_crossingHomeSensor(void)
 {
 int8_t cod_ret = 0;
-static uint16_t counterZeros;
+
 
 if (mpap.numSteps_tomove != 0)
 {
 mpap_do1step(mpap.KI);
-
 mpap.counter_steps += mpap.KI;
 
 if (((PORTE & (1<<1))>>1) == 0)
@@ -5902,40 +5970,16 @@ if (((PORTE & (1<<1))>>1) == 0)
 
 if (mpap.counter_steps == mpap.numSteps_tomove)
 {
-if (counterZeros >= 200*0.9)
-{cod_ret = 1;}
-else
-{cod_ret = 2;}
-
-counterZeros = 0x000;
-}
-
-if (cod_ret>0)
-{
 
 mpap.numSteps_current = 0x0000;
 mpap.numSteps_tomove = 0x0000;
-}
-}
-return cod_ret;
-}
 
-static int8_t mpap_normal_mode(void)
-{
-int8_t cod_ret = 0;
-if (mpap.numSteps_tomove != 0)
-{
-mpap_do1step(mpap.KI);
-
-mpap.counter_steps += mpap.KI;
-
-mpap.numSteps_current += mpap.KI;
-
-if (mpap.counter_steps == mpap.numSteps_tomove)
-{
-mpap.numSteps_tomove = 0;
 cod_ret = 1;
 }
+}
+else
+{
+cod_ret = 1;
 }
 return cod_ret;
 }
@@ -5947,17 +5991,18 @@ int8_t cod_ret;
 
 if (mpap.mode == MPAP_CROSSING_HOMESENSOR_MODE)
 {
-cod_ret = mpap_crossingHomeSensor();
-if (cod_ret == 1)
+if (mpap_crossingHomeSensor())
+{
+if (counterZeros >= 200*0.9)
 {
 pulsonic.error.f.homeSensor = 0;
 pulsonic.flags.homed = 1;
-mpap.mode = MPAP_STALL_MODE;
 }
-else if (cod_ret == 2)
+else
 {
 pulsonic.error.f.homeSensor = 1;
 pulsonic.flags.homed = 0;
+}
 mpap.mode = MPAP_STALL_MODE;
 }
 }
@@ -5992,12 +6037,8 @@ mpap.mode = MPAP_IDLE_MODE;
 
 void mpap_movetoNozzle(int8_t numNozzle)
 {
-int16_t numSteps_tomove = (numNozzle*200)-mpap.numSteps_current;
-if (numSteps_tomove != 0)
-{
-mpap_setupToTurn(numSteps_tomove);
-mpap.mode = MPAP_NORMAL_MODE;
-}
+int16_t numSteps_tomove = (numNozzle*200) - mpap.numSteps_current;
+mpap_doMovement(numSteps_tomove, MPAP_NORMAL_MODE);
 }
 
 int8_t mpap_isIdle(void)
@@ -6009,7 +6050,7 @@ return 1;
 return 0;
 }
 
-# 259
+# 311
 struct _homming
 {
 int8_t sm0;
@@ -6027,8 +6068,9 @@ if (homming.sm0 == 0)
 {
 if (((PORTE & (1<<1))>>1) == 0)
 {
-mpap_setupToTurn(+1 * ((2 * 200)));
-mpap.mode = MPAP_NORMAL_MODE;
+
+
+mpap_doMovement(+1 * ((2 * 200)), MPAP_NORMAL_MODE);
 homming.sm0++;
 }
 else
@@ -6051,14 +6093,16 @@ if (mpap_isIdle())
 {
 if (pulsonic.error.f.homeSensor == 0)
 {
-mpap_setupToTurn(1 * 200);
-mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
+
+
+mpap_doMovement(1 * 200, MPAP_CROSSING_HOMESENSOR_MODE);
+
 homming.sm0++;
 }
 else
 {
 
-# 311
+# 366
 cod_ret = 2;
 homming.sm0 = 0x00;
 }

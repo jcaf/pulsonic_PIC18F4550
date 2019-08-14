@@ -30,12 +30,17 @@
     
     void mpap_job(void);
     void mpap_setup_searchFirstPointHomeSensor(void);
-    void mpap_setupToTurn(int16_t numSteps_tomove);    
+    
     void mpap_movetoNozzle(int8_t n);//0..NOZZLE_NUMMAX-1
     int8_t mpap_isIdle(void);
     void mpap_do1step(int8_t KI);
-    int8_t mpap_getNozzlePosition(void);
     
+    void mpap_stall(void);
+    //void mpap_setupToTurn(int16_t numSteps_tomove);    
+    void mpap_setMode(int8_t mode);
+    int8_t mpap_getMode(void);
+    void mpap_doMovement(int16_t numSteps_tomove, int8_t mode);
+    int16_t mpap_get_numSteps_current(void);
     int8_t mpap_homming_job(void);
     void  mpap_homming_job_reset(void);
     //WAVE

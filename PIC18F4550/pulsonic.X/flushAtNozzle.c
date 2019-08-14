@@ -26,6 +26,9 @@ void flushAtNozzle_cmd(int8_t cmd)
         disp7s_qtyDisp_writeText_FLU();
         //
         flushAtNozzle.sm0 = 0x1;
+        
+        nozzle_setPosition_reset();
+        
         counterTicks_debug = 0;
     }
     if (cmd == JOB_STOP)
@@ -33,22 +36,44 @@ void flushAtNozzle_cmd(int8_t cmd)
         flushAtNozzle.sm0 = 0;
     }
     pump_stop();
-    mpap_setMode(MPAP_STALL_MODE);
+    mpap_stall();
 }
-
-
+/*
 void x()
 {
+    static int sm0;
     if (flushAtNozzle.numNozzle == 0)//go to 0 
     {
-        if (mpap_getNozzlePosition() > 0)
+        if (nozzle_getPosition() > 0)
         {
-            mpap_movetoNozzle(17)
+            //Se quedo en medio de un crossing sensor home ?
+            if (sm0 == 0)            
+            {
+                if ( mpap_get_numSteps_current() - ((NOZZLE_NUMMAX-1)*(MPAP_NUMSTEP_1NOZZLE)) > 0)
+                {
+                    //sale y completa, 
+                    mpap_movetoNozzle(NOZZLE_NUMMAX);//completa el giro
+                    sm0++;
+                }
+            }
+            else if (sm0 == 1)
+            {
+                if (mpap_isIdle())
+                {
+                    mpap.numSteps_current = 0x0000;//Set to origin = 0
+
+                    //Aqui deberia de haber 1 zero
+                    if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 1)//Error?
+                    {
+                        pulsonic.error.f.homeSensor = 1;
+                        pulsonic.flags.homed = 0;
+                    }
+                }
+            }
         }
     }
-    //luego toca el arrastre sobre el sensor...
-    que hago entre el 18 y el 0
 }
+*/
 
 void flushAtNozzle_job(void)
 {
@@ -65,8 +90,11 @@ void flushAtNozzle_job(void)
         {
             if (nozzle_isEnabled(flushAtNozzle.numNozzle))
             {
-                mpap_movetoNozzle(flushAtNozzle.numNozzle);
-                flushAtNozzle.sm0++;
+                //mpap_movetoNozzle(flushAtNozzle.numNozzle);
+                if (nozzle_setPosition(flushAtNozzle.numNozzle))
+                {
+                    flushAtNozzle.sm0++;
+                }
             }
         }
         else if (flushAtNozzle.sm0 == 3)

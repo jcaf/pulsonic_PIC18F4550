@@ -37,7 +37,7 @@
 
 #pragma config "PLLDIV=5", "CPUDIV=OSC1_PLL2", "USBDIV=2", "FOSC=HSPLL_HS", "FCMEN=OFF", "IESO=OFF", "PWRT=ON", , "BORV=3", "VREGEN=ON", "WDT=OFF", "PBADEN=OFF", "LVP=OFF"
 #pragma config "MCLRE=ON","BOR=OFF", 
-//#pragma config "CP0=ON", "CP1=ON", "CP2=ON", "CP3=ON", "CPD=OFF"
+#pragma config "CP0=ON", "CP1=ON", "CP2=ON", "CP3=ON", "CPD=OFF"
 
 volatile static struct _isr_flag
 {
@@ -119,7 +119,8 @@ void main(void)
     //    TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 32));
     //    TMR0IE = 1;
     //.....
-    RELAY_ENABLE();
+    
+    RELAY_DISABLE();
     ConfigOutputPin(CONFIGIOxRELAY, PINxRELAY);
 
     PUMP_DISABLE();
@@ -346,7 +347,7 @@ void main(void)
                     ikb_key_was_read(KB_LYOUT_KEY_MINUS);
                     //
                     pump_stop();
-                    mpap_setMode(MPAP_STALL_MODE);
+                    mpap_stall();
 
                     funcMach = FUNCMACH_CONFIG;
                     disp_owner = DISPOWNER_CONFIGMODE;
@@ -478,7 +479,7 @@ void error_job(void)
 
         if (errorPacked_last != 0)
         {
-            mpap_setMode(MPAP_STALL_MODE);
+            mpap_stall();
             pump_stop();
             flushAllMode_cmd(JOB_STOP);
             funcMach = FUNCMACH_ERROR;

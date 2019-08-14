@@ -5646,6 +5646,9 @@ JOB_STOP
 extern double NOZZLE_QTY_DIFF;
 
 int8_t nozzle_isEnabled(int n);
+int8_t nozzle_getPosition(void);
+int8_t nozzle_setPosition(int8_t n);
+void nozzle_setPosition_reset(void);
 
 # 48 "display.h"
 void disp7s_qtyDisp_writeFloat(float num);
@@ -5763,7 +5766,7 @@ int8_t pulsonic_getNumNozzleAvailable(void);
 enum MPAP_MODES
 {
 MPAP_IDLE_MODE=0,
-MPAP_STALL_MODE,
+MPAP_STALL_MODE=1,
 MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE,
 MPAP_CROSSING_HOMESENSOR_MODE,
 MPAP_NORMAL_MODE
@@ -5782,12 +5785,17 @@ extern volatile struct _mpap mpap;
 
 void mpap_job(void);
 void mpap_setup_searchFirstPointHomeSensor(void);
-void mpap_setupToTurn(int16_t numSteps_tomove);
+
 void mpap_movetoNozzle(int8_t n);
 int8_t mpap_isIdle(void);
 void mpap_do1step(int8_t KI);
-int8_t mpap_getNozzlePosition(void);
 
+void mpap_stall(void);
+
+void mpap_setMode(int8_t mode);
+int8_t mpap_getMode(void);
+void mpap_doMovement(int16_t numSteps_tomove, int8_t mode);
+int16_t mpap_get_numSteps_current(void);
 int8_t mpap_homming_job(void);
 void mpap_homming_job_reset(void);
 
@@ -5870,9 +5878,9 @@ extern const struct _key_prop propEmpty;
 void flushAllMode_cmd(int8_t cmd);
 void flushAllMode_job(void);
 
-# 16 "autoMode.c"
+# 11 "autoMode.c"
 double Qmhl_measured = 5.0;
-double nTicks_measured = 231;
+double nTicks_measured = 268;
 
 void autoMode_setup(void)
 {
@@ -5898,7 +5906,7 @@ if (nozzle_isEnabled(i))
 nticksReq_xTotalTime = pulsonic.nozzle[i].Q_mlh / pulsonic.ml_x1tick;
 pulsonic.nozzle[i].nticks_xtimeslice = nticksReq_xTotalTime / pulsonic.timeslice;
 
-# 51
+
 if (pulsonic.nozzle[i].nticks_xtimeslice >= 1)
 {pulsonic.nozzle[i].kmax_ticks_xtimeslice = (uint16_t) pulsonic.nozzle[i].nticks_xtimeslice;}
 
@@ -5914,7 +5922,6 @@ pulsonic.countNozzleAvailable = 0x00;
 
 static struct _autoMode
 {
-
 int8_t sm0;
 } autoMode;
 
@@ -5942,7 +5949,7 @@ else if (cmd == JOB_STOP)
 autoMode.sm0 = 0x00;
 }
 pump_stop();
-mpap.mode = MPAP_STALL_MODE;
+mpap_stall();
 }
 
 void autoMode_job(void)
@@ -6026,8 +6033,10 @@ if (pulsonic.numNozzle >= 18)
 {
 pulsonic.numNozzle = 0x00;
 
-mpap_setupToTurn(1 * 200);
-mpap.mode = MPAP_CROSSING_HOMESENSOR_MODE;
+
+
+mpap_doMovement(1 * 200, MPAP_CROSSING_HOMESENSOR_MODE);
+
 
 }
 else

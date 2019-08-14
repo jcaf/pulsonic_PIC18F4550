@@ -22,11 +22,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S567 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags numNozzle ]
 "93
 [v _pulsonic `VS567 ~T0 @X0 0 e ]
-"19 mpap.h
+"43 mpap.h
+[v _mpap_get_numSteps_current `(i ~T0 @X0 0 ef ]
+"34
+[v _mpap_movetoNozzle `(v ~T0 @X0 0 ef1`c ]
+"35
+[v _mpap_isIdle `(c ~T0 @X0 0 ef ]
+"19
 [s S564 `i 1 `i 1 `i 1 `c 1 `c 1 ]
 [n S564 _mpap numSteps_current counter_steps numSteps_tomove KI mode ]
 "27
 [v _mpap `VS564 ~T0 @X0 0 e ]
+"3107 /opt/microchip/xc8/v1.33/include/pic18f4550.h
+[v _PORTE `Vuc ~T0 @X0 0 e@3972 ]
+"42 mpap.h
+[v _mpap_doMovement `(v ~T0 @X0 0 ef2`i`c ]
+"101 nozzle.c
+[c E4715 0 1 2 3 4 .. ]
+[n E4715 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE MPAP_CROSSING_HOMESENSOR_MODE MPAP_NORMAL_MODE  ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f4550.h: 47: extern volatile unsigned char SPPDATA @ 0xF62;
@@ -4328,7 +4341,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 11: enum MPAP_MODES
 [; ;mpap.h: 12: {
 [; ;mpap.h: 13: MPAP_IDLE_MODE=0,
-[; ;mpap.h: 14: MPAP_STALL_MODE,
+[; ;mpap.h: 14: MPAP_STALL_MODE=1,
 [; ;mpap.h: 15: MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE,
 [; ;mpap.h: 16: MPAP_CROSSING_HOMESENSOR_MODE,
 [; ;mpap.h: 17: MPAP_NORMAL_MODE
@@ -4344,15 +4357,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.h: 27: extern volatile struct _mpap mpap;
 [; ;mpap.h: 31: void mpap_job(void);
 [; ;mpap.h: 32: void mpap_setup_searchFirstPointHomeSensor(void);
-[; ;mpap.h: 33: void mpap_setupToTurn(int16_t numSteps_tomove);
 [; ;mpap.h: 34: void mpap_movetoNozzle(int8_t n);
 [; ;mpap.h: 35: int8_t mpap_isIdle(void);
 [; ;mpap.h: 36: void mpap_do1step(int8_t KI);
-[; ;mpap.h: 37: int8_t mpap_getNozzlePosition(void);
-[; ;mpap.h: 39: int8_t mpap_homming_job(void);
-[; ;mpap.h: 40: void mpap_homming_job_reset(void);
+[; ;mpap.h: 38: void mpap_stall(void);
+[; ;mpap.h: 40: void mpap_setMode(int8_t mode);
+[; ;mpap.h: 41: int8_t mpap_getMode(void);
+[; ;mpap.h: 42: void mpap_doMovement(int16_t numSteps_tomove, int8_t mode);
+[; ;mpap.h: 43: int16_t mpap_get_numSteps_current(void);
+[; ;mpap.h: 44: int8_t mpap_homming_job(void);
+[; ;mpap.h: 45: void mpap_homming_job_reset(void);
 [; ;nozzle.h: 16: extern double NOZZLE_QTY_DIFF;
 [; ;nozzle.h: 18: int8_t nozzle_isEnabled(int n);
+[; ;nozzle.h: 19: int8_t nozzle_getPosition(void);
+[; ;nozzle.h: 20: int8_t nozzle_setPosition(int8_t n);
+[; ;nozzle.h: 21: void nozzle_setPosition_reset(void);
 [; ;display.h: 48: void disp7s_qtyDisp_writeFloat(float num);
 [; ;display.h: 49: void disp7s_modeDisp_writeFloat(float num);
 [; ;display.h: 51: void disp7s_qtyDisp_writeInt(int16_t num);
@@ -4464,19 +4483,317 @@ Version 3.2 HI-TECH Software Intermediate Code
 "12
 [e :UE 572 ]
 }
-"14
-[v _nozzle_get_pos `(c ~T0 @X0 1 ef ]
 "15
-{
-[; ;nozzle.c: 14: int8_t nozzle_get_pos(void)
-[; ;nozzle.c: 15: {
-[e :U _nozzle_get_pos ]
-[f ]
-[; ;nozzle.c: 16: return (mpap.numSteps_current/200);
+[v _nozzle_getPosition `(c ~T0 @X0 1 ef ]
 "16
-[e ) -> / . _mpap 0 -> 200 `i `c ]
-[e $UE 574  ]
-[; ;nozzle.c: 17: }
+{
+[; ;nozzle.c: 15: int8_t nozzle_getPosition(void)
+[; ;nozzle.c: 16: {
+[e :U _nozzle_getPosition ]
+[f ]
+[; ;nozzle.c: 17: return (mpap_get_numSteps_current()/200);
 "17
+[e ) -> / ( _mpap_get_numSteps_current ..  -> 200 `i `c ]
+[e $UE 574  ]
+[; ;nozzle.c: 18: }
+"18
 [e :UE 574 ]
+}
+"20
+[v _sm0 `c ~T0 @X0 1 s ]
+[; ;nozzle.c: 20: static int8_t sm0;
+"22
+[v _nozzle_setPosition_reset `(v ~T0 @X0 1 ef ]
+"23
+{
+[; ;nozzle.c: 22: void nozzle_setPosition_reset(void)
+[; ;nozzle.c: 23: {
+[e :U _nozzle_setPosition_reset ]
+[f ]
+[; ;nozzle.c: 24: sm0 = 0;
+"24
+[e = _sm0 -> -> 0 `i `c ]
+[; ;nozzle.c: 25: }
+"25
+[e :UE 575 ]
+}
+"27
+[v _nozzle_setPosition `(c ~T0 @X0 1 ef1`c ]
+"28
+{
+[; ;nozzle.c: 27: int8_t nozzle_setPosition(int8_t n)
+[; ;nozzle.c: 28: {
+[e :U _nozzle_setPosition ]
+"27
+[v _n `c ~T0 @X0 1 r1 ]
+"28
+[f ]
+"29
+[v _cod_ret `c ~T0 @X0 1 a ]
+[; ;nozzle.c: 29: int8_t cod_ret = 0;
+[e = _cod_ret -> -> 0 `i `c ]
+"30
+[v _numSteps_current `i ~T0 @X0 1 a ]
+[; ;nozzle.c: 30: int16_t numSteps_current;
+[; ;nozzle.c: 32: if (sm0 == 0)
+"32
+[e $ ! == -> _sm0 `i -> 0 `i 577  ]
+[; ;nozzle.c: 33: {
+"33
+{
+[; ;nozzle.c: 34: if (n == 0)
+"34
+[e $ ! == -> _n `i -> 0 `i 578  ]
+[; ;nozzle.c: 35: {
+"35
+{
+[; ;nozzle.c: 36: numSteps_current = mpap_get_numSteps_current();
+"36
+[e = _numSteps_current ( _mpap_get_numSteps_current ..  ]
+[; ;nozzle.c: 38: if (numSteps_current != 0)
+"38
+[e $ ! != _numSteps_current -> 0 `i 579  ]
+[; ;nozzle.c: 39: {
+"39
+{
+[; ;nozzle.c: 40: if (numSteps_current<= ((18-1)*(200)))
+"40
+[e $ ! <= _numSteps_current * - -> 18 `i -> 1 `i -> 200 `i 580  ]
+[; ;nozzle.c: 41: {
+"41
+{
+[; ;nozzle.c: 44: mpap_movetoNozzle(18-1);
+"44
+[e ( _mpap_movetoNozzle (1 -> - -> 18 `i -> 1 `i `c ]
+[; ;nozzle.c: 45: sm0 = 4;
+"45
+[e = _sm0 -> -> 4 `i `c ]
+"46
+}
+[; ;nozzle.c: 46: }
+[e $U 581  ]
+"47
+[e :U 580 ]
+[; ;nozzle.c: 47: else
+[; ;nozzle.c: 48: {
+"48
+{
+[; ;nozzle.c: 50: if ( (numSteps_current - ((18-1)*(200)) ) > 0)
+"50
+[e $ ! > - _numSteps_current * - -> 18 `i -> 1 `i -> 200 `i -> 0 `i 582  ]
+[; ;nozzle.c: 51: {
+"51
+{
+[; ;nozzle.c: 53: mpap_movetoNozzle(18);
+"53
+[e ( _mpap_movetoNozzle (1 -> -> 18 `i `c ]
+[; ;nozzle.c: 54: sm0 = 1;
+"54
+[e = _sm0 -> -> 1 `i `c ]
+"55
+}
+[e :U 582 ]
+"56
+}
+[e :U 581 ]
+"57
+}
+[; ;nozzle.c: 55: }
+[; ;nozzle.c: 56: }
+[; ;nozzle.c: 57: }
+[e $U 583  ]
+"58
+[e :U 579 ]
+[; ;nozzle.c: 58: else
+[; ;nozzle.c: 59: {
+"59
+{
+[; ;nozzle.c: 60: cod_ret = 1;
+"60
+[e = _cod_ret -> -> 1 `i `c ]
+"61
+}
+[e :U 583 ]
+"63
+}
+[; ;nozzle.c: 61: }
+[; ;nozzle.c: 63: }
+[e $U 584  ]
+"64
+[e :U 578 ]
+[; ;nozzle.c: 64: else
+[; ;nozzle.c: 65: {
+"65
+{
+[; ;nozzle.c: 67: sm0 = 2;
+"67
+[e = _sm0 -> -> 2 `i `c ]
+"68
+}
+[e :U 584 ]
+"69
+}
+[; ;nozzle.c: 68: }
+[; ;nozzle.c: 69: }
+[e $U 585  ]
+"70
+[e :U 577 ]
+[; ;nozzle.c: 70: else if (sm0 == 1)
+[e $ ! == -> _sm0 `i -> 1 `i 586  ]
+[; ;nozzle.c: 71: {
+"71
+{
+[; ;nozzle.c: 72: if (mpap_isIdle())
+"72
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 587  ]
+[; ;nozzle.c: 73: {
+"73
+{
+[; ;nozzle.c: 74: mpap.numSteps_current = 0x0000;
+"74
+[e = . _mpap 0 -> 0 `i ]
+[; ;nozzle.c: 77: if (((PORTE & (1<<1))>>1) == 1)
+"77
+[e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 1 `i 588  ]
+[; ;nozzle.c: 78: {
+"78
+{
+[; ;nozzle.c: 79: pulsonic.error.f.homeSensor = 1;
+"79
+[e = . . . _pulsonic 0 0 1 -> -> 1 `i `uc ]
+[; ;nozzle.c: 80: pulsonic.flags.homed = 0;
+"80
+[e = . . _pulsonic 14 0 -> -> 0 `i `uc ]
+"81
+}
+[e :U 588 ]
+[; ;nozzle.c: 81: }
+[; ;nozzle.c: 82: cod_ret = 1;
+"82
+[e = _cod_ret -> -> 1 `i `c ]
+"83
+}
+[e :U 587 ]
+"84
+}
+[; ;nozzle.c: 83: }
+[; ;nozzle.c: 84: }
+[e $U 589  ]
+"85
+[e :U 586 ]
+[; ;nozzle.c: 85: else if (sm0 == 2)
+[e $ ! == -> _sm0 `i -> 2 `i 590  ]
+[; ;nozzle.c: 86: {
+"86
+{
+[; ;nozzle.c: 87: mpap_movetoNozzle(n);
+"87
+[e ( _mpap_movetoNozzle (1 _n ]
+[; ;nozzle.c: 88: sm0++;
+"88
+[e ++ _sm0 -> -> 1 `i `c ]
+"89
+}
+[; ;nozzle.c: 89: }
+[e $U 591  ]
+"90
+[e :U 590 ]
+[; ;nozzle.c: 90: else if (sm0 == 3)
+[e $ ! == -> _sm0 `i -> 3 `i 592  ]
+[; ;nozzle.c: 91: {
+"91
+{
+[; ;nozzle.c: 92: if (mpap_isIdle())
+"92
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 593  ]
+[; ;nozzle.c: 93: {
+"93
+{
+[; ;nozzle.c: 94: cod_ret = 1;
+"94
+[e = _cod_ret -> -> 1 `i `c ]
+"95
+}
+[e :U 593 ]
+"96
+}
+[; ;nozzle.c: 95: }
+[; ;nozzle.c: 96: }
+[e $U 594  ]
+"97
+[e :U 592 ]
+[; ;nozzle.c: 97: else if (sm0 == 4)
+[e $ ! == -> _sm0 `i -> 4 `i 595  ]
+[; ;nozzle.c: 98: {
+"98
+{
+[; ;nozzle.c: 99: if (mpap_isIdle())
+"99
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 596  ]
+[; ;nozzle.c: 100: {
+"100
+{
+[; ;nozzle.c: 101: mpap_doMovement(1 * 200, MPAP_CROSSING_HOMESENSOR_MODE);
+"101
+[e ( _mpap_doMovement (2 , * -> 1 `i -> 200 `i -> . `E4715 3 `c ]
+[; ;nozzle.c: 102: sm0++;
+"102
+[e ++ _sm0 -> -> 1 `i `c ]
+"103
+}
+[e :U 596 ]
+"104
+}
+[; ;nozzle.c: 103: }
+[; ;nozzle.c: 104: }
+[e $U 597  ]
+"105
+[e :U 595 ]
+[; ;nozzle.c: 105: else if (sm0 == 5)
+[e $ ! == -> _sm0 `i -> 5 `i 598  ]
+[; ;nozzle.c: 106: {
+"106
+{
+[; ;nozzle.c: 107: if (mpap_isIdle())
+"107
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 599  ]
+[; ;nozzle.c: 108: {
+"108
+{
+[; ;nozzle.c: 109: cod_ret = 1;
+"109
+[e = _cod_ret -> -> 1 `i `c ]
+"110
+}
+[e :U 599 ]
+"111
+}
+[e :U 598 ]
+"114
+[e :U 597 ]
+[e :U 594 ]
+[e :U 591 ]
+[e :U 589 ]
+[e :U 585 ]
+[; ;nozzle.c: 110: }
+[; ;nozzle.c: 111: }
+[; ;nozzle.c: 114: if (cod_ret ==1)
+[e $ ! == -> _cod_ret `i -> 1 `i 600  ]
+[; ;nozzle.c: 115: {
+"115
+{
+[; ;nozzle.c: 116: sm0 = 0x00;
+"116
+[e = _sm0 -> -> 0 `i `c ]
+"117
+}
+[e :U 600 ]
+[; ;nozzle.c: 117: }
+[; ;nozzle.c: 119: return cod_ret;
+"119
+[e ) _cod_ret ]
+[e $UE 576  ]
+[; ;nozzle.c: 120: }
+"120
+[e :UE 576 ]
 }
