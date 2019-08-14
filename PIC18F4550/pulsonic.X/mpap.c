@@ -71,7 +71,10 @@ int8_t mpap_getNozzlePosition(void)
 void mpap_setup_searchFirstPointHomeSensor(void)
 {
     mpap_setupToTurn(+1 * ((18 * MPAP_NUMSTEP_1NOZZLE) + 20)); 
-    mpap.mode = MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE;
+    mpap_setMode(MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
+    
+//    numSteps = mpap_setupToTurn(+1 * ((18 * MPAP_NUMSTEP_1NOZZLE) + 20)); 
+//    mpap_setMode(MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE, numSteps);
 }
 
 /* mpap.numSteps_current se mantiene, no se pierde 
@@ -101,6 +104,52 @@ void mpap_do1step(int8_t KI)
  * No se hace uno de timeout, sino de pasos, el sistema es libre de atascamientos 
  * en las partes mecanicas conectadas al motor
  */
+
+
+void mpap_setMode(int mode)
+{
+    if (mpap.numSteps_tomove != 0)
+    {
+        if (mode == MPAP_CROSSING_HOMESENSOR_MODE)
+        {
+            counterZeros = 0x00;
+        }
+        mpap.mode = mode;
+    }
+    else
+    {
+        mpap.mode = MPAP_IDLE_MODE;
+    }
+}
+int8_t mpap_getMode(void)
+{
+    return mpap.mode;
+}
+
+/* mode ubicacion en los nozzle */
+static int8_t mpap_normal_mode(void)
+{
+    int8_t cod_ret = 0;
+    if (mpap.numSteps_tomove != 0)
+    {
+        mpap_do1step(mpap.KI);
+        //
+        mpap.counter_steps += mpap.KI; 
+
+        mpap.numSteps_current += mpap.KI; //keep the current position
+
+        if (mpap.counter_steps == mpap.numSteps_tomove)//AQUI PUEDE SER COMPARAR CON < > segun el caso si es negativo o positivo la comparacion
+        {
+            mpap.numSteps_tomove = 0;
+            cod_ret = 1; //can be abort external...
+        }
+    }
+    else
+    {
+        cod_ret = 1;
+    }
+    return cod_ret;
+}
 static int8_t mpap_searchFirstPointHomeSensor(void)
 {
     int8_t cod_ret = 0;
@@ -125,27 +174,6 @@ static int8_t mpap_searchFirstPointHomeSensor(void)
     }
     return cod_ret;
 }
-
-void mpap_setMode(int mode)
-{
-    switch (mode)
-    {
-        case MPAP_IDLE_MODE:break;
-        case MPAP_STALL_MODE:break;
-        case MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE:break;
-        case MPAP_CROSSING_HOMESENSOR_MODE:
-            counterZeros = 0x00;
-        break;
-        case MPAP_NORMAL_MODE:break;
-        default:break;
-    }
-    mpap.mode = mode;
-}
-int8_t mpap_getMode(void)
-{
-    return mpap.mode;
-}
-
 static int8_t mpap_crossingHomeSensor(void)
 {
     int8_t cod_ret = 0;
@@ -154,7 +182,6 @@ static int8_t mpap_crossingHomeSensor(void)
     if (mpap.numSteps_tomove != 0)
     {
         mpap_do1step(mpap.KI);
-        //
         mpap.counter_steps += mpap.KI; //inc/dec +-1
 
         if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 0)
@@ -162,63 +189,40 @@ static int8_t mpap_crossingHomeSensor(void)
         
         if (mpap.counter_steps == mpap.numSteps_tomove)//max. num. vueltas
         {
-            if (counterZeros >= 200*0.9)
-                {cod_ret = 1;}
-            else
-                {cod_ret = 2;}//error, no estuvo presente el sensor
-            
-            counterZeros = 0x000;
-        }
-        //
-        if (cod_ret>0)
-        {
             /*whatever reset to the Origin = 0*/
             mpap.numSteps_current = 0x0000;
             mpap.numSteps_tomove = 0x0000;
+            //counterZeros = 0x000;
+            cod_ret = 1;
         }
     }
-    return cod_ret;
-}
-/* mode ubicacion en los nozzle */
-static int8_t mpap_normal_mode(void)
-{
-    int8_t cod_ret = 0;
-    if (mpap.numSteps_tomove != 0)
+    else
     {
-        mpap_do1step(mpap.KI);
-        //
-        mpap.counter_steps += mpap.KI; 
-
-        mpap.numSteps_current += mpap.KI; //keep the current position
-
-        if (mpap.counter_steps == mpap.numSteps_tomove)//AQUI PUEDE SER COMPARAR CON < > segun el caso si es negativo o positivo la comparacion
-        {
-            mpap.numSteps_tomove = 0;
-            cod_ret = 1; //can be abort external...
-        }
+        cod_ret = 1;
     }
     return cod_ret;
 }
 
 /* la parada debe ser sincronizada en la rutina de interrupcion */
-void mpap_job(void)
+void mpap_job(void)//ISR
 {
     int8_t cod_ret;
     
     if (mpap.mode == MPAP_CROSSING_HOMESENSOR_MODE)
     {
-        cod_ret = mpap_crossingHomeSensor();
-        if (cod_ret == 1)
+        if (mpap_crossingHomeSensor())
         {
-            pulsonic.error.f.homeSensor = 0;
-            pulsonic.flags.homed = 1;
-            mpap_setMode(MPAP_STALL_MODE);
-        }
-        else if (cod_ret == 2)
-        {
-            pulsonic.error.f.homeSensor = 1;
-            pulsonic.flags.homed = 0;
-            mpap_setMode(MPAP_STALL_MODE);
+            if (counterZeros >= 200*0.9)
+            {
+               pulsonic.error.f.homeSensor = 0;
+               pulsonic.flags.homed = 1;
+            }
+            else
+            {
+               pulsonic.error.f.homeSensor = 1;
+               pulsonic.flags.homed = 0;
+            }
+            mpap.mode = MPAP_STALL_MODE;
         }
     }
     else if (mpap.mode == MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE)
@@ -228,25 +232,25 @@ void mpap_job(void)
         {
             pulsonic.flags.homed = 1;
             pulsonic.error.f.homeSensor = 0;
-            mpap_setMode(MPAP_STALL_MODE);
+            mpap.mode = MPAP_STALL_MODE;
         }
         else if (cod_ret == 2)
         {
             pulsonic.flags.homed = 0;
             pulsonic.error.f.homeSensor = 1;
-            mpap_setMode(MPAP_STALL_MODE);
+            mpap.mode = MPAP_STALL_MODE;
         }
     }
     else if (mpap.mode == MPAP_NORMAL_MODE)
     {
         if (mpap_normal_mode())
-            mpap_setMode(MPAP_STALL_MODE);
+            mpap.mode = MPAP_STALL_MODE;
     }
     //
     if (mpap.mode == MPAP_STALL_MODE)
     {
         mpap.numSteps_tomove = 0x00;
-        mpap_setMode(MPAP_IDLE_MODE);
+        mpap.mode = MPAP_IDLE_MODE;
     }
 }
 
@@ -323,7 +327,7 @@ int8_t mpap_homming_job(void)
                 mpap_setMode(MPAP_CROSSING_HOMESENSOR_MODE);
                 homming.sm0++;
             }
-            else//error sensor!
+            else//Cannot find the first point in the home sensor
             {
                 /* 
                 Isr was flagged:
