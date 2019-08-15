@@ -8,7 +8,7 @@ void myeeprom_init(void)
     uint8_t reg;
     for (reg=0; reg<NOZZLE_NUMMAX; reg++)
     {
-        eepromWrite_double(&(((double*)EEPROM_BLOCK_ADDR)[reg]), 3.0f);//max val
+        eepromWrite_double(&(((double*)EEPROM_BLOCK_ADDR)[reg]), NOZZLE_QMLH_MAX);//max val
     }
     //next address is for index-of-OIL_VISCOSITY[]
     eepromWrite(EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)), 0);//default first index 

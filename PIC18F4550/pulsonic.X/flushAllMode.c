@@ -46,20 +46,27 @@ void flushAllMode_job(void)
                 if (pulsonic.numNozzle >= NOZZLE_NUMMAX)
                 {
                     pulsonic.numNozzle = 0x00;
-                    //
-                    //mpap_setupToTurn(1 * MPAP_NUMSTEP_1NOZZLE);
-                    //mpap_setMode(MPAP_CROSSING_HOMESENSOR_MODE);
-                    mpap_doMovement(1 * MPAP_NUMSTEP_1NOZZLE, MPAP_CROSSING_HOMESENSOR_MODE);
+                    
+                    //mpap_doMovement(1 * MPAP_NUMSTEP_1NOZZLE, MPAP_CROSSING_HOMESENSOR_MODE);
                     //
                 }
-                else
-                {
-                    mpap_movetoNozzle(pulsonic.numNozzle);
-                }
+                //else
+                //{
+                //mpap_movetoNozzle(pulsonic.numNozzle);
+                //}
+                
                 flushAllMode.sm0++;
             }
         }
         else if (flushAllMode.sm0 == 2)
+        {
+            if (nozzle_setPosition(pulsonic.numNozzle))
+            {
+                flushAllMode.sm0++;
+            }
+        }
+        
+        else if (flushAllMode.sm0 == 3)
         {
             if (mpap_isIdle())
             {
@@ -69,19 +76,19 @@ void flushAllMode_job(void)
                 }
                 else
                 {
-                    flushAllMode.sm0--;
+                    flushAllMode.sm0 -= 2;//-> corre a otro nozzle
                 }
             }
         }
-        else if (flushAllMode.sm0 == 3)
+        else if (flushAllMode.sm0 == 4)
         {
             if (mpap_isIdle())
             {
-                pump_setTick(6);
+                pump_setTick(6);//buen bombeo segun Bryan
                 flushAllMode.sm0++;
             }
         }
-        else if (flushAllMode.sm0 == 4)
+        else if (flushAllMode.sm0 == 5)
         {
             if (pump_isIdle())
             {

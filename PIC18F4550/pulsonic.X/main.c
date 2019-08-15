@@ -337,6 +337,19 @@ void main(void)
                 ikb_key_was_read(KB_LYOUT_KEY_UP);
                 ikb_key_was_read(KB_LYOUT_KEY_DOWN);
                 //
+                
+                //+-bug fixed:
+                if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_PLUS)==KB_BEFORE_THR) &&
+                ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS))
+                {
+                    ikb_key_was_read(KB_LYOUT_KEY_PLUS);
+                }
+                 if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_MINUS)==KB_BEFORE_THR) &&
+                ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
+                {
+                    ikb_key_was_read(KB_LYOUT_KEY_MINUS);
+                }
+                //-+
 
                 if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_PLUS) == KB_AFTER_THR) &&
                         ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS) &&

@@ -5982,7 +5982,7 @@ int8_t flushKb;
 static int8_t flushKb_last;
 struct _key_prop prop = {0};
 
-
+myeeprom_init();
 
 LATA = 0x00;
 LATC = 0x00;
@@ -6216,6 +6216,19 @@ ikb_key_was_read(0);
 ikb_key_was_read(1);
 
 
+
+if ((ikb_get_AtTimeExpired_BeforeOrAfter(2)==0) &&
+ikb_key_is_ready2read(2))
+{
+ikb_key_was_read(2);
+}
+if ((ikb_get_AtTimeExpired_BeforeOrAfter(3)==0) &&
+ikb_key_is_ready2read(3))
+{
+ikb_key_was_read(3);
+}
+
+
 if ((ikb_get_AtTimeExpired_BeforeOrAfter(2) == 1) &&
 ikb_key_is_ready2read(2) &&
 (ikb_get_AtTimeExpired_BeforeOrAfter(3) == 1) &&
@@ -6323,7 +6336,7 @@ cticks = 0x00;
 TMR2IF = 0;
 }
 
-# 459
+# 472
 }
 
 static union _errorFlag error_grantedToWriteDisp;
