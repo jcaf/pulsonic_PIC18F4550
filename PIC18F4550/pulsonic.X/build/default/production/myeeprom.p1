@@ -4332,9 +4332,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 565 ]
 [; ;myeeprom.c: 10: {
 {
-[; ;myeeprom.c: 11: eepromWrite_double(&(((double*)0x00)[reg]), 0.3f);
+[; ;myeeprom.c: 11: eepromWrite_double(&(((double*)0x00)[reg]), 12.0);
 "11
-[e ( _eepromWrite_double (2 , -> &U *U + -> -> 0 `i `*d * -> _reg `ux -> -> # *U -> -> 0 `i `*d `ui `ux `*uc -> -> .0.3 `f `d ]
+[e ( _eepromWrite_double (2 , -> &U *U + -> -> 0 `i `*d * -> _reg `ux -> -> # *U -> -> 0 `i `*d `ui `ux `*uc .12.0 ]
 "12
 }
 "9

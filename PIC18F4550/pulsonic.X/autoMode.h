@@ -12,7 +12,8 @@
    void autoMode_cmd(int8_t cmd);
    void autoMode_job(void);
    
-   void autoMode_jobX(void);
+void autoMode_jobX(void);
+void autoMode_job_temperature(void);
     
 #ifdef	__cplusplus
 extern "C" {

@@ -88,6 +88,26 @@ void mykb_layout0(void)
 }
 int8_t mpap_homming_job(void);
 
+/* only for test MOSFET + MOTOR TEMPERATURE*/
+void loop_test_motor_mosfet(void)
+{
+    autoMode_cmd(JOB_RESTART);
+    while (1)
+    {
+        if (isr_flag.f1ms)
+        {
+            isr_flag.f1ms = 0;
+            smain.f.f1ms = 1;
+        }
+        //
+        autoMode_job_temperature();
+        pump_job();
+        smain.f.f1ms = 0;
+        
+    }
+}
+
+
 void main(void)
 {
     int8_t sm0 = 0;
@@ -166,6 +186,7 @@ void main(void)
     PEIE = 1;
     GIE = 1;
 
+loop_test_motor_mosfet();//for debug temperature of mosfet + motor
     while (1)
     {
         if (isr_flag.f1ms)

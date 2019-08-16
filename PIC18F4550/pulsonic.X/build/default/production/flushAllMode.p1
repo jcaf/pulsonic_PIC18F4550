@@ -4472,6 +4472,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;autoMode.h: 12: void autoMode_cmd(int8_t cmd);
 [; ;autoMode.h: 13: void autoMode_job(void);
 [; ;autoMode.h: 15: void autoMode_jobX(void);
+[; ;autoMode.h: 16: void autoMode_job_temperature(void);
 [; ;flushAllMode.h: 12: void flushAllMode_cmd(int8_t cmd);
 [; ;flushAllMode.h: 13: void flushAllMode_job(void);
 [; ;ikb.h: 127: void ikb_init(void);

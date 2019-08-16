@@ -4447,6 +4447,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;autoMode.h: 12: void autoMode_cmd(int8_t cmd);
 [; ;autoMode.h: 13: void autoMode_job(void);
 [; ;autoMode.h: 15: void autoMode_jobX(void);
+[; ;autoMode.h: 16: void autoMode_job_temperature(void);
 [; ;flushAtNozzle.h: 12: void flushAtNozzle_setNozzle(int8_t nozzle);
 [; ;flushAtNozzle.h: 13: void flushAtNozzle_cmd(int8_t cmd);
 [; ;flushAtNozzle.h: 14: void flushAtNozzle_job(void);

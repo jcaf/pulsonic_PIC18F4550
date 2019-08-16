@@ -5818,6 +5818,7 @@ void autoMode_cmd(int8_t cmd);
 void autoMode_job(void);
 
 void autoMode_jobX(void);
+void autoMode_job_temperature(void);
 
 # 13 "visMode.h"
 void visMode_init(int8_t numVista);
@@ -6156,3 +6157,67 @@ c_min = 0x00;
 }
 }
 
+# 356
+void autoMode_job_temperature(void)
+{
+
+if (autoMode.sm0 > 0)
+{
+if (autoMode.sm0 == 1)
+{
+if (mpap_isIdle())
+{
+pulsonic.numNozzle = 0x0;
+autoMode.sm0++;
+}
+}
+else if (autoMode.sm0 == 2)
+{
+if (mpap_isIdle())
+{
+pump_setTick(4);
+autoMode.sm0++;
+}
+}
+else if (autoMode.sm0 == 3)
+{
+if (pump_isIdle())
+{
+autoMode.sm0++;
+}
+}
+else if (autoMode.sm0 == 4)
+{
+pulsonic.numNozzle++;
+
+if (pulsonic.numNozzle >= 18)
+{
+pulsonic.numNozzle = 0x00;
+}
+mpap_movetoNozzle(pulsonic.numNozzle);
+
+autoMode.sm0++;
+}
+else if (autoMode.sm0 == 5)
+{
+if (mpap_isIdle())
+{
+autoMode.sm0++;
+}
+}
+else if (autoMode.sm0 == 6)
+{
+if (smain.f.f1ms)
+{
+if (++pulsonic.countTimeBetweenNozzleAvailable >= 6000)
+{
+pulsonic.countTimeBetweenNozzleAvailable = 0x0000;
+autoMode.sm0 = 2;
+
+
+}
+}
+}
+
+}
+}
