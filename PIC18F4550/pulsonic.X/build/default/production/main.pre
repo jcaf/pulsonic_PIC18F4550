@@ -5913,7 +5913,7 @@ void flushAtNozzle_setNozzle(int8_t nozzle);
 void flushAtNozzle_cmd(int8_t cmd);
 void flushAtNozzle_job(void);
 
-# 22 "ustepping.h"
+# 27 "ustepping.h"
 void setdc(uint16_t dc);
 extern const uint16_t ustep_lockup[4+1];
 
@@ -6065,7 +6065,7 @@ TMR2IE = 1;
 PEIE = 1;
 GIE = 1;
 
-loop_test_motor_mosfet();
+
 while (1)
 {
 if (isr_flag.f1ms)
@@ -6331,7 +6331,8 @@ ustep_sm0++;
 }
 else if (ustep_sm0 == 2)
 {
-if (++ustep_c == 12)
+
+if (++ustep_c == 32)
 {
 ustep_c = 4 - 1;
 ustep_sm0++;
@@ -6350,6 +6351,7 @@ ustep_sm0 = 0x0;
 }
 
 if (++cticks == 20)
+
 {
 isr_flag.f1ms = 1;
 cticks = 0x00;
@@ -6358,7 +6360,7 @@ cticks = 0x00;
 TMR2IF = 0;
 }
 
-# 493
+# 495
 }
 
 static union _errorFlag error_grantedToWriteDisp;

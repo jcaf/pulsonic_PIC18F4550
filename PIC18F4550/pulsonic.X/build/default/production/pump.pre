@@ -5655,7 +5655,7 @@ void pump_stop(void);
 int8_t pump_job(void);
 int8_t pump_isIdle(void);
 
-# 6 "pump.c"
+# 4 "pump.c"
 static struct _pump pump;
 
 void pump_setTick(uint16_t ticks)

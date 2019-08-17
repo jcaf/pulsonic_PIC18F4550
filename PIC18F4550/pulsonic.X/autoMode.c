@@ -21,7 +21,7 @@ void autoMode_setup(void)
 
     //
     pulsonic.dist_total_time = 60; //=60min
-    pulsonic.dist_access_time = 2; //c/2min
+    pulsonic.dist_access_time = 1;//2; //c/2min
     pulsonic.timeslice = pulsonic.dist_total_time / pulsonic.dist_access_time; //30
     //added for firmware:
     pulsonic.kTimeBetweenNozzleAvailable = (uint32_t) ((pulsonic.dist_access_time * 60 * 1000) / pulsonic.numNozzleAvailable); //en ms
@@ -370,7 +370,7 @@ void autoMode_job_temperature(void)
         {
             if (mpap_isIdle())
             {
-                pump_setTick(4);
+                pump_setTick(6);
                 autoMode.sm0++;
             }
         }
@@ -404,7 +404,7 @@ void autoMode_job_temperature(void)
         {
             if (smain.f.f1ms)
             {
-                if (++pulsonic.countTimeBetweenNozzleAvailable >= 6000)
+                if (++pulsonic.countTimeBetweenNozzleAvailable >= 10000)
                 {
                     pulsonic.countTimeBetweenNozzleAvailable = 0x0000;
                     autoMode.sm0 = 2;

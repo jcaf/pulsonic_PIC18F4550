@@ -5893,7 +5893,7 @@ pulsonic.ml_x1tick = Qmhl_measured / nTicks_measured;
 
 
 pulsonic.dist_total_time = 60;
-pulsonic.dist_access_time = 2;
+pulsonic.dist_access_time = 1;
 pulsonic.timeslice = pulsonic.dist_total_time / pulsonic.dist_access_time;
 
 pulsonic.kTimeBetweenNozzleAvailable = (uint32_t) ((pulsonic.dist_access_time * 60 * 1000) / pulsonic.numNozzleAvailable);
@@ -6175,7 +6175,7 @@ else if (autoMode.sm0 == 2)
 {
 if (mpap_isIdle())
 {
-pump_setTick(4);
+pump_setTick(6);
 autoMode.sm0++;
 }
 }
@@ -6209,7 +6209,7 @@ else if (autoMode.sm0 == 6)
 {
 if (smain.f.f1ms)
 {
-if (++pulsonic.countTimeBetweenNozzleAvailable >= 6000)
+if (++pulsonic.countTimeBetweenNozzleAvailable >= 10000)
 {
 pulsonic.countTimeBetweenNozzleAvailable = 0x0000;
 autoMode.sm0 = 2;

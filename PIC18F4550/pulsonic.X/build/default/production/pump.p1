@@ -4323,59 +4323,59 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pump.h: 22: void pump_stop(void);
 [; ;pump.h: 23: int8_t pump_job(void);
 [; ;pump.h: 24: int8_t pump_isIdle(void);
-"6 pump.c
+"4 pump.c
 [v _pump `S564 ~T0 @X0 1 s ]
-[; ;pump.c: 6: static struct _pump pump;
-"8
+[; ;pump.c: 4: static struct _pump pump;
+"6
 [v _pump_setTick `(v ~T0 @X0 1 ef1`ui ]
-"9
+"7
 {
-[; ;pump.c: 8: void pump_setTick(uint16_t ticks)
-[; ;pump.c: 9: {
+[; ;pump.c: 6: void pump_setTick(uint16_t ticks)
+[; ;pump.c: 7: {
 [e :U _pump_setTick ]
-"8
+"6
 [v _ticks `ui ~T0 @X0 1 r1 ]
-"9
+"7
 [f ]
-[; ;pump.c: 10: pump.ticks = ticks;
-"10
+[; ;pump.c: 8: pump.ticks = ticks;
+"8
 [e = . _pump 0 _ticks ]
-[; ;pump.c: 11: }
-"11
+[; ;pump.c: 9: }
+"9
 [e :UE 565 ]
 }
-"12
+"10
 [v _pump_getTick `(ui ~T0 @X0 1 ef ]
-"13
+"11
 {
-[; ;pump.c: 12: uint16_t pump_getTick(void)
-[; ;pump.c: 13: {
+[; ;pump.c: 10: uint16_t pump_getTick(void)
+[; ;pump.c: 11: {
 [e :U _pump_getTick ]
 [f ]
-[; ;pump.c: 14: return pump.ticks;
-"14
+[; ;pump.c: 12: return pump.ticks;
+"12
 [e ) . _pump 0 ]
 [e $UE 566  ]
-[; ;pump.c: 15: }
-"15
+[; ;pump.c: 13: }
+"13
 [e :UE 566 ]
 }
-"16
+"14
 [v _pump_stop `(v ~T0 @X0 1 ef ]
-"17
+"15
 {
-[; ;pump.c: 16: void pump_stop(void)
-[; ;pump.c: 17: {
+[; ;pump.c: 14: void pump_stop(void)
+[; ;pump.c: 15: {
 [e :U _pump_stop ]
 [f ]
-[; ;pump.c: 18: pump.ticks = 0;
-"18
+[; ;pump.c: 16: pump.ticks = 0;
+"16
 [e = . _pump 0 -> -> 0 `i `ui ]
-[; ;pump.c: 19: pump.sm0 = 0;
-"19
+[; ;pump.c: 17: pump.sm0 = 0;
+"17
 [e = . _pump 1 -> -> 0 `i `c ]
-[; ;pump.c: 20: do{do{LATE |= 1<<0;}while(0);}while(0);
-"20
+[; ;pump.c: 18: do{do{LATE |= 1<<0;}while(0);}while(0);
+"18
 [e :U 570 ]
 {
 [e :U 573 ]
@@ -4385,39 +4385,39 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 572 ]
 }
 [e :U 569 ]
-[; ;pump.c: 21: }
-"21
+[; ;pump.c: 19: }
+"19
 [e :UE 567 ]
 }
-"22
+"20
 [v _pump_job `(c ~T0 @X0 1 ef ]
-"23
+"21
 {
-[; ;pump.c: 22: int8_t pump_job(void)
-[; ;pump.c: 23: {
+[; ;pump.c: 20: int8_t pump_job(void)
+[; ;pump.c: 21: {
 [e :U _pump_job ]
 [f ]
-"24
+"22
 [v _cod_ret `c ~T0 @X0 1 a ]
-[; ;pump.c: 24: int8_t cod_ret = 0;
+[; ;pump.c: 22: int8_t cod_ret = 0;
 [e = _cod_ret -> -> 0 `i `c ]
-"25
+"23
 [v F4734 `ui ~T0 @X0 1 s c ]
-[; ;pump.c: 25: static uint16_t c;
-[; ;pump.c: 27: if (pump.ticks > 0)
-"27
+[; ;pump.c: 23: static uint16_t c;
+[; ;pump.c: 25: if (pump.ticks > 0)
+"25
 [e $ ! > . _pump 0 -> -> 0 `i `ui 575  ]
+[; ;pump.c: 26: {
+"26
+{
+[; ;pump.c: 27: if (pump.sm0 == 0)
+"27
+[e $ ! == -> . _pump 1 `i -> 0 `i 576  ]
 [; ;pump.c: 28: {
 "28
 {
-[; ;pump.c: 29: if (pump.sm0 == 0)
+[; ;pump.c: 29: do{do{LATE &= ~(1<<0);}while(0);}while(0);
 "29
-[e $ ! == -> . _pump 1 `i -> 0 `i 576  ]
-[; ;pump.c: 30: {
-"30
-{
-[; ;pump.c: 31: do{do{LATE &= ~(1<<0);}while(0);}while(0);
-"31
 [e :U 579 ]
 {
 [e :U 582 ]
@@ -4427,43 +4427,43 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 581 ]
 }
 [e :U 578 ]
-[; ;pump.c: 32: c = 0x0000;
-"32
+[; ;pump.c: 30: c = 0x0000;
+"30
 [e = F4734 -> -> 0 `i `ui ]
-[; ;pump.c: 33: pump.sm0++;
-"33
+[; ;pump.c: 31: pump.sm0++;
+"31
 [e ++ . _pump 1 -> -> 1 `i `c ]
-"34
+"32
 }
-[; ;pump.c: 34: }
+[; ;pump.c: 32: }
 [e $U 583  ]
-"35
+"33
 [e :U 576 ]
-[; ;pump.c: 35: else if (pump.sm0 == 1)
+[; ;pump.c: 33: else if (pump.sm0 == 1)
 [e $ ! == -> . _pump 1 `i -> 1 `i 584  ]
+[; ;pump.c: 34: {
+"34
+{
+[; ;pump.c: 35: if (smain.f.f1ms)
+"35
+[e $ ! != -> . . _smain 0 0 `i -> -> -> 0 `i `Vuc `i 585  ]
 [; ;pump.c: 36: {
 "36
 {
-[; ;pump.c: 37: if (smain.f.f1ms)
+[; ;pump.c: 37: if (++c == 50)
 "37
-[e $ ! != -> . . _smain 0 0 `i -> -> -> 0 `i `Vuc `i 585  ]
+[e $ ! == =+ F4734 -> -> 1 `i `ui -> -> 50 `i `ui 586  ]
 [; ;pump.c: 38: {
 "38
 {
-[; ;pump.c: 39: if (++c == 50)
+[; ;pump.c: 39: c=0x0000;
 "39
-[e $ ! == =+ F4734 -> -> 1 `i `ui -> -> 50 `i `ui 586  ]
-[; ;pump.c: 40: {
-"40
-{
-[; ;pump.c: 41: c=0x0000;
-"41
 [e = F4734 -> -> 0 `i `ui ]
-[; ;pump.c: 42: pump.sm0++;
-"42
+[; ;pump.c: 40: pump.sm0++;
+"40
 [e ++ . _pump 1 -> -> 1 `i `c ]
-[; ;pump.c: 43: do{do{LATE |= 1<<0;}while(0);}while(0);
-"43
+[; ;pump.c: 41: do{do{LATE |= 1<<0;}while(0);}while(0);
+"41
 [e :U 589 ]
 {
 [e :U 592 ]
@@ -4473,105 +4473,105 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 591 ]
 }
 [e :U 588 ]
-"44
+"42
 }
 [e :U 586 ]
-"45
+"43
 }
 [e :U 585 ]
-"46
+"44
 }
+[; ;pump.c: 42: }
+[; ;pump.c: 43: }
 [; ;pump.c: 44: }
-[; ;pump.c: 45: }
-[; ;pump.c: 46: }
 [e $U 593  ]
-"47
+"45
 [e :U 584 ]
-[; ;pump.c: 47: else if (pump.sm0 == 2)
+[; ;pump.c: 45: else if (pump.sm0 == 2)
 [e $ ! == -> . _pump 1 `i -> 2 `i 594  ]
+[; ;pump.c: 46: {
+"46
+{
+[; ;pump.c: 47: if (smain.f.f1ms)
+"47
+[e $ ! != -> . . _smain 0 0 `i -> -> -> 0 `i `Vuc `i 595  ]
 [; ;pump.c: 48: {
 "48
 {
-[; ;pump.c: 49: if (smain.f.f1ms)
+[; ;pump.c: 49: if (++c == 75)
 "49
-[e $ ! != -> . . _smain 0 0 `i -> -> -> 0 `i `Vuc `i 595  ]
+[e $ ! == =+ F4734 -> -> 1 `i `ui -> -> 75 `i `ui 596  ]
 [; ;pump.c: 50: {
 "50
 {
-[; ;pump.c: 51: if (++c == 75)
+[; ;pump.c: 51: c=0x0000;
 "51
-[e $ ! == =+ F4734 -> -> 1 `i `ui -> -> 75 `i `ui 596  ]
-[; ;pump.c: 52: {
-"52
-{
-[; ;pump.c: 53: c=0x0000;
-"53
 [e = F4734 -> -> 0 `i `ui ]
-[; ;pump.c: 54: pump.sm0 = 0x00;
-"54
+[; ;pump.c: 52: pump.sm0 = 0x00;
+"52
 [e = . _pump 1 -> -> 0 `i `c ]
-[; ;pump.c: 56: if (--pump.ticks == 0)
-"56
+[; ;pump.c: 54: if (--pump.ticks == 0)
+"54
 [e $ ! == =- . _pump 0 -> -> 1 `i `ui -> -> 0 `i `ui 597  ]
-[; ;pump.c: 57: {
-"57
+[; ;pump.c: 55: {
+"55
 {
-[; ;pump.c: 58: cod_ret = 1;
-"58
+[; ;pump.c: 56: cod_ret = 1;
+"56
 [e = _cod_ret -> -> 1 `i `c ]
-"59
+"57
 }
 [e :U 597 ]
-"60
+"58
 }
 [e :U 596 ]
-"61
+"59
 }
 [e :U 595 ]
-"62
+"60
 }
 [e :U 594 ]
-"63
+"61
 [e :U 593 ]
 [e :U 583 ]
 }
 [e :U 575 ]
+[; ;pump.c: 57: }
+[; ;pump.c: 58: }
 [; ;pump.c: 59: }
 [; ;pump.c: 60: }
 [; ;pump.c: 61: }
-[; ;pump.c: 62: }
-[; ;pump.c: 63: }
-[; ;pump.c: 64: return cod_ret;
-"64
+[; ;pump.c: 62: return cod_ret;
+"62
 [e ) _cod_ret ]
 [e $UE 574  ]
-[; ;pump.c: 65: }
-"65
+[; ;pump.c: 63: }
+"63
 [e :UE 574 ]
 }
-"66
+"64
 [v _pump_isIdle `(c ~T0 @X0 1 ef ]
-"67
+"65
 {
-[; ;pump.c: 66: int8_t pump_isIdle(void)
-[; ;pump.c: 67: {
+[; ;pump.c: 64: int8_t pump_isIdle(void)
+[; ;pump.c: 65: {
 [e :U _pump_isIdle ]
 [f ]
-[; ;pump.c: 68: if (pump.ticks == 0)
-"68
+[; ;pump.c: 66: if (pump.ticks == 0)
+"66
 [e $ ! == . _pump 0 -> -> 0 `i `ui 599  ]
-[; ;pump.c: 69: {return 1;}
-"69
+[; ;pump.c: 67: {return 1;}
+"67
 {
 [e ) -> -> 1 `i `c ]
 [e $UE 598  ]
 }
 [e :U 599 ]
-[; ;pump.c: 70: return 0;
-"70
+[; ;pump.c: 68: return 0;
+"68
 [e ) -> -> 0 `i `c ]
 [e $UE 598  ]
-[; ;pump.c: 71: }
-"71
+[; ;pump.c: 69: }
+"69
 [e :UE 598 ]
 }

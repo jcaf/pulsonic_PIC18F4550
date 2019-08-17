@@ -4588,9 +4588,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;autoMode.c: 23: pulsonic.dist_total_time = 60;
 "23
 [e = . _pulsonic 2 -> -> 60 `i `d ]
-[; ;autoMode.c: 24: pulsonic.dist_access_time = 2;
+[; ;autoMode.c: 24: pulsonic.dist_access_time = 1;
 "24
-[e = . _pulsonic 3 -> -> 2 `i `d ]
+[e = . _pulsonic 3 -> -> 1 `i `d ]
 [; ;autoMode.c: 25: pulsonic.timeslice = pulsonic.dist_total_time / pulsonic.dist_access_time;
 "25
 [e = . _pulsonic 4 / . _pulsonic 2 . _pulsonic 3 ]
@@ -5392,9 +5392,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;autoMode.c: 372: {
 "372
 {
-[; ;autoMode.c: 373: pump_setTick(4);
+[; ;autoMode.c: 373: pump_setTick(6);
 "373
-[e ( _pump_setTick (1 -> -> 4 `i `ui ]
+[e ( _pump_setTick (1 -> -> 6 `i `ui ]
 [; ;autoMode.c: 374: autoMode.sm0++;
 "374
 [e ++ . _autoMode 0 -> -> 1 `i `c ]
@@ -5500,9 +5500,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;autoMode.c: 406: {
 "406
 {
-[; ;autoMode.c: 407: if (++pulsonic.countTimeBetweenNozzleAvailable >= 6000)
+[; ;autoMode.c: 407: if (++pulsonic.countTimeBetweenNozzleAvailable >= 10000)
 "407
-[e $ ! >= =+ . _pulsonic 10 -> -> -> 1 `i `l `ul -> -> -> 6000 `i `l `ul 666  ]
+[e $ ! >= =+ . _pulsonic 10 -> -> -> 1 `i `l `ul -> -> -> 10000 `i `l `ul 666  ]
 [; ;autoMode.c: 408: {
 "408
 {

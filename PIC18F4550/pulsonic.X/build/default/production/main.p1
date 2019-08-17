@@ -69,7 +69,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
 "7906
 [v _PR2 `Vuc ~T0 @X0 0 e@4043 ]
-"22 ustepping.h
+"27 ustepping.h
 [v _setdc `(v ~T0 @X0 0 ef1`ui ]
 "4392 /opt/microchip/xc8/v1.33/include/pic18f4550.h
 [v _TRISC `Vuc ~T0 @X0 0 e@3988 ]
@@ -151,7 +151,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "439 main.c
 [c E4810 0 1 2 3 4 .. ]
 [n E4810 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE MPAP_CROSSING_HOMESENSOR_MODE MPAP_NORMAL_MODE  ]
-"23 ustepping.h
+"28 ustepping.h
 [v _ustep_lockup `Cui ~T0 @X0 -> 0 `x e ]
 "27 pulsonic.h
 [s S565 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
@@ -159,11 +159,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 "25
 [u S564 `S565 1 `c 1 ]
 [n S564 _errorFlag f packed ]
-"497 main.c
+"499 main.c
 [v _check_oilLevel `(v ~T0 @X0 0 sf ]
-"498
+"500
 [v _check_homeSensor `(v ~T0 @X0 0 sf ]
-"496
+"498
 [v _errorHandler_queue `(v ~T0 @X0 0 sf ]
 "49 pulsonic.h
 [s S567 `d 1 `d 1 `d 1 `d 1 `i 1 `ui 1 ]
@@ -4677,8 +4677,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;flushAtNozzle.h: 12: void flushAtNozzle_setNozzle(int8_t nozzle);
 [; ;flushAtNozzle.h: 13: void flushAtNozzle_cmd(int8_t cmd);
 [; ;flushAtNozzle.h: 14: void flushAtNozzle_job(void);
-[; ;ustepping.h: 22: void setdc(uint16_t dc);
-[; ;ustepping.h: 23: extern const uint16_t ustep_lockup[4+1];
+[; ;ustepping.h: 27: void setdc(uint16_t dc);
+[; ;ustepping.h: 28: extern const uint16_t ustep_lockup[4+1];
 "38 main.c
 [p x PLLDIV=5 ]
 [p x CPUDIV=OSC1_PLL2 ]
@@ -5110,9 +5110,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 187: GIE = 1;
 "187
 [e = _GIE -> -> 1 `i `b ]
-[; ;main.c: 189: loop_test_motor_mosfet();
-"189
-[e ( _loop_test_motor_mosfet ..  ]
 [; ;main.c: 190: while (1)
 "190
 [e :U 634 ]
@@ -5827,143 +5824,143 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 454: {
 "454
 {
-[; ;main.c: 455: if (++ustep_c == 12)
-"455
-[e $ ! == -> =+ F5002 -> -> 1 `i `c `i -> 12 `i 697  ]
-[; ;main.c: 456: {
+[; ;main.c: 456: if (++ustep_c == 32)
 "456
-{
-[; ;main.c: 457: ustep_c = 4 - 1;
+[e $ ! == -> =+ F5002 -> -> 1 `i `c `i -> 32 `i 697  ]
+[; ;main.c: 457: {
 "457
-[e = F5002 -> - -> 4 `i -> 1 `i `c ]
-[; ;main.c: 458: ustep_sm0++;
+{
+[; ;main.c: 458: ustep_c = 4 - 1;
 "458
-[e ++ F5001 -> -> 1 `i `uc ]
+[e = F5002 -> - -> 4 `i -> 1 `i `c ]
+[; ;main.c: 459: ustep_sm0++;
 "459
-}
-[e :U 697 ]
+[e ++ F5001 -> -> 1 `i `uc ]
 "460
 }
-[; ;main.c: 459: }
-[; ;main.c: 460: }
-[e $U 698  ]
+[e :U 697 ]
 "461
-[e :U 696 ]
-[; ;main.c: 461: else if (ustep_sm0 == 3)
-[e $ ! == -> F5001 `i -> 3 `i 699  ]
-[; ;main.c: 462: {
-"462
-{
-[; ;main.c: 463: setdc(ustep_lockup[ustep_c]);
-"463
-[e ( _setdc (1 *U + &U _ustep_lockup * -> -> F5002 `uc `ux -> -> # *U &U _ustep_lockup `ui `ux ]
-[; ;main.c: 465: if (--ustep_c < 0)
-"465
-[e $ ! < -> =- F5002 -> -> 1 `i `c `i -> 0 `i 700  ]
-[; ;main.c: 466: {
-"466
-{
-[; ;main.c: 467: ustep_c = 1;
-"467
-[e = F5002 -> -> 1 `i `c ]
-[; ;main.c: 468: ustep_sm0 = 0x0;
-"468
-[e = F5001 -> -> 0 `i `uc ]
-"470
 }
-[e :U 700 ]
+[; ;main.c: 460: }
+[; ;main.c: 461: }
+[e $U 698  ]
+"462
+[e :U 696 ]
+[; ;main.c: 462: else if (ustep_sm0 == 3)
+[e $ ! == -> F5001 `i -> 3 `i 699  ]
+[; ;main.c: 463: {
+"463
+{
+[; ;main.c: 464: setdc(ustep_lockup[ustep_c]);
+"464
+[e ( _setdc (1 *U + &U _ustep_lockup * -> -> F5002 `uc `ux -> -> # *U &U _ustep_lockup `ui `ux ]
+[; ;main.c: 466: if (--ustep_c < 0)
+"466
+[e $ ! < -> =- F5002 -> -> 1 `i `c `i -> 0 `i 700  ]
+[; ;main.c: 467: {
+"467
+{
+[; ;main.c: 468: ustep_c = 1;
+"468
+[e = F5002 -> -> 1 `i `c ]
+[; ;main.c: 469: ustep_sm0 = 0x0;
+"469
+[e = F5001 -> -> 0 `i `uc ]
 "471
 }
+[e :U 700 ]
+"472
+}
 [e :U 699 ]
-"473
+"474
 [e :U 698 ]
 [e :U 695 ]
-[; ;main.c: 470: }
 [; ;main.c: 471: }
-[; ;main.c: 473: if (++cticks == 20)
+[; ;main.c: 472: }
+[; ;main.c: 474: if (++cticks == 20)
 [e $ ! == -> =+ F5003 -> -> 1 `i `c `i -> 20 `i 701  ]
-[; ;main.c: 474: {
-"474
-{
-[; ;main.c: 475: isr_flag.f1ms = 1;
-"475
-[e = . _isr_flag 0 -> -> 1 `i `uc ]
-[; ;main.c: 476: cticks = 0x00;
+[; ;main.c: 476: {
 "476
-[e = F5003 -> -> 0 `i `c ]
+{
+[; ;main.c: 477: isr_flag.f1ms = 1;
 "477
+[e = . _isr_flag 0 -> -> 1 `i `uc ]
+[; ;main.c: 478: cticks = 0x00;
+"478
+[e = F5003 -> -> 0 `i `c ]
+"479
 }
 [e :U 701 ]
-[; ;main.c: 477: }
-[; ;main.c: 479: TMR2IF = 0;
-"479
+[; ;main.c: 479: }
+[; ;main.c: 481: TMR2IF = 0;
+"481
 [e = _TMR2IF -> -> 0 `i `b ]
-"480
+"482
 }
 [e :U 690 ]
-[; ;main.c: 480: }
-[; ;main.c: 493: }
-"493
+[; ;main.c: 482: }
+[; ;main.c: 495: }
+"495
 [e :UE 689 ]
 }
-"495
+"497
 [v _error_grantedToWriteDisp `S564 ~T0 @X0 1 s ]
-[; ;main.c: 495: static union _errorFlag error_grantedToWriteDisp;
-[; ;main.c: 496: static void errorHandler_queue(void);
-[; ;main.c: 497: static void check_oilLevel(void);
-[; ;main.c: 498: static void check_homeSensor(void);
-"500
+[; ;main.c: 497: static union _errorFlag error_grantedToWriteDisp;
+[; ;main.c: 498: static void errorHandler_queue(void);
+[; ;main.c: 499: static void check_oilLevel(void);
+[; ;main.c: 500: static void check_homeSensor(void);
+"502
 [v _error_job `(v ~T0 @X0 1 ef ]
-"501
+"503
 {
-[; ;main.c: 500: void error_job(void)
-[; ;main.c: 501: {
+[; ;main.c: 502: void error_job(void)
+[; ;main.c: 503: {
 [e :U _error_job ]
 [f ]
-"502
+"504
 [v F5012 `c ~T0 @X0 1 s errorPacked_last ]
 [i F5012
 -> -U -> 1 `i `c
 ]
-[; ;main.c: 502: static intNumMaxErr_t errorPacked_last = -1;
-[; ;main.c: 504: check_oilLevel();
-"504
+[; ;main.c: 504: static intNumMaxErr_t errorPacked_last = -1;
+[; ;main.c: 506: check_oilLevel();
+"506
 [e ( _check_oilLevel ..  ]
-[; ;main.c: 505: check_homeSensor();
-"505
+[; ;main.c: 507: check_homeSensor();
+"507
 [e ( _check_homeSensor ..  ]
-[; ;main.c: 508: errorHandler_queue();
-"508
-[e ( _errorHandler_queue ..  ]
-[; ;main.c: 510: if (errorPacked_last != pulsonic.error.packed)
+[; ;main.c: 510: errorHandler_queue();
 "510
-[e $ ! != -> F5012 `i -> . . _pulsonic 0 1 `i 703  ]
-[; ;main.c: 511: {
-"511
-{
-[; ;main.c: 512: errorPacked_last = pulsonic.error.packed;
+[e ( _errorHandler_queue ..  ]
+[; ;main.c: 512: if (errorPacked_last != pulsonic.error.packed)
 "512
-[e = F5012 . . _pulsonic 0 1 ]
-[; ;main.c: 514: if (errorPacked_last != 0)
-"514
-[e $ ! != -> F5012 `i -> 0 `i 704  ]
-[; ;main.c: 515: {
-"515
+[e $ ! != -> F5012 `i -> . . _pulsonic 0 1 `i 703  ]
+[; ;main.c: 513: {
+"513
 {
-[; ;main.c: 516: mpap_stall();
+[; ;main.c: 514: errorPacked_last = pulsonic.error.packed;
+"514
+[e = F5012 . . _pulsonic 0 1 ]
+[; ;main.c: 516: if (errorPacked_last != 0)
 "516
-[e ( _mpap_stall ..  ]
-[; ;main.c: 517: pump_stop();
+[e $ ! != -> F5012 `i -> 0 `i 704  ]
+[; ;main.c: 517: {
 "517
-[e ( _pump_stop ..  ]
-[; ;main.c: 518: flushAllMode_cmd(JOB_STOP);
+{
+[; ;main.c: 518: mpap_stall();
 "518
-[e ( _flushAllMode_cmd (1 -> . `E4712 1 `c ]
-[; ;main.c: 519: funcMach = FUNCMACH_ERROR;
+[e ( _mpap_stall ..  ]
+[; ;main.c: 519: pump_stop();
 "519
-[e = _funcMach -> . `E4702 2 `c ]
-[; ;main.c: 520: do{do{LATA |= 1<<5;}while(0);}while(0);
+[e ( _pump_stop ..  ]
+[; ;main.c: 520: flushAllMode_cmd(JOB_STOP);
 "520
+[e ( _flushAllMode_cmd (1 -> . `E4712 1 `c ]
+[; ;main.c: 521: funcMach = FUNCMACH_ERROR;
+"521
+[e = _funcMach -> . `E4702 2 `c ]
+[; ;main.c: 522: do{do{LATA |= 1<<5;}while(0);}while(0);
+"522
 [e :U 707 ]
 {
 [e :U 710 ]
@@ -5973,33 +5970,33 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 709 ]
 }
 [e :U 706 ]
-"521
-}
-[; ;main.c: 521: }
-[e $U 711  ]
-"522
-[e :U 704 ]
-[; ;main.c: 522: else
-[; ;main.c: 523: {
 "523
-{
-[; ;main.c: 524: funcMach = FUNCMACH_NORMAL;
+}
+[; ;main.c: 523: }
+[e $U 711  ]
 "524
-[e = _funcMach -> . `E4702 0 `c ]
-[; ;main.c: 525: psFlag.autoMode_lock = UNLOCKED;
+[e :U 704 ]
+[; ;main.c: 524: else
+[; ;main.c: 525: {
 "525
-[e = . _psFlag 2 -> . `E4968 0 `uc ]
-[; ;main.c: 526: psFlag.checkNewStart = 1;
+{
+[; ;main.c: 526: funcMach = FUNCMACH_NORMAL;
 "526
-[e = . _psFlag 0 -> -> 1 `i `uc ]
-[; ;main.c: 527: psFlag.autoMode_toreturn_disp7s = 1;
+[e = _funcMach -> . `E4702 0 `c ]
+[; ;main.c: 527: psFlag.autoMode_lock = UNLOCKED;
 "527
-[e = . _psFlag 3 -> -> 1 `i `uc ]
-[; ;main.c: 528: pulsonic.flags.homed = 0;
+[e = . _psFlag 2 -> . `E4968 0 `uc ]
+[; ;main.c: 528: psFlag.checkNewStart = 1;
 "528
-[e = . . _pulsonic 14 0 -> -> 0 `i `uc ]
-[; ;main.c: 529: do{do{LATA &= ~(1<<5);}while(0);}while(0);
+[e = . _psFlag 0 -> -> 1 `i `uc ]
+[; ;main.c: 529: psFlag.autoMode_toreturn_disp7s = 1;
 "529
+[e = . _psFlag 3 -> -> 1 `i `uc ]
+[; ;main.c: 530: pulsonic.flags.homed = 0;
+"530
+[e = . . _pulsonic 14 0 -> -> 0 `i `uc ]
+[; ;main.c: 531: do{do{LATA &= ~(1<<5);}while(0);}while(0);
+"531
 [e :U 714 ]
 {
 [e :U 717 ]
@@ -6009,389 +6006,389 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 716 ]
 }
 [e :U 713 ]
-"530
+"532
 }
 [e :U 711 ]
-"531
+"533
 }
 [e :U 703 ]
-[; ;main.c: 530: }
-[; ;main.c: 531: }
 [; ;main.c: 532: }
-"532
+[; ;main.c: 533: }
+[; ;main.c: 534: }
+"534
 [e :UE 702 ]
 }
-"535
+"537
 [v _check_homeSensor `(v ~T0 @X0 1 sf ]
-"536
+"538
 {
-[; ;main.c: 535: static void check_homeSensor(void)
-[; ;main.c: 536: {
+[; ;main.c: 537: static void check_homeSensor(void)
+[; ;main.c: 538: {
 [e :U _check_homeSensor ]
 [f ]
-"537
+"539
 [v F5014 `c ~T0 @X0 1 s sm0 ]
 [v F5015 `c ~T0 @X0 1 s sm1 ]
-[; ;main.c: 537: static int8_t sm0, sm1;
-[; ;main.c: 539: if (sm0 == 0)
-"539
-[e $ ! == -> F5014 `i -> 0 `i 719  ]
-[; ;main.c: 540: {
-"540
-{
-[; ;main.c: 541: if (pulsonic.error.f.homeSensor == 1)
+[; ;main.c: 539: static int8_t sm0, sm1;
+[; ;main.c: 541: if (sm0 == 0)
 "541
-[e $ ! == -> . . . _pulsonic 0 0 1 `i -> 1 `i 720  ]
+[e $ ! == -> F5014 `i -> 0 `i 719  ]
 [; ;main.c: 542: {
 "542
 {
-[; ;main.c: 545: sm0++;
-"545
-[e ++ F5014 -> -> 1 `i `c ]
-[; ;main.c: 546: sm1 = 0x00;
-"546
-[e = F5015 -> -> 0 `i `c ]
+[; ;main.c: 543: if (pulsonic.error.f.homeSensor == 1)
+"543
+[e $ ! == -> . . . _pulsonic 0 0 1 `i -> 1 `i 720  ]
+[; ;main.c: 544: {
+"544
+{
+[; ;main.c: 547: sm0++;
 "547
+[e ++ F5014 -> -> 1 `i `c ]
+[; ;main.c: 548: sm1 = 0x00;
+"548
+[e = F5015 -> -> 0 `i `c ]
+"549
 }
 [e :U 720 ]
-"548
-}
-[; ;main.c: 547: }
-[; ;main.c: 548: }
-[e $U 721  ]
-"549
-[e :U 719 ]
-[; ;main.c: 549: else if (sm0 == 1)
-[e $ ! == -> F5014 `i -> 1 `i 722  ]
-[; ;main.c: 550: {
 "550
-{
-[; ;main.c: 552: if (0)
-"552
-[e $ ! != -> 0 `i -> 0 `i 723  ]
-[; ;main.c: 553: {
-"553
-{
-"556
 }
-[; ;main.c: 556: }
-[e $U 724  ]
-"557
-[e :U 723 ]
-[; ;main.c: 557: else
-[; ;main.c: 558: {
-"558
+[; ;main.c: 549: }
+[; ;main.c: 550: }
+[e $U 721  ]
+"551
+[e :U 719 ]
+[; ;main.c: 551: else if (sm0 == 1)
+[e $ ! == -> F5014 `i -> 1 `i 722  ]
+[; ;main.c: 552: {
+"552
 {
-[; ;main.c: 559: if (error_grantedToWriteDisp.f.homeSensor == 1)
+[; ;main.c: 554: if (0)
+"554
+[e $ ! != -> 0 `i -> 0 `i 723  ]
+[; ;main.c: 555: {
+"555
+{
+"558
+}
+[; ;main.c: 558: }
+[e $U 724  ]
 "559
-[e $ ! == -> . . _error_grantedToWriteDisp 0 1 `i -> 1 `i 725  ]
+[e :U 723 ]
+[; ;main.c: 559: else
 [; ;main.c: 560: {
 "560
 {
-[; ;main.c: 561: if (sm1 == 0)
+[; ;main.c: 561: if (error_grantedToWriteDisp.f.homeSensor == 1)
 "561
-[e $ ! == -> F5015 `i -> 0 `i 726  ]
+[e $ ! == -> . . _error_grantedToWriteDisp 0 1 `i -> 1 `i 725  ]
 [; ;main.c: 562: {
 "562
 {
-[; ;main.c: 563: disp7s_qtyDisp_writeText_NO_HOME_SENSOR();
+[; ;main.c: 563: if (sm1 == 0)
 "563
-[e ( _disp7s_qtyDisp_writeText_NO_HOME_SENSOR ..  ]
-[; ;main.c: 564: sm1++;
+[e $ ! == -> F5015 `i -> 0 `i 726  ]
+[; ;main.c: 564: {
 "564
-[e ++ F5015 -> -> 1 `i `c ]
+{
+[; ;main.c: 565: disp7s_qtyDisp_writeText_NO_HOME_SENSOR();
 "565
+[e ( _disp7s_qtyDisp_writeText_NO_HOME_SENSOR ..  ]
+[; ;main.c: 566: sm1++;
+"566
+[e ++ F5015 -> -> 1 `i `c ]
+"567
 }
 [e :U 726 ]
-"566
-}
-[; ;main.c: 565: }
-[; ;main.c: 566: }
-[e $U 727  ]
-"567
-[e :U 725 ]
-[; ;main.c: 567: else
-[; ;main.c: 568: {
 "568
-{
-[; ;main.c: 569: sm1 = 0x0;
+}
+[; ;main.c: 567: }
+[; ;main.c: 568: }
+[e $U 727  ]
 "569
-[e = F5015 -> -> 0 `i `c ]
+[e :U 725 ]
+[; ;main.c: 569: else
+[; ;main.c: 570: {
 "570
-}
-[e :U 727 ]
+{
+[; ;main.c: 571: sm1 = 0x0;
 "571
-}
-[e :U 724 ]
+[e = F5015 -> -> 0 `i `c ]
 "572
 }
-[e :U 722 ]
+[e :U 727 ]
 "573
+}
+[e :U 724 ]
+"574
+}
+[e :U 722 ]
+"575
 [e :U 721 ]
-[; ;main.c: 570: }
-[; ;main.c: 571: }
 [; ;main.c: 572: }
 [; ;main.c: 573: }
+[; ;main.c: 574: }
+[; ;main.c: 575: }
 [e :UE 718 ]
 }
-"574
+"576
 [v _check_oilLevel `(v ~T0 @X0 1 sf ]
-"575
+"577
 {
-[; ;main.c: 574: static void check_oilLevel(void)
-[; ;main.c: 575: {
+[; ;main.c: 576: static void check_oilLevel(void)
+[; ;main.c: 577: {
 [e :U _check_oilLevel ]
 [f ]
-"576
+"578
 [v F5017 `c ~T0 @X0 1 s sm0 ]
 [v F5018 `c ~T0 @X0 1 s sm1 ]
-"578
-[v _oilLevel `c ~T0 @X0 1 a ]
-[; ;main.c: 576: static int8_t sm0, sm1;
-[; ;main.c: 578: int8_t oilLevel;
-[; ;main.c: 580: oilLevel = is_oilLevel();
 "580
-[e = _oilLevel ( _is_oilLevel ..  ]
-[; ;main.c: 582: if (sm0 == 0)
+[v _oilLevel `c ~T0 @X0 1 a ]
+[; ;main.c: 578: static int8_t sm0, sm1;
+[; ;main.c: 580: int8_t oilLevel;
+[; ;main.c: 582: oilLevel = is_oilLevel();
 "582
-[e $ ! == -> F5017 `i -> 0 `i 729  ]
-[; ;main.c: 583: {
-"583
-{
-[; ;main.c: 584: if (!oilLevel)
+[e = _oilLevel ( _is_oilLevel ..  ]
+[; ;main.c: 584: if (sm0 == 0)
 "584
-[e $ ! ! != -> _oilLevel `i -> -> -> 0 `i `c `i 730  ]
+[e $ ! == -> F5017 `i -> 0 `i 729  ]
 [; ;main.c: 585: {
 "585
 {
-[; ;main.c: 586: pulsonic.error.f.oilLevel = 1;
+[; ;main.c: 586: if (!oilLevel)
 "586
-[e = . . . _pulsonic 0 0 0 -> -> 1 `i `uc ]
-[; ;main.c: 587: sm0++;
+[e $ ! ! != -> _oilLevel `i -> -> -> 0 `i `c `i 730  ]
+[; ;main.c: 587: {
 "587
-[e ++ F5017 -> -> 1 `i `c ]
-[; ;main.c: 588: sm1 = 0x00;
+{
+[; ;main.c: 588: pulsonic.error.f.oilLevel = 1;
 "588
-[e = F5018 -> -> 0 `i `c ]
+[e = . . . _pulsonic 0 0 0 -> -> 1 `i `uc ]
+[; ;main.c: 589: sm0++;
 "589
+[e ++ F5017 -> -> 1 `i `c ]
+[; ;main.c: 590: sm1 = 0x00;
+"590
+[e = F5018 -> -> 0 `i `c ]
+"591
 }
 [e :U 730 ]
-"590
-}
-[; ;main.c: 589: }
-[; ;main.c: 590: }
-[e $U 731  ]
-"591
-[e :U 729 ]
-[; ;main.c: 591: else if (sm0 == 1)
-[e $ ! == -> F5017 `i -> 1 `i 732  ]
-[; ;main.c: 592: {
 "592
-{
-[; ;main.c: 593: if (oilLevel)
+}
+[; ;main.c: 591: }
+[; ;main.c: 592: }
+[e $U 731  ]
 "593
-[e $ ! != -> _oilLevel `i -> -> -> 0 `i `c `i 733  ]
+[e :U 729 ]
+[; ;main.c: 593: else if (sm0 == 1)
+[e $ ! == -> F5017 `i -> 1 `i 732  ]
 [; ;main.c: 594: {
 "594
 {
-[; ;main.c: 595: pulsonic.error.f.oilLevel = 0;
+[; ;main.c: 595: if (oilLevel)
 "595
-[e = . . . _pulsonic 0 0 0 -> -> 0 `i `uc ]
-[; ;main.c: 596: sm0 = 0x00;
+[e $ ! != -> _oilLevel `i -> -> -> 0 `i `c `i 733  ]
+[; ;main.c: 596: {
 "596
-[e = F5017 -> -> 0 `i `c ]
-"597
-}
-[; ;main.c: 597: }
-[e $U 734  ]
-"598
-[e :U 733 ]
-[; ;main.c: 598: else
-[; ;main.c: 599: {
-"599
 {
-[; ;main.c: 600: if (error_grantedToWriteDisp.f.oilLevel == 1)
+[; ;main.c: 597: pulsonic.error.f.oilLevel = 0;
+"597
+[e = . . . _pulsonic 0 0 0 -> -> 0 `i `uc ]
+[; ;main.c: 598: sm0 = 0x00;
+"598
+[e = F5017 -> -> 0 `i `c ]
+"599
+}
+[; ;main.c: 599: }
+[e $U 734  ]
 "600
-[e $ ! == -> . . _error_grantedToWriteDisp 0 0 `i -> 1 `i 735  ]
+[e :U 733 ]
+[; ;main.c: 600: else
 [; ;main.c: 601: {
 "601
 {
-[; ;main.c: 602: if (sm1 == 0)
+[; ;main.c: 602: if (error_grantedToWriteDisp.f.oilLevel == 1)
 "602
-[e $ ! == -> F5018 `i -> 0 `i 736  ]
+[e $ ! == -> . . _error_grantedToWriteDisp 0 0 `i -> 1 `i 735  ]
 [; ;main.c: 603: {
 "603
 {
-[; ;main.c: 604: disp7s_qtyDisp_writeText_NO_OIL();
+[; ;main.c: 604: if (sm1 == 0)
 "604
-[e ( _disp7s_qtyDisp_writeText_NO_OIL ..  ]
-[; ;main.c: 605: sm1++;
+[e $ ! == -> F5018 `i -> 0 `i 736  ]
+[; ;main.c: 605: {
 "605
-[e ++ F5018 -> -> 1 `i `c ]
+{
+[; ;main.c: 606: disp7s_qtyDisp_writeText_NO_OIL();
 "606
+[e ( _disp7s_qtyDisp_writeText_NO_OIL ..  ]
+[; ;main.c: 607: sm1++;
+"607
+[e ++ F5018 -> -> 1 `i `c ]
+"608
 }
 [e :U 736 ]
-"607
-}
-[; ;main.c: 606: }
-[; ;main.c: 607: }
-[e $U 737  ]
-"608
-[e :U 735 ]
-[; ;main.c: 608: else
-[; ;main.c: 609: {
 "609
-{
-[; ;main.c: 610: sm1 = 0x0;
+}
+[; ;main.c: 608: }
+[; ;main.c: 609: }
+[e $U 737  ]
 "610
-[e = F5018 -> -> 0 `i `c ]
+[e :U 735 ]
+[; ;main.c: 610: else
+[; ;main.c: 611: {
 "611
-}
-[e :U 737 ]
+{
+[; ;main.c: 612: sm1 = 0x0;
 "612
-}
-[e :U 734 ]
+[e = F5018 -> -> 0 `i `c ]
 "613
 }
-[e :U 732 ]
+[e :U 737 ]
 "614
+}
+[e :U 734 ]
+"615
+}
+[e :U 732 ]
+"616
 [e :U 731 ]
-[; ;main.c: 611: }
-[; ;main.c: 612: }
 [; ;main.c: 613: }
 [; ;main.c: 614: }
+[; ;main.c: 615: }
+[; ;main.c: 616: }
 [e :UE 728 ]
 }
-"616
+"618
 [v _errorHandler_queue `(v ~T0 @X0 1 sf ]
-"617
+"619
 {
-[; ;main.c: 616: static void errorHandler_queue(void)
-[; ;main.c: 617: {
+[; ;main.c: 618: static void errorHandler_queue(void)
+[; ;main.c: 619: {
 [e :U _errorHandler_queue ]
 [f ]
-"620
+"622
 [v F5021 `c ~T0 @X0 1 s i ]
 [i F5021
 -> -U -> 1 `i `c
 ]
-"621
-[v F5022 `c ~T0 @X0 1 s sm0 ]
-"622
-[v F5023 `ui ~T0 @X0 1 s c ]
 "623
-[v _is_granted `c ~T0 @X0 1 a ]
-[; ;main.c: 620: static int8_t i = -1;
-[; ;main.c: 621: static int8_t sm0;
-[; ;main.c: 622: static uint16_t c;
-[; ;main.c: 623: intNumMaxErr_t is_granted;
-[; ;main.c: 625: if (sm0 == 0)
+[v F5022 `c ~T0 @X0 1 s sm0 ]
+"624
+[v F5023 `ui ~T0 @X0 1 s c ]
 "625
-[e $ ! == -> F5022 `i -> 0 `i 739  ]
-[; ;main.c: 626: {
-"626
-{
-[; ;main.c: 627: if (++i == 8)
+[v _is_granted `c ~T0 @X0 1 a ]
+[; ;main.c: 622: static int8_t i = -1;
+[; ;main.c: 623: static int8_t sm0;
+[; ;main.c: 624: static uint16_t c;
+[; ;main.c: 625: intNumMaxErr_t is_granted;
+[; ;main.c: 627: if (sm0 == 0)
 "627
-[e $ ! == -> =+ F5021 -> -> 1 `i `c `i -> 8 `i 740  ]
+[e $ ! == -> F5022 `i -> 0 `i 739  ]
 [; ;main.c: 628: {
 "628
 {
-[; ;main.c: 629: i = 0x00;
+[; ;main.c: 629: if (++i == 8)
 "629
-[e = F5021 -> -> 0 `i `c ]
+[e $ ! == -> =+ F5021 -> -> 1 `i `c `i -> 8 `i 740  ]
+[; ;main.c: 630: {
 "630
+{
+[; ;main.c: 631: i = 0x00;
+"631
+[e = F5021 -> -> 0 `i `c ]
+"632
 }
 [e :U 740 ]
-[; ;main.c: 630: }
-[; ;main.c: 632: is_granted = pulsonic.error.packed & (1 << i);
-"632
-[e = _is_granted -> & -> . . _pulsonic 0 1 `i << -> 1 `i F5021 `c ]
-[; ;main.c: 633: if (is_granted)
-"633
-[e $ ! != -> _is_granted `i -> -> -> 0 `i `c `i 741  ]
-[; ;main.c: 634: {
+[; ;main.c: 632: }
+[; ;main.c: 634: is_granted = pulsonic.error.packed & (1 << i);
 "634
-{
-[; ;main.c: 635: error_grantedToWriteDisp.packed = is_granted;
+[e = _is_granted -> & -> . . _pulsonic 0 1 `i << -> 1 `i F5021 `c ]
+[; ;main.c: 635: if (is_granted)
 "635
-[e = . _error_grantedToWriteDisp 1 _is_granted ]
-[; ;main.c: 636: c = 0x0;
+[e $ ! != -> _is_granted `i -> -> -> 0 `i `c `i 741  ]
+[; ;main.c: 636: {
 "636
-[e = F5023 -> -> 0 `i `ui ]
-[; ;main.c: 637: sm0++;
+{
+[; ;main.c: 637: error_grantedToWriteDisp.packed = is_granted;
 "637
-[e ++ F5022 -> -> 1 `i `c ]
+[e = . _error_grantedToWriteDisp 1 _is_granted ]
+[; ;main.c: 638: c = 0x0;
 "638
-}
-[e :U 741 ]
+[e = F5023 -> -> 0 `i `ui ]
+[; ;main.c: 639: sm0++;
+"639
+[e ++ F5022 -> -> 1 `i `c ]
 "640
 }
-[; ;main.c: 638: }
-[; ;main.c: 640: }
-[e $U 742  ]
-"641
-[e :U 739 ]
-[; ;main.c: 641: else if (sm0 == 1)
-[e $ ! == -> F5022 `i -> 1 `i 743  ]
-[; ;main.c: 642: {
+[e :U 741 ]
 "642
-{
-[; ;main.c: 643: if (pulsonic.error.packed & (1 << i))
+}
+[; ;main.c: 640: }
+[; ;main.c: 642: }
+[e $U 742  ]
 "643
-[e $ ! != & -> . . _pulsonic 0 1 `i << -> 1 `i F5021 -> 0 `i 744  ]
+[e :U 739 ]
+[; ;main.c: 643: else if (sm0 == 1)
+[e $ ! == -> F5022 `i -> 1 `i 743  ]
 [; ;main.c: 644: {
 "644
 {
-[; ;main.c: 645: if (smain.f.f1ms)
+[; ;main.c: 645: if (pulsonic.error.packed & (1 << i))
 "645
-[e $ ! != -> . . _smain 0 0 `i -> -> -> 0 `i `Vuc `i 745  ]
+[e $ ! != & -> . . _pulsonic 0 1 `i << -> 1 `i F5021 -> 0 `i 744  ]
 [; ;main.c: 646: {
 "646
 {
-[; ;main.c: 647: if (++c >= 2000)
+[; ;main.c: 647: if (smain.f.f1ms)
 "647
-[e $ ! >= =+ F5023 -> -> 1 `i `ui -> -> 2000 `i `ui 746  ]
+[e $ ! != -> . . _smain 0 0 `i -> -> -> 0 `i `Vuc `i 745  ]
 [; ;main.c: 648: {
 "648
 {
-[; ;main.c: 649: c = 0;
+[; ;main.c: 649: if (++c >= 2000)
 "649
-[e = F5023 -> -> 0 `i `ui ]
-[; ;main.c: 650: sm0 = 0;
+[e $ ! >= =+ F5023 -> -> 1 `i `ui -> -> 2000 `i `ui 746  ]
+[; ;main.c: 650: {
 "650
-[e = F5022 -> -> 0 `i `c ]
+{
+[; ;main.c: 651: c = 0;
 "651
-}
-[e :U 746 ]
+[e = F5023 -> -> 0 `i `ui ]
+[; ;main.c: 652: sm0 = 0;
 "652
-}
-[e :U 745 ]
+[e = F5022 -> -> 0 `i `c ]
 "653
 }
-[; ;main.c: 651: }
-[; ;main.c: 652: }
-[; ;main.c: 653: }
-[e $U 747  ]
+[e :U 746 ]
 "654
-[e :U 744 ]
-[; ;main.c: 654: else
-[; ;main.c: 655: {
+}
+[e :U 745 ]
 "655
-{
-[; ;main.c: 656: sm0 = 0x00;
+}
+[; ;main.c: 653: }
+[; ;main.c: 654: }
+[; ;main.c: 655: }
+[e $U 747  ]
 "656
-[e = F5022 -> -> 0 `i `c ]
+[e :U 744 ]
+[; ;main.c: 656: else
+[; ;main.c: 657: {
 "657
+{
+[; ;main.c: 658: sm0 = 0x00;
+"658
+[e = F5022 -> -> 0 `i `c ]
+"659
 }
 [e :U 747 ]
-"658
+"660
 }
 [e :U 743 ]
-"659
+"661
 [e :U 742 ]
-[; ;main.c: 657: }
-[; ;main.c: 658: }
 [; ;main.c: 659: }
+[; ;main.c: 660: }
+[; ;main.c: 661: }
 [e :UE 738 ]
 }

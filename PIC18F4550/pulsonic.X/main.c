@@ -186,7 +186,7 @@ void main(void)
     PEIE = 1;
     GIE = 1;
 
-loop_test_motor_mosfet();//for debug temperature of mosfet + motor
+// loop_test_motor_mosfet();//for debug temperature of mosfet + motor
     while (1)
     {
         if (isr_flag.f1ms)
@@ -452,7 +452,8 @@ void interrupt INTERRUPCION(void)
         }
         else if (ustep_sm0 == 2)
         {
-            if (++ustep_c == 12)
+            //if (++ustep_c == 12)
+            if (++ustep_c == 32)
             {
                 ustep_c = MICROSTEP_N - 1; //ustep_c = 0x3;
                 ustep_sm0++;
@@ -471,6 +472,7 @@ void interrupt INTERRUPCION(void)
         }
         //
         if (++cticks == 20)//50us*20 = 1ms
+        //if (++cticks == 40)//25us*40 = 1ms
         {
             isr_flag.f1ms = 1;
             cticks = 0x00;

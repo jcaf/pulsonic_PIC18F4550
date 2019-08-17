@@ -1,8 +1,6 @@
 #include "main.h"
 #include "pump.h"
 
-
-
 static struct _pump pump;
 
 void pump_setTick(uint16_t ticks)
