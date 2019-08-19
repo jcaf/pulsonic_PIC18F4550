@@ -5907,12 +5907,7 @@ pulsonic.numNozzle++;
 if (pulsonic.numNozzle >= 18)
 {
 pulsonic.numNozzle = 0x00;
-
-
-
 }
-
-# 58
 flushAllMode.sm0++;
 }
 }

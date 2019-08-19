@@ -6034,8 +6034,6 @@ if (pulsonic.numNozzle >= 18)
 {
 pulsonic.numNozzle = 0x00;
 
-
-
 mpap_doMovement(1 * 200, MPAP_CROSSING_HOMESENSOR_MODE);
 
 
@@ -6157,7 +6155,7 @@ c_min = 0x00;
 }
 }
 
-# 356
+# 354
 void autoMode_job_temperature(void)
 {
 

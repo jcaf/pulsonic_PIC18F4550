@@ -162,8 +162,6 @@ void autoMode_job(void)
             {
                 pulsonic.numNozzle = 0x00;
                 //
-                //mpap_setupToTurn(1 * MPAP_NUMSTEP_1NOZZLE);
-                //mpap_setMode(MPAP_CROSSING_HOMESENSOR_MODE);
                 mpap_doMovement(1 * MPAP_NUMSTEP_1NOZZLE, MPAP_CROSSING_HOMESENSOR_MODE);
                 
                 //

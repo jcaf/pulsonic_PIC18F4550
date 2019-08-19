@@ -46,15 +46,7 @@ void flushAllMode_job(void)
                 if (pulsonic.numNozzle >= NOZZLE_NUMMAX)
                 {
                     pulsonic.numNozzle = 0x00;
-                    
-                    //mpap_doMovement(1 * MPAP_NUMSTEP_1NOZZLE, MPAP_CROSSING_HOMESENSOR_MODE);
-                    //
                 }
-                //else
-                //{
-                //mpap_movetoNozzle(pulsonic.numNozzle);
-                //}
-                
                 flushAllMode.sm0++;
             }
         }

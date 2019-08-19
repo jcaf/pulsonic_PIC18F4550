@@ -97,13 +97,14 @@ void mpap_doMovement(int16_t numSteps_tomove, int8_t mode)
     if (numSteps_tomove != 0)
     {
         mpap_setup_movement(numSteps_tomove);
-        mpap.mode =  mode;
         
         //post
         if (mode == MPAP_CROSSING_HOMESENSOR_MODE)
         {
-            counterZeros = 0x00;
+            counterZeros = 0x0000;
         }
+        /*must be the last to change, this is for the ISR*/
+        mpap.mode =  mode;
     }
     else
     {
@@ -116,15 +117,12 @@ int16_t mpap_get_numSteps_current(void)
     return mpap.numSteps_current;
 }
 
-    
-
-
 void mpap_setup_searchFirstPointHomeSensor(void)
 {
     //mpap_setupToTurn(); 
     //mpap_setMode(MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
     
-    mpap_doMovement(+1 * ((18 * MPAP_NUMSTEP_1NOZZLE) + 20),MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
+    mpap_doMovement(+1 * ((18 * MPAP_NUMSTEP_1NOZZLE) + 20), MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
 }
 
 /* mpap.numSteps_current se mantiene, no se pierde 
@@ -209,7 +207,6 @@ static int8_t mpap_crossingHomeSensor(void)
 {
     int8_t cod_ret = 0;
     
-    
     if (mpap.numSteps_tomove != 0)
     {
         mpap_do1step(mpap.KI);
@@ -243,7 +240,7 @@ void mpap_job(void)//ISR
     {
         if (mpap_crossingHomeSensor())
         {
-            if (counterZeros >= 200*0.9)
+            if (counterZeros >= (MPAP_NUMSTEP_1NOZZLE*0.2))
             {
                pulsonic.error.f.homeSensor = 0;
                pulsonic.flags.homed = 1;
@@ -350,8 +347,6 @@ int8_t mpap_homming_job(void)
         {
             if (pulsonic.error.f.homeSensor == 0)
             {
-                //mpap_setupToTurn(1 * MPAP_NUMSTEP_1NOZZLE);
-                //mpap_setMode(MPAP_CROSSING_HOMESENSOR_MODE);
                 mpap_doMovement(1 * MPAP_NUMSTEP_1NOZZLE, MPAP_CROSSING_HOMESENSOR_MODE);
                 
                 homming.sm0++;
