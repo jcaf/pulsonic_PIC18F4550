@@ -5861,7 +5861,6 @@ cod_ret = 1;
 }
 else
 {
-
 sm0 = 2;
 }
 }
@@ -5871,12 +5870,7 @@ if (mpap_isIdle())
 {
 mpap.numSteps_current = 0x0000;
 
-
-if (((PORTE & (1<<1))>>1) == 1)
-{
-pulsonic.error.f.homeSensor = 1;
-pulsonic.flags.homed = 0;
-}
+# 83
 cod_ret = 1;
 }
 }

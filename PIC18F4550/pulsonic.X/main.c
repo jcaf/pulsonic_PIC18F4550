@@ -86,7 +86,6 @@ void mykb_layout0(void)
     prop.uFlag.f.whilePressing = 1;
     ikb_setKeyProp(KB_LYOUT_KEY_FLUSHENTER, prop);
 }
-int8_t mpap_homming_job(void);
 
 /* only for test MOSFET + MOTOR TEMPERATURE*/
 void loop_test_motor_mosfet(void)

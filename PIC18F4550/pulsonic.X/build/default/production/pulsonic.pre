@@ -5785,9 +5785,20 @@ pulsonic.dist_total_time = 60;
 for (i=0; i< 18; i++)
 {
 pulsonic.nozzle[i].Q_mlh = eepromRead_double(&(((double*)0x00)[i]));
+
+if (pulsonic.nozzle[i].Q_mlh > 12.0)
+{
+pulsonic.nozzle[i].Q_mlh = 12.0;
+}
 }
 
 pulsonic.oil.i = eepromRead( 0x00 + (18*sizeof(double)) );
+
+if ( pulsonic.oil.i > 4-1)
+{
+pulsonic.oil.i = 4 -1;
+}
+
 pulsonic.oil.viscosity = OIL_VISCOSITY[pulsonic.oil.i];
 
 pulsonic.numNozzleAvailable = pulsonic_getNumNozzleAvailable();

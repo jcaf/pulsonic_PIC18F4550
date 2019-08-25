@@ -33,11 +33,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S564 _mpap numSteps_current counter_steps numSteps_tomove KI mode ]
 "27
 [v _mpap `VS564 ~T0 @X0 0 e ]
-"3107 /opt/microchip/xc8/v1.33/include/pic18f4550.h
-[v _PORTE `Vuc ~T0 @X0 0 e@3972 ]
-"42 mpap.h
+"42
 [v _mpap_doMovement `(v ~T0 @X0 0 ef2`i`c ]
-"101 nozzle.c
+"102 nozzle.c
 [c E4715 0 1 2 3 4 .. ]
 [n E4715 MPAP_MODES MPAP_IDLE_MODE MPAP_STALL_MODE MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE MPAP_CROSSING_HOMESENSOR_MODE MPAP_NORMAL_MODE  ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
@@ -4625,175 +4623,159 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;nozzle.c: 65: {
 "65
 {
-[; ;nozzle.c: 67: sm0 = 2;
-"67
+[; ;nozzle.c: 66: sm0 = 2;
+"66
 [e = _sm0 -> -> 2 `i `c ]
-"68
+"67
 }
 [e :U 584 ]
-"69
+"68
 }
+[; ;nozzle.c: 67: }
 [; ;nozzle.c: 68: }
-[; ;nozzle.c: 69: }
 [e $U 585  ]
-"70
+"69
 [e :U 577 ]
-[; ;nozzle.c: 70: else if (sm0 == 1)
+[; ;nozzle.c: 69: else if (sm0 == 1)
 [e $ ! == -> _sm0 `i -> 1 `i 586  ]
-[; ;nozzle.c: 71: {
+[; ;nozzle.c: 70: {
+"70
+{
+[; ;nozzle.c: 71: if (mpap_isIdle())
 "71
-{
-[; ;nozzle.c: 72: if (mpap_isIdle())
-"72
 [e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 587  ]
-[; ;nozzle.c: 73: {
+[; ;nozzle.c: 72: {
+"72
+{
+[; ;nozzle.c: 73: mpap.numSteps_current = 0x0000;
 "73
-{
-[; ;nozzle.c: 74: mpap.numSteps_current = 0x0000;
-"74
 [e = . _mpap 0 -> 0 `i ]
-[; ;nozzle.c: 77: if (((PORTE & (1<<1))>>1) == 1)
-"77
-[e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 1 `i 588  ]
-[; ;nozzle.c: 78: {
-"78
-{
-[; ;nozzle.c: 79: pulsonic.error.f.homeSensor = 1;
-"79
-[e = . . . _pulsonic 0 0 1 -> -> 1 `i `uc ]
-[; ;nozzle.c: 80: pulsonic.flags.homed = 0;
-"80
-[e = . . _pulsonic 14 0 -> -> 0 `i `uc ]
-"81
-}
-[e :U 588 ]
-[; ;nozzle.c: 81: }
-[; ;nozzle.c: 82: cod_ret = 1;
-"82
-[e = _cod_ret -> -> 1 `i `c ]
+[; ;nozzle.c: 83: cod_ret = 1;
 "83
-}
-[e :U 587 ]
+[e = _cod_ret -> -> 1 `i `c ]
 "84
 }
-[; ;nozzle.c: 83: }
-[; ;nozzle.c: 84: }
-[e $U 589  ]
+[e :U 587 ]
 "85
-[e :U 586 ]
-[; ;nozzle.c: 85: else if (sm0 == 2)
-[e $ ! == -> _sm0 `i -> 2 `i 590  ]
-[; ;nozzle.c: 86: {
+}
+[; ;nozzle.c: 84: }
+[; ;nozzle.c: 85: }
+[e $U 588  ]
 "86
-{
-[; ;nozzle.c: 87: mpap_movetoNozzle(n);
+[e :U 586 ]
+[; ;nozzle.c: 86: else if (sm0 == 2)
+[e $ ! == -> _sm0 `i -> 2 `i 589  ]
+[; ;nozzle.c: 87: {
 "87
-[e ( _mpap_movetoNozzle (1 _n ]
-[; ;nozzle.c: 88: sm0++;
+{
+[; ;nozzle.c: 88: mpap_movetoNozzle(n);
 "88
-[e ++ _sm0 -> -> 1 `i `c ]
+[e ( _mpap_movetoNozzle (1 _n ]
+[; ;nozzle.c: 89: sm0++;
 "89
-}
-[; ;nozzle.c: 89: }
-[e $U 591  ]
+[e ++ _sm0 -> -> 1 `i `c ]
 "90
-[e :U 590 ]
-[; ;nozzle.c: 90: else if (sm0 == 3)
-[e $ ! == -> _sm0 `i -> 3 `i 592  ]
-[; ;nozzle.c: 91: {
-"91
-{
-[; ;nozzle.c: 92: if (mpap_isIdle())
-"92
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 593  ]
-[; ;nozzle.c: 93: {
-"93
-{
-[; ;nozzle.c: 94: cod_ret = 1;
-"94
-[e = _cod_ret -> -> 1 `i `c ]
-"95
 }
-[e :U 593 ]
+[; ;nozzle.c: 90: }
+[e $U 590  ]
+"91
+[e :U 589 ]
+[; ;nozzle.c: 91: else if (sm0 == 3)
+[e $ ! == -> _sm0 `i -> 3 `i 591  ]
+[; ;nozzle.c: 92: {
+"92
+{
+[; ;nozzle.c: 93: if (mpap_isIdle())
+"93
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 592  ]
+[; ;nozzle.c: 94: {
+"94
+{
+[; ;nozzle.c: 95: cod_ret = 1;
+"95
+[e = _cod_ret -> -> 1 `i `c ]
 "96
 }
-[; ;nozzle.c: 95: }
-[; ;nozzle.c: 96: }
-[e $U 594  ]
-"97
 [e :U 592 ]
-[; ;nozzle.c: 97: else if (sm0 == 4)
-[e $ ! == -> _sm0 `i -> 4 `i 595  ]
-[; ;nozzle.c: 98: {
-"98
-{
-[; ;nozzle.c: 99: if (mpap_isIdle())
-"99
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 596  ]
-[; ;nozzle.c: 100: {
-"100
-{
-[; ;nozzle.c: 101: mpap_doMovement(1 * 200, MPAP_CROSSING_HOMESENSOR_MODE);
-"101
-[e ( _mpap_doMovement (2 , * -> 1 `i -> 200 `i -> . `E4715 3 `c ]
-[; ;nozzle.c: 102: sm0++;
-"102
-[e ++ _sm0 -> -> 1 `i `c ]
-"103
+"97
 }
-[e :U 596 ]
+[; ;nozzle.c: 96: }
+[; ;nozzle.c: 97: }
+[e $U 593  ]
+"98
+[e :U 591 ]
+[; ;nozzle.c: 98: else if (sm0 == 4)
+[e $ ! == -> _sm0 `i -> 4 `i 594  ]
+[; ;nozzle.c: 99: {
+"99
+{
+[; ;nozzle.c: 100: if (mpap_isIdle())
+"100
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 595  ]
+[; ;nozzle.c: 101: {
+"101
+{
+[; ;nozzle.c: 102: mpap_doMovement(1 * 200, MPAP_CROSSING_HOMESENSOR_MODE);
+"102
+[e ( _mpap_doMovement (2 , * -> 1 `i -> 200 `i -> . `E4715 3 `c ]
+[; ;nozzle.c: 103: sm0++;
+"103
+[e ++ _sm0 -> -> 1 `i `c ]
 "104
 }
-[; ;nozzle.c: 103: }
-[; ;nozzle.c: 104: }
-[e $U 597  ]
-"105
 [e :U 595 ]
-[; ;nozzle.c: 105: else if (sm0 == 5)
-[e $ ! == -> _sm0 `i -> 5 `i 598  ]
-[; ;nozzle.c: 106: {
-"106
-{
-[; ;nozzle.c: 107: if (mpap_isIdle())
-"107
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 599  ]
-[; ;nozzle.c: 108: {
-"108
-{
-[; ;nozzle.c: 109: cod_ret = 1;
-"109
-[e = _cod_ret -> -> 1 `i `c ]
-"110
+"105
 }
-[e :U 599 ]
+[; ;nozzle.c: 104: }
+[; ;nozzle.c: 105: }
+[e $U 596  ]
+"106
+[e :U 594 ]
+[; ;nozzle.c: 106: else if (sm0 == 5)
+[e $ ! == -> _sm0 `i -> 5 `i 597  ]
+[; ;nozzle.c: 107: {
+"107
+{
+[; ;nozzle.c: 108: if (mpap_isIdle())
+"108
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 598  ]
+[; ;nozzle.c: 109: {
+"109
+{
+[; ;nozzle.c: 110: cod_ret = 1;
+"110
+[e = _cod_ret -> -> 1 `i `c ]
 "111
 }
 [e :U 598 ]
-"114
-[e :U 597 ]
-[e :U 594 ]
-[e :U 591 ]
-[e :U 589 ]
-[e :U 585 ]
-[; ;nozzle.c: 110: }
-[; ;nozzle.c: 111: }
-[; ;nozzle.c: 114: if (cod_ret ==1)
-[e $ ! == -> _cod_ret `i -> 1 `i 600  ]
-[; ;nozzle.c: 115: {
-"115
-{
-[; ;nozzle.c: 116: sm0 = 0x00;
-"116
-[e = _sm0 -> -> 0 `i `c ]
-"117
+"112
 }
-[e :U 600 ]
-[; ;nozzle.c: 117: }
-[; ;nozzle.c: 119: return cod_ret;
-"119
+[e :U 597 ]
+"115
+[e :U 596 ]
+[e :U 593 ]
+[e :U 590 ]
+[e :U 588 ]
+[e :U 585 ]
+[; ;nozzle.c: 111: }
+[; ;nozzle.c: 112: }
+[; ;nozzle.c: 115: if (cod_ret ==1)
+[e $ ! == -> _cod_ret `i -> 1 `i 599  ]
+[; ;nozzle.c: 116: {
+"116
+{
+[; ;nozzle.c: 117: sm0 = 0x00;
+"117
+[e = _sm0 -> -> 0 `i `c ]
+"118
+}
+[e :U 599 ]
+[; ;nozzle.c: 118: }
+[; ;nozzle.c: 120: return cod_ret;
+"120
 [e ) _cod_ret ]
 [e $UE 576  ]
-[; ;nozzle.c: 120: }
-"120
+[; ;nozzle.c: 121: }
+"121
 [e :UE 576 ]
 }

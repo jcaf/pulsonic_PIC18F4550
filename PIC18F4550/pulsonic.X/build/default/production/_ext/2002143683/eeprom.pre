@@ -5488,6 +5488,9 @@ double eepromRead_double(uint8_t *pEaddr);
 # 5 "../../../../../../FIRWAR/eslibrary/PIC/eeprom/eeprom.c"
 uint8_t eepromRead(uint8_t addr)
 {
+while (EECON1bits.WR)
+{;}
+
 EEADR = addr;
 EECON1bits.EEPGD = 0;
 EECON1bits.CFGS = 0;
@@ -5498,6 +5501,8 @@ return EEDATA;
 void eepromWrite(uint8_t addr, uint8_t data)
 {
 uint8_t GIE_temp;
+
+while (EECON1bits.WR){;}
 
 EEADR = addr;
 EEDATA = data;
@@ -5513,8 +5518,14 @@ EECON2 = 0xAA;
 EECON1bits.WR = 1;
 while (EECON1bits.WR){;}
 
-GIE = GIE_temp;
+__nop();
+__nop();
+__nop();
+
 EECON1bits.WREN = 0;
+GIE = GIE_temp;
+
+# 48
 }
 
 

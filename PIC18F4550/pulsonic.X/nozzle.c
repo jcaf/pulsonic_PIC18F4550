@@ -31,7 +31,7 @@ int8_t nozzle_setPosition(int8_t n)
     
     if (sm0 == 0)
     {
-        if (n == 0)
+        if (n == 0)//go to nozzle 0
         {
             numSteps_current = mpap_get_numSteps_current();
 
@@ -44,13 +44,13 @@ int8_t nozzle_setPosition(int8_t n)
                     mpap_movetoNozzle(NOZZLE_NUMMAX-1);
                     sm0 = 4;
                 }            
-                else//se quedo a medias
+                else//se quedo a medias en el traslado de 18->0
                 {
                     //completa con el otro metodo
                     if ( (numSteps_current - ((NOZZLE_NUMMAX-1)*(MPAP_NUMSTEP_1NOZZLE)) ) > 0)
                     {
                         //sale y completa, 
-                        mpap_movetoNozzle(NOZZLE_NUMMAX);//completa el giro
+                        mpap_movetoNozzle(NOZZLE_NUMMAX);//completa el giro, forzando a ir "1 nozzle" mas de lo permitido
                         sm0 = 1;
                     }
                 }
@@ -63,8 +63,7 @@ int8_t nozzle_setPosition(int8_t n)
         }
         else
         {
-            //usa el metodo convencional de traslado
-            sm0 = 2;
+            sm0 = 2;    //usa el metodo convencional de traslado
         }
     }
     else if (sm0 == 1)
@@ -73,12 +72,14 @@ int8_t nozzle_setPosition(int8_t n)
         {
             mpap.numSteps_current = 0x0000;//Set to origin = 0
 
-            //Aqui deberia de haber 1 zero
-            if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 1)//Error?
-            {
-                pulsonic.error.f.homeSensor = 1;
-                pulsonic.flags.homed = 0;
-            }
+            //COMENTO PORQUE PUEDE SER Q EN LA MANGUERA 0 EL SENSOR HALL YA NO MARQUE CERO
+            //Aqui deberia de haber 1 zero 
+            //CONFIRMADO, NO HAY 0 EN LA MANGUERA "0", LO PROBE EN OTRO SENSOR... OK.. ENTONCES ESTO QUEDO FUERA DEL PROGRAMA
+//            if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 1)//Error?
+//            {
+//                pulsonic.error.f.homeSensor = 1;
+//                pulsonic.flags.homed = 0;
+//            }
             cod_ret = 1;
         }
     }

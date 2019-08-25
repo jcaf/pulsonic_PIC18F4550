@@ -15,9 +15,20 @@ void pulsonic_init(void)
     for (i=0; i< NOZZLE_NUMMAX; i++)
     {
         pulsonic.nozzle[i].Q_mlh = eepromRead_double(&(((double*)EEPROM_BLOCK_ADDR)[i]));
+        
+        if (pulsonic.nozzle[i].Q_mlh > NOZZLE_QMLH_MAX)
+        {
+            pulsonic.nozzle[i].Q_mlh = NOZZLE_QMLH_MAX;
+        }
     }
     //next address is for index-of-OIL_VISCOSITY[]
     pulsonic.oil.i = eepromRead( EEPROM_BLOCK_ADDR + (NOZZLE_NUMMAX*sizeof(double)) );
+    
+    if ( pulsonic.oil.i > OIL_VISCOSITY_NUMMAX-1)
+    {
+        pulsonic.oil.i = OIL_VISCOSITY_NUMMAX -1;
+    }
+            
     pulsonic.oil.viscosity = OIL_VISCOSITY[pulsonic.oil.i];
     
     pulsonic.numNozzleAvailable = pulsonic_getNumNozzleAvailable();

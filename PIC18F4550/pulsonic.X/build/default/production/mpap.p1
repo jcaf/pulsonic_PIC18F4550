@@ -33,9 +33,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S567 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags numNozzle ]
 "93
 [v _pulsonic `VS567 ~T0 @X0 0 e ]
-"308 mpap.c
-[s S621 `c 1 ]
-[n S621 _homming sm0 ]
+"307 mpap.c
+[s S622 `c 1 ]
+[n S622 _homming sm0 ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f4550.h: 47: extern volatile unsigned char SPPDATA @ 0xF62;
@@ -4671,712 +4671,719 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mpap.c: 121: {
 [e :U _mpap_setup_searchFirstPointHomeSensor ]
 [f ]
-[; ;mpap.c: 125: mpap_doMovement(+1 * ((18 * 200) + 20), MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
-"125
-[e ( _mpap_doMovement (2 , * -> 1 `i + * -> 18 `i -> 200 `i -> 20 `i -> . `E4715 2 `c ]
-[; ;mpap.c: 126: }
-"126
+[; ;mpap.c: 122: mpap_doMovement(+1*(18+1)*200 , MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
+"122
+[e ( _mpap_doMovement (2 , * * -> 1 `i + -> 18 `i -> 1 `i -> 200 `i -> . `E4715 2 `c ]
+[; ;mpap.c: 123: }
+"123
 [e :UE 585 ]
 }
-"131
+"128
 [v _mpap_do1step `(v ~T0 @X0 1 ef1`c ]
-"132
+"129
 {
-[; ;mpap.c: 131: void mpap_do1step(int8_t KI)
-[; ;mpap.c: 132: {
+[; ;mpap.c: 128: void mpap_do1step(int8_t KI)
+[; ;mpap.c: 129: {
 [e :U _mpap_do1step ]
-"131
+"128
 [v _KI `c ~T0 @X0 1 r1 ]
-"132
+"129
 [f ]
-"133
+"130
 [v F4871 `c ~T0 @X0 1 s i ]
 [i F4871
 -> -U -> 1 `i `c
 ]
-[; ;mpap.c: 133: static int8_t i = -1;
-[; ;mpap.c: 135: i = i + KI;
-"135
+[; ;mpap.c: 130: static int8_t i = -1;
+[; ;mpap.c: 132: i = i + KI;
+"132
 [e = F4871 -> + -> F4871 `i -> _KI `i `c ]
-[; ;mpap.c: 136: if (i > 3)
-"136
+[; ;mpap.c: 133: if (i > 3)
+"133
 [e $ ! > -> F4871 `i -> 3 `i 587  ]
-[; ;mpap.c: 137: {
-"137
+[; ;mpap.c: 134: {
+"134
 {
-[; ;mpap.c: 138: i = 0;
-"138
+[; ;mpap.c: 135: i = 0;
+"135
 [e = F4871 -> -> 0 `i `c ]
-"139
+"136
 }
 [e :U 587 ]
-[; ;mpap.c: 139: }
-[; ;mpap.c: 140: if (i < 0)
-"140
+[; ;mpap.c: 136: }
+[; ;mpap.c: 137: if (i < 0)
+"137
 [e $ ! < -> F4871 `i -> 0 `i 588  ]
-[; ;mpap.c: 141: {
-"141
+[; ;mpap.c: 138: {
+"138
 {
-[; ;mpap.c: 142: i = 3;
-"142
+[; ;mpap.c: 139: i = 3;
+"139
 [e = F4871 -> -> 3 `i `c ]
-"143
+"140
 }
 [e :U 588 ]
-[; ;mpap.c: 143: }
-[; ;mpap.c: 144: mpap_step[i]();
-"144
+[; ;mpap.c: 140: }
+[; ;mpap.c: 141: mpap_step[i]();
+"141
 [e ( *U *U + &U _mpap_step * -> -> F4871 `uc `ux -> -> # *U &U _mpap_step `ui `ux ..  ]
-[; ;mpap.c: 145: }
-"145
+[; ;mpap.c: 142: }
+"142
 [e :UE 586 ]
 }
-"159
+"154
 [v _mpap_normal_mode `(c ~T0 @X0 1 sf ]
-"160
+"155
 {
-[; ;mpap.c: 159: static int8_t mpap_normal_mode(void)
-[; ;mpap.c: 160: {
+[; ;mpap.c: 154: static int8_t mpap_normal_mode(void)
+[; ;mpap.c: 155: {
 [e :U _mpap_normal_mode ]
 [f ]
-"161
+"156
 [v _cod_ret `c ~T0 @X0 1 a ]
-[; ;mpap.c: 161: int8_t cod_ret = 0;
+[; ;mpap.c: 156: int8_t cod_ret = 0;
 [e = _cod_ret -> -> 0 `i `c ]
-[; ;mpap.c: 162: if (mpap.numSteps_tomove != 0)
-"162
+[; ;mpap.c: 157: if (mpap.numSteps_tomove != 0)
+"157
 [e $ ! != . _mpap 2 -> 0 `i 590  ]
-[; ;mpap.c: 163: {
-"163
+[; ;mpap.c: 158: {
+"158
 {
-[; ;mpap.c: 164: mpap_do1step(mpap.KI);
-"164
+[; ;mpap.c: 159: mpap_do1step(mpap.KI);
+"159
 [e ( _mpap_do1step (1 . _mpap 3 ]
-[; ;mpap.c: 166: mpap.counter_steps += mpap.KI;
-"166
+[; ;mpap.c: 161: mpap.counter_steps += mpap.KI;
+"161
 [e =+ . _mpap 1 -> . _mpap 3 `i ]
-[; ;mpap.c: 168: mpap.numSteps_current += mpap.KI;
-"168
+[; ;mpap.c: 163: mpap.numSteps_current += mpap.KI;
+"163
 [e =+ . _mpap 0 -> . _mpap 3 `i ]
-[; ;mpap.c: 170: if (mpap.counter_steps == mpap.numSteps_tomove)
-"170
+[; ;mpap.c: 165: if (mpap.counter_steps == mpap.numSteps_tomove)
+"165
 [e $ ! == . _mpap 1 . _mpap 2 591  ]
-[; ;mpap.c: 171: {
-"171
+[; ;mpap.c: 166: {
+"166
 {
-[; ;mpap.c: 172: mpap.numSteps_tomove = 0;
-"172
+[; ;mpap.c: 167: mpap.numSteps_tomove = 0;
+"167
 [e = . _mpap 2 -> 0 `i ]
+[; ;mpap.c: 168: cod_ret = 1;
+"168
+[e = _cod_ret -> -> 1 `i `c ]
+"169
+}
+[e :U 591 ]
+"170
+}
+[; ;mpap.c: 169: }
+[; ;mpap.c: 170: }
+[e $U 592  ]
+"171
+[e :U 590 ]
+[; ;mpap.c: 171: else
+[; ;mpap.c: 172: {
+"172
+{
 [; ;mpap.c: 173: cod_ret = 1;
 "173
 [e = _cod_ret -> -> 1 `i `c ]
 "174
 }
-[e :U 591 ]
-"175
-}
-[; ;mpap.c: 174: }
-[; ;mpap.c: 175: }
-[e $U 592  ]
-"176
-[e :U 590 ]
-[; ;mpap.c: 176: else
-[; ;mpap.c: 177: {
-"177
-{
-[; ;mpap.c: 178: cod_ret = 1;
-"178
-[e = _cod_ret -> -> 1 `i `c ]
-"179
-}
 [e :U 592 ]
-[; ;mpap.c: 179: }
-[; ;mpap.c: 180: return cod_ret;
-"180
+[; ;mpap.c: 174: }
+[; ;mpap.c: 175: return cod_ret;
+"175
 [e ) _cod_ret ]
 [e $UE 589  ]
-[; ;mpap.c: 181: }
-"181
+[; ;mpap.c: 176: }
+"176
 [e :UE 589 ]
 }
-"182
+"177
 [v _mpap_searchFirstPointHomeSensor `(c ~T0 @X0 1 sf ]
-"183
+"178
 {
-[; ;mpap.c: 182: static int8_t mpap_searchFirstPointHomeSensor(void)
-[; ;mpap.c: 183: {
+[; ;mpap.c: 177: static int8_t mpap_searchFirstPointHomeSensor(void)
+[; ;mpap.c: 178: {
 [e :U _mpap_searchFirstPointHomeSensor ]
 [f ]
-"184
+"179
 [v _cod_ret `c ~T0 @X0 1 a ]
-[; ;mpap.c: 184: int8_t cod_ret = 0;
+[; ;mpap.c: 179: int8_t cod_ret = 0;
 [e = _cod_ret -> -> 0 `i `c ]
-[; ;mpap.c: 186: if (mpap.numSteps_tomove != 0)
-"186
+[; ;mpap.c: 181: if (mpap.numSteps_tomove != 0)
+"181
 [e $ ! != . _mpap 2 -> 0 `i 594  ]
-[; ;mpap.c: 187: {
-"187
+[; ;mpap.c: 182: {
+"182
 {
-[; ;mpap.c: 188: mpap_do1step(mpap.KI);
-"188
+[; ;mpap.c: 183: mpap_do1step(mpap.KI);
+"183
 [e ( _mpap_do1step (1 . _mpap 3 ]
-[; ;mpap.c: 190: mpap.counter_steps += mpap.KI;
-"190
+[; ;mpap.c: 185: mpap.counter_steps += mpap.KI;
+"185
 [e =+ . _mpap 1 -> . _mpap 3 `i ]
-[; ;mpap.c: 191: mpap.numSteps_current += mpap.KI;
-"191
+[; ;mpap.c: 186: mpap.numSteps_current += mpap.KI;
+"186
 [e =+ . _mpap 0 -> . _mpap 3 `i ]
-[; ;mpap.c: 193: if (((PORTE & (1<<1))>>1) == 0)
-"193
+[; ;mpap.c: 188: if (((PORTE & (1<<1))>>1) == 0)
+"188
 [e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 0 `i 595  ]
-[; ;mpap.c: 194: {cod_ret = 1;}
-"194
+[; ;mpap.c: 189: {cod_ret = 1;}
+"189
 {
 [e = _cod_ret -> -> 1 `i `c ]
 }
 [e $U 596  ]
-"195
+"190
 [e :U 595 ]
-[; ;mpap.c: 195: else
-[; ;mpap.c: 196: {
-"196
+[; ;mpap.c: 190: else
+[; ;mpap.c: 191: {
+"191
 {
-[; ;mpap.c: 197: if (mpap.counter_steps == mpap.numSteps_tomove)
-"197
+[; ;mpap.c: 192: if (mpap.counter_steps == mpap.numSteps_tomove)
+"192
 [e $ ! == . _mpap 1 . _mpap 2 597  ]
-[; ;mpap.c: 198: {cod_ret = 2;}
-"198
+[; ;mpap.c: 193: {cod_ret = 2;}
+"193
 {
 [e = _cod_ret -> -> 2 `i `c ]
 }
 [e :U 597 ]
-"199
+"194
 }
 [e :U 596 ]
-[; ;mpap.c: 199: }
-[; ;mpap.c: 201: if (cod_ret>0)
-"201
+[; ;mpap.c: 194: }
+[; ;mpap.c: 196: if (cod_ret>0)
+"196
 [e $ ! > -> _cod_ret `i -> 0 `i 598  ]
-[; ;mpap.c: 202: {mpap.numSteps_tomove = 0x0000;}
-"202
+[; ;mpap.c: 197: {mpap.numSteps_tomove = 0x0000;}
+"197
 {
 [e = . _mpap 2 -> 0 `i ]
 }
 [e :U 598 ]
-"203
+"198
 }
 [e :U 594 ]
-[; ;mpap.c: 203: }
-[; ;mpap.c: 204: return cod_ret;
-"204
+[; ;mpap.c: 198: }
+[; ;mpap.c: 199: return cod_ret;
+"199
 [e ) _cod_ret ]
 [e $UE 593  ]
-[; ;mpap.c: 205: }
-"205
+[; ;mpap.c: 200: }
+"200
 [e :UE 593 ]
 }
-"206
+"201
 [v _mpap_crossingHomeSensor `(c ~T0 @X0 1 sf ]
-"207
+"202
 {
-[; ;mpap.c: 206: static int8_t mpap_crossingHomeSensor(void)
-[; ;mpap.c: 207: {
+[; ;mpap.c: 201: static int8_t mpap_crossingHomeSensor(void)
+[; ;mpap.c: 202: {
 [e :U _mpap_crossingHomeSensor ]
 [f ]
-"208
+"203
 [v _cod_ret `c ~T0 @X0 1 a ]
-[; ;mpap.c: 208: int8_t cod_ret = 0;
+[; ;mpap.c: 203: int8_t cod_ret = 0;
 [e = _cod_ret -> -> 0 `i `c ]
-[; ;mpap.c: 210: if (mpap.numSteps_tomove != 0)
-"210
+[; ;mpap.c: 205: if (mpap.numSteps_tomove != 0)
+"205
 [e $ ! != . _mpap 2 -> 0 `i 600  ]
-[; ;mpap.c: 211: {
-"211
+[; ;mpap.c: 206: {
+"206
 {
-[; ;mpap.c: 212: mpap_do1step(mpap.KI);
-"212
+[; ;mpap.c: 207: mpap_do1step(mpap.KI);
+"207
 [e ( _mpap_do1step (1 . _mpap 3 ]
-[; ;mpap.c: 213: mpap.counter_steps += mpap.KI;
-"213
+[; ;mpap.c: 208: mpap.counter_steps += mpap.KI;
+"208
 [e =+ . _mpap 1 -> . _mpap 3 `i ]
-[; ;mpap.c: 215: if (((PORTE & (1<<1))>>1) == 0)
-"215
+[; ;mpap.c: 210: if (((PORTE & (1<<1))>>1) == 0)
+"210
 [e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 0 `i 601  ]
-[; ;mpap.c: 216: {counterZeros++;}
-"216
+[; ;mpap.c: 211: {counterZeros++;}
+"211
 {
 [e ++ _counterZeros -> -> 1 `i `ui ]
 }
 [e :U 601 ]
-[; ;mpap.c: 218: if (mpap.counter_steps == mpap.numSteps_tomove)
-"218
+[; ;mpap.c: 213: if (mpap.counter_steps == mpap.numSteps_tomove)
+"213
 [e $ ! == . _mpap 1 . _mpap 2 602  ]
-[; ;mpap.c: 219: {
-"219
+[; ;mpap.c: 214: {
+"214
 {
-[; ;mpap.c: 221: mpap.numSteps_current = 0x0000;
-"221
+[; ;mpap.c: 216: mpap.numSteps_current = 0x0000;
+"216
 [e = . _mpap 0 -> 0 `i ]
-[; ;mpap.c: 222: mpap.numSteps_tomove = 0x0000;
-"222
+[; ;mpap.c: 217: mpap.numSteps_tomove = 0x0000;
+"217
 [e = . _mpap 2 -> 0 `i ]
+[; ;mpap.c: 219: cod_ret = 1;
+"219
+[e = _cod_ret -> -> 1 `i `c ]
+"220
+}
+[e :U 602 ]
+"221
+}
+[; ;mpap.c: 220: }
+[; ;mpap.c: 221: }
+[e $U 603  ]
+"222
+[e :U 600 ]
+[; ;mpap.c: 222: else
+[; ;mpap.c: 223: {
+"223
+{
 [; ;mpap.c: 224: cod_ret = 1;
 "224
 [e = _cod_ret -> -> 1 `i `c ]
 "225
 }
-[e :U 602 ]
-"226
-}
-[; ;mpap.c: 225: }
-[; ;mpap.c: 226: }
-[e $U 603  ]
-"227
-[e :U 600 ]
-[; ;mpap.c: 227: else
-[; ;mpap.c: 228: {
-"228
-{
-[; ;mpap.c: 229: cod_ret = 1;
-"229
-[e = _cod_ret -> -> 1 `i `c ]
-"230
-}
 [e :U 603 ]
-[; ;mpap.c: 230: }
-[; ;mpap.c: 231: return cod_ret;
-"231
+[; ;mpap.c: 225: }
+[; ;mpap.c: 226: return cod_ret;
+"226
 [e ) _cod_ret ]
 [e $UE 599  ]
-[; ;mpap.c: 232: }
-"232
+[; ;mpap.c: 227: }
+"227
 [e :UE 599 ]
 }
-"235
+"230
 [v _mpap_job `(v ~T0 @X0 1 ef ]
-"236
+"231
 {
-[; ;mpap.c: 235: void mpap_job(void)
-[; ;mpap.c: 236: {
+[; ;mpap.c: 230: void mpap_job(void)
+[; ;mpap.c: 231: {
 [e :U _mpap_job ]
 [f ]
-"237
+"232
 [v _cod_ret `c ~T0 @X0 1 a ]
-[; ;mpap.c: 237: int8_t cod_ret;
-[; ;mpap.c: 239: if (mpap.mode == MPAP_CROSSING_HOMESENSOR_MODE)
-"239
+[; ;mpap.c: 232: int8_t cod_ret;
+[; ;mpap.c: 234: if (mpap.mode == MPAP_CROSSING_HOMESENSOR_MODE)
+"234
 [e $ ! == -> . _mpap 4 `i -> . `E4715 3 `i 605  ]
-[; ;mpap.c: 240: {
-"240
+[; ;mpap.c: 235: {
+"235
 {
-[; ;mpap.c: 241: if (mpap_crossingHomeSensor())
-"241
+[; ;mpap.c: 236: if (mpap_crossingHomeSensor())
+"236
 [e $ ! != -> ( _mpap_crossingHomeSensor ..  `i -> -> -> 0 `i `c `i 606  ]
-[; ;mpap.c: 242: {
-"242
+[; ;mpap.c: 237: {
+"237
 {
-[; ;mpap.c: 243: if (counterZeros >= (200*0.2))
+[; ;mpap.c: 238: if (counterZeros >= (200*0.1))
+"238
+[e $ ! >= -> _counterZeros `d * -> -> 200 `i `d .0.1 607  ]
+[; ;mpap.c: 239: {
+"239
+{
+[; ;mpap.c: 240: pulsonic.error.f.homeSensor = 0;
+"240
+[e = . . . _pulsonic 0 0 1 -> -> 0 `i `uc ]
+[; ;mpap.c: 241: pulsonic.flags.homed = 1;
+"241
+[e = . . _pulsonic 14 0 -> -> 1 `i `uc ]
+"242
+}
+[; ;mpap.c: 242: }
+[e $U 608  ]
 "243
-[e $ ! >= -> _counterZeros `d * -> -> 200 `i `d .0.2 607  ]
+[e :U 607 ]
+[; ;mpap.c: 243: else
 [; ;mpap.c: 244: {
 "244
 {
-[; ;mpap.c: 245: pulsonic.error.f.homeSensor = 0;
+[; ;mpap.c: 245: pulsonic.error.f.homeSensor = 1;
 "245
-[e = . . . _pulsonic 0 0 1 -> -> 0 `i `uc ]
-[; ;mpap.c: 246: pulsonic.flags.homed = 1;
+[e = . . . _pulsonic 0 0 1 -> -> 1 `i `uc ]
+[; ;mpap.c: 246: pulsonic.flags.homed = 0;
 "246
-[e = . . _pulsonic 14 0 -> -> 1 `i `uc ]
+[e = . . _pulsonic 14 0 -> -> 0 `i `uc ]
 "247
 }
-[; ;mpap.c: 247: }
-[e $U 608  ]
-"248
-[e :U 607 ]
-[; ;mpap.c: 248: else
-[; ;mpap.c: 249: {
-"249
-{
-[; ;mpap.c: 250: pulsonic.error.f.homeSensor = 1;
-"250
-[e = . . . _pulsonic 0 0 1 -> -> 1 `i `uc ]
-[; ;mpap.c: 251: pulsonic.flags.homed = 0;
-"251
-[e = . . _pulsonic 14 0 -> -> 0 `i `uc ]
-"252
-}
 [e :U 608 ]
-[; ;mpap.c: 252: }
-[; ;mpap.c: 253: mpap.mode = MPAP_STALL_MODE;
-"253
+[; ;mpap.c: 247: }
+[; ;mpap.c: 249: mpap.mode = MPAP_STALL_MODE;
+"249
 [e = . _mpap 4 -> . `E4715 1 `c ]
-"254
+"250
 }
 [e :U 606 ]
-"255
+"251
 }
-[; ;mpap.c: 254: }
-[; ;mpap.c: 255: }
+[; ;mpap.c: 250: }
+[; ;mpap.c: 251: }
 [e $U 609  ]
-"256
+"252
 [e :U 605 ]
-[; ;mpap.c: 256: else if (mpap.mode == MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE)
+[; ;mpap.c: 252: else if (mpap.mode == MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE)
 [e $ ! == -> . _mpap 4 `i -> . `E4715 2 `i 610  ]
-[; ;mpap.c: 257: {
-"257
+[; ;mpap.c: 253: {
+"253
 {
-[; ;mpap.c: 258: cod_ret = mpap_searchFirstPointHomeSensor();
-"258
+[; ;mpap.c: 254: cod_ret = mpap_searchFirstPointHomeSensor();
+"254
 [e = _cod_ret ( _mpap_searchFirstPointHomeSensor ..  ]
-[; ;mpap.c: 259: if (cod_ret == 1)
+[; ;mpap.c: 255: if (cod_ret>0)
+"255
+[e $ ! > -> _cod_ret `i -> 0 `i 611  ]
+[; ;mpap.c: 256: {
+"256
+{
+[; ;mpap.c: 257: if (cod_ret == 1)
+"257
+[e $ ! == -> _cod_ret `i -> 1 `i 612  ]
+[; ;mpap.c: 258: {
+"258
+{
+[; ;mpap.c: 259: pulsonic.flags.homed = 1;
 "259
-[e $ ! == -> _cod_ret `i -> 1 `i 611  ]
-[; ;mpap.c: 260: {
-"260
-{
-[; ;mpap.c: 261: pulsonic.flags.homed = 1;
-"261
 [e = . . _pulsonic 14 0 -> -> 1 `i `uc ]
-[; ;mpap.c: 262: pulsonic.error.f.homeSensor = 0;
-"262
+[; ;mpap.c: 260: pulsonic.error.f.homeSensor = 0;
+"260
 [e = . . . _pulsonic 0 0 1 -> -> 0 `i `uc ]
-[; ;mpap.c: 263: mpap.mode = MPAP_STALL_MODE;
-"263
-[e = . _mpap 4 -> . `E4715 1 `c ]
-"264
+"261
 }
-[; ;mpap.c: 264: }
-[e $U 612  ]
-"265
-[e :U 611 ]
-[; ;mpap.c: 265: else if (cod_ret == 2)
-[e $ ! == -> _cod_ret `i -> 2 `i 613  ]
-[; ;mpap.c: 266: {
-"266
+[; ;mpap.c: 261: }
+[e $U 613  ]
+"262
+[e :U 612 ]
+[; ;mpap.c: 262: else if (cod_ret == 2)
+[e $ ! == -> _cod_ret `i -> 2 `i 614  ]
+[; ;mpap.c: 263: {
+"263
 {
-[; ;mpap.c: 267: pulsonic.flags.homed = 0;
-"267
+[; ;mpap.c: 264: pulsonic.flags.homed = 0;
+"264
 [e = . . _pulsonic 14 0 -> -> 0 `i `uc ]
-[; ;mpap.c: 268: pulsonic.error.f.homeSensor = 1;
-"268
+[; ;mpap.c: 265: pulsonic.error.f.homeSensor = 1;
+"265
 [e = . . . _pulsonic 0 0 1 -> -> 1 `i `uc ]
-[; ;mpap.c: 269: mpap.mode = MPAP_STALL_MODE;
-"269
+"266
+}
+[e :U 614 ]
+"268
+[e :U 613 ]
+[; ;mpap.c: 266: }
+[; ;mpap.c: 268: mpap.mode = MPAP_STALL_MODE;
 [e = . _mpap 4 -> . `E4715 1 `c ]
+"269
+}
+[e :U 611 ]
 "270
 }
-[e :U 613 ]
-"271
-[e :U 612 ]
-}
+[; ;mpap.c: 269: }
 [; ;mpap.c: 270: }
-[; ;mpap.c: 271: }
-[e $U 614  ]
-"272
+[e $U 615  ]
+"271
 [e :U 610 ]
-[; ;mpap.c: 272: else if (mpap.mode == MPAP_NORMAL_MODE)
-[e $ ! == -> . _mpap 4 `i -> . `E4715 4 `i 615  ]
-[; ;mpap.c: 273: {
+[; ;mpap.c: 271: else if (mpap.mode == MPAP_NORMAL_MODE)
+[e $ ! == -> . _mpap 4 `i -> . `E4715 4 `i 616  ]
+[; ;mpap.c: 272: {
+"272
+{
+[; ;mpap.c: 273: if (mpap_normal_mode())
 "273
-{
-[; ;mpap.c: 274: if (mpap_normal_mode())
+[e $ ! != -> ( _mpap_normal_mode ..  `i -> -> -> 0 `i `c `i 617  ]
+[; ;mpap.c: 274: mpap.mode = MPAP_STALL_MODE;
 "274
-[e $ ! != -> ( _mpap_normal_mode ..  `i -> -> -> 0 `i `c `i 616  ]
-[; ;mpap.c: 275: mpap.mode = MPAP_STALL_MODE;
-"275
 [e = . _mpap 4 -> . `E4715 1 `c ]
-[e :U 616 ]
-"276
-}
-[e :U 615 ]
-"278
-[e :U 614 ]
-[e :U 609 ]
-[; ;mpap.c: 276: }
-[; ;mpap.c: 278: if (mpap.mode == MPAP_STALL_MODE)
-[e $ ! == -> . _mpap 4 `i -> . `E4715 1 `i 617  ]
-[; ;mpap.c: 279: {
-"279
-{
-[; ;mpap.c: 280: mpap.numSteps_tomove = 0x00;
-"280
-[e = . _mpap 2 -> 0 `i ]
-[; ;mpap.c: 281: mpap.mode = MPAP_IDLE_MODE;
-"281
-[e = . _mpap 4 -> . `E4715 0 `c ]
-"282
-}
 [e :U 617 ]
+"275
+}
+[e :U 616 ]
+"277
+[e :U 615 ]
+[e :U 609 ]
+[; ;mpap.c: 275: }
+[; ;mpap.c: 277: if (mpap.mode == MPAP_STALL_MODE)
+[e $ ! == -> . _mpap 4 `i -> . `E4715 1 `i 618  ]
+[; ;mpap.c: 278: {
+"278
+{
+[; ;mpap.c: 279: mpap.numSteps_tomove = 0x00;
+"279
+[e = . _mpap 2 -> 0 `i ]
+[; ;mpap.c: 280: mpap.mode = MPAP_IDLE_MODE;
+"280
+[e = . _mpap 4 -> . `E4715 0 `c ]
+"281
+}
+[e :U 618 ]
+[; ;mpap.c: 281: }
 [; ;mpap.c: 282: }
-[; ;mpap.c: 283: }
-"283
+"282
 [e :UE 604 ]
 }
-"285
+"284
 [v _mpap_movetoNozzle `(v ~T0 @X0 1 ef1`c ]
-"286
-{
-[; ;mpap.c: 285: void mpap_movetoNozzle(int8_t numNozzle)
-[; ;mpap.c: 286: {
-[e :U _mpap_movetoNozzle ]
 "285
+{
+[; ;mpap.c: 284: void mpap_movetoNozzle(int8_t numNozzle)
+[; ;mpap.c: 285: {
+[e :U _mpap_movetoNozzle ]
+"284
 [v _numNozzle `c ~T0 @X0 1 r1 ]
+"285
+[f ]
 "286
-[f ]
-"287
 [v _numSteps_tomove `i ~T0 @X0 1 a ]
-[; ;mpap.c: 287: int16_t numSteps_tomove = (numNozzle*200) - mpap.numSteps_current;
+[; ;mpap.c: 286: int16_t numSteps_tomove = (numNozzle * 200) - mpap.numSteps_current;
 [e = _numSteps_tomove - * -> _numNozzle `i -> 200 `i . _mpap 0 ]
-[; ;mpap.c: 288: mpap_doMovement(numSteps_tomove, MPAP_NORMAL_MODE);
-"288
+[; ;mpap.c: 287: mpap_doMovement(numSteps_tomove, MPAP_NORMAL_MODE);
+"287
 [e ( _mpap_doMovement (2 , _numSteps_tomove -> . `E4715 4 `c ]
-[; ;mpap.c: 289: }
-"289
-[e :UE 618 ]
-}
-"291
-[v _mpap_isIdle `(c ~T0 @X0 1 ef ]
-"292
-{
-[; ;mpap.c: 291: int8_t mpap_isIdle(void)
-[; ;mpap.c: 292: {
-[e :U _mpap_isIdle ]
-[f ]
-[; ;mpap.c: 293: if (mpap.mode == MPAP_IDLE_MODE)
-"293
-[e $ ! == -> . _mpap 4 `i -> . `E4715 0 `i 620  ]
-[; ;mpap.c: 294: {
-"294
-{
-[; ;mpap.c: 295: return 1;
-"295
-[e ) -> -> 1 `i `c ]
-[e $UE 619  ]
-"296
-}
-[e :U 620 ]
-[; ;mpap.c: 296: }
-[; ;mpap.c: 297: return 0;
-"297
-[e ) -> -> 0 `i `c ]
-[e $UE 619  ]
-[; ;mpap.c: 298: }
-"298
+[; ;mpap.c: 288: }
+"288
 [e :UE 619 ]
 }
-"311
-[v _homming `S621 ~T0 @X0 1 e ]
-[; ;mpap.c: 308: struct _homming
-[; ;mpap.c: 309: {
-[; ;mpap.c: 310: int8_t sm0;
-[; ;mpap.c: 311: }homming;
-"313
-[v _mpap_homming_job_reset `(v ~T0 @X0 1 ef ]
-"314
+"290
+[v _mpap_isIdle `(c ~T0 @X0 1 ef ]
+"291
 {
-[; ;mpap.c: 313: void mpap_homming_job_reset(void)
-[; ;mpap.c: 314: {
+[; ;mpap.c: 290: int8_t mpap_isIdle(void)
+[; ;mpap.c: 291: {
+[e :U _mpap_isIdle ]
+[f ]
+[; ;mpap.c: 292: if (mpap.mode == MPAP_IDLE_MODE)
+"292
+[e $ ! == -> . _mpap 4 `i -> . `E4715 0 `i 621  ]
+[; ;mpap.c: 293: {
+"293
+{
+[; ;mpap.c: 294: return 1;
+"294
+[e ) -> -> 1 `i `c ]
+[e $UE 620  ]
+"295
+}
+[e :U 621 ]
+[; ;mpap.c: 295: }
+[; ;mpap.c: 296: return 0;
+"296
+[e ) -> -> 0 `i `c ]
+[e $UE 620  ]
+[; ;mpap.c: 297: }
+"297
+[e :UE 620 ]
+}
+"310
+[v _homming `S622 ~T0 @X0 1 e ]
+[; ;mpap.c: 307: struct _homming
+[; ;mpap.c: 308: {
+[; ;mpap.c: 309: int8_t sm0;
+[; ;mpap.c: 310: }homming;
+"312
+[v _mpap_homming_job_reset `(v ~T0 @X0 1 ef ]
+"313
+{
+[; ;mpap.c: 312: void mpap_homming_job_reset(void)
+[; ;mpap.c: 313: {
 [e :U _mpap_homming_job_reset ]
 [f ]
-[; ;mpap.c: 315: homming.sm0 = 0x00;
-"315
+[; ;mpap.c: 314: homming.sm0 = 0x00;
+"314
 [e = . _homming 0 -> -> 0 `i `c ]
-[; ;mpap.c: 316: }
-"316
-[e :UE 622 ]
+[; ;mpap.c: 315: }
+"315
+[e :UE 623 ]
 }
-"317
+"316
 [v _mpap_homming_job `(c ~T0 @X0 1 ef ]
-"318
+"317
 {
-[; ;mpap.c: 317: int8_t mpap_homming_job(void)
-[; ;mpap.c: 318: {
+[; ;mpap.c: 316: int8_t mpap_homming_job(void)
+[; ;mpap.c: 317: {
 [e :U _mpap_homming_job ]
 [f ]
-"319
+"318
 [v _cod_ret `c ~T0 @X0 1 a ]
-[; ;mpap.c: 319: int8_t cod_ret = 0;
+[; ;mpap.c: 318: int8_t cod_ret = 0;
 [e = _cod_ret -> -> 0 `i `c ]
-[; ;mpap.c: 321: if (homming.sm0 == 0)
+[; ;mpap.c: 320: if (homming.sm0 == 0)
+"320
+[e $ ! == -> . _homming 0 `i -> 0 `i 625  ]
+[; ;mpap.c: 321: {
 "321
-[e $ ! == -> . _homming 0 `i -> 0 `i 624  ]
-[; ;mpap.c: 322: {
+{
+[; ;mpap.c: 322: if (((PORTE & (1<<1))>>1) == 0)
 "322
-{
-[; ;mpap.c: 323: if (((PORTE & (1<<1))>>1) == 0)
+[e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 0 `i 626  ]
+[; ;mpap.c: 323: {
 "323
-[e $ ! == >> & -> _PORTE `i << -> 1 `i -> 1 `i -> 1 `i -> 0 `i 625  ]
-[; ;mpap.c: 324: {
+{
+[; ;mpap.c: 324: mpap_doMovement(+1 *((2 * 200)), MPAP_NORMAL_MODE);
 "324
-{
-[; ;mpap.c: 327: mpap_doMovement(+1 * ((2 * 200)), MPAP_NORMAL_MODE);
-"327
 [e ( _mpap_doMovement (2 , * -> 1 `i * -> 2 `i -> 200 `i -> . `E4715 4 `c ]
-[; ;mpap.c: 328: homming.sm0++;
-"328
+[; ;mpap.c: 325: homming.sm0++;
+"325
 [e ++ . _homming 0 -> -> 1 `i `c ]
-"329
+"326
 }
-[; ;mpap.c: 329: }
-[e $U 626  ]
-"330
-[e :U 625 ]
-[; ;mpap.c: 330: else
-[; ;mpap.c: 331: {
-"331
-{
-[; ;mpap.c: 332: mpap_setup_searchFirstPointHomeSensor();
-"332
-[e ( _mpap_setup_searchFirstPointHomeSensor ..  ]
-[; ;mpap.c: 333: homming.sm0 = 2;
-"333
-[e = . _homming 0 -> -> 2 `i `c ]
-"334
-}
-[e :U 626 ]
-"335
-}
-[; ;mpap.c: 334: }
-[; ;mpap.c: 335: }
+[; ;mpap.c: 326: }
 [e $U 627  ]
-"336
-[e :U 624 ]
-[; ;mpap.c: 336: else if (homming.sm0 == 1)
-[e $ ! == -> . _homming 0 `i -> 1 `i 628  ]
-[; ;mpap.c: 337: {
-"337
+"327
+[e :U 626 ]
+[; ;mpap.c: 327: else
+[; ;mpap.c: 328: {
+"328
 {
-[; ;mpap.c: 338: if (mpap_isIdle())
-"338
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 629  ]
-[; ;mpap.c: 339: {
-"339
-{
-[; ;mpap.c: 340: mpap_setup_searchFirstPointHomeSensor();
-"340
+[; ;mpap.c: 329: mpap_setup_searchFirstPointHomeSensor();
+"329
 [e ( _mpap_setup_searchFirstPointHomeSensor ..  ]
-[; ;mpap.c: 341: homming.sm0++;
+[; ;mpap.c: 330: homming.sm0 = 2;
+"330
+[e = . _homming 0 -> -> 2 `i `c ]
+"331
+}
+[e :U 627 ]
+"332
+}
+[; ;mpap.c: 331: }
+[; ;mpap.c: 332: }
+[e $U 628  ]
+"333
+[e :U 625 ]
+[; ;mpap.c: 333: else if (homming.sm0 == 1)
+[e $ ! == -> . _homming 0 `i -> 1 `i 629  ]
+[; ;mpap.c: 334: {
+"334
+{
+[; ;mpap.c: 335: if (mpap_isIdle())
+"335
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 630  ]
+[; ;mpap.c: 336: {
+"336
+{
+[; ;mpap.c: 337: mpap_setup_searchFirstPointHomeSensor();
+"337
+[e ( _mpap_setup_searchFirstPointHomeSensor ..  ]
+[; ;mpap.c: 338: homming.sm0++;
+"338
+[e ++ . _homming 0 -> -> 1 `i `c ]
+"339
+}
+[e :U 630 ]
+"340
+}
+[; ;mpap.c: 339: }
+[; ;mpap.c: 340: }
+[e $U 631  ]
 "341
-[e ++ . _homming 0 -> -> 1 `i `c ]
-"342
-}
 [e :U 629 ]
+[; ;mpap.c: 341: else if (homming.sm0 == 2)
+[e $ ! == -> . _homming 0 `i -> 2 `i 632  ]
+[; ;mpap.c: 342: {
+"342
+{
+[; ;mpap.c: 343: if (mpap_isIdle())
 "343
-}
-[; ;mpap.c: 342: }
-[; ;mpap.c: 343: }
-[e $U 630  ]
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 633  ]
+[; ;mpap.c: 344: {
 "344
-[e :U 628 ]
-[; ;mpap.c: 344: else if (homming.sm0 == 2)
-[e $ ! == -> . _homming 0 `i -> 2 `i 631  ]
-[; ;mpap.c: 345: {
+{
+[; ;mpap.c: 345: if (pulsonic.error.f.homeSensor == 0)
 "345
-{
-[; ;mpap.c: 346: if (mpap_isIdle())
+[e $ ! == -> . . . _pulsonic 0 0 1 `i -> 0 `i 634  ]
+[; ;mpap.c: 346: {
 "346
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 632  ]
-[; ;mpap.c: 347: {
+{
+[; ;mpap.c: 347: mpap_doMovement(1 * 200, MPAP_CROSSING_HOMESENSOR_MODE);
 "347
-{
-[; ;mpap.c: 348: if (pulsonic.error.f.homeSensor == 0)
-"348
-[e $ ! == -> . . . _pulsonic 0 0 1 `i -> 0 `i 633  ]
-[; ;mpap.c: 349: {
-"349
-{
-[; ;mpap.c: 350: mpap_doMovement(1 * 200, MPAP_CROSSING_HOMESENSOR_MODE);
-"350
 [e ( _mpap_doMovement (2 , * -> 1 `i -> 200 `i -> . `E4715 3 `c ]
-[; ;mpap.c: 352: homming.sm0++;
-"352
+[; ;mpap.c: 349: homming.sm0++;
+"349
 [e ++ . _homming 0 -> -> 1 `i `c ]
-"353
+"350
 }
-[; ;mpap.c: 353: }
-[e $U 634  ]
-"354
-[e :U 633 ]
-[; ;mpap.c: 354: else
-[; ;mpap.c: 355: {
-"355
+[; ;mpap.c: 350: }
+[e $U 635  ]
+"351
+[e :U 634 ]
+[; ;mpap.c: 351: else
+[; ;mpap.c: 352: {
+"352
 {
-[; ;mpap.c: 361: cod_ret = 2;
-"361
+[; ;mpap.c: 359: cod_ret = 2;
+"359
 [e = _cod_ret -> -> 2 `i `c ]
-[; ;mpap.c: 362: homming.sm0 = 0x00;
-"362
+[; ;mpap.c: 360: homming.sm0 = 0x00;
+"360
 [e = . _homming 0 -> -> 0 `i `c ]
+"361
+}
+[e :U 635 ]
+"362
+}
+[e :U 633 ]
 "363
 }
-[e :U 634 ]
-"364
-}
-[e :U 632 ]
-"365
-}
+[; ;mpap.c: 361: }
+[; ;mpap.c: 362: }
 [; ;mpap.c: 363: }
-[; ;mpap.c: 364: }
-[; ;mpap.c: 365: }
-[e $U 635  ]
+[e $U 636  ]
+"364
+[e :U 632 ]
+[; ;mpap.c: 364: else if (homming.sm0 == 3)
+[e $ ! == -> . _homming 0 `i -> 3 `i 637  ]
+[; ;mpap.c: 365: {
+"365
+{
+[; ;mpap.c: 366: if (mpap_isIdle())
 "366
-[e :U 631 ]
-[; ;mpap.c: 366: else if (homming.sm0 == 3)
-[e $ ! == -> . _homming 0 `i -> 3 `i 636  ]
+[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 638  ]
 [; ;mpap.c: 367: {
 "367
 {
-[; ;mpap.c: 368: if (mpap_isIdle())
-"368
-[e $ ! != -> ( _mpap_isIdle ..  `i -> -> -> 0 `i `c `i 637  ]
-[; ;mpap.c: 369: {
-"369
+[; ;mpap.c: 371: if (pulsonic.error.f.homeSensor == 0)
+"371
+[e $ ! == -> . . . _pulsonic 0 0 1 `i -> 0 `i 639  ]
+[; ;mpap.c: 372: {
+"372
 {
-[; ;mpap.c: 373: if (pulsonic.error.f.homeSensor == 0)
-"373
-[e $ ! == -> . . . _pulsonic 0 0 1 `i -> 0 `i 638  ]
-[; ;mpap.c: 374: {
-"374
-{
-[; ;mpap.c: 377: cod_ret = 1;
-"377
+[; ;mpap.c: 375: cod_ret = 1;
+"375
 [e = _cod_ret -> -> 1 `i `c ]
-"378
+"376
 }
-[; ;mpap.c: 378: }
-[e $U 639  ]
-"379
-[e :U 638 ]
-[; ;mpap.c: 379: else
-[; ;mpap.c: 380: {
-"380
-{
-[; ;mpap.c: 381: cod_ret = 2;
-"381
-[e = _cod_ret -> -> 2 `i `c ]
-"382
-}
+[; ;mpap.c: 376: }
+[e $U 640  ]
+"377
 [e :U 639 ]
-[; ;mpap.c: 382: }
-[; ;mpap.c: 384: homming.sm0 = 0x00;
-"384
+[; ;mpap.c: 377: else
+[; ;mpap.c: 378: {
+"378
+{
+[; ;mpap.c: 379: cod_ret = 2;
+"379
+[e = _cod_ret -> -> 2 `i `c ]
+"380
+}
+[e :U 640 ]
+[; ;mpap.c: 380: }
+[; ;mpap.c: 382: homming.sm0 = 0x00;
+"382
 [e = . _homming 0 -> -> 0 `i `c ]
-"385
+"383
+}
+[e :U 638 ]
+"384
 }
 [e :U 637 ]
-"386
-}
+"385
 [e :U 636 ]
-"387
-[e :U 635 ]
-[e :U 630 ]
-[e :U 627 ]
-[; ;mpap.c: 385: }
-[; ;mpap.c: 386: }
-[; ;mpap.c: 387: return cod_ret;
+[e :U 631 ]
+[e :U 628 ]
+[; ;mpap.c: 383: }
+[; ;mpap.c: 384: }
+[; ;mpap.c: 385: return cod_ret;
 [e ) _cod_ret ]
-[e $UE 623  ]
-[; ;mpap.c: 388: }
-"388
-[e :UE 623 ]
+[e $UE 624  ]
+[; ;mpap.c: 386: }
+"386
+[e :UE 624 ]
 }

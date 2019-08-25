@@ -119,10 +119,7 @@ int16_t mpap_get_numSteps_current(void)
 
 void mpap_setup_searchFirstPointHomeSensor(void)
 {
-    //mpap_setupToTurn(); 
-    //mpap_setMode(MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
-    
-    mpap_doMovement(+1 * ((18 * MPAP_NUMSTEP_1NOZZLE) + 20), MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
+    mpap_doMovement(+1*(NOZZLE_NUMMAX+1)*MPAP_NUMSTEP_1NOZZLE , MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE);
 }
 
 /* mpap.numSteps_current se mantiene, no se pierde 
@@ -152,8 +149,6 @@ void mpap_do1step(int8_t KI)
  * No se hace uno de timeout, sino de pasos, el sistema es libre de atascamientos 
  * en las partes mecanicas conectadas al motor
  */
-
-
 
 /* mode ubicacion en los nozzle */
 static int8_t mpap_normal_mode(void)
@@ -220,7 +215,7 @@ static int8_t mpap_crossingHomeSensor(void)
             /*whatever reset to the Origin = 0*/
             mpap.numSteps_current = 0x0000;
             mpap.numSteps_tomove = 0x0000;
-            //counterZeros = 0x000;
+            
             cod_ret = 1;
         }
     }
@@ -240,7 +235,7 @@ void mpap_job(void)//ISR
     {
         if (mpap_crossingHomeSensor())
         {
-            if (counterZeros >= (MPAP_NUMSTEP_1NOZZLE*0.2))
+            if (counterZeros >= (MPAP_NUMSTEP_1NOZZLE*0.1))
             {
                pulsonic.error.f.homeSensor = 0;
                pulsonic.flags.homed = 1;
@@ -250,22 +245,26 @@ void mpap_job(void)//ISR
                pulsonic.error.f.homeSensor = 1;
                pulsonic.flags.homed = 0;
             }
+            //counterZeros = 0x000;//Can be aborted externally, is better place at the setup
             mpap.mode = MPAP_STALL_MODE;
         }
     }
     else if (mpap.mode == MPAP_SEARCH_FIRSTPOINT_HOMESENSOR_MODE)
     {
         cod_ret = mpap_searchFirstPointHomeSensor();
-        if (cod_ret == 1)
+        if (cod_ret>0)
         {
-            pulsonic.flags.homed = 1;
-            pulsonic.error.f.homeSensor = 0;
-            mpap.mode = MPAP_STALL_MODE;
-        }
-        else if (cod_ret == 2)
-        {
-            pulsonic.flags.homed = 0;
-            pulsonic.error.f.homeSensor = 1;
+            if (cod_ret == 1)
+            {
+                pulsonic.flags.homed = 1;
+                pulsonic.error.f.homeSensor = 0;
+            }
+            else if (cod_ret == 2)
+            {
+                pulsonic.flags.homed = 0;
+                pulsonic.error.f.homeSensor = 1;
+            }
+            //
             mpap.mode = MPAP_STALL_MODE;
         }
     }
@@ -284,7 +283,7 @@ void mpap_job(void)//ISR
 
 void mpap_movetoNozzle(int8_t numNozzle)//0..NOZZLE_NUMMAX-1
 {
-    int16_t numSteps_tomove = (numNozzle*MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current;
+    int16_t numSteps_tomove = (numNozzle * MPAP_NUMSTEP_1NOZZLE) - mpap.numSteps_current;
     mpap_doMovement(numSteps_tomove, MPAP_NORMAL_MODE);
 }
 
@@ -322,9 +321,7 @@ int8_t mpap_homming_job(void)
     {
         if (PinRead(PORTRxSTEPPER_SENSOR_HOME, PINxSTEPPER_SENSOR_HOME) == 0)
         {
-            //mpap_setupToTurn(+1 * ((2 * MPAP_NUMSTEP_1NOZZLE))); //exit from this point by 2 turn for safe
-            //mpap_setMode(MPAP_NORMAL_MODE);
-            mpap_doMovement(+1 * ((2 * MPAP_NUMSTEP_1NOZZLE)), MPAP_NORMAL_MODE);
+            mpap_doMovement(+1 *((2 * MPAP_NUMSTEP_1NOZZLE)), MPAP_NORMAL_MODE);//exit from this point by 2 turn for safe
             homming.sm0++;
         }
         else
@@ -357,6 +354,7 @@ int8_t mpap_homming_job(void)
                 Isr was flagged:
                 pulsonic.flags.homed = 1;
                 pulsonic.error.f.homeSensor = 0;
+                 SE PLANTA EL PROGRAMA
                 */
                 cod_ret = 2;
                 homming.sm0 = 0x00;

@@ -163,8 +163,6 @@ void autoMode_job(void)
                 pulsonic.numNozzle = 0x00;
                 //
                 mpap_doMovement(1 * MPAP_NUMSTEP_1NOZZLE, MPAP_CROSSING_HOMESENSOR_MODE);
-                
-                //
             }
             else
             {
@@ -180,7 +178,7 @@ void autoMode_job(void)
             {
                 if (nozzle_isEnabled(pulsonic.numNozzle))
                 {
-                    tacc = (numVueltas * 200) + (  tacc * (PUMP_TICK_TIME_ON+PUMP_TICK_TIME_OFF)); //ms
+                    tacc = (numVueltas * MPAP_NUMSTEP_1NOZZLE) + (  tacc * (PUMP_TICK_TIME_ON+PUMP_TICK_TIME_OFF)); //ms
                     ktime_residuary = pulsonic.kTimeBetweenNozzleAvailable - tacc;
                     pulsonic.countTimeBetweenNozzleAvailable = 0x0000;
                     //
