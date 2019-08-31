@@ -102,10 +102,10 @@ void loop_test_motor_mosfet(void)
         autoMode_job_temperature();
         pump_job();
         smain.f.f1ms = 0;
-        
     }
 }
 
+struct _pulsonic_display disp7s_bk;
 
 void main(void)
 {
@@ -411,6 +411,17 @@ void main(void)
             }
             else if (funcMach == FUNCMACH_ERROR)
             {
+                if (change!)
+                {
+                    if (1)
+                    {
+                        
+                    }
+                    else
+                    {
+                        
+                    }
+                
                 ikb_flush();
             }
             //
@@ -421,7 +432,12 @@ void main(void)
     }
 }
 
-
+/*
+ * PWM = 20KHz
+ * uStepping: 4 + 32 + 4 = 40 usteps = 40 * 50e-6 = 2 ms
+ 
+ 
+ */
 void interrupt INTERRUPCION(void)
 {
     static uint8_t ustep_sm0;
@@ -519,6 +535,9 @@ void error_job(void)
             flushAllMode_cmd(JOB_STOP);
             funcMach = FUNCMACH_ERROR;
             RELAY_DISABLE();
+            
+            //added:
+            disp7s_bk = pulsonic.disp7s;//save a copy from last display
         }
         else
         {
