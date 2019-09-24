@@ -46,8 +46,11 @@ struct _pulsonic {
     union _errorFlag error;
 
     double ml_x1tick;
-    double distTotalTime_min; //=60min
-    double distAccessTime_min; //
+    //double distTotalTime_min; //=60min
+    double dist_total_time;
+    
+    //double distAccessTime_min; //
+    double dist_access_time;
     
     //double 
     uint32_t distAccessTime_ms; //
@@ -75,8 +78,8 @@ struct _pulsonic {
 
     double sum_all_mlh; //sum_all_mlh
     int8_t numNozzleAvailable;
-    //uint32_t kTimeBetweenNozzleAvailable;
-    //uint32_t countTimeBetweenNozzleAvailable;
+    uint32_t kTimeBetweenNozzleAvailable;
+    uint32_t countTimeBetweenNozzleAvailable;
 
     int16_t num_timeslice;
     int8_t countNozzleAvailable;

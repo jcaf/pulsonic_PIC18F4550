@@ -12,15 +12,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _EECON1bits `VS350 ~T0 @X0 0 e@4006 ]
 "5494
 [v _EEADR `Vuc ~T0 @X0 0 e@4009 ]
-"5488
+"42 /opt/microchip/xc8/v1.33/include/pic18.h
+[v ___nop `(v ~T0 @X0 0 ef ]
+[p i ___nop ]
+"5488 /opt/microchip/xc8/v1.33/include/pic18f4550.h
 [v _EEDATA `Vuc ~T0 @X0 0 e@4008 ]
 "10045
 [v _GIE `Vb ~T0 @X0 0 e@32663 ]
 "5482
 [v _EECON2 `Vuc ~T0 @X0 0 e@4007 ]
-"42 /opt/microchip/xc8/v1.33/include/pic18.h
-[v ___nop `(v ~T0 @X0 0 ef ]
-[p i ___nop ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f4550.h: 47: extern volatile unsigned char SPPDATA @ 0xF62;
@@ -4229,38 +4229,49 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom.c: 13: EECON1bits.RD = 1;
 "13
 [e = . . _EECON1bits 0 0 -> -> 1 `i `uc ]
-[; ;eeprom.c: 14: while (EECON1bits.RD);
+[; ;eeprom.c: 14: while (EECON1bits.RD){;}
 "14
 [e $U 561  ]
 [e :U 562 ]
+{
+}
 [e :U 561 ]
 [e $ != -> . . _EECON1bits 0 0 `i -> -> -> 0 `i `Vuc `i 562  ]
 [e :U 563 ]
-[; ;eeprom.c: 15: return EEDATA;
+[; ;eeprom.c: 15: __nop();
 "15
+[e ( ___nop ..  ]
+[; ;eeprom.c: 16: __nop();
+"16
+[e ( ___nop ..  ]
+[; ;eeprom.c: 17: __nop();
+"17
+[e ( ___nop ..  ]
+[; ;eeprom.c: 18: return EEDATA;
+"18
 [e ) _EEDATA ]
 [e $UE 557  ]
-[; ;eeprom.c: 16: }
-"16
+[; ;eeprom.c: 19: }
+"19
 [e :UE 557 ]
 }
-"17
+"20
 [v _eepromWrite `(v ~T0 @X0 1 ef2`uc`uc ]
-"18
+"21
 {
-[; ;eeprom.c: 17: void eepromWrite(uint8_t addr, uint8_t data)
-[; ;eeprom.c: 18: {
+[; ;eeprom.c: 20: void eepromWrite(uint8_t addr, uint8_t data)
+[; ;eeprom.c: 21: {
 [e :U _eepromWrite ]
-"17
+"20
 [v _addr `uc ~T0 @X0 1 r1 ]
 [v _data `uc ~T0 @X0 1 r2 ]
-"18
-[f ]
-"19
-[v _GIE_temp `uc ~T0 @X0 1 a ]
-[; ;eeprom.c: 19: uint8_t GIE_temp;
-[; ;eeprom.c: 21: while (EECON1bits.WR){;}
 "21
+[f ]
+"22
+[v _GIE_temp `uc ~T0 @X0 1 a ]
+[; ;eeprom.c: 22: uint8_t GIE_temp;
+[; ;eeprom.c: 24: while (EECON1bits.WR){;}
+"24
 [e $U 565  ]
 [e :U 566 ]
 {
@@ -4268,38 +4279,38 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 565 ]
 [e $ != -> . . _EECON1bits 0 1 `i -> -> -> 0 `i `Vuc `i 566  ]
 [e :U 567 ]
-[; ;eeprom.c: 23: EEADR = addr;
-"23
-[e = _EEADR _addr ]
-[; ;eeprom.c: 24: EEDATA = data;
-"24
-[e = _EEDATA _data ]
-[; ;eeprom.c: 25: EECON1bits.EEPGD = 0;
-"25
-[e = . . _EECON1bits 0 7 -> -> 0 `i `uc ]
-[; ;eeprom.c: 26: EECON1bits.CFGS = 0;
+[; ;eeprom.c: 26: EEADR = addr;
 "26
-[e = . . _EECON1bits 0 6 -> -> 0 `i `uc ]
-[; ;eeprom.c: 27: EECON1bits.WREN = 1;
+[e = _EEADR _addr ]
+[; ;eeprom.c: 27: EEDATA = data;
 "27
-[e = . . _EECON1bits 0 2 -> -> 1 `i `uc ]
-[; ;eeprom.c: 29: GIE_temp = GIE;
+[e = _EEDATA _data ]
+[; ;eeprom.c: 28: EECON1bits.EEPGD = 0;
+"28
+[e = . . _EECON1bits 0 7 -> -> 0 `i `uc ]
+[; ;eeprom.c: 29: EECON1bits.CFGS = 0;
 "29
-[e = _GIE_temp -> -> _GIE `i `uc ]
-[; ;eeprom.c: 31: GIE=0;
-"31
-[e = _GIE -> -> 0 `i `b ]
-[; ;eeprom.c: 32: EECON2 = 0x55;
+[e = . . _EECON1bits 0 6 -> -> 0 `i `uc ]
+[; ;eeprom.c: 30: EECON1bits.WREN = 1;
+"30
+[e = . . _EECON1bits 0 2 -> -> 1 `i `uc ]
+[; ;eeprom.c: 32: GIE_temp = GIE;
 "32
-[e = _EECON2 -> -> 85 `i `uc ]
-[; ;eeprom.c: 33: EECON2 = 0xAA;
-"33
-[e = _EECON2 -> -> 170 `i `uc ]
-[; ;eeprom.c: 34: EECON1bits.WR = 1;
+[e = _GIE_temp -> -> _GIE `i `uc ]
+[; ;eeprom.c: 34: GIE=0;
 "34
-[e = . . _EECON1bits 0 1 -> -> 1 `i `uc ]
-[; ;eeprom.c: 35: while (EECON1bits.WR){;}
+[e = _GIE -> -> 0 `i `b ]
+[; ;eeprom.c: 35: EECON2 = 0x55;
 "35
+[e = _EECON2 -> -> 85 `i `uc ]
+[; ;eeprom.c: 36: EECON2 = 0xAA;
+"36
+[e = _EECON2 -> -> 170 `i `uc ]
+[; ;eeprom.c: 37: EECON1bits.WR = 1;
+"37
+[e = . . _EECON1bits 0 1 -> -> 1 `i `uc ]
+[; ;eeprom.c: 38: while (EECON1bits.WR){;}
+"38
 [e $U 568  ]
 [e :U 569 ]
 {
@@ -4307,108 +4318,108 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 568 ]
 [e $ != -> . . _EECON1bits 0 1 `i -> -> -> 0 `i `Vuc `i 569  ]
 [e :U 570 ]
-[; ;eeprom.c: 37: __nop();
-"37
+[; ;eeprom.c: 40: __nop();
+"40
 [e ( ___nop ..  ]
-[; ;eeprom.c: 38: __nop();
-"38
-[e ( ___nop ..  ]
-[; ;eeprom.c: 39: __nop();
-"39
-[e ( ___nop ..  ]
-[; ;eeprom.c: 41: EECON1bits.WREN = 0;
+[; ;eeprom.c: 41: __nop();
 "41
-[e = . . _EECON1bits 0 2 -> -> 0 `i `uc ]
-[; ;eeprom.c: 42: GIE = GIE_temp;
+[e ( ___nop ..  ]
+[; ;eeprom.c: 42: __nop();
 "42
+[e ( ___nop ..  ]
+[; ;eeprom.c: 43: GIE = GIE_temp;
+"43
 [e = _GIE -> _GIE_temp `b ]
-[; ;eeprom.c: 48: }
-"48
+[; ;eeprom.c: 44: EECON1bits.WREN = 0;
+"44
+[e = . . _EECON1bits 0 2 -> -> 0 `i `uc ]
+[; ;eeprom.c: 51: }
+"51
 [e :UE 564 ]
 }
-"52
+"55
 [v _eepromWrite_double `(v ~T0 @X0 1 ef2`*uc`d ]
-"53
+"56
 {
-[; ;eeprom.c: 52: void eepromWrite_double(uint8_t *pEaddr, double data)
-[; ;eeprom.c: 53: {
+[; ;eeprom.c: 55: void eepromWrite_double(uint8_t *pEaddr, double data)
+[; ;eeprom.c: 56: {
 [e :U _eepromWrite_double ]
-"52
+"55
 [v _pEaddr `*uc ~T0 @X0 1 r1 ]
 [v _data `d ~T0 @X0 1 r2 ]
-"53
-[f ]
-"54
-[v _i `c ~T0 @X0 1 a ]
-"55
-[v _pfDATA `*uc ~T0 @X0 1 a ]
-[; ;eeprom.c: 54: int8_t i;
-[; ;eeprom.c: 55: uint8_t *pfDATA;
-[; ;eeprom.c: 56: pfDATA = (uint8_t*)&data;
 "56
-[e = _pfDATA -> &U _data `*uc ]
-[; ;eeprom.c: 57: for (i=0; i<sizeof(double); i++)
+[f ]
 "57
+[v _i `c ~T0 @X0 1 a ]
+"58
+[v _pfDATA `*uc ~T0 @X0 1 a ]
+[; ;eeprom.c: 57: int8_t i;
+[; ;eeprom.c: 58: uint8_t *pfDATA;
+[; ;eeprom.c: 59: pfDATA = (uint8_t*)&data;
+"59
+[e = _pfDATA -> &U _data `*uc ]
+[; ;eeprom.c: 60: for (i=0; i<sizeof(double); i++)
+"60
 {
 [e = _i -> -> 0 `i `c ]
 [e $ < -> -> _i `i `ui -> # `d `ui 572  ]
 [e $U 573  ]
-"58
+"61
 [e :U 572 ]
-[; ;eeprom.c: 58: {eepromWrite(pEaddr++, *(pfDATA++));}
+[; ;eeprom.c: 61: {eepromWrite(pEaddr++, *(pfDATA++));}
 {
 [e ( _eepromWrite (2 , -> ++ _pEaddr * -> -> 1 `i `x -> -> # *U _pEaddr `i `x `uc *U ++ _pfDATA * -> -> 1 `i `x -> -> # *U _pfDATA `i `x ]
 }
-"57
+"60
 [e ++ _i -> -> 1 `i `c ]
 [e $ < -> -> _i `i `ui -> # `d `ui 572  ]
 [e :U 573 ]
-"58
+"61
 }
-[; ;eeprom.c: 59: }
-"59
+[; ;eeprom.c: 62: }
+"62
 [e :UE 571 ]
 }
-"61
-[v _eepromRead_double `(d ~T0 @X0 1 ef1`*uc ]
-"62
-{
-[; ;eeprom.c: 61: double eepromRead_double(uint8_t *pEaddr)
-[; ;eeprom.c: 62: {
-[e :U _eepromRead_double ]
-"61
-[v _pEaddr `*uc ~T0 @X0 1 r1 ]
-"62
-[f ]
-"63
-[v _i `c ~T0 @X0 1 a ]
 "64
-[v _buff `uc ~T0 @X0 -> # `d `ui a ]
-[; ;eeprom.c: 63: int8_t i;
-[; ;eeprom.c: 64: uint8_t buff[sizeof(double)];
-[; ;eeprom.c: 65: for (i = 0; i < sizeof(double); i++)
+[v _eepromRead_double `(d ~T0 @X0 1 ef1`*uc ]
 "65
+{
+[; ;eeprom.c: 64: double eepromRead_double(uint8_t *pEaddr)
+[; ;eeprom.c: 65: {
+[e :U _eepromRead_double ]
+"64
+[v _pEaddr `*uc ~T0 @X0 1 r1 ]
+"65
+[f ]
+"66
+[v _i `c ~T0 @X0 1 a ]
+"67
+[v _buff `uc ~T0 @X0 -> # `d `ui a ]
+[; ;eeprom.c: 66: int8_t i;
+[; ;eeprom.c: 67: uint8_t buff[sizeof(double)];
+[; ;eeprom.c: 68: for (i = 0; i < sizeof(double); i++)
+"68
 {
 [e = _i -> -> 0 `i `c ]
 [e $ < -> -> _i `i `ui -> # `d `ui 576  ]
 [e $U 577  ]
-"66
+"69
 [e :U 576 ]
-[; ;eeprom.c: 66: {buff[i]= eepromRead(pEaddr++);}
+[; ;eeprom.c: 69: {buff[i]= eepromRead(pEaddr++);}
 {
 [e = *U + &U _buff * -> -> _i `uc `ux -> -> # *U &U _buff `ui `ux ( _eepromRead (1 -> ++ _pEaddr * -> -> 1 `i `x -> -> # *U _pEaddr `i `x `uc ]
 }
-"65
+"68
 [e ++ _i -> -> 1 `i `c ]
 [e $ < -> -> _i `i `ui -> # `d `ui 576  ]
 [e :U 577 ]
-"66
+"69
 }
-[; ;eeprom.c: 67: return *((double*)buff);
-"67
+[; ;eeprom.c: 70: return *((double*)buff);
+"70
 [e ) *U -> &U _buff `*d ]
 [e $UE 575  ]
-[; ;eeprom.c: 68: }
-"68
+[; ;eeprom.c: 71: }
+"71
 [e :UE 575 ]
 }

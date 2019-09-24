@@ -74,6 +74,7 @@ void mykb_layout0(void)
     prop.numGroup = 1;
     prop.repttTh.breakTime = (uint16_t) 500.0 / KB_PERIODIC_ACCESS;
     prop.repttTh.period = (uint16_t) 300.0 / KB_PERIODIC_ACCESS;
+    
     ikb_setKeyProp(KB_LYOUT_KEY_UP, prop);
     ikb_setKeyProp(KB_LYOUT_KEY_DOWN, prop);
     //
@@ -104,16 +105,19 @@ void loop_test_motor_mosfet(void)
         smain.f.f1ms = 0;
     }
 }
+static void check_oilLevel_reset(void);
+static void check_homeSensor_reset(void);
 
-struct _pulsonic_display disp7s_bk;
+ struct _pulsonic_display disp7s_bk;
 
+int8_t startSig_last = 0;
 void main(void)
 {
     int8_t sm0 = 0;
     int8_t c_access_kb = 0;
     int8_t c_access_disp = 0;
     int8_t startSig = 0;
-    int8_t startSig_last = 0;
+    //int8_t startSig_last = 0;
     int8_t flushKb;
     static int8_t flushKb_last;
     struct _key_prop prop = {0};
@@ -245,52 +249,47 @@ void main(void)
                             psFlag.checkNewStart = 1;
                             //
                             autoMode_cmd(JOB_STOP);
-                            
                         }
                     }
 
-                    /*Display: 2 cases     */
-                    /*1st case: in auto mode without change disp_owner = DISPOWNER_AUTOMODE*/
+                    /* Display: 2 cases     */
+                    /* 1st case: in auto mode without change disp_owner = DISPOWNER_AUTOMODE */
                     if (disp_owner == DISPOWNER_AUTOMODE)
                     {
                         if (startSig_last != startSig)
                         {
                             startSig_last = startSig;
                             if (startSig)
-                            {
                                 autoMode_disp7s_writeSumTotal();
-                            }
                             else
-                            {
                                 disp7s_qtyDisp_writeText_20_3RAYAS();
-                            }
                         }
                     }
 
-                    /*2nd case: on demand, from other process*/
-                    if (psFlag.autoMode_toreturn_disp7s)
-                    {
-                        psFlag.autoMode_toreturn_disp7s = 0;
-
-                        disp_owner = DISPOWNER_AUTOMODE;
-
-                        if (startSig)
-                        {
-                            autoMode_disp7s_writeSumTotal();
-                        }
-                        else
-                        {
-                            disp7s_qtyDisp_writeText_20_3RAYAS();
-                        }
-
-                        startSig_last = startSig;
-                    }
+                    /* 2nd case: on demand, from other process */
+//                    if (psFlag.autoMode_toreturn_disp7s)
+//                    {
+//                        psFlag.autoMode_toreturn_disp7s = 0;
+//
+//                        disp_owner = DISPOWNER_AUTOMODE;
+//
+//                        if (startSig)
+//                        {
+//                            autoMode_disp7s_writeSumTotal();
+//                        }
+//                        else
+//                        {
+//                            disp7s_qtyDisp_writeText_20_3RAYAS();
+//                        }
+//
+//                        startSig_last = startSig;
+//                    }
                     //
                     autoMode_job();
                 }
 
                 /* keyboard*/
-                flushKb = ikb_key_is_ready2read(KB_LYOUT_KEY_FLUSHENTER);
+                flushKb = ikb_key_is_ready2read(KB_LYOUT_KEY_FLUSHENTER);//key[k].prop.uFlag.f.whilePressing
                 if (flushKb_last != flushKb)
                 {
                     if (flushKb)
@@ -310,6 +309,11 @@ void main(void)
                         if (disp_owner == DISPOWNER_AUTOMODE)
                         {
                             psFlag.autoMode_toreturn_disp7s = 1;
+                            //
+                            disp_owner = DISPOWNER_AUTOMODE;
+                            startSig_last = -1;
+                            //
+                            
                         }
 
                         if (disp_owner == DISPOWNER_VISMODE)
@@ -328,6 +332,10 @@ void main(void)
                     {
                         visMode.numVista = -1;
                         psFlag.autoMode_toreturn_disp7s = 1;
+                        //
+                            disp_owner = DISPOWNER_AUTOMODE;
+                            startSig_last = -1;
+                            //
                     }
                     else
                     {
@@ -347,6 +355,10 @@ void main(void)
                     if (--visMode.numVista < 0)
                     {
                         psFlag.autoMode_toreturn_disp7s = 1;
+                        //
+                            disp_owner = DISPOWNER_AUTOMODE;
+                            startSig_last = -1;
+                            //
                     }
                     else
                     {
@@ -405,23 +417,30 @@ void main(void)
                     psFlag.checkNewStart = 1;
                     psFlag.autoMode_toreturn_disp7s = 1;
                     //
+                            disp_owner = DISPOWNER_AUTOMODE;
+                            startSig_last = -1;
+                            //
+                    
+                    //
                     RELAY_ENABLE();
                 }
                 flushAtNozzle_job();
             }
             else if (funcMach == FUNCMACH_ERROR)
             {
-                if (change!)
+                if (!startSig)
                 {
-                    if (1)
+                    if (ikb_key_is_ready2read(KB_LYOUT_KEY_FLUSHENTER))
                     {
+                        pulsonic.error.packed = 0x00;//clear all error flags
+                        //
+                        //disp_owner = DISPOWNER_AUTOMODE;
+                        //startSig_last = -1;
+                        //
                         
                     }
-                    else
-                    {
-                        
-                    }
-                
+                }
+                //
                 ikb_flush();
             }
             //
@@ -435,8 +454,7 @@ void main(void)
 /*
  * PWM = 20KHz
  * uStepping: 4 + 32 + 4 = 40 usteps = 40 * 50e-6 = 2 ms
- 
- 
+  
  */
 void interrupt INTERRUPCION(void)
 {
@@ -516,6 +534,8 @@ static void check_homeSensor(void);
 
 void error_job(void)
 {
+    struct _key_prop prop = {0};
+    //
     static intNumMaxErr_t errorPacked_last = -1;
 
     check_oilLevel();
@@ -538,96 +558,125 @@ void error_job(void)
             
             //added:
             disp7s_bk = pulsonic.disp7s;//save a copy from last display
+            ikey_clear_all_flag();
+            // in this moment any key configured as whilepressing is cleared from main()
+            // clear all last_states... but is better to change only to "normal function"
+            prop = propEmpty;
+            prop.uFlag.f.onKeyPressed = 1;
+            ikb_setKeyProp(KB_LYOUT_KEY_FLUSHENTER, prop);
         }
         else
         {
             funcMach = FUNCMACH_NORMAL;
             psFlag.autoMode_lock = UNLOCKED;
             psFlag.checkNewStart = 1;
-            psFlag.autoMode_toreturn_disp7s = 1;
             pulsonic.flags.homed = 0;
+            psFlag.autoMode_toreturn_disp7s = 1;
             RELAY_ENABLE();
+            //
+            disp_owner = DISPOWNER_AUTOMODE;
+            startSig_last = -1;
+            //
+            check_oilLevel_reset();
+            check_homeSensor_reset();
+            mykb_layout0();
         }
     }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+struct _chek_homeSensor_data
+{
+    int8_t sm0;
+    int8_t sm1;
+}chek_homeSensor_data;
+static void check_homeSensor_reset(void)
+{
+    chek_homeSensor_data.sm0 = 0;
+    chek_homeSensor_data.sm1 = 0;
+}
+
 static void check_homeSensor(void)
 {
-    static int8_t sm0, sm1;
-
-    if (sm0 == 0)
+    if (chek_homeSensor_data.sm0 == 0)
     {
         if (pulsonic.error.f.homeSensor == 1)
         {
             //ISR flagged
             //pulsonic.error.f.homeSensor = 1; /*request write*/
-            sm0++;
-            sm1 = 0x00;
+            chek_homeSensor_data.sm0++;
+            chek_homeSensor_data.sm1 = 0x00;
         }
     }
-    else if (sm0 == 1)/*2 parts: the process and the display*/
+    else if (chek_homeSensor_data.sm0 == 1)/*2 parts: the process and the display*/
     {
         //cannot recovery from this, User needs to reset the system
         if (0)  /*1)the process*/
         {
             //pulsonic.error.f.homeSensor = 0;
-            //sm0 = 0x00;
+            //chek_homeSensor_data.sm0 = 0x00;
         }
         else
         {
             if (error_grantedToWriteDisp.f.homeSensor == 1)/*2) need to write on display*/
             {
-                if (sm1 == 0)
+                if (chek_homeSensor_data.sm1 == 0)
                 {
                     disp7s_qtyDisp_writeText_NO_HOME_SENSOR();
-                    sm1++;
+                    chek_homeSensor_data.sm1++;
                 }
             }
             else
             {
-                sm1 = 0x0;
+                chek_homeSensor_data.sm1 = 0x0;
             }
         }
     }
 }
+struct _check_oilLevel_data
+{
+    int8_t sm0;
+    int8_t sm1;
+}check_oilLevel_data;
+static void check_oilLevel_reset(void)
+{
+    check_oilLevel_data.sm0 = 0x00;
+    check_oilLevel_data.sm1 = 0x00;
+}
 static void check_oilLevel(void)
 {
-    static int8_t sm0, sm1;
-
     int8_t oilLevel;
-
     oilLevel = is_oilLevel();
 
-    if (sm0 == 0)
+    if (check_oilLevel_data.sm0 == 0)
     {
         if (!oilLevel)
         {
             pulsonic.error.f.oilLevel = 1; /*request write*/
-            sm0++;
-            sm1 = 0x00;
+            check_oilLevel_data.sm0++;
+            check_oilLevel_data.sm1 = 0x00;
         }
     }
-    else if (sm0 == 1)/*2 parts: the process and the display*/
+    else if (check_oilLevel_data.sm0 == 1)/*2 parts: the process and the display*/
     {
-        if (oilLevel)/*1)the process*/
+        if (0)//(oilLevel)   /*1)the process*/
         {
             pulsonic.error.f.oilLevel = 0;
-            sm0 = 0x00;
+            check_oilLevel_data.sm0 = 0x00;
         }
         else
         {
-            if (error_grantedToWriteDisp.f.oilLevel == 1)/*2) need to write on display*/
+            if (error_grantedToWriteDisp.f.oilLevel == 1) /*2) need to write on display*/
             {
-                if (sm1 == 0)
+                if (check_oilLevel_data.sm1 == 0)
                 {
                     disp7s_qtyDisp_writeText_NO_OIL();
-                    sm1++;
+                    check_oilLevel_data.sm1++;
                 }
             }
             else
             {
-                sm1 = 0x0;
+                check_oilLevel_data.sm1 = 0x0;
             }
         }
     }

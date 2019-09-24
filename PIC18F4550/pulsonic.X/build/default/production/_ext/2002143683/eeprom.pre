@@ -5495,7 +5495,10 @@ EEADR = addr;
 EECON1bits.EEPGD = 0;
 EECON1bits.CFGS = 0;
 EECON1bits.RD = 1;
-while (EECON1bits.RD);
+while (EECON1bits.RD){;}
+__nop();
+__nop();
+__nop();
 return EEDATA;
 }
 void eepromWrite(uint8_t addr, uint8_t data)
@@ -5521,11 +5524,10 @@ while (EECON1bits.WR){;}
 __nop();
 __nop();
 __nop();
-
-EECON1bits.WREN = 0;
 GIE = GIE_temp;
+EECON1bits.WREN = 0;
 
-# 48
+# 51
 }
 
 

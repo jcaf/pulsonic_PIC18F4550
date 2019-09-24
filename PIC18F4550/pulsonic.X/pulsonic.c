@@ -10,7 +10,9 @@ const int8_t OIL_VISCOSITY[OIL_VISCOSITY_NUMMAX]={22, 32, 46, 68};
 void pulsonic_init(void)
 {
     int8_t i;
+    //pulsonic.distTotalTime_min = 60;  //min
     pulsonic.dist_total_time = 60;  //min
+    
     
     for (i=0; i< NOZZLE_NUMMAX; i++)
     {

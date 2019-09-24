@@ -103,7 +103,6 @@ void autoMode_cmd(int8_t cmd)
     mpap_stall();
 }
 
-pulsonic.distAccessTime_min
 
 void autoMode_job(void)
 {

@@ -5685,33 +5685,42 @@ RAYA
 # 19 "pulsonic.h"
 typedef int8_t intNumMaxErr_t;
 
-# 25
-union _errorFlag
-{
-struct _errorFlag_flags
-{
-unsigned oilLevel:1;
-unsigned homeSensor:1;
-unsigned unblockedNozzle:1;
-unsigned inductiveSensorRPM:1;
-unsigned __a :4;
+# 26
+union _errorFlag {
+
+struct _errorFlag_flags {
+unsigned oilLevel : 1;
+unsigned homeSensor : 1;
+unsigned unblockedNozzle : 1;
+unsigned inductiveSensorRPM : 1;
+unsigned __a : 4;
 
 
-}f;
+} f;
 intNumMaxErr_t packed;
 };
 
-struct _pulsonic
-{
+struct _pulsonic_display {
+uint8_t qty[3];
+uint8_t mode[2];
+};
+
+struct _pulsonic {
 union _errorFlag error;
 
 double ml_x1tick;
+
 double dist_total_time;
+
+
 double dist_access_time;
+
+
+uint32_t distAccessTime_ms;
+
 double timeslice;
 
-struct _pulsonic_nozzle
-{
+struct _pulsonic_nozzle {
 double Q_mlh;
 double nticks_xtimeslice;
 double kmax_ticks_xtimeslice;
@@ -5723,13 +5732,12 @@ double accError;
 int counterTicks_xTotalTime;
 uint16_t nticks_delivered_inThisTimeSlice;
 
-}nozzle[18];
+} nozzle[18];
 
-struct _pulsonic_oil
-{
+struct _pulsonic_oil {
 int8_t i;
 int8_t viscosity;
-}oil;
+} oil;
 
 double sum_all_mlh;
 int8_t numNozzleAvailable;
@@ -5739,17 +5747,13 @@ uint32_t countTimeBetweenNozzleAvailable;
 int16_t num_timeslice;
 int8_t countNozzleAvailable;
 
-struct _pulsonic_display
-{
-uint8_t qty[3];
-uint8_t mode[2];
-}disp7s;
 
-struct _pulsonic_flags
-{
-unsigned homed:1;
-unsigned __a:7;
-}flags;
+struct _pulsonic_display disp7s;
+
+struct _pulsonic_flags {
+unsigned homed : 1;
+unsigned __a : 7;
+} flags;
 
 int8_t numNozzle;
 };
@@ -5958,6 +5962,7 @@ prop.uFlag.f.reptt = 1;
 prop.numGroup = 1;
 prop.repttTh.breakTime = (uint16_t) 500.0 / 20;
 prop.repttTh.period = (uint16_t) 300.0 / 20;
+
 ikb_setKeyProp(0, prop);
 ikb_setKeyProp(1, prop);
 
@@ -5986,18 +5991,21 @@ smain.f.f1ms = 1;
 autoMode_job_temperature();
 pump_job();
 smain.f.f1ms = 0;
-
 }
 }
+static void check_oilLevel_reset(void);
+static void check_homeSensor_reset(void);
 
+struct _pulsonic_display disp7s_bk;
 
+int8_t startSig_last = 0;
 void main(void)
 {
 int8_t sm0 = 0;
 int8_t c_access_kb = 0;
 int8_t c_access_disp = 0;
 int8_t startSig = 0;
-int8_t startSig_last = 0;
+
 int8_t flushKb;
 static int8_t flushKb_last;
 struct _key_prop prop = {0};
@@ -6017,7 +6025,7 @@ CMCON = 0xCF;
 UCON = 0;
 UCFG = 1 << 3;
 
-# 142
+# 146
 do{do{LATA |= 1<<5;}while(0);}while(0);
 do{TRISA &= ~(1<<5);}while(0);
 
@@ -6124,7 +6132,6 @@ psFlag.checkNoStart = 0;
 psFlag.checkNewStart = 1;
 
 autoMode_cmd(JOB_STOP);
-
 }
 }
 
@@ -6136,35 +6143,13 @@ if (startSig_last != startSig)
 {
 startSig_last = startSig;
 if (startSig)
-{
 autoMode_disp7s_writeSumTotal();
-}
 else
-{
 disp7s_qtyDisp_writeText_20_3RAYAS();
 }
 }
-}
 
-
-if (psFlag.autoMode_toreturn_disp7s)
-{
-psFlag.autoMode_toreturn_disp7s = 0;
-
-disp_owner = DISPOWNER_AUTOMODE;
-
-if (startSig)
-{
-autoMode_disp7s_writeSumTotal();
-}
-else
-{
-disp7s_qtyDisp_writeText_20_3RAYAS();
-}
-
-startSig_last = startSig;
-}
-
+# 288
 autoMode_job();
 }
 
@@ -6189,6 +6174,11 @@ psFlag.checkNewStart = 1;
 if (disp_owner == DISPOWNER_AUTOMODE)
 {
 psFlag.autoMode_toreturn_disp7s = 1;
+
+disp_owner = DISPOWNER_AUTOMODE;
+startSig_last = -1;
+
+
 }
 
 if (disp_owner == DISPOWNER_VISMODE)
@@ -6207,6 +6197,10 @@ if (++visMode.numVista >= (18+1))
 {
 visMode.numVista = -1;
 psFlag.autoMode_toreturn_disp7s = 1;
+
+disp_owner = DISPOWNER_AUTOMODE;
+startSig_last = -1;
+
 }
 else
 {
@@ -6226,6 +6220,10 @@ visMode.numVista = (18+1);
 if (--visMode.numVista < 0)
 {
 psFlag.autoMode_toreturn_disp7s = 1;
+
+disp_owner = DISPOWNER_AUTOMODE;
+startSig_last = -1;
+
 }
 else
 {
@@ -6284,12 +6282,27 @@ psFlag.autoMode_lock = UNLOCKED;
 psFlag.checkNewStart = 1;
 psFlag.autoMode_toreturn_disp7s = 1;
 
+disp_owner = DISPOWNER_AUTOMODE;
+startSig_last = -1;
+
+
+
 do{do{LATA &= ~(1<<5);}while(0);}while(0);
 }
 flushAtNozzle_job();
 }
 else if (funcMach == FUNCMACH_ERROR)
 {
+if (!startSig)
+{
+if (ikb_key_is_ready2read(4))
+{
+pulsonic.error.packed = 0x00;
+
+# 441
+}
+}
+
 ikb_flush();
 }
 
@@ -6300,7 +6313,7 @@ smain.f.f1ms = 0;
 }
 }
 
-
+# 459
 void interrupt INTERRUPCION(void)
 {
 static uint8_t ustep_sm0;
@@ -6359,7 +6372,7 @@ cticks = 0x00;
 TMR2IF = 0;
 }
 
-# 494
+# 528
 }
 
 static union _errorFlag error_grantedToWriteDisp;
@@ -6369,6 +6382,8 @@ static void check_homeSensor(void);
 
 void error_job(void)
 {
+struct _key_prop prop = {0};
+
 static intNumMaxErr_t errorPacked_last = -1;
 
 check_oilLevel();
@@ -6388,35 +6403,60 @@ pump_stop();
 flushAllMode_cmd(JOB_STOP);
 funcMach = FUNCMACH_ERROR;
 do{do{LATA |= 1<<5;}while(0);}while(0);
+
+
+disp7s_bk = pulsonic.disp7s;
+ikey_clear_all_flag();
+
+
+prop = propEmpty;
+prop.uFlag.f.onKeyPressed = 1;
+ikb_setKeyProp(4, prop);
 }
 else
 {
 funcMach = FUNCMACH_NORMAL;
 psFlag.autoMode_lock = UNLOCKED;
 psFlag.checkNewStart = 1;
-psFlag.autoMode_toreturn_disp7s = 1;
 pulsonic.flags.homed = 0;
+psFlag.autoMode_toreturn_disp7s = 1;
 do{do{LATA &= ~(1<<5);}while(0);}while(0);
+
+disp_owner = DISPOWNER_AUTOMODE;
+startSig_last = -1;
+
+check_oilLevel_reset();
+check_homeSensor_reset();
+mykb_layout0();
 }
 }
 }
 
+
+struct _chek_homeSensor_data
+{
+int8_t sm0;
+int8_t sm1;
+}chek_homeSensor_data;
+static void check_homeSensor_reset(void)
+{
+chek_homeSensor_data.sm0 = 0;
+chek_homeSensor_data.sm1 = 0;
+}
 
 static void check_homeSensor(void)
 {
-static int8_t sm0, sm1;
-
-if (sm0 == 0)
+if (chek_homeSensor_data.sm0 == 0)
 {
 if (pulsonic.error.f.homeSensor == 1)
 {
 
 
-sm0++;
-sm1 = 0x00;
+chek_homeSensor_data.sm0++;
+chek_homeSensor_data.sm1 = 0x00;
 }
 }
-else if (sm0 == 1)
+else if (chek_homeSensor_data.sm0 == 1)
 {
 
 if (0)
@@ -6428,56 +6468,63 @@ else
 {
 if (error_grantedToWriteDisp.f.homeSensor == 1)
 {
-if (sm1 == 0)
+if (chek_homeSensor_data.sm1 == 0)
 {
 disp7s_qtyDisp_writeText_NO_HOME_SENSOR();
-sm1++;
+chek_homeSensor_data.sm1++;
 }
 }
 else
 {
-sm1 = 0x0;
+chek_homeSensor_data.sm1 = 0x0;
 }
 }
 }
+}
+struct _check_oilLevel_data
+{
+int8_t sm0;
+int8_t sm1;
+}check_oilLevel_data;
+static void check_oilLevel_reset(void)
+{
+check_oilLevel_data.sm0 = 0x00;
+check_oilLevel_data.sm1 = 0x00;
 }
 static void check_oilLevel(void)
 {
-static int8_t sm0, sm1;
-
 int8_t oilLevel;
-
 oilLevel = is_oilLevel();
 
-if (sm0 == 0)
+if (check_oilLevel_data.sm0 == 0)
 {
 if (!oilLevel)
 {
 pulsonic.error.f.oilLevel = 1;
-sm0++;
-sm1 = 0x00;
+check_oilLevel_data.sm0++;
+check_oilLevel_data.sm1 = 0x00;
 }
 }
-else if (sm0 == 1)
+else if (check_oilLevel_data.sm0 == 1)
 {
-if (oilLevel)
+if (0)
 {
 pulsonic.error.f.oilLevel = 0;
-sm0 = 0x00;
+check_oilLevel_data.sm0 = 0x00;
 }
 else
 {
 if (error_grantedToWriteDisp.f.oilLevel == 1)
 {
-if (sm1 == 0)
+if (check_oilLevel_data.sm1 == 0)
 {
 disp7s_qtyDisp_writeText_NO_OIL();
-sm1++;
+check_oilLevel_data.sm1++;
 }
 }
 else
 {
-sm1 = 0x0;
+check_oilLevel_data.sm1 = 0x0;
 }
 }
 }

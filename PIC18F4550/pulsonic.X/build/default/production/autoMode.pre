@@ -5685,33 +5685,42 @@ RAYA
 # 19 "pulsonic.h"
 typedef int8_t intNumMaxErr_t;
 
-# 25
-union _errorFlag
-{
-struct _errorFlag_flags
-{
-unsigned oilLevel:1;
-unsigned homeSensor:1;
-unsigned unblockedNozzle:1;
-unsigned inductiveSensorRPM:1;
-unsigned __a :4;
+# 26
+union _errorFlag {
+
+struct _errorFlag_flags {
+unsigned oilLevel : 1;
+unsigned homeSensor : 1;
+unsigned unblockedNozzle : 1;
+unsigned inductiveSensorRPM : 1;
+unsigned __a : 4;
 
 
-}f;
+} f;
 intNumMaxErr_t packed;
 };
 
-struct _pulsonic
-{
+struct _pulsonic_display {
+uint8_t qty[3];
+uint8_t mode[2];
+};
+
+struct _pulsonic {
 union _errorFlag error;
 
 double ml_x1tick;
+
 double dist_total_time;
+
+
 double dist_access_time;
+
+
+uint32_t distAccessTime_ms;
+
 double timeslice;
 
-struct _pulsonic_nozzle
-{
+struct _pulsonic_nozzle {
 double Q_mlh;
 double nticks_xtimeslice;
 double kmax_ticks_xtimeslice;
@@ -5723,13 +5732,12 @@ double accError;
 int counterTicks_xTotalTime;
 uint16_t nticks_delivered_inThisTimeSlice;
 
-}nozzle[18];
+} nozzle[18];
 
-struct _pulsonic_oil
-{
+struct _pulsonic_oil {
 int8_t i;
 int8_t viscosity;
-}oil;
+} oil;
 
 double sum_all_mlh;
 int8_t numNozzleAvailable;
@@ -5739,17 +5747,13 @@ uint32_t countTimeBetweenNozzleAvailable;
 int16_t num_timeslice;
 int8_t countNozzleAvailable;
 
-struct _pulsonic_display
-{
-uint8_t qty[3];
-uint8_t mode[2];
-}disp7s;
 
-struct _pulsonic_flags
-{
-unsigned homed:1;
-unsigned __a:7;
-}flags;
+struct _pulsonic_display disp7s;
+
+struct _pulsonic_flags {
+unsigned homed : 1;
+unsigned __a : 7;
+} flags;
 
 int8_t numNozzle;
 };
@@ -5879,7 +5883,7 @@ extern const struct _key_prop propEmpty;
 void flushAllMode_cmd(int8_t cmd);
 void flushAllMode_job(void);
 
-# 11 "autoMode.c"
+# 34 "autoMode.c"
 double Qmhl_measured = 5.0;
 double nTicks_measured = 268;
 
@@ -6153,7 +6157,7 @@ c_min = 0x00;
 }
 }
 
-# 352
+# 375
 void autoMode_job_temperature(void)
 {
 

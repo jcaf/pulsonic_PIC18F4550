@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/configMode.c</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/autoMode.c</file>
+            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/mpap.c</file>
             <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/main.c</file>
             <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/display.c</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/MICROCHIP/C/PULSONIC/firmware/PIC18F4550/pulsonic.X/pulsonic.h</file>
-            <file>file:/run/media/jcaf/pleasure/PROYECTOS/FIRWAR/eslibrary/PIC/eeprom/eeprom.c</file>
         </group>
     </open-files>
 </project-private>

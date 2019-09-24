@@ -7,29 +7,29 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S611 _disp7s_mux Qonoff ]
 "3974 /opt/microchip/xc8/v1.33/include/pic18f4550.h
 [v _TRISA `Vuc ~T0 @X0 0 e@3986 ]
-"27 pulsonic.h
+"28 pulsonic.h
 [s S565 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
 [n S565 _errorFlag_flags oilLevel homeSensor unblockedNozzle inductiveSensorRPM __a ]
-"25
+"26
 [u S564 `S565 1 `c 1 ]
 [n S564 _errorFlag f packed ]
-"49
-[s S567 `d 1 `d 1 `d 1 `d 1 `i 1 `ui 1 ]
-[n S567 _pulsonic_nozzle Q_mlh nticks_xtimeslice kmax_ticks_xtimeslice accError counterTicks_xTotalTime nticks_delivered_inThisTimeSlice ]
-"64
-[s S568 `c 1 `c 1 ]
-[n S568 _pulsonic_oil i viscosity ]
-"78
-[s S569 `uc -> 3 `i `uc -> 2 `i ]
-[n S569 _pulsonic_display qty mode ]
-"84
+"60
+[s S568 `d 1 `d 1 `d 1 `d 1 `i 1 `ui 1 ]
+[n S568 _pulsonic_nozzle Q_mlh nticks_xtimeslice kmax_ticks_xtimeslice accError counterTicks_xTotalTime nticks_delivered_inThisTimeSlice ]
+"74
+[s S569 `c 1 `c 1 ]
+[n S569 _pulsonic_oil i viscosity ]
+"40
+[s S566 `uc -> 3 `i `uc -> 2 `i ]
+[n S566 _pulsonic_display qty mode ]
+"90
 [s S570 :1 `uc 1 :7 `uc 1 ]
 [n S570 _pulsonic_flags homed __a ]
-"40
-[s S566 `S564 1 `d 1 `d 1 `d 1 `d 1 `S567 -> 18 `i `S568 1 `d 1 `c 1 `ul 1 `ul 1 `i 1 `c 1 `S569 1 `S570 1 `c 1 ]
-[n S566 _pulsonic error ml_x1tick dist_total_time dist_access_time timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags numNozzle ]
-"93
-[v _pulsonic `VS566 ~T0 @X0 0 e ]
+"45
+[s S567 `S564 1 `d 1 `d 1 `d 1 `ul 1 `d 1 `S568 -> 18 `i `S569 1 `d 1 `c 1 `ul 1 `ul 1 `i 1 `c 1 `S566 1 `S570 1 `c 1 ]
+[n S567 _pulsonic error ml_x1tick dist_total_time dist_access_time distAccessTime_ms timeslice nozzle oil sum_all_mlh numNozzleAvailable kTimeBetweenNozzleAvailable countTimeBetweenNozzleAvailable num_timeslice countNozzleAvailable disp7s flags numNozzle ]
+"98
+[v _pulsonic `VS567 ~T0 @X0 0 e ]
 "116 display.c
 [c E4747 0 1 .. ]
 [n E4747 _DISP7S_CHARS OFF RAYA  ]
@@ -4368,65 +4368,60 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;nozzle.h: 20: int8_t nozzle_setPosition(int8_t n);
 [; ;nozzle.h: 21: void nozzle_setPosition_reset(void);
 [; ;pulsonic.h: 19: typedef int8_t intNumMaxErr_t;
-[; ;pulsonic.h: 25: union _errorFlag
-[; ;pulsonic.h: 26: {
-[; ;pulsonic.h: 27: struct _errorFlag_flags
-[; ;pulsonic.h: 28: {
-[; ;pulsonic.h: 29: unsigned oilLevel:1;
-[; ;pulsonic.h: 30: unsigned homeSensor:1;
-[; ;pulsonic.h: 31: unsigned unblockedNozzle:1;
-[; ;pulsonic.h: 32: unsigned inductiveSensorRPM:1;
-[; ;pulsonic.h: 33: unsigned __a :4;
-[; ;pulsonic.h: 36: }f;
+[; ;pulsonic.h: 26: union _errorFlag {
+[; ;pulsonic.h: 28: struct _errorFlag_flags {
+[; ;pulsonic.h: 29: unsigned oilLevel : 1;
+[; ;pulsonic.h: 30: unsigned homeSensor : 1;
+[; ;pulsonic.h: 31: unsigned unblockedNozzle : 1;
+[; ;pulsonic.h: 32: unsigned inductiveSensorRPM : 1;
+[; ;pulsonic.h: 33: unsigned __a : 4;
+[; ;pulsonic.h: 36: } f;
 [; ;pulsonic.h: 37: intNumMaxErr_t packed;
 [; ;pulsonic.h: 38: };
-[; ;pulsonic.h: 40: struct _pulsonic
-[; ;pulsonic.h: 41: {
-[; ;pulsonic.h: 42: union _errorFlag error;
-[; ;pulsonic.h: 44: double ml_x1tick;
-[; ;pulsonic.h: 45: double dist_total_time;
-[; ;pulsonic.h: 46: double dist_access_time;
-[; ;pulsonic.h: 47: double timeslice;
-[; ;pulsonic.h: 49: struct _pulsonic_nozzle
-[; ;pulsonic.h: 50: {
-[; ;pulsonic.h: 51: double Q_mlh;
-[; ;pulsonic.h: 52: double nticks_xtimeslice;
-[; ;pulsonic.h: 53: double kmax_ticks_xtimeslice;
-[; ;pulsonic.h: 55: double accError;
-[; ;pulsonic.h: 59: int counterTicks_xTotalTime;
-[; ;pulsonic.h: 60: uint16_t nticks_delivered_inThisTimeSlice;
-[; ;pulsonic.h: 62: }nozzle[18];
-[; ;pulsonic.h: 64: struct _pulsonic_oil
-[; ;pulsonic.h: 65: {
-[; ;pulsonic.h: 66: int8_t i;
-[; ;pulsonic.h: 67: int8_t viscosity;
-[; ;pulsonic.h: 68: }oil;
-[; ;pulsonic.h: 70: double sum_all_mlh;
-[; ;pulsonic.h: 71: int8_t numNozzleAvailable;
-[; ;pulsonic.h: 72: uint32_t kTimeBetweenNozzleAvailable;
-[; ;pulsonic.h: 73: uint32_t countTimeBetweenNozzleAvailable;
-[; ;pulsonic.h: 75: int16_t num_timeslice;
-[; ;pulsonic.h: 76: int8_t countNozzleAvailable;
-[; ;pulsonic.h: 78: struct _pulsonic_display
-[; ;pulsonic.h: 79: {
-[; ;pulsonic.h: 80: uint8_t qty[3];
-[; ;pulsonic.h: 81: uint8_t mode[2];
-[; ;pulsonic.h: 82: }disp7s;
-[; ;pulsonic.h: 84: struct _pulsonic_flags
-[; ;pulsonic.h: 85: {
-[; ;pulsonic.h: 86: unsigned homed:1;
-[; ;pulsonic.h: 87: unsigned __a:7;
-[; ;pulsonic.h: 88: }flags;
-[; ;pulsonic.h: 90: int8_t numNozzle;
-[; ;pulsonic.h: 91: };
-[; ;pulsonic.h: 93: extern volatile struct _pulsonic pulsonic;
-[; ;pulsonic.h: 95: extern const int8_t OIL_VISCOSITY[4];
-[; ;pulsonic.h: 97: void pulsonic_init(void);
-[; ;pulsonic.h: 98: double pulsonic_getTotalSum_mlh(void);
-[; ;pulsonic.h: 99: int8_t pulsonic_getNumNozzleAvailable(void);
-[v F4812 `(v ~T0 @X0 1 tf ]
+[; ;pulsonic.h: 40: struct _pulsonic_display {
+[; ;pulsonic.h: 41: uint8_t qty[3];
+[; ;pulsonic.h: 42: uint8_t mode[2];
+[; ;pulsonic.h: 43: };
+[; ;pulsonic.h: 45: struct _pulsonic {
+[; ;pulsonic.h: 46: union _errorFlag error;
+[; ;pulsonic.h: 48: double ml_x1tick;
+[; ;pulsonic.h: 50: double dist_total_time;
+[; ;pulsonic.h: 53: double dist_access_time;
+[; ;pulsonic.h: 56: uint32_t distAccessTime_ms;
+[; ;pulsonic.h: 58: double timeslice;
+[; ;pulsonic.h: 60: struct _pulsonic_nozzle {
+[; ;pulsonic.h: 61: double Q_mlh;
+[; ;pulsonic.h: 62: double nticks_xtimeslice;
+[; ;pulsonic.h: 63: double kmax_ticks_xtimeslice;
+[; ;pulsonic.h: 65: double accError;
+[; ;pulsonic.h: 69: int counterTicks_xTotalTime;
+[; ;pulsonic.h: 70: uint16_t nticks_delivered_inThisTimeSlice;
+[; ;pulsonic.h: 72: } nozzle[18];
+[; ;pulsonic.h: 74: struct _pulsonic_oil {
+[; ;pulsonic.h: 75: int8_t i;
+[; ;pulsonic.h: 76: int8_t viscosity;
+[; ;pulsonic.h: 77: } oil;
+[; ;pulsonic.h: 79: double sum_all_mlh;
+[; ;pulsonic.h: 80: int8_t numNozzleAvailable;
+[; ;pulsonic.h: 81: uint32_t kTimeBetweenNozzleAvailable;
+[; ;pulsonic.h: 82: uint32_t countTimeBetweenNozzleAvailable;
+[; ;pulsonic.h: 84: int16_t num_timeslice;
+[; ;pulsonic.h: 85: int8_t countNozzleAvailable;
+[; ;pulsonic.h: 88: struct _pulsonic_display disp7s;
+[; ;pulsonic.h: 90: struct _pulsonic_flags {
+[; ;pulsonic.h: 91: unsigned homed : 1;
+[; ;pulsonic.h: 92: unsigned __a : 7;
+[; ;pulsonic.h: 93: } flags;
+[; ;pulsonic.h: 95: int8_t numNozzle;
+[; ;pulsonic.h: 96: };
+[; ;pulsonic.h: 98: extern volatile struct _pulsonic pulsonic;
+[; ;pulsonic.h: 100: extern const int8_t OIL_VISCOSITY[4];
+[; ;pulsonic.h: 102: void pulsonic_init(void);
+[; ;pulsonic.h: 103: double pulsonic_getTotalSum_mlh(void);
+[; ;pulsonic.h: 104: int8_t pulsonic_getNumNozzleAvailable(void);
+[v F4813 `(v ~T0 @X0 1 tf ]
 "5 display.c
-[v _disp7s_mux0_off `TF4812 ~T0 @X0 1 s ]
+[v _disp7s_mux0_off `TF4813 ~T0 @X0 1 s ]
 "6
 {
 [; ;display.c: 5: static inline void disp7s_mux0_off(void)
@@ -4444,9 +4439,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "8
 [e :UE 571 ]
 }
-[v F4815 `(v ~T0 @X0 1 tf ]
+[v F4816 `(v ~T0 @X0 1 tf ]
 "9
-[v _disp7s_mux0_on `TF4815 ~T0 @X0 1 s ]
+[v _disp7s_mux0_on `TF4816 ~T0 @X0 1 s ]
 "10
 {
 [; ;display.c: 9: static inline void disp7s_mux0_on(void)
@@ -4464,9 +4459,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "12
 [e :UE 575 ]
 }
-[v F4818 `(v ~T0 @X0 1 tf ]
+[v F4819 `(v ~T0 @X0 1 tf ]
 "14
-[v _disp7s_mux1_off `TF4818 ~T0 @X0 1 s ]
+[v _disp7s_mux1_off `TF4819 ~T0 @X0 1 s ]
 "15
 {
 [; ;display.c: 14: static inline void disp7s_mux1_off(void)
@@ -4484,9 +4479,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "17
 [e :UE 579 ]
 }
-[v F4821 `(v ~T0 @X0 1 tf ]
+[v F4822 `(v ~T0 @X0 1 tf ]
 "18
-[v _disp7s_mux1_on `TF4821 ~T0 @X0 1 s ]
+[v _disp7s_mux1_on `TF4822 ~T0 @X0 1 s ]
 "19
 {
 [; ;display.c: 18: static inline void disp7s_mux1_on(void)
@@ -4504,9 +4499,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "21
 [e :UE 583 ]
 }
-[v F4824 `(v ~T0 @X0 1 tf ]
+[v F4825 `(v ~T0 @X0 1 tf ]
 "23
-[v _disp7s_mux2_off `TF4824 ~T0 @X0 1 s ]
+[v _disp7s_mux2_off `TF4825 ~T0 @X0 1 s ]
 "24
 {
 [; ;display.c: 23: static inline void disp7s_mux2_off(void)
@@ -4524,9 +4519,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "26
 [e :UE 587 ]
 }
-[v F4827 `(v ~T0 @X0 1 tf ]
+[v F4828 `(v ~T0 @X0 1 tf ]
 "27
-[v _disp7s_mux2_on `TF4827 ~T0 @X0 1 s ]
+[v _disp7s_mux2_on `TF4828 ~T0 @X0 1 s ]
 "28
 {
 [; ;display.c: 27: static inline void disp7s_mux2_on(void)
@@ -4544,9 +4539,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "30
 [e :UE 591 ]
 }
-[v F4830 `(v ~T0 @X0 1 tf ]
+[v F4831 `(v ~T0 @X0 1 tf ]
 "32
-[v _disp7s_mux3_off `TF4830 ~T0 @X0 1 s ]
+[v _disp7s_mux3_off `TF4831 ~T0 @X0 1 s ]
 "33
 {
 [; ;display.c: 32: static inline void disp7s_mux3_off(void)
@@ -4564,9 +4559,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "35
 [e :UE 595 ]
 }
-[v F4833 `(v ~T0 @X0 1 tf ]
+[v F4834 `(v ~T0 @X0 1 tf ]
 "36
-[v _disp7s_mux3_on `TF4833 ~T0 @X0 1 s ]
+[v _disp7s_mux3_on `TF4834 ~T0 @X0 1 s ]
 "37
 {
 [; ;display.c: 36: static inline void disp7s_mux3_on(void)
@@ -4584,9 +4579,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "39
 [e :UE 599 ]
 }
-[v F4836 `(v ~T0 @X0 1 tf ]
+[v F4837 `(v ~T0 @X0 1 tf ]
 "41
-[v _disp7s_mux4_off `TF4836 ~T0 @X0 1 s ]
+[v _disp7s_mux4_off `TF4837 ~T0 @X0 1 s ]
 "42
 {
 [; ;display.c: 41: static inline void disp7s_mux4_off(void)
@@ -4604,9 +4599,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "44
 [e :UE 603 ]
 }
-[v F4839 `(v ~T0 @X0 1 tf ]
+[v F4840 `(v ~T0 @X0 1 tf ]
 "45
-[v _disp7s_mux4_on `TF4839 ~T0 @X0 1 s ]
+[v _disp7s_mux4_on `TF4840 ~T0 @X0 1 s ]
 "46
 {
 [; ;display.c: 45: static inline void disp7s_mux4_on(void)
@@ -4875,7 +4870,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 638 ]
 [; ;display.c: 116: {pulsonic.disp7s.mode[i] = DISP7S_CHARS[OFF];}
 {
-[e = *U + &U . . _pulsonic 13 1 * -> -> _i `uc `ux -> -> # *U &U . . _pulsonic 13 1 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 0 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
+[e = *U + &U . . _pulsonic 14 1 * -> -> _i `uc `ux -> -> # *U &U . . _pulsonic 14 1 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 0 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
 }
 "115
 [e ++ _i -> -> 1 `i `c ]
@@ -4893,7 +4888,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 641 ]
 [; ;display.c: 119: {pulsonic.disp7s.qty[i] = DISP7S_CHARS[OFF];}
 {
-[e = *U + &U . . _pulsonic 13 0 * -> -> _i `uc `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 0 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> _i `uc `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 0 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
 }
 "118
 [e ++ _i -> -> 1 `i `c ]
@@ -4920,7 +4915,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _disp7s_job ]
 [f ]
 "130
-[v F4854 `c ~T0 @X0 1 s q ]
+[v F4855 `c ~T0 @X0 1 s q ]
 "133
 [v _pq `c ~T0 @X0 1 a ]
 [; ;display.c: 130: static int8_t q;
@@ -4928,7 +4923,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _pq -> -> 0 `i `c ]
 [; ;display.c: 134: pq= q-1;
 "134
-[e = _pq -> - -> F4854 `i -> 1 `i `c ]
+[e = _pq -> - -> F4855 `i -> 1 `i `c ]
 [; ;display.c: 135: if (pq<0)
 "135
 [e $ ! < -> _pq `i -> 0 `i 645  ]
@@ -4943,11 +4938,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( *U *U + &U . *U + &U _disp7s_mux * -> -> _pq `uc `ux -> -> # *U &U _disp7s_mux `ui `ux 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U + &U _disp7s_mux * -> -> _pq `uc `ux -> -> # *U &U _disp7s_mux `ui `ux 0 `ui `ux ..  ]
 [; ;display.c: 139: if (q < 3)
 "139
-[e $ ! < -> F4854 `i -> 3 `i 646  ]
+[e $ ! < -> F4855 `i -> 3 `i 646  ]
 [; ;display.c: 140: {LATB = pulsonic.disp7s.qty[q];}
 "140
 {
-[e = _LATB *U + &U . . _pulsonic 13 0 * -> -> F4854 `uc `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux ]
+[e = _LATB *U + &U . . _pulsonic 14 0 * -> -> F4855 `uc `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux ]
 }
 [e $U 647  ]
 "141
@@ -4956,19 +4951,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;display.c: 142: {LATB = pulsonic.disp7s.mode[q-3];}
 "142
 {
-[e = _LATB *U + &U . . _pulsonic 13 1 * -> -> - -> F4854 `i -> 3 `i `ui `ux -> -> # *U &U . . _pulsonic 13 1 `ui `ux ]
+[e = _LATB *U + &U . . _pulsonic 14 1 * -> -> - -> F4855 `i -> 3 `i `ui `ux -> -> # *U &U . . _pulsonic 14 1 `ui `ux ]
 }
 [e :U 647 ]
 [; ;display.c: 144: disp7s_mux_Q(q);
 "144
-[e ( _disp7s_mux_Q (1 F4854 ]
+[e ( _disp7s_mux_Q (1 F4855 ]
 [; ;display.c: 146: if (++q == (2 + 3))
 "146
-[e $ ! == -> =+ F4854 -> -> 1 `i `c `i + -> 2 `i -> 3 `i 648  ]
+[e $ ! == -> =+ F4855 -> -> 1 `i `c `i + -> 2 `i -> 3 `i 648  ]
 [; ;display.c: 147: {q=0x0;}
 "147
 {
-[e = F4854 -> -> 0 `i `c ]
+[e = F4855 -> -> 0 `i `c ]
 }
 [e :U 648 ]
 [; ;display.c: 148: }
@@ -5022,7 +5017,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;display.c: 158: disp7s_off(pulsonic.disp7s.mode, 2);
 "158
-[e ( _disp7s_off (2 , -> &U . . _pulsonic 13 1 `*uc -> -> 2 `i `c ]
+[e ( _disp7s_off (2 , -> &U . . _pulsonic 14 1 `*uc -> -> 2 `i `c ]
 [; ;display.c: 159: }
 "159
 [e :UE 654 ]
@@ -5037,7 +5032,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;display.c: 162: disp7s_off(pulsonic.disp7s.qty, 3);
 "162
-[e ( _disp7s_off (2 , -> &U . . _pulsonic 13 0 `*uc -> -> 3 `i `c ]
+[e ( _disp7s_off (2 , -> &U . . _pulsonic 14 0 `*uc -> -> 3 `i `c ]
 [; ;display.c: 163: }
 "163
 [e :UE 655 ]
@@ -5052,10 +5047,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;display.c: 166: pulsonic.disp7s.mode[1] =0x5C;
 "166
-[e = *U + &U . . _pulsonic 13 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 13 1 `ui `ux -> -> 92 `i `uc ]
+[e = *U + &U . . _pulsonic 14 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 14 1 `ui `ux -> -> 92 `i `uc ]
 [; ;display.c: 167: pulsonic.disp7s.mode[0] =0x16;
 "167
-[e = *U + &U . . _pulsonic 13 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 13 1 `ui `ux -> -> 22 `i `uc ]
+[e = *U + &U . . _pulsonic 14 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 14 1 `ui `ux -> -> 22 `i `uc ]
 [; ;display.c: 168: }
 "168
 [e :UE 656 ]
@@ -5070,13 +5065,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;display.c: 171: pulsonic.disp7s.qty[2] =0x3F;
 "171
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 63 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 63 `i `uc ]
 [; ;display.c: 172: pulsonic.disp7s.qty[1] =0x71;
 "172
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 113 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 113 `i `uc ]
 [; ;display.c: 173: pulsonic.disp7s.qty[0] =0x71;
 "173
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 113 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 113 `i `uc ]
 [; ;display.c: 174: }
 "174
 [e :UE 657 ]
@@ -5091,13 +5086,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;display.c: 177: pulsonic.disp7s.qty[2] =0x71;
 "177
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 113 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 113 `i `uc ]
 [; ;display.c: 178: pulsonic.disp7s.qty[1] =0x71;
 "178
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 113 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 113 `i `uc ]
 [; ;display.c: 179: pulsonic.disp7s.qty[0] =0x71;
 "179
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 113 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 113 `i `uc ]
 [; ;display.c: 180: }
 "180
 [e :UE 658 ]
@@ -5112,13 +5107,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;display.c: 183: pulsonic.disp7s.qty[2] =0x71;
 "183
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 113 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 113 `i `uc ]
 [; ;display.c: 184: pulsonic.disp7s.qty[1] =0x38;
 "184
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 56 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 56 `i `uc ]
 [; ;display.c: 185: pulsonic.disp7s.qty[0] =0x3E;
 "185
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 62 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 62 `i `uc ]
 [; ;display.c: 186: }
 "186
 [e :UE 659 ]
@@ -5136,13 +5131,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _disp7s_modeDisp_writeInt (1 -> 20 `i ]
 [; ;display.c: 192: pulsonic.disp7s.qty[2] =DISP7S_CHARS[RAYA];
 "192
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 1 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 1 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
 [; ;display.c: 193: pulsonic.disp7s.qty[1] =DISP7S_CHARS[RAYA];
 "193
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 1 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 1 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
 [; ;display.c: 194: pulsonic.disp7s.qty[0] =DISP7S_CHARS[RAYA];
 "194
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 1 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux *U + &U _DISP7S_CHARS * -> . `E4747 1 `ux -> -> # *U &U _DISP7S_CHARS `ui `ux ]
 [; ;display.c: 195: }
 "195
 [e :UE 660 ]
@@ -5157,19 +5152,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;display.c: 198: pulsonic.disp7s.mode[1] = 0x54;
 "198
-[e = *U + &U . . _pulsonic 13 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 13 1 `ui `ux -> -> 84 `i `uc ]
+[e = *U + &U . . _pulsonic 14 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 14 1 `ui `ux -> -> 84 `i `uc ]
 [; ;display.c: 199: pulsonic.disp7s.mode[0] = 0x5C;
 "199
-[e = *U + &U . . _pulsonic 13 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 13 1 `ui `ux -> -> 92 `i `uc ]
+[e = *U + &U . . _pulsonic 14 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 14 1 `ui `ux -> -> 92 `i `uc ]
 [; ;display.c: 201: pulsonic.disp7s.qty[2] = DISP7S_NUMS[0];
 "201
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux *U + &U _DISP7S_NUMS * -> -> -> 0 `i `ui `ux -> -> # *U &U _DISP7S_NUMS `ui `ux ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux *U + &U _DISP7S_NUMS * -> -> -> 0 `i `ui `ux -> -> # *U &U _DISP7S_NUMS `ui `ux ]
 [; ;display.c: 202: pulsonic.disp7s.qty[1] = 0x30;
 "202
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 48 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 48 `i `uc ]
 [; ;display.c: 203: pulsonic.disp7s.qty[0] = 0x38;
 "203
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 56 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 56 `i `uc ]
 [; ;display.c: 204: }
 "204
 [e :UE 661 ]
@@ -5187,13 +5182,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _disp7s_modeDisp_writeInt (1 -> 21 `i ]
 [; ;display.c: 209: pulsonic.disp7s.qty[2] = 0x79;
 "209
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 121 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 121 `i `uc ]
 [; ;display.c: 210: pulsonic.disp7s.qty[1] = 0x50;
 "210
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 80 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 80 `i `uc ]
 [; ;display.c: 211: pulsonic.disp7s.qty[0] = 0x50;
 "211
-[e = *U + &U . . _pulsonic 13 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 13 0 `ui `ux -> -> 80 `i `uc ]
+[e = *U + &U . . _pulsonic 14 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . . _pulsonic 14 0 `ui `ux -> -> 80 `i `uc ]
 [; ;display.c: 212: }
 "212
 [e :UE 662 ]
@@ -5382,7 +5377,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;display.c: 283: disp7s_write_f(pulsonic.disp7s.qty, 3, num);
 "283
-[e ( _disp7s_write_f (3 , , -> &U . . _pulsonic 13 0 `*uc -> -> 3 `i `c -> _num `d ]
+[e ( _disp7s_write_f (3 , , -> &U . . _pulsonic 14 0 `*uc -> -> 3 `i `c -> _num `d ]
 [; ;display.c: 284: }
 "284
 [e :UE 679 ]
@@ -5400,7 +5395,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;display.c: 287: disp7s_write_f(pulsonic.disp7s.mode, 2, num);
 "287
-[e ( _disp7s_write_f (3 , , -> &U . . _pulsonic 13 1 `*uc -> -> 2 `i `c -> _num `d ]
+[e ( _disp7s_write_f (3 , , -> &U . . _pulsonic 14 1 `*uc -> -> 2 `i `c -> _num `d ]
 [; ;display.c: 288: }
 "288
 [e :UE 680 ]
@@ -5522,7 +5517,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;display.c: 322: disp7s_write_i(pulsonic.disp7s.qty, 3, num);
 "322
-[e ( _disp7s_write_i (3 , , -> &U . . _pulsonic 13 0 `*uc -> -> 3 `i `c _num ]
+[e ( _disp7s_write_i (3 , , -> &U . . _pulsonic 14 0 `*uc -> -> 3 `i `c _num ]
 [; ;display.c: 323: }
 "323
 [e :UE 693 ]
@@ -5540,7 +5535,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;display.c: 326: disp7s_write_i(pulsonic.disp7s.mode, 2, num);
 "326
-[e ( _disp7s_write_i (3 , , -> &U . . _pulsonic 13 1 `*uc -> -> 2 `i `c _num ]
+[e ( _disp7s_write_i (3 , , -> &U . . _pulsonic 14 1 `*uc -> -> 2 `i `c _num ]
 [; ;display.c: 327: }
 "327
 [e :UE 694 ]

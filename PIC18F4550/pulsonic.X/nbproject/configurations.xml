@@ -46,7 +46,7 @@
       <itemPath>flushAtNozzle.c</itemPath>
       <itemPath>myeeprom.c</itemPath>
       <itemPath>ustepping.c</itemPath>
-      <itemPath>autoMode2.c</itemPath>
+      <itemPath>autoMode.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
