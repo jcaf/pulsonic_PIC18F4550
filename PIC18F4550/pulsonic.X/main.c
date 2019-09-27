@@ -17,6 +17,20 @@
  * #define myitoa(_integer_, _buffer_, _base_) itoa(_buffer_, _integer_, _base_) 
  * 
  * 2) Pickit2: Program with preserve device EEPROM after flash with myeeprom_init()
+ 
+ EXTRAS:
+ *1) 20 + Suma total
+ *2) Flush enable
+ *3) Modo automatico en 1 sola pasada, luego espera por el tiempo, e inicia un nuevo ciclo
+  
+ Para probar en la aceitera donde el mosfet recalienta, hacer
+ * mpap.c
+ * linea 238
+         if (1)//(counterZeros >= (MPAP_NUMSTEP_1NOZZLE*0.1))
+ * 2) para probar el tiempo de salida en inactividad en modo visualizacion..
+ * main.c
+        linea 345 //vismode.h     #define VISMODE_KTIME_INACTIVITY_EXIT_MS (30*1000)//30s
+
  */
 #include "main.h"
 #include "pulsonic.h"
@@ -74,7 +88,7 @@ void mykb_layout0(void)
     prop.numGroup = 1;
     prop.repttTh.breakTime = (uint16_t) 500.0 / KB_PERIODIC_ACCESS;
     prop.repttTh.period = (uint16_t) 300.0 / KB_PERIODIC_ACCESS;
-    
+
     ikb_setKeyProp(KB_LYOUT_KEY_UP, prop);
     ikb_setKeyProp(KB_LYOUT_KEY_DOWN, prop);
     //
@@ -108,9 +122,10 @@ void loop_test_motor_mosfet(void)
 static void check_oilLevel_reset(void);
 static void check_homeSensor_reset(void);
 
- struct _pulsonic_display disp7s_bk;
+struct _pulsonic_display disp7s_bk;
 
 int8_t startSig_last = 0;
+
 void main(void)
 {
     int8_t sm0 = 0;
@@ -142,7 +157,7 @@ void main(void)
     //    TMR0L = (uint8_t)(TMR16B_OVF(1e-3, 32));
     //    TMR0IE = 1;
     //.....
-    
+
     RELAY_DISABLE();
     ConfigOutputPin(CONFIGIOxRELAY, PINxRELAY);
 
@@ -189,7 +204,7 @@ void main(void)
     PEIE = 1;
     GIE = 1;
 
-// loop_test_motor_mosfet();//for debug temperature of mosfet + motor
+    // loop_test_motor_mosfet();//for debug temperature of mosfet + motor
     while (1)
     {
         if (isr_flag.f1ms)
@@ -267,29 +282,29 @@ void main(void)
                     }
 
                     /* 2nd case: on demand, from other process */
-//                    if (psFlag.autoMode_toreturn_disp7s)
-//                    {
-//                        psFlag.autoMode_toreturn_disp7s = 0;
-//
-//                        disp_owner = DISPOWNER_AUTOMODE;
-//
-//                        if (startSig)
-//                        {
-//                            autoMode_disp7s_writeSumTotal();
-//                        }
-//                        else
-//                        {
-//                            disp7s_qtyDisp_writeText_20_3RAYAS();
-//                        }
-//
-//                        startSig_last = startSig;
-//                    }
+                    //                    if (psFlag.autoMode_toreturn_disp7s)
+                    //                    {
+                    //                        psFlag.autoMode_toreturn_disp7s = 0;
                     //
-                    autoMode_job();
+                    //                        disp_owner = DISPOWNER_AUTOMODE;
+                    //
+                    //                        if (startSig)
+                    //                        {
+                    //                            autoMode_disp7s_writeSumTotal();
+                    //                        }
+                    //                        else
+                    //                        {
+                    //                            disp7s_qtyDisp_writeText_20_3RAYAS();
+                    //                        }
+                    //
+                    //                        startSig_last = startSig;
+                    //                    }
+                    //
+                    autoMode1_job();
                 }
 
                 /* keyboard*/
-                flushKb = ikb_key_is_ready2read(KB_LYOUT_KEY_FLUSHENTER);//key[k].prop.uFlag.f.whilePressing
+                flushKb = ikb_key_is_ready2read(KB_LYOUT_KEY_FLUSHENTER); //key[k].prop.uFlag.f.whilePressing
                 if (flushKb_last != flushKb)
                 {
                     if (flushKb)
@@ -308,12 +323,17 @@ void main(void)
 
                         if (disp_owner == DISPOWNER_AUTOMODE)
                         {
-                            psFlag.autoMode_toreturn_disp7s = 1;
+                            //psFlag.autoMode_toreturn_disp7s = 1;
                             //
                             disp_owner = DISPOWNER_AUTOMODE;
                             startSig_last = -1;
                             //
-                            
+                            //kill visualization timer
+                            visMode.timerRun = 0;
+                            visMode.timer = 0;
+                            visMode.lockTimming = 0;
+                            //
+
                         }
 
                         if (disp_owner == DISPOWNER_VISMODE)
@@ -323,7 +343,29 @@ void main(void)
                     }
                     flushKb_last = flushKb;
                 }
-                //
+                
+                ///////////////////////////////////////////////////////////////////
+                //Added
+                if (visMode.timerRun == 1)
+                {
+                    if (smain.f.f1ms)
+                    {
+                        if (++visMode.timer >= VISMODE_KTIME_INACTIVITY_EXIT_MS)
+                        {
+                            //kill visualization timer
+                            visMode.timerRun = 0;
+                            visMode.timer = 0;
+                            visMode.lockTimming = 0;
+                            //
+                            visMode.numVista = -1;//x key_up
+                            
+                            //
+                            disp_owner = DISPOWNER_AUTOMODE;
+                            startSig_last = -1;
+                            //
+                        }
+                    }
+                }
                 if (ikb_key_is_ready2read(KB_LYOUT_KEY_UP))
                 {
                     //ikb_key_was_read(KB_LYOUT_KEY_UP);
@@ -331,16 +373,31 @@ void main(void)
                     if (++visMode.numVista >= VISMODE_NUMMAX_VISTAS)
                     {
                         visMode.numVista = -1;
-                        psFlag.autoMode_toreturn_disp7s = 1;
+                        //psFlag.autoMode_toreturn_disp7s = 1;
                         //
-                            disp_owner = DISPOWNER_AUTOMODE;
-                            startSig_last = -1;
-                            //
+                        disp_owner = DISPOWNER_AUTOMODE;
+                        startSig_last = -1;
+                        //
+                        //Added: kill timer
+                        visMode.timerRun = 0;
+                        visMode.timer = 0;
+                        visMode.lockTimming = 0;
+                        //    
                     }
                     else
                     {
                         disp_owner = DISPOWNER_VISMODE;
                         visMode.disp7s_accessReq = 1;
+                        
+                        
+                        //Added
+                        if (!visMode.lockTimming)
+                        {
+                            visMode.timerRun = 1;
+                            visMode.lockTimming = 1;
+                        }
+                        
+                        visMode.timer = 0x00;//reset the timer
                     }
                 }
                 else if (ikb_key_is_ready2read(KB_LYOUT_KEY_DOWN))
@@ -354,30 +411,44 @@ void main(void)
 
                     if (--visMode.numVista < 0)
                     {
-                        psFlag.autoMode_toreturn_disp7s = 1;
+                        //psFlag.autoMode_toreturn_disp7s = 1;
                         //
-                            disp_owner = DISPOWNER_AUTOMODE;
-                            startSig_last = -1;
-                            //
+                        disp_owner = DISPOWNER_AUTOMODE;
+                        startSig_last = -1;
+                        //
+                        //Added: kill timer
+                        visMode.timerRun = 0;
+                        visMode.timer = 0;
+                        visMode.lockTimming = 0;
+                        //    
                     }
                     else
                     {
                         disp_owner = DISPOWNER_VISMODE;
                         visMode.disp7s_accessReq = 1;
+                        
+                        //Added
+                        if (!visMode.lockTimming)
+                        {
+                            visMode.timerRun = 1;
+                            visMode.lockTimming = 1;
+                        }
+                        
+                        visMode.timer = 0x00;//reset the timer
                     }
                 }
                 ikb_key_was_read(KB_LYOUT_KEY_UP);
                 ikb_key_was_read(KB_LYOUT_KEY_DOWN);
                 //
-                
+
                 //+-bug fixed:
-                if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_PLUS)==KB_BEFORE_THR) &&
-                ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS))
+                if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_PLUS) == KB_BEFORE_THR) &&
+                        ikb_key_is_ready2read(KB_LYOUT_KEY_PLUS))
                 {
                     ikb_key_was_read(KB_LYOUT_KEY_PLUS);
                 }
-                 if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_MINUS)==KB_BEFORE_THR) &&
-                ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
+                if ((ikb_get_AtTimeExpired_BeforeOrAfter(KB_LYOUT_KEY_MINUS) == KB_BEFORE_THR) &&
+                        ikb_key_is_ready2read(KB_LYOUT_KEY_MINUS))
                 {
                     ikb_key_was_read(KB_LYOUT_KEY_MINUS);
                 }
@@ -415,12 +486,17 @@ void main(void)
                     funcMach = FUNCMACH_NORMAL;
                     psFlag.autoMode_lock = UNLOCKED;
                     psFlag.checkNewStart = 1;
-                    psFlag.autoMode_toreturn_disp7s = 1;
+                    //psFlag.autoMode_toreturn_disp7s = 1;
                     //
-                            disp_owner = DISPOWNER_AUTOMODE;
-                            startSig_last = -1;
-                            //
-                    
+                    disp_owner = DISPOWNER_AUTOMODE;
+                    startSig_last = -1;
+                    //
+                    //kill visualization timer
+                    visMode.timerRun = 0;
+                    visMode.timer = 0;
+                    visMode.lockTimming = 0;
+                    //
+
                     //
                     RELAY_ENABLE();
                 }
@@ -428,16 +504,23 @@ void main(void)
             }
             else if (funcMach == FUNCMACH_ERROR)
             {
+                /* NOTA: Para borrar un mensaje de error, previamente se comprueba si
+                 start esta desenganchado */
                 if (!startSig)
                 {
                     if (ikb_key_is_ready2read(KB_LYOUT_KEY_FLUSHENTER))
                     {
-                        pulsonic.error.packed = 0x00;//clear all error flags
+                        pulsonic.error.packed = 0x00; //clear all error flags
                         //
                         //disp_owner = DISPOWNER_AUTOMODE;
                         //startSig_last = -1;
                         //
-                        
+                        /* error_job() is responsible for restore everything to its place!*/
+                        //kill visualization timer
+                        visMode.timerRun = 0;
+                        visMode.timer = 0;
+                        visMode.lockTimming = 0;
+                        //
                     }
                 }
                 //
@@ -505,7 +588,7 @@ void interrupt INTERRUPCION(void)
         }
         //
         if (++cticks == 20)//50us*20 = 1ms
-        //if (++cticks == 40)//25us*40 = 1ms
+            //if (++cticks == 40)//25us*40 = 1ms
         {
             isr_flag.f1ms = 1;
             cticks = 0x00;
@@ -555,10 +638,11 @@ void error_job(void)
             flushAllMode_cmd(JOB_STOP);
             funcMach = FUNCMACH_ERROR;
             RELAY_DISABLE();
-            
+
             //added:
-            disp7s_bk = pulsonic.disp7s;//save a copy from last display
-            ikey_clear_all_flag();
+            disp7s_bk = pulsonic.disp7s; //save a copy from last display
+            //ikey_clear_all_flag();
+            ikb_flush();
             // in this moment any key configured as whilepressing is cleared from main()
             // clear all last_states... but is better to change only to "normal function"
             prop = propEmpty;
@@ -571,11 +655,18 @@ void error_job(void)
             psFlag.autoMode_lock = UNLOCKED;
             psFlag.checkNewStart = 1;
             pulsonic.flags.homed = 0;
-            psFlag.autoMode_toreturn_disp7s = 1;
+            //psFlag.autoMode_toreturn_disp7s = 1;
             RELAY_ENABLE();
             //
             disp_owner = DISPOWNER_AUTOMODE;
             startSig_last = -1;
+            //
+            //Added
+            //kill visualization timer
+            visMode.timerRun = 0;
+            visMode.timer = 0;
+            visMode.lockTimming = 0;
+            //
             //
             check_oilLevel_reset();
             check_homeSensor_reset();
@@ -585,11 +676,13 @@ void error_job(void)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
 struct _chek_homeSensor_data
 {
     int8_t sm0;
     int8_t sm1;
-}chek_homeSensor_data;
+} chek_homeSensor_data;
+
 static void check_homeSensor_reset(void)
 {
     chek_homeSensor_data.sm0 = 0;
@@ -611,7 +704,7 @@ static void check_homeSensor(void)
     else if (chek_homeSensor_data.sm0 == 1)/*2 parts: the process and the display*/
     {
         //cannot recovery from this, User needs to reset the system
-        if (0)  /*1)the process*/
+        if (0) /*1)the process*/
         {
             //pulsonic.error.f.homeSensor = 0;
             //chek_homeSensor_data.sm0 = 0x00;
@@ -633,16 +726,19 @@ static void check_homeSensor(void)
         }
     }
 }
+
 struct _check_oilLevel_data
 {
     int8_t sm0;
     int8_t sm1;
-}check_oilLevel_data;
+} check_oilLevel_data;
+
 static void check_oilLevel_reset(void)
 {
     check_oilLevel_data.sm0 = 0x00;
     check_oilLevel_data.sm1 = 0x00;
 }
+
 static void check_oilLevel(void)
 {
     int8_t oilLevel;

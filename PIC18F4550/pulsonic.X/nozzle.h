@@ -10,9 +10,9 @@
 
     #define NOZZLE_NUMMAX 18
 
-    #define NOZZLE_OFF 0
-    #define NOZZLE_QMLH_MIN 0.3
-    #define NOZZLE_QMLH_MAX 12.0
+    #define NOZZLE_OFF 0.0f
+    #define NOZZLE_QMLH_MIN 0.3f
+    #define NOZZLE_QMLH_MAX 12.0f
     extern double NOZZLE_QTY_DIFF;
     
     int8_t nozzle_isEnabled(int n);

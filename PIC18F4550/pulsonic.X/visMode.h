@@ -17,10 +17,18 @@
     {
         int8_t numVista;        //number of "vista"
         int8_t disp7s_accessReq;//access request
+        
+        //added:
+        int8_t timerRun;
+        uint32_t timer;
+        int8_t lockTimming;
+        
     };
     struct _visMode visMode;
 
     extern struct _ps ps_visMode;
+    
+    #define VISMODE_KTIME_INACTIVITY_EXIT_MS (10*1000)//10s
     
 #ifdef	__cplusplus
 extern "C" {

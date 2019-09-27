@@ -3,7 +3,7 @@
 #include "pulsonic.h"
 #include "ikb/ikb.h"
 
-struct _visMode visMode = {-1, 0};
+struct _visMode visMode = {-1, 0};//-1 por si presiona tecla menos en modo visualizador en estado de reposo inicial
 
 static void visMode_disp(int8_t numVista);
 

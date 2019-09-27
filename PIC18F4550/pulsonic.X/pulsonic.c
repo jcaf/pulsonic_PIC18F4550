@@ -11,7 +11,7 @@ void pulsonic_init(void)
 {
     int8_t i;
     //pulsonic.distTotalTime_min = 60;  //min
-    pulsonic.dist_total_time = 60;  //min
+    pulsonic.distTotalTime_min = 60;  //min
     
     
     for (i=0; i< NOZZLE_NUMMAX; i++)

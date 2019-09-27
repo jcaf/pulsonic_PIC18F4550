@@ -235,7 +235,7 @@ void mpap_job(void)//ISR
     {
         if (mpap_crossingHomeSensor())
         {
-            if (counterZeros >= (MPAP_NUMSTEP_1NOZZLE*0.1))
+            if (counterZeros >= (MPAP_NUMSTEP_1NOZZLE*0.1))//(1)
             {
                pulsonic.error.f.homeSensor = 0;
                pulsonic.flags.homed = 1;
